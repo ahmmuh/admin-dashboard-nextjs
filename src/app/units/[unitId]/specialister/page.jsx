@@ -1,37 +1,19 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { getUnitByID } from "@/backend/api";
-import { useRouter } from "next/router";
 
-
-const SpecialistPage = () => {
-  const [loading, setLoading] = useState(true);
-  const [specialister, setSpecialister] = useState([]);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-
-  const { unitId } = router.query;
-
-  useEffect(() => {
-    const getUnit = async () => {
-      const data = await fetch(`/units/${unitId}`);
-      if (data.ok) {
-        setSpecialister();
-        setLoading(false);
-      } else {
-        setError("Error while we fetch data from server");
-        setLoading(false);
-      }
-    };
-    getUnit();
-  }, [unitId]);
+async function SpecialistPage({ params }) {
+  console.log("Specialister ", params.unitId);
+  const unit = await getUnitByID(params.unitId);
   return (
-    <div className="flex flex-col">
-      <h4 className="text-2xl font-bold">Specialist</h4>
+    <div className="flex flex-col text-blue-600 ">
+      <h4 className="text-2xl ">Specialister på {unit.name}</h4>
       <ul className="flex flex-col">
-        {specialister.map((specialist) => (
-          <li key={specialist._id} className="mb-2">
+        {unit.specialister.map((specialist) => (
+          <li
+            key={specialist._id}
+            className="mb-2 p-3 text-xl border-b
+          border-b-gray-500">
             <p>{specialist.name}</p>
             <p>{specialist.phone}</p>
             <p>{specialist.email}</p>
@@ -40,7 +22,7 @@ const SpecialistPage = () => {
       </ul>
     </div>
   );
-};
+}
 
 // export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 //   const { unitId } = params!;

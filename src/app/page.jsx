@@ -1,10 +1,5 @@
-import Dashboard from "./dashboard/page";
+import Dashboard from "./units/page";
 
 export default function Home() {
-  return (
-    <div className="flex">
-      {/* {children} */}
-      <Dashboard />
-    </div>
-  );
+  return <Dashboard />;
 }
