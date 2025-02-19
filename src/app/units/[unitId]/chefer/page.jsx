@@ -1,5 +1,7 @@
 import { getUnitByID } from "@/backend/api";
 import React from "react";
+import PersonList from "@/components/personList";
+import ActionsHandler from "../../../../components/actions/actionsHandler";
 
 async function ChefPage({ params }) {
   console.log("Chef ", params.unitId);
@@ -8,15 +10,12 @@ async function ChefPage({ params }) {
   console.log("Chef", unit.chef.name);
 
   return (
-    <div>
-      <ul className="flex flex-col">
-        <li key={unit._id} className="mb-2">
-          <h4 className="text-2xl text-purple-700">Namn: {unit.chef.name}</h4>
-          <p>Telefon: {unit.chef.phone}</p>
-          <p>E-post: {unit.chef.email}</p>
-        </li>
-      </ul>
-    </div>
+    <PersonList
+      name={unit.chef.name === undefined ? "EJ chef" : unit.chef.name}
+      phone={unit.chef.phone}
+      email={unit.chef.email}>
+      <ActionsHandler id={unit.chef._id} />
+    </PersonList>
   );
 }
 
