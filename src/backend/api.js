@@ -135,3 +135,31 @@ export const updateChef = async (unitId, chefId, newChef) => {
     console.error(`Error on the Server ${error.message}`);
   }
 };
+
+//add chef to enhet
+
+export const addChefToUnit = async (unitId, newChef) => {
+  try {
+    const res = await fetch(`${BASE_URL}/units/${unitId}/chefer`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newChef),
+    });
+    if (!res.ok) {
+      console.error(
+        `Error vid skapande av ny chef status: ${res.status} message: ${res.statusText}`
+      );
+      return null;
+    }
+
+    const data = await res.json();
+    console.log(
+      `New chef ${newChef} has been added to enhet med ID ${unitId} `
+    );
+    return data;
+  } catch (error) {
+    console.error(`Fel vid skapande av ny chef error:  ${error.message}`);
+  }
+};
