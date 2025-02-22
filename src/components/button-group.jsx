@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 
 function ButtonGroup({
@@ -7,21 +8,25 @@ function ButtonGroup({
   deleteTitle,
   updateHandler,
   deleteHandler,
+  children,
 }) {
   return (
     <div className="flex flex-row gap-4 my-4">
-      <button
+      <Link
+        href=""
         onClick={updateHandler}
         className="bg-green-400 text-white p-2 w-32 rounded-xl shadow shadow-blue-200
         hover:bg-purple-300">
         {updateTitle}
-      </button>
-      <button
+      </Link>
+      <Link
+        href=""
         onClick={deleteHandler}
         className="bg-red-400 text-white p-2 w-32 rounded-xl shadow shadow-blue-200
         hover:bg-purple-300">
         {deleteTitle}
-      </button>
+      </Link>
+      {children}
     </div>
   );
 }

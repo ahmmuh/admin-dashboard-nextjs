@@ -3,7 +3,7 @@ import React from "react";
 
 function PersonList({ name, phone, email, children, ...props }) {
   return (
-    <ul className="flex flex-col mt-4" {...props}>
+    <ul className="flex flex-col mb-4" {...props}>
       <li className="p-4 border rounded-lg shadow-sm">
         <article>
           {name && (

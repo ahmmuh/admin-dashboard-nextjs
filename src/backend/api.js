@@ -108,3 +108,30 @@ export const deleteWorkplace = async (unitId, workplaceId) => {
     console.error("Error deleting workplace:", error.message);
   }
 };
+
+//chef operations
+
+export const updateChef = async (unitId, chefId, newChef) => {
+  try {
+    const res = await fetch(`${BASE_URL}/units/${unitId}/chefer/${chefId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newChef),
+    });
+    if (!res.ok) {
+      console.error(
+        `Fel vid uppdatering av chef. Status: ${res.status} (${res.statusText})`
+      );
+      return null;
+    }
+    const data = await res.json();
+    console.log(
+      `NEW CHEF ${newChef} has been added to the UNIT med ID ${unitId}`
+    );
+    return data;
+  } catch (error) {
+    console.error(`Error on the Server ${error.message}`);
+  }
+};

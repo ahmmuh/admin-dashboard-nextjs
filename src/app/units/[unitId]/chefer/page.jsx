@@ -5,16 +5,17 @@ import ActionsHandler from "../../../../components/actions/actionsHandler";
 
 async function ChefPage({ params }) {
   console.log("Chef ", params.unitId);
+  const { unitId } = params;
 
   const unit = await getUnitByID(params.unitId);
-  console.log("Chef", unit.chef.name);
+  console.log("Chef info", unit.chef);
 
   return (
     <PersonList
       name={unit.chef.name === undefined ? "EJ chef" : unit.chef.name}
       phone={unit.chef.phone}
       email={unit.chef.email}>
-      <ActionsHandler id={unit.chef._id} />
+      <ActionsHandler unitId={unitId} chef={unit.chef} />
     </PersonList>
   );
 }
