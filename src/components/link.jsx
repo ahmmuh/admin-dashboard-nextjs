@@ -1,16 +1,14 @@
 import Link from "next/link";
 import React from "react";
 
-function LinkPage({ url, title }) {
+function CustomLink({ url, title, className, ...props }) {
   return (
-    <div>
-      <Link
-        href={url}
-        className="text-blue-600 hover:text-blue-800 hover:underline font-medium transition duration-200">
+    <div {...props} className="flex ">
+      <Link href={url} className={className}>
         {title}
       </Link>
     </div>
   );
 }
 
-export default LinkPage;
+export default CustomLink;

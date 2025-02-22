@@ -33,8 +33,6 @@ function ChefForm({ unitId, chef }) {
     if (!chef.chefId || !unitId) {
       console.error(`Det saknas chefID eller unitID`);
       return;
-    } else {
-      console.error(`Uppdatering misslyckades`);
     }
     try {
       const updatedChef = await updateChef(unitId, chef.chefId, chefData);
@@ -43,7 +41,6 @@ function ChefForm({ unitId, chef }) {
       console.error(`PROBLEM: Vid uppdatering chef: ${error.message}`);
     }
   };
-  console.log("Chef Detal", chef);
   return (
     <div className="flex flex-col justify-center gap-y-4">
       {chef && (
