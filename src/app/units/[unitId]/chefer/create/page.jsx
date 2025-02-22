@@ -1,10 +1,10 @@
-import CreateChef from "@/components/create-chef";
+import CreateChefComponent from "@/components/createChefComponent";
 import React from "react";
 
 function ChefCreatePage({ params }) {
   const { unitId } = params;
   console.log("UNITD i Chef Create Page ", unitId);
-  return <CreateChef unitId={unitId} />;
+  return <CreateChefComponent unitId={unitId} />;
 }
 
 export default ChefCreatePage;

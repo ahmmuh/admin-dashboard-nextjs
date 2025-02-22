@@ -1,14 +1,11 @@
 "use client";
-import { addChefToUnit } from "@/backend/api";
+import { addChefToUnit, getUnitByID } from "@/backend/api";
+import { get } from "mongoose";
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-function CreateChef({ unitId }) {
-  console.log(
-    "Skickar request till:",
-    `http://localhost:8000/api/units/${unitId}/chefer`
-  );
-  console.log("Unit ID i frontend:", unitId);
+function CreateChefComponent({ unitId }) {
+  console.log("Unit ID i frontend i (CreateChefComponent):", unitId);
 
   const [chefData, setChefData] = useState({
     name: "",
@@ -16,11 +13,28 @@ function CreateChef({ unitId }) {
     email: "",
   });
 
+  const [unit, setUnit] = useState({});
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setChefData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const getUnit = async () => {
+    try {
+      const unit = await getUnitByID(unitId);
+      console.log("Unit i create chef component");
+      console.log(unit);
+      if (unit.chef) {
+        setUnit(unit);
+        console.log("Hittade UNIT", unit);
+        return <div>Enheten har chef som heter {unit.chef.name} </div>;
+      }
+      console.log(`Enheten med ID ${unitId} har ingen chef`);
+    } catch (error) {
+      console.error(`Något gick fel ${error.message}`);
+    }
+  };
   useEffect(() => {
     if (unitId) {
       setChefData({
@@ -29,13 +43,15 @@ function CreateChef({ unitId }) {
         email: chefData.email,
       });
     }
+    getUnit();
   }, [unitId]);
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
+      console.log("unitId, chefData", unitId, chefData);
       const chef = await addChefToUnit(unitId, chefData);
       console.log(
-        `Ny chef med följande data ${chefData} har lagts i databasen`
+        `Ny chef med följande data ${chefData.name} har lagts i databasen`
       );
     } catch (error) {
       console.error(`Det gick inte att lägga till ny chef`);
@@ -90,4 +106,4 @@ function CreateChef({ unitId }) {
   );
 }
 
-export default CreateChef;
+export default CreateChefComponent;

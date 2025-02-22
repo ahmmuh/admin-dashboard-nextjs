@@ -2,7 +2,7 @@
 import { updateChef } from "@/backend/api";
 import React, { useEffect, useState } from "react";
 
-function ChefForm({ unitId, chef }) {
+function EditChefComponent({ unitId, chef }) {
   const [chefData, setChefData] = useState({
     name: "",
     phone: "",
@@ -12,9 +12,9 @@ function ChefForm({ unitId, chef }) {
   useEffect(() => {
     if (chef) {
       setChefData({
-        name: chef.name || "",
-        phone: chef.phone || "",
-        email: chef.email || "",
+        name: chef.name || "Ingen chef",
+        phone: chef.phone || "Inget telefonnummer",
+        email: chef.email || "ingen e-postadress",
       });
     }
   }, [chef]);
@@ -83,4 +83,4 @@ function ChefForm({ unitId, chef }) {
   );
 }
 
-export default ChefForm;
+export default EditChefComponent;

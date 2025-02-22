@@ -1,5 +1,5 @@
 "use client";
-import ChefForm from "@/components/chefForm";
+import EditChefComponent from "@/components/editChefComponentt";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
@@ -19,7 +19,7 @@ function EditChefPage({ params }) {
     email: searchParams.get("email") || "Ingen email",
   };
 
-  return <ChefForm unitId={unitId} chef={chef} />;
+  return <EditChefComponent unitId={unitId} chef={chef} />;
 }
 
 export default EditChefPage;

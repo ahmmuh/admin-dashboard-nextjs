@@ -139,14 +139,18 @@ export const updateChef = async (unitId, chefId, newChef) => {
 //add chef to enhet
 
 export const addChefToUnit = async (unitId, newChef) => {
+  console.log("📢 Skickar request till:", `${BASE_URL}/units/${unitId}/chefer`);
+  console.log("📦 Med data:", newChef);
+
   try {
     const res = await fetch(`${BASE_URL}/units/${unitId}/chefer`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newChef),
     });
+    console.log("RESPONSE FROM SERVER", res.body);
     if (!res.ok) {
       console.error(
         `Error vid skapande av ny chef status: ${res.status} message: ${res.statusText}`
@@ -161,5 +165,26 @@ export const addChefToUnit = async (unitId, newChef) => {
     return data;
   } catch (error) {
     console.error(`Fel vid skapande av ny chef error:  ${error.message}`);
+  }
+};
+
+export const deleteChef = async (unitId, chefId) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/units/${unitId}/chefer/${chefId}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      console.log(`Error deleting chef: ${response.status}`);
+      return;
+    }
+
+    const data = await response.json();
+    console.log(`chef deleted: ${data.message}`);
+  } catch (error) {
+    console.error("Error deleting chef:", error.message);
   }
 };

@@ -12,9 +12,9 @@ async function ChefPage({ params }) {
 
   return (
     <PersonList
-      name={unit.chef.name === undefined ? "EJ chef" : unit.chef.name}
-      phone={unit.chef.phone}
-      email={unit.chef.email}>
+      name={unit.chef ? unit.chef.name : "EJ chef"}
+      phone={unit.chef ? unit.chef.phone : "Ingen telefon"}
+      email={unit.chef ? unit.chef.email : "Ingen e-post"}>
       <ActionsHandler unitId={unitId} chef={unit.chef} />
     </PersonList>
   );
