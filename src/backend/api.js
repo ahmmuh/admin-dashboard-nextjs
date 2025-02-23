@@ -70,6 +70,11 @@ export const deleteTask = async (unitId, taskId) => {
 //specialist operations
 
 export const updateSpecialist = async (unitId, specialistId, newSpecialist) => {
+  console.log(
+    "Fetching:",
+    `${BASE_URL}/units/${unitId}/specialister/${specialistId}`
+  );
+
   try {
     const res = await fetch(
       `${BASE_URL}/units/${unitId}/specialister/${specialistId}`,
@@ -89,7 +94,7 @@ export const updateSpecialist = async (unitId, specialistId, newSpecialist) => {
     }
     const data = await res.json();
     console.log(
-      `NEW SPECIALIST ${newChef} has been added to the UNIT med ID ${unitId}`
+      `NEW SPECIALIST ${newSpecialist} has been added to the UNIT med ID ${unitId}`
     );
     return data;
   } catch (error) {

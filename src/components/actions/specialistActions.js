@@ -10,9 +10,9 @@ function SpecialistActions({ unitId, specialistId, specialist }) {
 
   const deleteHandler = async (id) => {
     try {
-      const specialist = await deleteSpecialist(unitId, specialistId);
+      const deletedSpecialist = await deleteSpecialist(unitId, specialistId);
       console.log(`specialist ${id} has been deleted`);
-      return specialist;
+      return deletedSpecialist;
     } catch (error) {
       console.log(
         `Fel vid borttagning av specialist med ID ${id} message: ${error.message}`
@@ -35,14 +35,13 @@ function SpecialistActions({ unitId, specialistId, specialist }) {
           </button>
         </>
       )}
-      {specialist === null ||
-        (specialist === undefined && (
-          <CustomLink
-            className="bg-green-400 text-white w-32 text-center p-2 rounded-xl shadow-lg shadow-green-500 hover:bg-green-500 transition duration-200"
-            title={"Ny specialist"}
-            url={`/units/${unitId}/specialister/create`}
-          />
-        ))}
+      {(!specialist || specialist === undefined) && (
+        <CustomLink
+          className="bg-green-400 text-white w-32 text-center p-2 rounded-xl shadow-lg shadow-green-500 hover:bg-green-500 transition duration-200"
+          title={"Ny specialist"}
+          url={`/units/${unitId}/specialister/create`}
+        />
+      )}
     </div>
   );
 }

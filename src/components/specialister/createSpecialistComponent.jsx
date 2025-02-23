@@ -17,7 +17,7 @@ function CreateSpecialistComponent({ unitId }) {
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
-    setSpecialistData((prevData) => ({ ...prevData, [name]: value }));
+    setSpecialistData((prevData) => ({ ...prevData, [name]: value || "" })); // Sätt alltid en sträng
   };
 
   const getUnit = async () => {

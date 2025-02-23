@@ -14,10 +14,9 @@ async function SpecialistPage({ params }) {
       <h4 className="text-2xl ">Specialister på {unit.name}</h4>
       {unit.specialister.map((specialist) => (
         <PersonList
-          key={specialist._id}
-          name={specialist.name}
-          phone={specialist.phone}
-          email={specialist.email}>
+          name={specialist ? specialist.name : "No specialist än"}
+          phone={specialist ? specialist.phone : "Inget telefonnummer"}
+          email={specialist ? specialist.email : "Ingen e-post"}>
           <SpecialistActions unitId={unitId} specialist={specialist} />
         </PersonList>
       ))}
