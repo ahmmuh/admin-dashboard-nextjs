@@ -67,6 +67,36 @@ export const deleteTask = async (unitId, taskId) => {
   }
 };
 
+//specialist operations
+
+export const updateSpecialist = async (unitId, specialistId, newSpecialist) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/units/${unitId}/specialister/${specialistId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newSpecialist),
+      }
+    );
+    if (!res.ok) {
+      console.error(
+        `Fel vid uppdatering av specialist. Status: ${res.status} (${res.statusText})`
+      );
+      return null;
+    }
+    const data = await res.json();
+    console.log(
+      `NEW SPECIALIST ${newChef} has been added to the UNIT med ID ${unitId}`
+    );
+    return data;
+  } catch (error) {
+    console.error(`Error on the Server ${error.message}`);
+  }
+};
+
 export const deleteSpecialist = async (unitId, specialistId) => {
   try {
     const response = await fetch(
