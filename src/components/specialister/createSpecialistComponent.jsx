@@ -1,5 +1,5 @@
 "use client";
-import { addChefToUnit, getUnitByID } from "@/backend/api";
+import { addChefToUnit, addSpecialistToUnit, getUnitByID } from "@/backend/api";
 import { get } from "mongoose";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -13,29 +13,13 @@ function CreateSpecialistComponent({ unitId }) {
     email: "",
   });
 
-  const [unit, setUnit] = useState({});
+  // const [unit, setUnit] = useState({});
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setSpecialistData((prevData) => ({ ...prevData, [name]: value || "" })); // Sätt alltid en sträng
   };
 
-  const getUnit = async () => {
-    try {
-      const unit = await getUnitByID(unitId);
-      console.log("Unit i create specialist component");
-      console.log(unit);
-      console.log("Type of", typeof unit.specialister);
-      if (unit.specialister) {
-        setSpecialistData(unit);
-        console.log("Hittade UNIT", unit);
-        return <div>Enheten har Specialist som heter {unit.chef.name} </div>;
-      }
-      console.log(`Enheten med ID ${unitId} har ingen chef`);
-    } catch (error) {
-      console.error(`Något gick fel ${error.message}`);
-    }
-  };
   useEffect(() => {
     if (unitId) {
       setSpecialistData({
@@ -44,15 +28,14 @@ function CreateSpecialistComponent({ unitId }) {
         email: specialistData.email,
       });
     }
-    getUnit();
   }, [unitId]);
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      console.log("unitId, chefData", unitId, specialistData);
-      const chef = await addChefToUnit(unitId, specialistData);
+      console.log("unitId, specialistData", unitId, specialistData);
+      await addSpecialistToUnit(unitId, specialistData);
       console.log(
-        `Ny chef med följande data ${specialistData.name} har lagts i databasen`
+        `Ny specialist med följande data ${specialistData.name} har lagts i databasen`
       );
     } catch (error) {
       console.error(`Det gick inte att lägga till ny chef`);

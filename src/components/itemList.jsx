@@ -18,7 +18,9 @@ function ItemList({
           <p className="text-gray-600">{description}</p>
           <p
             className={
-              completed === "Ej påbörjat" ? "text-red-600" : "text-green-600"
+              completed === "Ej påbörjat"
+                ? "text-red-600 font-bold"
+                : "text-green-600 font-bold"
             }>
             {completed}
           </p>

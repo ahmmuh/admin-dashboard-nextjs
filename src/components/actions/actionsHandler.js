@@ -31,14 +31,13 @@ function ActionsHandler({ unitId, chef }) {
           </button>
         </>
       )}
-      {chef === null ||
-        (chef === undefined && (
-          <CustomLink
-            className="bg-green-400 text-white w-32 text-center p-2 rounded-xl shadow-lg shadow-green-500 hover:bg-green-500 transition duration-200"
-            title={"Ny chef"}
-            url={`/units/${unitId}/chefer/create`}
-          />
-        ))}
+      {(chef === null || chef === undefined) && (
+        <CustomLink
+          className="bg-green-400 text-white w-32 text-center p-2 rounded-xl shadow-lg shadow-green-500 hover:bg-green-500 transition duration-200"
+          title={"Ny chef"}
+          url={`/units/${unitId}/chefer/create`}
+        />
+      )}
     </div>
   );
 }

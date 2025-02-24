@@ -68,7 +68,43 @@ export const deleteTask = async (unitId, taskId) => {
 };
 
 //specialist operations
+///units/:unitId/specialister/:specialistId
 
+export const addSpecialistToUnit = async (unitId, newSpecialist) => {
+  console.log(
+    "📢 Skickar request till:",
+    `${BASE_URL}/units/${unitId}/specialister`
+  );
+  console.log("📦 Med data:", newSpecialist);
+
+  try {
+    const res = await fetch(`${BASE_URL}/units/${unitId}/specialister`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newSpecialist),
+    });
+    console.log(
+      "RESPONSE FROM SERVER i addSpecialistToUnit (frontend)",
+      res.body
+    );
+    if (!res.ok) {
+      console.error(
+        `Error vid skapande av ny specialist status: ${res.status} message: ${res.statusText}`
+      );
+      return null;
+    }
+
+    const data = await res.json();
+    console.log(
+      `New chef ${newSpecialist} has been added to enhet med ID ${unitId} `
+    );
+    return data;
+  } catch (error) {
+    console.error(`Fel vid skapande av ny chef error:  ${error.message}`);
+  }
+};
 export const updateSpecialist = async (unitId, specialistId, newSpecialist) => {
   console.log(
     "Fetching:",

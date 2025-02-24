@@ -49,10 +49,11 @@ function EditSpecialistComponent({ unitId, specialist }) {
       );
     } catch (error) {
       console.error(`PROBLEM: Vid uppdatering specialist: ${error.message}`);
+      setSpecialistData(null);
     }
   };
   return (
-    <div className="flex flex-col justify-center gap-y-4">
+    <div className="flex flex-col justify-center">
       {specialist && (
         <h3 className="text-purple-600 text-2xl ">
           Du redigerar {specialist.name} med ID: {specialist.specialistId}
@@ -63,7 +64,7 @@ function EditSpecialistComponent({ unitId, specialist }) {
           <input
             type="text"
             name="name"
-            className="w-full p-2 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
+            className="w-full  border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
             value={specialistData.name}
             onChange={changeHandler}
           />
@@ -73,7 +74,7 @@ function EditSpecialistComponent({ unitId, specialist }) {
             type="number"
             name="phone"
             min={0}
-            className="w-full p-2 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
+            className="w-full  border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
             value={specialistData.phone}
             onChange={changeHandler}
           />
@@ -82,7 +83,7 @@ function EditSpecialistComponent({ unitId, specialist }) {
           <input
             type="email"
             name="email"
-            className="w-full p-2 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
+            className="w-full border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
             value={specialistData.email}
             onChange={changeHandler}
           />
