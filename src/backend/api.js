@@ -31,6 +31,7 @@ export const getUnitByID = async (unitId) => {
   }
 };
 
+//task operations
 export const getUnitTasks = async (unitId) => {
   try {
     const res = await fetch(`${BASE_URL}/units/${unitId}/tasks`);
@@ -67,6 +68,47 @@ export const deleteTask = async (unitId, taskId) => {
   }
 };
 
+export const updateTask = async (unitId, taskId, newTask) => {
+  try {
+    const res = await fetch(`${BASE_URL}/units/${unitId}/tasks/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTask),
+    });
+    if (!res.ok) {
+      console.error(
+        `Fel vid uppdatering av task. Status: ${res.status} (${res.statusText})`
+      );
+      return null;
+    }
+    const data = await res.json();
+    console.log(
+      `NEW TASK ${newChef} has been added to the UNIT med ID ${unitId}`
+    );
+    return data;
+  } catch (error) {
+    console.error(`Error on the Server ${error.message}`);
+  }
+};
+
+export const getTaskStatuses = async (unitId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/units/${unitId}/tasks/statuses`);
+    if (!res.ok) {
+      console.log(
+        `Ingen response vid hämtning av status: status: ${res.status} status Text: ${res.statusText}`
+      );
+      return null;
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.warn(`Server Error message: ${error.message}`);
+    return null;
+  }
+};
 //specialist operations
 ///units/:unitId/specialister/:specialistId
 
