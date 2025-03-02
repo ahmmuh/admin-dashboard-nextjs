@@ -1,12 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function EditTaskComponent({ task }) {
   console.log("TASK IN EDIT TASK COMPONENT", task);
+
+  const statusOptions = ["Ej påbörjat", "Påbörjat", "Färdigt"];
   const [taskData, setTaskData] = useState({
-    title: task.title,
-    description: task.description,
-    status: task.completed || "Ej påbörjat",
+    title: "",
+    description: "",
+    status: "",
   });
 
   const changeHandler = (e) => {
@@ -16,9 +18,17 @@ function EditTaskComponent({ task }) {
   const handleSubmit = (e) => {
     console.log("Submitted");
   };
+
+  useEffect(() => {
+    setTaskData({
+      title: task.title || "",
+      description: task.description || "",
+      status: task.status || "Ej påbörjat",
+    });
+  }, [task]);
   return (
-    <div className="flex flex-col my-5">
-      <h4 className="text-purple-600">textEdit Task Component</h4>
+    <div className="flex flex-col">
+      <h3 className="text-purple-600 text-2xl py-3 mb-5">Du uppdaterar {taskData.title}</h3>
       <form onSubmit={handleSubmit}>
         <div className="mb-4 ">
           <input
@@ -43,9 +53,11 @@ function EditTaskComponent({ task }) {
             name="status"
             value={taskData.status}
             onChange={changeHandler}>
-            <option value={task.completed}>{taskData.completed}</option>
-            <option value={task.completed}>{taskData.completed}</option>
-            <option value={task.completed}>{taskData.completed}</option>
+            {statusOptions.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
           </select>
         </div>
 

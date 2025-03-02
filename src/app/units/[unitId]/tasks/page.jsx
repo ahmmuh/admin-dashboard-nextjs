@@ -6,11 +6,9 @@ import CustomLink from "@/components/link";
 import React from "react";
 
 async function TaskPage({ params }) {
-  console.log("Tasks ", params.unitId);
-  const { unitId } = params;
+  const { unitId } = React.use(params).unitId;
   const unit = await getUnitByID(unitId);
-  const taskStatus = await getTaskStatuses(unitId);
-  console.log("TASK STATUS IN TASK PAGE", taskStatus);
+
   const date = new Date();
 
   return (
@@ -31,7 +29,7 @@ async function TaskPage({ params }) {
             title={task.title}
             description={task.description}
             completed={task.completed}>
-            <TaskActions unitId={unitId} task={task} taskStatus={taskStatus} />
+            <TaskActions unitId={unitId} task={task} />
           </ItemList>
         ))
       )}
