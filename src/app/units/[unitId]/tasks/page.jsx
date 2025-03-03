@@ -6,7 +6,7 @@ import CustomLink from "@/components/link";
 import React from "react";
 
 async function TaskPage({ params }) {
-  const { unitId } = React.use(params).unitId;
+  const { unitId } = params; //React.use(params).unitId;
   const unit = await getUnitByID(unitId);
 
   const date = new Date();
