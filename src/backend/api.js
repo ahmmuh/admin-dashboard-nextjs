@@ -68,7 +68,8 @@ export const deleteTask = async (unitId, taskId) => {
   }
 };
 
-export const updateTask = async (unitId, taskId, newTask) => {
+//Tilldela task med Barre
+export const assignTaskToUnit = async (unitId, taskId, newTask) => {
   try {
     const res = await fetch(`${BASE_URL}/units/${unitId}/tasks/${taskId}`, {
       method: "PUT",
@@ -85,7 +86,7 @@ export const updateTask = async (unitId, taskId, newTask) => {
     }
     const data = await res.json();
     console.log(
-      `NEW TASK ${newChef} has been added to the UNIT med ID ${unitId}`
+      `NEW TASK ${newTask} has been added to the UNIT med ID ${unitId}`
     );
     return data;
   } catch (error) {

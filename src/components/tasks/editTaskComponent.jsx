@@ -1,5 +1,5 @@
 "use client";
-import { getUnits, updateTask } from "@/backend/api";
+import { assignTaskToUnit, getUnits } from "@/backend/api";
 import React, { useEffect, useState } from "react";
 
 function EditTaskComponent({ task }) {
@@ -18,11 +18,13 @@ function EditTaskComponent({ task }) {
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
-    setTaskData((prevTas) => ({ ...prevTas, [name]: value }));
+    setTaskData((prevTask) => ({ ...prevTask, [name]: value }));
   };
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    console.log("taskData.taskId i handleSubmit :", taskData.taskId);
+    console.log("taskId:", JSON.stringify(taskData.taskId));
 
+    e.preventDefault();
     try {
       const updatedTask = {
         title: taskData.title,
@@ -31,8 +33,13 @@ function EditTaskComponent({ task }) {
         unitId: taskData.unitId,
         taskId: taskData.taskId,
       };
-      console.log("Updated Task", updatedTask);
-      await updateTask(taskData.unitId, taskData.taskId, updatedTask); //skicka unitId, taskId och uppdaterat objekt
+      console.log("Sending to API:", {
+        unitId: taskData.unitId,
+        taskId: taskData.taskId,
+        updatedTask,
+      });
+
+      await assignTaskToUnit(taskData.unitId, taskData.taskId, updatedTask); //skicka unitId, taskId och uppdaterat objekt
     } catch (error) {
       console.error(
         `Det gick inte att uppdatera task med status och enhet ERROR: ${error.message}`
@@ -41,12 +48,15 @@ function EditTaskComponent({ task }) {
   };
 
   useEffect(() => {
+    console.log("TASK IN EDIT TASK COMPONENT i useEffect", task);
+    console.log("assignTaskToUnit", assignTaskToUnit);
+
     setTaskData({
       title: task.title || "",
       description: task.description || "",
-      completed: task.completed || "Ej påbörjat",
+      completed: task.completed,
       unitId: task.unit,
-      taskId: task._id,
+      taskId: task.taskId,
     });
   }, [task]);
 
@@ -74,7 +84,7 @@ function EditTaskComponent({ task }) {
   return (
     <div className="flex flex-col">
       <h3 className="text-purple-600 text-2xl py-3 mb-5">
-        Du uppdaterar {taskData.title}
+        Du uppdaterar {taskData.title} {taskData.taskId}
       </h3>
       <form onSubmit={handleSubmit}>
         <div className="mb-4 ">
@@ -98,8 +108,8 @@ function EditTaskComponent({ task }) {
           <div className="w-1/2">
             <select
               className="w-full bg-gray-100 p-2 border border-b-gray-400 mb-4"
-              name="status"
-              value={taskData.status}
+              name="completed"
+              value={taskData.completed}
               onChange={changeHandler}>
               {statusOptions.map((status) => (
                 <option key={status} value={status}>
@@ -117,7 +127,7 @@ function EditTaskComponent({ task }) {
               <option value="">Vilken enhet?</option>
               {units.map((unit) => (
                 <option key={unit._id} value={unit._id}>
-                  {unit.name} {unit._id}
+                  {unit.name}
                 </option>
               ))}
             </select>
