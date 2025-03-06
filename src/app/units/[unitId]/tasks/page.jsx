@@ -1,4 +1,4 @@
-import { getTaskStatuses, getUnitByID } from "@/backend/api";
+import { getUnitByID } from "@/backend/api";
 import ActionsHandler from "@/components/actions/actionsHandler";
 import TaskActions from "@/components/actions/taskActions";
 import ItemList from "@/components/itemList";
@@ -9,8 +9,7 @@ async function TaskPage({ params }) {
   const { unitId } = params; //React.use(params).unitId;
   const unit = await getUnitByID(unitId);
 
-  const date = new Date();
-
+  console.log("Unit Name: in TaskPage ", unit);
   return (
     <div className="flex flex-col text-blue-600 p-5">
       <h4 className="text-3xl font-bold mb-5">Att göra på {unit.name}</h4>

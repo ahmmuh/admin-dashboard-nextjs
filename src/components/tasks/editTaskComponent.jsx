@@ -1,5 +1,6 @@
 "use client";
-import { assignTaskToUnit, getUnits } from "@/backend/api";
+import { getUnits } from "@/backend/api";
+import { assignTaskToUnit, updateTask } from "@/backend/taskApi";
 import React, { useEffect, useState } from "react";
 
 function EditTaskComponent({ task }) {
@@ -39,7 +40,7 @@ function EditTaskComponent({ task }) {
         updatedTask,
       });
 
-      await assignTaskToUnit(taskData.unitId, taskData.taskId, updatedTask); //skicka unitId, taskId och uppdaterat objekt
+      await updateTask(taskData.unitId, taskData.taskId, updatedTask); //skicka unitId, taskId och uppdaterat objekt
     } catch (error) {
       console.error(
         `Det gick inte att uppdatera task med status och enhet ERROR: ${error.message}`
@@ -119,7 +120,7 @@ function EditTaskComponent({ task }) {
             </select>
           </div>
           <div className="ml-3 w-1/2">
-            <select
+            {/* <select
               className="w-full bg-gray-100 p-2 border border-b-gray-400 mb-4"
               name="unitId"
               value={taskData.unitId}
@@ -130,7 +131,7 @@ function EditTaskComponent({ task }) {
                   {unit.name}
                 </option>
               ))}
-            </select>
+            </select> */}
           </div>
         </div>
         <button
