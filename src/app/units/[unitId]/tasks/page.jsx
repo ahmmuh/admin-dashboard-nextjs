@@ -1,13 +1,12 @@
 import { getUnitByID } from "@/backend/api";
-import ActionsHandler from "@/components/actions/actionsHandler";
 import TaskActions from "@/components/actions/taskActions";
 import ItemList from "@/components/itemList";
 import CustomLink from "@/components/link";
 import React from "react";
 
 async function TaskPage({ params }) {
-  const { unitId } = params; //React.use(params).unitId;
-  const unit = await getUnitByID(unitId);
+  //const { unitId } = React.use(params); //React.use(params).unitId;
+  const unit = await getUnitByID(params.unitId);
 
   console.log("Unit Name: in TaskPage ", unit);
   return (
@@ -25,10 +24,11 @@ async function TaskPage({ params }) {
       ) : (
         unit.tasks.map((task) => (
           <ItemList
+            key={task._id}
             title={task.title}
             description={task.description}
             completed={task.completed}>
-            <TaskActions unitId={unitId} task={task} />
+            <TaskActions unitId={unit._id} task={task} />
           </ItemList>
         ))
       )}

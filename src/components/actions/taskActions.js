@@ -3,8 +3,7 @@ import React from "react";
 import CustomLink from "../link";
 import { deleteTask } from "@/backend/taskApi";
 
-function TaskActions({ unitId, task, taskStatus }) {
-  console.log("taskStatus in TASK ACTIONS PAGE", taskStatus);
+function TaskActions({ unitId, task }) {
   const deleteHandler = async (id) => {
     try {
       const task = await deleteTask(unitId, id);

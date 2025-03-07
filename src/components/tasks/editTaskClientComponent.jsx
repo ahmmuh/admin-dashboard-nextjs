@@ -3,8 +3,9 @@ import { getUnits } from "@/backend/api";
 import { assignTaskToUnit, updateTask } from "@/backend/taskApi";
 import React, { useEffect, useState } from "react";
 
-function EditTaskComponent({ task }) {
-  // console.log("TASK IN EDIT TASK COMPONENT", task);
+function EditTaskClientComponent({ task, params }) {
+  console.log("TASK IN EDIT TASK COMPONENT", task);
+  // console.log("UNIT ID I EditTaskClientComponent",);
   const [units, setUnits] = useState([]);
   const [selectedUnit, setSelectedUnit] = useState(false);
 
@@ -40,7 +41,14 @@ function EditTaskComponent({ task }) {
         updatedTask,
       });
 
-      await updateTask(taskData.unitId, taskData.taskId, updatedTask); //skicka unitId, taskId och uppdaterat objekt
+      console.log(
+        "UPDATE STATUS FOR TASK",
+        taskData.unitId,
+        taskData.taskId,
+        updatedTask
+      );
+
+      // await updateTask(taskData.unitId, taskData.taskId, updatedTask); //skicka unitId, taskId och uppdaterat objekt
     } catch (error) {
       console.error(
         `Det gick inte att uppdatera task med status och enhet ERROR: ${error.message}`
@@ -62,6 +70,7 @@ function EditTaskComponent({ task }) {
   }, [task]);
 
   //get Units
+  console.log("Task Data", taskData);
 
   const fetchUnits = async () => {
     try {
@@ -144,4 +153,4 @@ function EditTaskComponent({ task }) {
   );
 }
 
-export default EditTaskComponent;
+export default EditTaskClientComponent;

@@ -1,10 +1,13 @@
 "use client";
-import EditTaskComponent from "@/components/tasks/editTaskComponent";
+import { getUnitByID } from "@/backend/api";
+import EditTaskClientComponent from "@/components/tasks/editTaskClientComponent";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
-function TaskEditPage({ params }) {
-  const { unitId } = React.use(params).unitId;
+function TaskEditServerPage({ params }) {
+  const { taskId, unitId } = React.use(params);
+  // const unit = await getUnitByID(unitId);
+  console.log("UNIT ID I TaskEditServerPage", unitId);
   const searchParams = useSearchParams();
   const task = {
     taskId: searchParams.get("taskId"),
@@ -15,7 +18,7 @@ function TaskEditPage({ params }) {
         ? searchParams.get("status")
         : "Ej påbörjat",
   };
-  return <EditTaskComponent unitId={unitId} task={task} />;
+  return <EditTaskClientComponent unitId={unitId} task={task} />;
 }
 
-export default TaskEditPage;
+export default TaskEditServerPage;
