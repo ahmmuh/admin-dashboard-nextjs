@@ -1,7 +1,9 @@
+import CreateTaskClientComponent from "@/components/tasks/createTaskComponent";
 import React from "react";
 
-function CreateTaskPage() {
-  return <CreateTaskPage />;
+function CreateTaskServerPage({ params }) {
+  const { unitId } = params;
+  return <CreateTaskClientComponent unitId={unitId} />;
 }
 
-export default CreateTaskPage;
+export default CreateTaskServerPage;

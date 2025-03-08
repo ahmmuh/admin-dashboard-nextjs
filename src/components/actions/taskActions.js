@@ -31,13 +31,6 @@ function TaskActions({ unitId, task }) {
           </button>
         </>
       )}
-      {(task === null || task === undefined) && (
-        <CustomLink
-          className="bg-green-400 text-white w-32 text-center p-2 rounded-xl shadow-lg shadow-green-500 hover:bg-green-500 transition duration-200"
-          title={"Ny task"}
-          url={`/units/${unitId}/tasks/create`}
-        />
-      )}
     </div>
   );
 }

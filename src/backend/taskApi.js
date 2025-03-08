@@ -1,6 +1,33 @@
 import { BASE_URL } from "./base_url";
 
 //task operations
+
+//add new task to unit
+
+export const addNewTask = async (unitId, newTask) => {
+  try {
+    const res = await fetch(`${BASE_URL}/units/${unitId}/tasks/add`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTask),
+    });
+    if (!res.ok) {
+      console.error(`Error meddelande vid skapandet av ny uppgift
+        status: ${res.status} meddelande: ${res.statusText}`);
+      return null;
+    }
+    const data = await res.json();
+    console.log(`Uppdaterad enhet med ny task`, data);
+    return data;
+  } catch (error) {
+    console.error(
+      `Serverfle vid uppdatering av enhet med ny task, Meddelande: ${error.message}`
+    );
+    return null;
+  }
+};
 export const getUnitTasks = async (unitId) => {
   try {
     const res = await fetch(`${BASE_URL}/units/${unitId}/tasks`);
@@ -36,7 +63,7 @@ export const assignTaskToUnit = async (unitId, taskId, assignedTask) => {
       return null;
     }
     const data = await res.json();
-    console.log(`Tilldelad ${assignedTask} Utförs av enhet med ID ${unitId}`);
+    console.log(`Tilldelad ${data} Utförs av enhet med ID ${unitId}`);
     return data;
   } catch (error) {
     console.error(`Error on the Server ${error.message}`);

@@ -3,7 +3,7 @@ import { getUnits } from "@/backend/api";
 import { assignTaskToUnit, updateTask } from "@/backend/taskApi";
 import React, { useEffect, useState } from "react";
 
-function EditTaskClientComponent({ task, params }) {
+function EditTaskClientComponent({ task }) {
   console.log("TASK IN EDIT TASK COMPONENT", task);
   // console.log("UNIT ID I EditTaskClientComponent",);
   const [units, setUnits] = useState([]);
@@ -14,9 +14,20 @@ function EditTaskClientComponent({ task, params }) {
     title: "",
     description: "",
     completed: "",
-    unitId: "",
+    unit: "",
     taskId: "",
   });
+
+  // se över när det finns tid
+  const isFormValid = () => {
+    return (
+      (taskData.title.trim() !== "" &&
+        taskData.description.trim() !== "" &&
+        taskData.completed !== "" &&
+        taskData.unit !== null) ||
+      taskData.unit !== undefined
+    );
+  };
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -32,23 +43,23 @@ function EditTaskClientComponent({ task, params }) {
         title: taskData.title,
         description: taskData.description,
         completed: taskData.completed,
-        unitId: taskData.unitId,
+        unit: taskData.unit,
         taskId: taskData.taskId,
       };
       console.log("Sending to API:", {
-        unitId: taskData.unitId,
+        unit: taskData.unit,
         taskId: taskData.taskId,
         updatedTask,
       });
 
       console.log(
         "UPDATE STATUS FOR TASK",
-        taskData.unitId,
+        taskData.unit,
         taskData.taskId,
         updatedTask
       );
 
-      // await updateTask(taskData.unitId, taskData.taskId, updatedTask); //skicka unitId, taskId och uppdaterat objekt
+      await assignTaskToUnit(taskData.unit, taskData.taskId, updatedTask); //skicka unit:(unitId), taskId och uppdaterat objekt
     } catch (error) {
       console.error(
         `Det gick inte att uppdatera task med status och enhet ERROR: ${error.message}`
@@ -64,7 +75,7 @@ function EditTaskClientComponent({ task, params }) {
       title: task.title || "",
       description: task.description || "",
       completed: task.completed,
-      unitId: task.unit,
+      unit: task.unit,
       taskId: task.taskId,
     });
   }, [task]);
@@ -129,10 +140,10 @@ function EditTaskClientComponent({ task, params }) {
             </select>
           </div>
           <div className="ml-3 w-1/2">
-            {/* <select
+            <select
               className="w-full bg-gray-100 p-2 border border-b-gray-400 mb-4"
-              name="unitId"
-              value={taskData.unitId}
+              name="unit"
+              value={taskData.unit}
               onChange={changeHandler}>
               <option value="">Vilken enhet?</option>
               {units.map((unit) => (
@@ -140,12 +151,16 @@ function EditTaskClientComponent({ task, params }) {
                   {unit.name}
                 </option>
               ))}
-            </select> */}
+            </select>
           </div>
         </div>
         <button
-          className=" bg-pink-400 text-white p-2 w-full border border-blue-300
-              rounded-2xl hover:bg-pink-500">
+          disabled={!isFormValid()}
+          className={`p-2 w-80 border rounded-2xl ${
+            isFormValid()
+              ? "bg-pink-400 hover:bg-pink-500 text-white "
+              : "bg-gray-300 text-gray-500cursor-not-allowed"
+          }`}>
           Update
         </button>
       </form>

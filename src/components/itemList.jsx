@@ -5,6 +5,8 @@ function ItemList({
   description,
   name,
   completed,
+  enhet,
+  Uppdaterats,
   location,
   children,
   ...props
@@ -22,7 +24,8 @@ function ItemList({
                 ? "text-red-600 font-bold"
                 : "text-green-600 font-bold"
             }>
-            {completed}
+            {completed} av Ahmed{" "}
+            <span>{new Date(Uppdaterats).toLocaleString()}</span>
           </p>
 
           {location && (
