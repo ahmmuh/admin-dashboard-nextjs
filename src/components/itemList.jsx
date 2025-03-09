@@ -6,6 +6,7 @@ function ItemList({
   name,
   completed,
   enhet,
+  icon,
   Uppdaterats,
   location,
   children,
@@ -24,8 +25,9 @@ function ItemList({
                 ? "text-red-600 font-bold"
                 : "text-green-600 font-bold"
             }>
-            {completed} av Ahmed{" "}
-            <span>{new Date(Uppdaterats).toLocaleString()}</span>
+            {(completed === "Färdigt" || completed === "Påbörjat") && (
+              <span>Uppdaterad: {new Date(Uppdaterats).toLocaleString()}</span>
+            )}
           </p>
 
           {location && (

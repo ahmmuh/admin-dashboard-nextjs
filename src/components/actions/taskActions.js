@@ -2,6 +2,8 @@
 import React from "react";
 import CustomLink from "../link";
 import { deleteTask } from "@/backend/taskApi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function TaskActions({ unitId, task }) {
   const deleteHandler = async (id) => {
@@ -20,14 +22,14 @@ function TaskActions({ unitId, task }) {
       {task && (
         <>
           <CustomLink
-            className="bg-blue-400 text-white w-32 text-center p-2 rounded-xl shadow-lg shadow-blue-500 hover:bg-blue-600 transition duration-200"
+            className="bg-blue-300 text-white w-32 text-center p-2 rounded-xl hover:bg-blue-400 transition duration-200"
             url={`/units/${unitId}/tasks/edit/?taskId=${task._id}&title=${task.title}&description=${task.description}&status=${task.completed}`}
-            title={"Update Task"}
+            title={<FontAwesomeIcon icon={faEdit} />}
           />
           <button
             onClick={() => deleteHandler(task._id)}
-            className="bg-red-400 text-white text-center w-32 p-2 rounded-xl shadow-lg shadow-red-300 hover:bg-red-600 transition duration-200">
-            Delete
+            className="bg-red-300 text-white text-center w-32 p-2 rounded-xl  hover:bg-red-400 transition duration-200">
+            <FontAwesomeIcon icon={faTrash} />
           </button>
         </>
       )}

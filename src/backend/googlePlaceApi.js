@@ -1,15 +1,16 @@
 import { BASE_URL } from "./base_url";
 
-export const getPlaces = async () => {
+export const getPlaces = async (query) => {
   try {
-    const res = await fetch(`${BASE_URL}/places`, {
+    const params = new URLSearchParams({ query }).toString();
+    const res = await fetch(`${BASE_URL}/places?${params}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
     if (!res.ok) {
-      console.error(`Error, status: ${res.status} TEXT: ${res.statusText}`);
+      console.error("Error, ", res.status);
       return null;
     }
     const data = await res.json();
