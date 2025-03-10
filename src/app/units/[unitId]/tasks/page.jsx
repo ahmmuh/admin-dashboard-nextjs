@@ -33,7 +33,7 @@ async function TaskPage({ params }) {
             key={task._id}
             title={task.title}
             Uppdaterats={task.Uppdaterats}
-            // enhet={unit} //fixa sen
+            enhet={task.unit} //fixa sen
             description={task.description}
             completed={task.completed}>
             <TaskActions unitId={unit._id} task={task} />
