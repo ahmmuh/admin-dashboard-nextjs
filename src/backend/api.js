@@ -31,6 +31,28 @@ export const getUnitByID = async (unitId) => {
   }
 };
 
+export const getWorkplace = async (unitId, workPlaceId) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/${unitId}/workplaces/${workPlaceId}`,
+      {
+        method: "GET",
+        "Content-Type": "application/json",
+      }
+    );
+    if (!response.ok) {
+      console.warn(
+        `Error Http: status: ${response.status}, message: ${response.statusText}`
+      );
+      return null;
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error", error.message);
+  }
+};
 
 //specialist operations
 ///units/:unitId/specialister/:specialistId
