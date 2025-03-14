@@ -31,10 +31,10 @@ export const getUnitByID = async (unitId) => {
   }
 };
 
-export const getWorkplace = async (unitId, workPlaceId) => {
+export const getWorkplace = async (unitId, workplaceId) => {
   try {
     const response = await fetch(
-      `${BASE_URL}/${unitId}/workplaces/${workPlaceId}`,
+      `${BASE_URL}/units/${unitId}/workplaces/${workplaceId}`,
       {
         method: "GET",
         "Content-Type": "application/json",
@@ -42,7 +42,7 @@ export const getWorkplace = async (unitId, workPlaceId) => {
     );
     if (!response.ok) {
       console.warn(
-        `Error Http: status: ${response.status}, message: ${response.statusText}`
+        `Error - status: ${response.status}, message: ${response.statusText}`
       );
       return null;
     }
