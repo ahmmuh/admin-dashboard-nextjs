@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 async function TaskPage({ params }) {
-  //const { unitId } = React.use(params); //React.use(params).unitId;
-  const unit = await getUnitByID(params.unitId);
+  const { unitId } = params;
+  const unit = await getUnitByID(unitId);
 
   console.log("Unit Name: in TaskPage ", unit);
   return (
@@ -28,10 +28,11 @@ async function TaskPage({ params }) {
       </>
 
       {unit.tasks &&
-        unit.tasks.map((task) => (
+        unit.tasks.map((task, index) => (
           <ItemList
-            key={task._id}
+            key={`${task._id}-${index}`}
             title={task.title}
+            createdAt={task.skapats}
             Uppdaterats={task.Uppdaterats}
             enhet={task.unit} //fixa sen
             description={task.description}

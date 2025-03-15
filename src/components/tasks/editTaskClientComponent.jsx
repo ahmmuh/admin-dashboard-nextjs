@@ -14,8 +14,7 @@ function EditTaskClientComponent({ task }) {
   const [selectedUnit, setSelectedUnit] = useState(false);
 
   //custom hook
-
-  const [placeResults, loading, fetchPlaceData] = useFetchPlaces();
+  const { placeResults, loading, fetchPlaceData } = useFetchPlaces();
 
   // const [placeResults, setPlaceResults] = useState([]);
   // const [loading, setLoading] = useState(false);
@@ -171,8 +170,8 @@ function EditTaskClientComponent({ task }) {
               value={taskData.unit}
               onChange={changeHandler}>
               <option value="">Vilken enhet?</option>
-              {units.map((unit) => (
-                <option key={unit._id} value={unit._id}>
+              {units.map((unit, index) => (
+                <option key={unit._id || `unit-${index}`} value={unit._id}>
                   {unit.name}
                 </option>
               ))}
@@ -192,7 +191,7 @@ function EditTaskClientComponent({ task }) {
                     title: place.name,
                     location: place.formatted_address,
                   }));
-                  setPlaceResults([]);
+                  fetchPlaceData("");
                 }}>
                 {place.name} {place.formatted_address}
               </div>

@@ -1,5 +1,4 @@
 import React from "react";
-
 import { getUnits } from "@/backend/api";
 import "./globals.css";
 
@@ -11,9 +10,10 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="sv">
       <body>
-        <div className="flex  h-screen gap-4">
+        <div className="flex h-full gap-4">
           <Sidebar units={units} />
-          <main className="w-2/3 h-auto mt-3">
+
+          <main className="flex-1 mt-3 min-h-screen">
             {React.cloneElement(children, { units })}
           </main>
         </div>

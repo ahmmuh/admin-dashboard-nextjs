@@ -10,6 +10,7 @@ function ItemList({
   enhet,
   icon,
   Uppdaterats,
+  createdAt,
   children,
   ...props
 }) {
@@ -35,7 +36,7 @@ function ItemList({
   return (
     <>
       {loading && <div>Loading ...</div>}
-      <ul className="flex flex-col mt-4 " {...props}>
+      <ul className="flex flex-col my-6 " {...props}>
         <li className="p-4 border rounded-lg shadow-sm  hover:bg-purple-50 cursor-pointer">
           <article>
             <h4 className="text-2xl text-purple-700 font-semibold">{title}</h4>
@@ -44,16 +45,21 @@ function ItemList({
 
             <div>
               {completed === "Ej påbörjat" && (
-                <p className="text-red-600 text-md font-bold">{completed}</p>
+                <>
+                  <span>Skapades: {new Date(createdAt).toLocaleString()} </span>{" "}
+                  <p className="text-red-600 text-md font-bold">
+                    Status: {completed}
+                  </p>
+                </>
               )}
               {completed === "Färdigt" && (
                 <p className="text-gray-600 ">
                   <>
+                    <span>Uppdaterad av {takerUnit.name}</span> <br />
                     <span>
                       Datum: {new Date(Uppdaterats).toLocaleString()}{" "}
                     </span>{" "}
                     <br />
-                    <span>Uppdaterad av {takerUnit.name}</span> <br />
                     <span className="text-green-500 font-bold">
                       Status: {completed}
                     </span>
@@ -63,9 +69,11 @@ function ItemList({
 
               {completed === "Påbörjat" && (
                 <p className="text-gray-500 text-md">
-                  <span>Datum: {new Date(Uppdaterats).toLocaleString()} </span>{" "}
-                  <br />
                   <span>Uppdaterad av {takerUnit.name}</span> <br />
+                  <span>
+                    Datum: {new Date(Uppdaterats).toLocaleString()}{" "}
+                  </span>{" "}
+                  <br />
                   <span className="text-orange-500 text-md font-bold">
                     Status: {completed}
                   </span>
