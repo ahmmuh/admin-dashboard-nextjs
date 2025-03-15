@@ -1,7 +1,11 @@
 "use client";
 import { getUnits } from "@/backend/api";
+import { getPlaces } from "@/backend/googlePlaceApi";
 import { assignTaskToUnit, updateTask } from "@/backend/taskApi";
 import React, { useEffect, useState } from "react";
+import { Loading } from "../loading";
+import { fetchPlaces } from "@/helper/fetchPlaces";
+import { useFetchPlaces } from "@/customhook/useFetchPlaces";
 
 function EditTaskClientComponent({ task }) {
   console.log("TASK IN EDIT TASK COMPONENT", task);
@@ -9,10 +13,18 @@ function EditTaskClientComponent({ task }) {
   const [units, setUnits] = useState([]);
   const [selectedUnit, setSelectedUnit] = useState(false);
 
+  //custom hook
+
+  const [placeResults, loading, fetchPlaceData] = useFetchPlaces();
+
+  // const [placeResults, setPlaceResults] = useState([]);
+  // const [loading, setLoading] = useState(false);
+
   const statusOptions = ["Ej påbörjat", "Påbörjat", "Färdigt"];
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
+    location: "",
     completed: "",
     unit: "",
     taskId: "",
@@ -29,6 +41,16 @@ function EditTaskClientComponent({ task }) {
     );
   };
 
+  const handlePlaceInputChange = (e) => {
+    const { value } = e.target;
+    setTaskData((prevTask) => ({
+      ...prevTask,
+      title: value,
+    }));
+    console.log("SÖKTA PLATS: ", value);
+    fetchPlaceData(value);
+  };
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setTaskData((prevTask) => ({ ...prevTask, [name]: value }));
@@ -43,6 +65,7 @@ function EditTaskClientComponent({ task }) {
         title: taskData.title,
         description: taskData.description,
         completed: taskData.completed,
+        location: taskData.location,
         unit: taskData.unit,
         taskId: taskData.taskId,
       };
@@ -102,6 +125,8 @@ function EditTaskClientComponent({ task }) {
     fetchUnits();
   }, []);
 
+  // if (loading) return <Loading />;
+
   return (
     <div className="flex flex-col">
       <h3 className="text-purple-600 text-2xl py-3 mb-5">
@@ -114,7 +139,7 @@ function EditTaskClientComponent({ task }) {
             type="text"
             name="title"
             value={taskData.title}
-            onChange={changeHandler}
+            onChange={handlePlaceInputChange}
           />
         </div>
         <div className="mb-4 flex flex-col content-start ">
@@ -154,6 +179,26 @@ function EditTaskClientComponent({ task }) {
             </select>
           </div>
         </div>
+        {/* //visa place result */}
+        {placeResults && placeResults.length > 0 && (
+          <div className="bg-white p-2 rounded-2xl my-2 max-h-60 overflow-y-scroll border">
+            {placeResults.map((place, index) => (
+              <div
+                key={index}
+                className="border-b border-purple-600  hover:bg-gray-100 cursor-pointer p-2 my-2"
+                onClick={() => {
+                  setTaskData((prevTask) => ({
+                    ...prevTask,
+                    title: place.name,
+                    location: place.formatted_address,
+                  }));
+                  setPlaceResults([]);
+                }}>
+                {place.name} {place.formatted_address}
+              </div>
+            ))}
+          </div>
+        )}
         <button
           disabled={!isFormValid()}
           className={`p-2 w-80 border rounded-2xl ${

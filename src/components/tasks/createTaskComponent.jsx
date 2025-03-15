@@ -1,6 +1,7 @@
 "use client";
 import { getPlaces } from "@/backend/googlePlaceApi";
 import { addNewTask } from "@/backend/taskApi";
+import { useFetchPlaces } from "@/customhook/useFetchPlaces";
 import { faAd, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
@@ -12,28 +13,34 @@ function CreateTaskClientComponent({ unitId }) {
     description: "",
   });
 
-  const [placeResults, setPlaceResults] = useState([]);
+  // const [placeResults, setPlaceResults] = useState([]);
 
-  const [loading, setLoading] = useState(false);
+  //custom hook
 
-  const fetchPlace = async (query) => {
-    try {
-      if (!query) return;
-      setLoading(true);
-      const response = await getPlaces(query);
-      if (!response || !response.results) {
-        console.warn("Inga platser hittades eller fel i response ", response);
-        setPlaceResults([]);
-        return;
-      }
-      setPlaceResults(response.results);
-    } catch (error) {
-      console.error("Fel vid hämtning av platser", error);
-      setPlaceResults([]); //Rensa resultat vid fel
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [placeResults, loading, fetchPlaceData] = useFetchPlaces();
+
+  // const [loading, setLoading] = useState(false);
+
+  // const fetchPlace = async (query) => {
+  //   try {
+  //     if (!query) {
+  //       return;
+  //     }
+  //     setLoading(true);
+  //     const response = await getPlaces(query);
+  //     if (!response || !response.results) {
+  //       console.warn("Inga platser hittades eller fel i response ", response);
+  //       setPlaceResults([]);
+  //       return;
+  //     }
+  //     setPlaceResults(response.results);
+  //   } catch (error) {
+  //     console.error("Fel vid hämtning av platser", error);
+  //     setPlaceResults([]); //Rensa resultat vid fel
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   //validate
   const isFormValid = () => {
     return task.title.trim() !== "" && task.description.trim() !== "";
@@ -46,7 +53,7 @@ function CreateTaskClientComponent({ unitId }) {
       title: value,
     }));
     console.log("SÖKTA PLATS: ", value);
-    fetchPlace(value);
+    fetchPlaceData(value);
   };
 
   function changeHandler(e) {
