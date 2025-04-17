@@ -26,6 +26,7 @@ async function KeyPage() {
               <th className="border border-gray-200 text-left">
                 Inlämnat datum
               </th>
+              <th className="border border-gray-200 text-left">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -38,19 +39,34 @@ async function KeyPage() {
                     <span className="text-green-700 font-bold">Inne</span>
                   )}
                   {key.status === "checked-out" && "Utlånad"}
-                  {key.status === "checked-in" && "Inlämnad"}
+                  {key.status === "returned" && "Inlämnad"}
                 </td>
-                <td className="border border-gray-200 p-2">Ahmed</td>
+                {key.status === "checked-out" && (
+                  <td className="border border-gray-200 p-2">
+                    {key.borrowedBy.name}
+                  </td>
+                )}
+
                 <td className="border border-gray-200 p-2">
                   {key.status === "checked-out" && key.borrowedAt
                     ? new Date(key.borrowedAt).toLocaleString("sv-SE")
                     : "—"}
                 </td>
                 <td>
-                  {key.status === "checked-in" && key.returnedAt
+                  {key.status === "returned" && key.returnedAt
                     ? new Date(key.returnedAt).toLocaleString("sv-SE")
                     : "—"}
                 </td>
+                {key.status === "returned" && (
+                  <td>
+                    <button>Låna</button>
+                  </td>
+                )}
+                {key.status === "checked-out" && (
+                  <td>
+                    <button>Återlämna</button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
