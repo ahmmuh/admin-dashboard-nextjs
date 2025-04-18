@@ -1,4 +1,5 @@
 import { getAllKeys } from "@/backend/keyAPI";
+import Link from "next/link";
 // import React, { useEffect, useState } from "react";
 
 async function KeyPage() {
@@ -7,10 +8,10 @@ async function KeyPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold my-3 text-purple-500 italic">
+      <h1 className="text-2xl font-bold mb-10 text-purple-500 italic">
         Nyckel hantering
       </h1>
-      <div className="">
+      <div className="pr-10">
         <table className="border-collapse border border-gray-400 w-full ">
           <thead>
             <tr className="">
@@ -32,7 +33,9 @@ async function KeyPage() {
           <tbody>
             {keys.map((key) => (
               <tr key={key._id} className="hover:bg-gray-300">
-                <td className="border border-gray-200 p-2">{key.keyLabel}</td>
+                <td className="border border-gray-200 p-2">
+                  <Link href={`/keys/${key._id}/`}>{key.keyLabel}</Link>
+                </td>
                 <td className="border border-gray-200 p-2">{key.location}</td>
                 <td className="border border-gray-200 p-2">
                   {key.status === "available" && (
@@ -62,6 +65,9 @@ async function KeyPage() {
                     : "—"}
                 </td>
                 {key.status === "returned" && (
+                  <td className="text-green-500 font-bold">Låna ut</td>
+                )}
+                {key.status === "available" && (
                   <td className="text-green-500 font-bold">Låna ut</td>
                 )}
                 {key.status === "checked-out" && (
