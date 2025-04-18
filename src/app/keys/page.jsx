@@ -38,34 +38,34 @@ async function KeyPage() {
                   {key.status === "available" && (
                     <span className="text-green-700 font-bold">Inne</span>
                   )}
-                  {key.status === "checked-out" && "Utlånad"}
-                  {key.status === "returned" && "Inlämnad"}
+
+                  <span className="text-green-700 font-bold">
+                    {key.status === "returned" && "Inlämnad"}
+                  </span>
+
+                  <span className="text-red-700 font-bold">
+                    {key.status === "checked-out" && "Utlånad"}
+                  </span>
                 </td>
-                {key.status === "checked-out" && (
-                  <td className="border border-gray-200 p-2">
-                    {key.borrowedBy.name}
-                  </td>
-                )}
+                <td className="border border-gray-200 p-2">
+                  {key.status === "checked-out" ? key.borrowedBy.name : "—"}
+                </td>
 
                 <td className="border border-gray-200 p-2">
                   {key.status === "checked-out" && key.borrowedAt
                     ? new Date(key.borrowedAt).toLocaleString("sv-SE")
                     : "—"}
                 </td>
-                <td>
+                <td className="border border-gray-200 p-2">
                   {key.status === "returned" && key.returnedAt
                     ? new Date(key.returnedAt).toLocaleString("sv-SE")
                     : "—"}
                 </td>
                 {key.status === "returned" && (
-                  <td>
-                    <button>Låna</button>
-                  </td>
+                  <td className="text-green-500 font-bold">Låna ut</td>
                 )}
                 {key.status === "checked-out" && (
-                  <td>
-                    <button>Återlämna</button>
-                  </td>
+                  <td className="text-red-500">Lämna in</td>
                 )}
               </tr>
             ))}
