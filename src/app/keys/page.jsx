@@ -15,8 +15,12 @@ function KeyPage() {
     const userType = key.borrowedByModel || key.lastBorrowedByModel;
     const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
     console.log("userType by checkOutHandler()", fixedUserType);
-    await checkoutKey(fixedUserType, userId, key._id);
-    router.push("/keys");
+    try {
+      await checkoutKey(fixedUserType, userId, key._id);
+      await fetchKeys();
+    } catch (error) {
+      console.error("Error");
+    }
   };
 
   const checkInHandler = async (key) => {
@@ -31,8 +35,12 @@ function KeyPage() {
     console.log("userType by checkInHandler()", fixedUserType);
     console.log("User ID:", userId);
     console.log("Nyckel ID", key._id);
-    await checkinKey(fixedUserType, userId._id, key._id);
-    router.push("/keys");
+    try {
+      await checkinKey(fixedUserType, userId._id, key._id);
+      await fetchKeys();
+    } catch (error) {
+      console.error("Error");
+    }
   };
 
   //Fetch alla nycklar
