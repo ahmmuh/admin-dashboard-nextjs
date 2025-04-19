@@ -1,6 +1,7 @@
 "use client";
-import { checkoutKey, getAllKeys } from "@/backend/keyAPI";
+import { checkinKey, checkoutKey, getAllKeys } from "@/backend/keyAPI";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 // import React, { useEffect, useState } from "react";
 
@@ -8,16 +9,30 @@ function KeyPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [keys, setKeys] = useState([]);
-
+  const router = useRouter();
   const checkOutHandler = async (key) => {
-    const userId = "66179b1ea7c4a01b8c0f3e5d"; // exempel-ID
-    const userType = "chefer"; // eller "specialister"
-    console.log("Lånat", userType, userId, key._id);
-    await checkoutKey(userType, userId, key._id);
+    const userId = key.borrowedBy ? key.borrowedBy : key.lastBorrowedBy;
+    const userType = key.borrowedByModel || key.lastBorrowedByModel;
+    const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
+    console.log("userType by checkOutHandler()", fixedUserType);
+    await checkoutKey(fixedUserType, userId, key._id);
+    router.push("/keys");
   };
 
-  const checkInHandler = (key) => {
-    console.log("Lämnat in ...", key.borrowedByModel, key._id, key.borrowedBy);
+  const checkInHandler = async (key) => {
+    const userId = key.borrowedBy ? key.borrowedBy : key.lastBorrowedBy;
+
+    if (!userId) {
+      console.error("Ingen användare kopplad till denna nyckel");
+      return null;
+    }
+    const userType = key.borrowedByModel || key.lastBorrowedByModel;
+    const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
+    console.log("userType by checkInHandler()", fixedUserType);
+    console.log("User ID:", userId);
+    console.log("Nyckel ID", key._id);
+    await checkinKey(fixedUserType, userId._id, key._id);
+    router.push("/keys");
   };
 
   //Fetch alla nycklar
