@@ -80,16 +80,15 @@ export const deleteKey = async (keyId) => {
 
 //Låna ut nyckel
 
-export const checkoutKey = async (unitId, userType, userId, keyId) => {
+export const checkoutKey = async (userType, userId, keyId) => {
   try {
     const res = await fetch(
-      `${BASE_URL}/units/${unitId}/${userType}/${userId}/keys/${keyId}/checkout`,
+      `${BASE_URL}/${userType}/${userId}/keys/${keyId}/checkout`,
       {
-        method: "POST", // POST eller PUT beroende på din backend
+        method: "PATCH", // POST eller PUT beroende på din backend
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ action: "checkout" }), // valfritt om du vill ange action
       }
     );
 
@@ -108,16 +107,15 @@ export const checkoutKey = async (unitId, userType, userId, keyId) => {
 
 //Lämna nyckel tillbaka
 
-export const checkinKey = async (unitId, userType, userId, keyId) => {
+export const checkinKey = async (userType, userId, keyId) => {
   try {
     const res = await fetch(
-      `${BASE_URL}/units/${unitId}/${userType}/${userId}/keys/${keyId}/checkout`,
+      `${BASE_URL}/${userType}/${userId}/keys/${keyId}/checkin`,
       {
-        method: "PUT", // eller PATCH beroende på hur din backend funkar
+        method: "PATCH", // eller PATCH beroende på hur din backend funkar
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ action: "checkin" }), // t.ex. action checkin
       }
     );
 
