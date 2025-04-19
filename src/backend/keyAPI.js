@@ -77,3 +77,59 @@ export const deleteKey = async (keyId) => {
     console.error("Error deleting Key (nyckel):", error.message);
   }
 };
+
+//Låna ut nyckel
+
+export const checkoutKey = async (unitId, userType, userId, keyId) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/units/${unitId}/${userType}/${userId}/keys/${keyId}/checkout`,
+      {
+        method: "POST", // POST eller PUT beroende på din backend
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ action: "checkout" }), // valfritt om du vill ange action
+      }
+    );
+
+    if (!res.ok) {
+      console.error(`Fel vid låning av nyckel. Status: ${res.status}`);
+      return null;
+    }
+
+    const data = await res.json();
+    console.log("Nyckel lånad:", data);
+    return data;
+  } catch (error) {
+    console.error("Error vid låning av nyckel:", error.message);
+  }
+};
+
+//Lämna nyckel tillbaka
+
+export const checkinKey = async (unitId, userType, userId, keyId) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/units/${unitId}/${userType}/${userId}/keys/${keyId}/checkout`,
+      {
+        method: "PUT", // eller PATCH beroende på hur din backend funkar
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ action: "checkin" }), // t.ex. action checkin
+      }
+    );
+
+    if (!res.ok) {
+      console.error(`Fel vid återlämning av nyckel. Status: ${res.status}`);
+      return null;
+    }
+
+    const data = await res.json();
+    console.log("Nyckel återlämnad:", data);
+    return data;
+  } catch (error) {
+    console.error("Error vid återlämning av nyckel:", error.message);
+  }
+};
