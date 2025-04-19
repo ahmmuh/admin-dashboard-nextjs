@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 // import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 function KeyPage() {
   const [loading, setLoading] = useState(true);
@@ -17,6 +18,7 @@ function KeyPage() {
     console.log("userType by checkOutHandler()", fixedUserType);
     try {
       await checkoutKey(fixedUserType, userId, key._id);
+      toast.success("Nyckeln har lånats ut");
       await fetchKeys();
     } catch (error) {
       console.error("Error");
@@ -38,8 +40,10 @@ function KeyPage() {
     try {
       await checkinKey(fixedUserType, userId._id, key._id);
       await fetchKeys();
+      toast.success("Nyckeln har återlämnats");
     } catch (error) {
       console.error("Error");
+      toast.error("Något har gått fel");
     }
   };
 
@@ -82,6 +86,7 @@ function KeyPage() {
   }
   return (
     <div>
+      <Toaster />
       <h1 className="text-2xl font-bold mb-10 text-purple-500 italic">
         Nyckel hantering
       </h1>

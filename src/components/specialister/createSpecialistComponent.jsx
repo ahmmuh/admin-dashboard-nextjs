@@ -1,8 +1,6 @@
 "use client";
 import { addChefToUnit, addSpecialistToUnit, getUnitByID } from "@/backend/api";
-import { get } from "mongoose";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function CreateSpecialistComponent({ unitId }) {
   console.log("Unit ID i frontend i (CreateSpecialistComponent):", unitId);
