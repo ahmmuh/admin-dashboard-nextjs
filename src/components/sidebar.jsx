@@ -21,9 +21,20 @@ const Sidebar = ({ units }) => {
               Alla enheter
             </span>
           </Link>
+
+          <Link href={"/apartments"}>
+            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
+              Lägenheter (Flytstäd)
+            </span>
+          </Link>
           <Link href={"/keys"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
               Nyckel hantering
+            </span>
+          </Link>
+          <Link href={"/keyLogs"}>
+            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
+              Nyckel loggar
             </span>
           </Link>
         </ul>
