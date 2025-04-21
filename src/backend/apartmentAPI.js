@@ -57,6 +57,31 @@ export const getApartmentByID = async (apartmentId) => {
   }
 };
 
+export const updateApartment = async (apartmentId, updatedApartment) => {
+  try {
+    const res = await fetch(`${BASE_URL}/apartments/${apartmentId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedApartment),
+    });
+    if (!res.ok) {
+      console.error(
+        `Fel vid uppdatering av Apartment. Status: ${res.status} (${res.statusText})`
+      );
+      return null;
+    }
+    const data = await res.json();
+    console.log(
+      `UPDATED Apartment ) ${updatedApartment}  med ID ${apartmentId}`
+    );
+    return data;
+  } catch (error) {
+    console.error(`Error on the Server ${error.message}`);
+  }
+};
+
 export const deleteApartment = async (apartmentId) => {
   try {
     const response = await fetch(`${BASE_URL}/apartments/${apartmentId}`, {

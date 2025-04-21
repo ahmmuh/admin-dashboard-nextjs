@@ -1,19 +1,16 @@
 "use client";
-import { createApartment, getApartmentByID } from "@/backend/apartmentAPI";
+import { getApartmentByID, updateApartment } from "@/backend/apartmentAPI";
 import React, { useEffect, useState } from "react";
 import DatePickerComponent from "../datePicker";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 
 function EditApartmentComponent() {
   const priorityList = ["Normal", "Låg", "Hög"];
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const statusar = ["Ej påbörjat", "Påbörjat", "Färdigt"];
   const { apartmentId } = useParams();
   console.log("Apartment ID: ", apartmentId);
 
-    const [apartment, setApartment] = useState({
-      
-  });
+  const [apartment, setApartment] = useState({});
 
   const fetchApartmentById = async () => {
     try {
@@ -40,22 +37,17 @@ function EditApartmentComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newApartment = {
+    const updatedApartment = {
       apartmentLocation: apartment.apartmentLocation,
       keyLocation: apartment.keyLocation,
       description: apartment.description,
       priority: apartment.priority,
-      startDate: startDate,
-      endDate: endDate,
+      status: apartment.status,
+      startDate: apartment.startDate,
+      endDate: apartment.endDate,
     };
-    console.log("NEW APARTMENT ", newApartment);
-    await createApartment(newApartment);
-    setApartment({
-      apartmentLocation: "",
-      keyLocation: "",
-      description: "",
-      priority: "",
-    });
+    console.log("Updated APARTMENT ", updatedApartment);
+    await updateApartment(apartmentId, updatedApartment);
   };
 
   return (
@@ -65,7 +57,7 @@ function EditApartmentComponent() {
       </h3>
 
       <div className="flex flex-col pt-6 pr-20">
-        {/* <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="">
             <label
               htmlFor="apartmentLocation"
@@ -117,8 +109,15 @@ function EditApartmentComponent() {
               Planerat Start Datum
             </label>
             <DatePickerComponent
-              onChange={(date) => setStartDate(date)}
-              selectedDate={startDate}
+              onChange={(date) =>
+                setApartment((prevData) => ({
+                  ...prevData,
+                  startDate: date.toISOString(),
+                }))
+              }
+              selectedDate={
+                apartment.startDate ? new Date(apartment.startDate) : new Date()
+              }
             />
           </div>
 
@@ -127,8 +126,15 @@ function EditApartmentComponent() {
               Planerat slut datum
             </label>
             <DatePickerComponent
-              onChange={(date) => setEndDate(date)}
-              selectedDate={endDate}
+              onChange={(date) =>
+                setApartment((prevData) => ({
+                  ...prevData,
+                  endDate: date.toISOString(),
+                }))
+              }
+              selectedDate={
+                apartment.endDate ? new Date(apartment.endDate) : new Date()
+              }
             />
           </div>
 
@@ -154,13 +160,35 @@ function EditApartmentComponent() {
             </select>
           </div>
 
+          <div className="mb-6">
+            <label htmlFor="priority" className="block mb-2 font-semibold">
+              Status
+            </label>
+            <select
+              id="status"
+              name="status"
+              className="p-2 bg-gray-200 border border-b-gray-50 w-full
+              shadow shadow-blue-100 focus:bg-yellow-50 rounded"
+              value={apartment.status}
+              onChange={handleChange}>
+              <option value="" disabled hidden>
+                Välj
+              </option>
+              {statusar.map((status, index) => (
+                <option value={status} key={index}>
+                  {status}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <button
-            className="bg-blue-500 text-white p-2 w-1/5 border border-b-2
-          border-b-slate-500 rounded hover:bg-blue-600"
+            className="bg-green-400 text-white p-2 w-1/5 border border-b-2
+          border-b-slate-500 rounded hover:bg-green-500"
             type="submit">
             Spara
           </button>
-        </form> */}
+        </form>
       </div>
     </div>
   );

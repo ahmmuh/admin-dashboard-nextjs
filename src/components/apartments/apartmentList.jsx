@@ -67,9 +67,26 @@ function ApartmentList({ apartments: initialApartments }) {
                   <span className="font-bold"> Planerat Slut Datum:</span>{" "}
                   {new Date(apartment.endDate).toLocaleString()}
                 </li>
-                <li className="mb-2 border-b-2 border-indigo-200 p-2 hover:bg-gray-200 ">
-                  <span className="font-bold"> Status:</span> {apartment.status}
-                </li>
+                {apartment.status === "Ej påbörjat" && (
+                  <li className="mb-2 border-b-2 border-indigo-200 p-2 text-red-700 hover:bg-gray-200 ">
+                    <span className="font-bold"> Status:</span>{" "}
+                    {apartment.status}
+                  </li>
+                )}
+
+                {apartment.status === "Påbörjat" && (
+                  <li className="mb-2 border-b-2 border-indigo-200 p-2 text-orange-400 hover:bg-gray-200 ">
+                    <span className="font-bold"> Status:</span>{" "}
+                    {apartment.status}
+                  </li>
+                )}
+
+                {apartment.status === "Färdigt" && (
+                  <li className="mb-2 border-b-2 border-indigo-200 p-2 text-green-600 hover:bg-gray-200 ">
+                    <span className="font-bold "> Status:</span>{" "}
+                    {apartment.status}
+                  </li>
+                )}
                 <div className="flex  justify-between items-center text-center my-5 w-1/2">
                   <Link
                     href={`/apartments/${apartment._id}/edit`}
