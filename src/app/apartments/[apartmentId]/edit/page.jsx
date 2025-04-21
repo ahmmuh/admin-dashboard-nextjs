@@ -1,7 +1,8 @@
+import EditApartmentComponent from "@/components/apartments/editApartmentComponent";
 import React from "react";
 
 function EditApartment() {
-  return <div>EditApartment</div>;
+  return <EditApartmentComponent />;
 }
 
 export default EditApartment;

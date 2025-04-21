@@ -1,19 +1,34 @@
 "use client";
-import { createApartment } from "@/backend/apartmentAPI";
-import React, { useState } from "react";
+import { createApartment, getApartmentByID } from "@/backend/apartmentAPI";
+import React, { useEffect, useState } from "react";
 import DatePickerComponent from "../datePicker";
+import { useParams, useSearchParams } from "next/navigation";
 
-function CreateApartmentComponent() {
+function EditApartmentComponent() {
   const priorityList = ["Normal", "Låg", "Hög"];
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const { apartmentId } = useParams();
+  console.log("Apartment ID: ", apartmentId);
 
-  const [apartment, setApartment] = useState({
-    apartmentLocation: "",
-    keyLocation: "",
-    description: "",
-    priority: "",
+    const [apartment, setApartment] = useState({
+      
   });
+
+  const fetchApartmentById = async () => {
+    try {
+      const apartmentData = await getApartmentByID(apartmentId);
+      console.log("Hämtad APARTMENT", apartmentData);
+      setApartment(apartmentData);
+    } catch (error) {
+      console.error("ERROR vid hämtning av APARTMENT OBJECT", error.message);
+    }
+    console.log("Hela apartment", apartment);
+  };
+
+  useEffect(() => {
+    fetchApartmentById();
+  }, [apartmentId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,11 +61,11 @@ function CreateApartmentComponent() {
   return (
     <div className="">
       <h3 className="text-purple-500 font-bold pt-6 text-2xl">
-        Lägg till ny lägenhet
+        Update lägenhet
       </h3>
 
       <div className="flex flex-col pt-6 pr-20">
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}>
           <div className="">
             <label
               htmlFor="apartmentLocation"
@@ -145,10 +160,10 @@ function CreateApartmentComponent() {
             type="submit">
             Spara
           </button>
-        </form>
+        </form> */}
       </div>
     </div>
   );
 }
 
-export default CreateApartmentComponent;
+export default EditApartmentComponent;

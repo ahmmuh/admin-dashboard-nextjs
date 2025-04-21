@@ -1,5 +1,28 @@
 import { BASE_URL } from "./base_url";
 
+export const createUnit = async (newUnit) => {
+  try {
+    const res = await fetch(`${BASE_URL}/units`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUnit),
+    });
+    if (!res.ok) {
+      console.log(
+        `Server error when creating a new unit data, status: ${res.status}`
+      );
+      return null;
+    }
+    console.log("NEw created unit", newUnit);
+    return newUnit;
+  } catch (error) {
+    console.error("Error when creating a new unit", error.message);
+    return null;
+  }
+};
+
 export const getUnits = async () => {
   try {
     const res = await fetch(`${BASE_URL}/units`);
