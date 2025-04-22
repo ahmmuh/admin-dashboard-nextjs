@@ -5,7 +5,7 @@ import Link from "next/link";
 async function UnitPage({ params }) {
   const units = await getUnits();
   return (
-    <div className="bg-slate-300">
+    <div className="">
       <h1 className="text-2xl font-bold  text-purple-500 italic mb-5 pl-6">
         Alla enheter
       </h1>
@@ -14,7 +14,7 @@ async function UnitPage({ params }) {
         <div className="h-full">
           {units &&
             units.map((unit) => (
-              <div className="mb-8 border border-1 ">
+              <div className="mb-8">
                 <MainCard title={unit.name}>
                   <Link href={`/units/${unit._id}/chefer`}>
                     <span className="block text-lg font-medium  border-b-2  text-gray-700 hover:text-pink-600 py-5">

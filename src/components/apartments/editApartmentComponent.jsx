@@ -52,12 +52,12 @@ function EditApartmentComponent() {
 
   return (
     <div className="">
-      <h3 className="text-purple-500 font-bold pt-6 text-2xl">
+      <h3 className="text-purple-500 font-bold pt-2 px-5 text-2xl">
         Update lägenhet
       </h3>
 
-      <div className="flex flex-col pt-6 pr-20">
-        <form onSubmit={handleSubmit}>
+      <div className="flex flex-col p-5 ">
+        <form onSubmit={handleSubmit} className=" mb-10">
           <div className="">
             <label
               htmlFor="apartmentLocation"

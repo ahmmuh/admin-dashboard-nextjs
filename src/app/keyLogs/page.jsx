@@ -7,6 +7,8 @@ function KeyLogPage() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isClicked, setIsClicked] = useState(false);
+  const [visibleLogs, setVisibleLogs] = useState(15);
 
   async function fetchLogs() {
     try {
@@ -18,7 +20,6 @@ function KeyLogPage() {
       console.error("Error vid hämtning av KEY LOGS");
       setLoading(false);
       setError(error);
-      fetchLogs();
     }
   }
 
@@ -42,7 +43,63 @@ function KeyLogPage() {
     );
   }
 
-  return <div>Key Log Page</div>;
+  return (
+    <div className="pb-20">
+      <table className="border border-gray-200 w-full">
+        <thead>
+          <tr>
+            <th className="border border-gray-200 text-left">
+              Nyckelbeteckning
+            </th>
+            <th className="border border-gray-200 text-left">Tillhör</th>
+            <th className="border border-gray-200 text-left">Lånetagare</th>
+            <th className="border border-gray-200 text-left">Utlånat datum</th>
+            <th className="border border-gray-200 text-left">Inlämnat datum</th>
+            <th className="border border-gray-200 text-left">Status</th>
+          </tr>
+        </thead>
+
+        <tbody className="">
+          {logs &&
+            logs.slice(0, visibleLogs).map((log) => (
+              <tr key={log._id} className="hover:bg-gray-200 pl-2 pt-3 pb-20">
+                <td className="text-black border border-gray-200 border-b-2 p-1">
+                  {log.key ? log.key.keyLabel : "Nyckel saknas"}
+                </td>
+                <td className="text-black border border-gray-200 border-b-2 p-1">
+                  {log.key ? log.key.location : "Ingen plats"}
+                </td>
+                <td className="text-black border border-gray-200 border-b-2 p-1">
+                  {log.key?.borrowedBy
+                    ? log.key.borrowedBy.name
+                    : "Ej lånetagare"}
+                </td>
+                <td className="text-black border border-gray-200 border-b-2 p-1">
+                  {log.key?.borrowedAt
+                    ? new Date(log.key.borrowedAt).toLocaleDateString()
+                    : "-"}
+                </td>
+                <td className="text-black border border-gray-200 border-b-2 p-1">
+                  {log.key?.returnedAt
+                    ? new Date(log.key.returnedAt).toLocaleDateString()
+                    : "-"}
+                </td>
+                <td className="text-black border border-gray-200 border-b-2 p-1">
+                  {log.key?.status === "returned" ? "Inlämnad" : "Utlånad"}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+      {visibleLogs < logs.length && (
+        <button
+          className="bg-red-100 p-2 my-4"
+          onClick={() => setVisibleLogs(visibleLogs + 10)}>
+          Visa fler
+        </button>
+      )}
+    </div>
+  );
 }
 
 export default KeyLogPage;

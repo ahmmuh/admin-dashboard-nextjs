@@ -91,7 +91,7 @@ function KeyPage() {
         Nyckel hantering
       </h1>
       <div className="pr-10">
-        <table className="border-collapse border border-gray-400 w-full ">
+        <table className=" border border-gray-400 w-full ">
           <thead>
             <tr className="">
               <th className="border border-gray-200 text-left">
