@@ -144,6 +144,11 @@ function EditKey() {
               className="bg-green-400  text-white text-center px-4 py-2 w-64 ml-4 hover:bg-green-500">
               Update
             </button>
+            {/* <button
+              onClick={changeKeyHandler}
+              className="bg-blue-300  text-white text-center px-4 py-2 w-64 ml-4 hover:bg-green-500">
+              Låna
+            </button> */}
           </div>
         </form>
       </div>

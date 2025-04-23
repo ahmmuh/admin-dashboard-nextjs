@@ -11,19 +11,21 @@ function KeyPage() {
   const [error, setError] = useState(null);
   const [keys, setKeys] = useState([]);
   const router = useRouter();
-  const checkOutHandler = async (key) => {
-    const userId = key.borrowedBy ? key.borrowedBy : key.lastBorrowedBy;
-    const userType = key.borrowedByModel || key.lastBorrowedByModel;
-    const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
-    console.log("userType by checkOutHandler()", fixedUserType);
-    try {
-      await checkoutKey(fixedUserType, userId, key._id);
-      toast.success("Nyckeln har lånats ut");
-      await fetchKeys();
-    } catch (error) {
-      console.error("Error");
-    }
-  };
+
+  // låne och återlämna actions
+  // const checkOutHandler = async (key) => {
+  //   const userId = key.borrowedBy ? key.borrowedBy : key.lastBorrowedBy;
+  //   const userType = key.borrowedByModel || key.lastBorrowedByModel;
+  //   const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
+  //   console.log("userType by checkOutHandler()", fixedUserType);
+  //   try {
+  //     await checkoutKey(fixedUserType, userId, key._id);
+  //     toast.success("Nyckeln har lånats ut");
+  //     await fetchKeys();
+  //   } catch (error) {
+  //     console.error("Error");
+  //   }
+  // };
 
   const checkInHandler = async (key) => {
     const userId = key.borrowedBy ? key.borrowedBy : key.lastBorrowedBy;
@@ -145,16 +147,15 @@ function KeyPage() {
                 </td>
                 {key.status === "returned" && (
                   <td className="text-green-500 font-bold p-2">
-                    <button onClick={() => checkOutHandler(key)}>
-                      Låna ut
-                    </button>
+                    {/* <button onClick={() => checkOutHandler(key)}>Link </button>
+                     */}
+                    <Link href={`/keys/${key._id}/borrow`}>Låna</Link>
                   </td>
                 )}
                 {key.status === "available" && (
                   <td className="text-green-500 font-bold p-2">
-                    <button onClick={() => checkOutHandler(key)}>
-                      Låna ut
-                    </button>
+                    {/* <button onClick={() => checkOutHandler(key)}>Link</button> */}
+                    <Link href={`/keys/${key._id}/borrow`}>Låna</Link>
                   </td>
                 )}
                 {key.status === "checked-out" && (

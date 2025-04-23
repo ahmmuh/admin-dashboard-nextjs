@@ -7,7 +7,6 @@ function KeyLogPage() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isClicked, setIsClicked] = useState(false);
   const [visibleLogs, setVisibleLogs] = useState(15);
 
   async function fetchLogs() {
