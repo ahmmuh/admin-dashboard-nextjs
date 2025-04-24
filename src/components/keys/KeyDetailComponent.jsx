@@ -1,42 +1,68 @@
 "use client";
-import { getAllKeys } from "@/backend/keyAPI";
+import { checkoutKey, getAllKeys } from "@/backend/keyAPI";
 import React, { useState } from "react";
 import { useFetchKeys } from "@/customhook/useFetchKeys";
+import { useFetchUsers } from "@/customhook/useFetchUsers";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 const KeyDetailComponent = () => {
+  //Custom hooks
+  const { users } = useFetchUsers();
   const { keys, loading, error } = useFetchKeys();
   const [selectedKeyId, setSelectedKeyId] = useState(null);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [selectedUserType, setSelectedUserType] = useState("");
+
+  //userRouter() to navigate
+  const router = useRouter();
 
   const handleSelectChange = (e) => {
     setSelectedKeyId(e.target.value);
   };
 
   const selectedKey = keys.find((key) => key._id === selectedKeyId);
+  const selectedUser = users.find((user) => user._id === selectedUserId);
+
+  const handleBorrowChange = (e) => {
+    setSelectedUserId(e.target.value);
+    console.log("New BORROW", selectedUserId);
+  };
 
   console.log("Valda nyckel ", selectedKey);
+  console.log("selectedUser ID ", selectedUser);
 
   //låna nyckel
 
   const checkOutHandler = async (key) => {
-    const userId = key.borrowedBy ? key.borrowedBy : key.lastBorrowedBy;
+    // console.log("KEY", key);
+    const userId = selectedUserId;
+    console.log("User UD", userId);
     const userType = key.borrowedByModel || key.lastBorrowedByModel;
     const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
-    console.log("userType by checkOutHandler()", fixedUserType);
+    console.log(
+      "userType by checkOutHandler()",
+      fixedUserType,
+      userId,
+      key._id
+    );
     try {
       //   await checkoutKey(fixedUserType, userId, key._id);
-      toast.success("Nyckeln har lånats ut");
+      //   toast.success("Nyckeln har lånats ut");
+      //   router.push("/keys");
     } catch (error) {
-      console.error("Error");
+      console.error("Error", error);
     }
   };
 
-  console.log("selectedKey", selectedKey);
+  //   console.log("selectedKey", selectedKey);
   if (loading) return <p>Laddar nycklar...</p>;
   if (error) return <p>{error.message}</p>;
   return (
     <div className="p-5">
+      <Toaster />
       <h4 className="text-purple-500 text-2xl mb-4">Låna nyckel</h4>
-      <form className="w-1/2 mb-6 ">
+      <form className=" mb-6 flex justify-between ">
         <select
           name="selectedKey"
           onChange={handleSelectChange}
@@ -49,6 +75,25 @@ const KeyDetailComponent = () => {
               </option>
             ))}
         </select>
+        {selectedKey &&
+          (selectedKey.status === "returned" ||
+            selectedKey.status === "available") &&
+          users.length > 0 && (
+            <select
+              name="selectedUser"
+              onChange={handleBorrowChange}
+              className="w-full bg-gray-200 px-5 py-2 text-black">
+              <option disabled value="">
+                Välj lånetagare
+              </option>
+              {users &&
+                users.map((user) => (
+                  <option key={user._id} value={user._id}>
+                    {user.name}
+                  </option>
+                ))}
+            </select>
+          )}
       </form>
       {selectedKey && (
         <div className=" p-3">
@@ -84,12 +129,12 @@ const KeyDetailComponent = () => {
                 </td>
                 <td className="border border-gray-200 p-2">
                   {selectedKey.status === "checked-out" &&
-                  selectedKey.borrowedAt
-                    ? new Date(selectedKey.borrowedAt).toLocaleString("sv-SE")
-                    : "—"}
-                  {selectedKey.status === "returned" && selectedKey.returnedAt
-                    ? new Date(selectedKey.returnedAt).toLocaleString("sv-SE")
-                    : "—"}
+                    selectedKey.borrowedAt &&
+                    new Date(selectedKey.borrowedAt).toLocaleString("sv-SE")}
+
+                  {selectedKey.status === "returned" &&
+                    selectedKey.returnedAt &&
+                    new Date(selectedKey.returnedAt).toLocaleString("sv-SE")}
                 </td>
                 <td
                   className={
@@ -100,15 +145,14 @@ const KeyDetailComponent = () => {
                   {selectedKey.status === "returned" && (
                     <button
                       className="border-gray-200 p-2  text-white"
-                      onClick={checkOutHandler}>
+                      onClick={() => checkOutHandler(selectedKey)}>
                       Låna
                     </button>
                   )}
                   {selectedKey.status === "checked-out" && (
                     <button
                       className="border-gray-200 p-2 text-red-500 w-1/2"
-                      disabled
-                      onClick={() => checkOutHandler(selectedKey)}>
+                      disabled>
                       X
                     </button>
                   )}

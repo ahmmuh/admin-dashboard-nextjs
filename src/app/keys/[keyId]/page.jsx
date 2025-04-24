@@ -1,5 +1,5 @@
 "use client";
-import { deleteKey, getAllKeys, getKeyByID, updateKey } from "@/backend/keyAPI";
+import { deleteKey, getKeyByID, updateKey } from "@/backend/keyAPI";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
