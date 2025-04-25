@@ -7,25 +7,25 @@ export function useFetchKeys() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchKeys = async () => {
-      try {
-        const keyList = await getAllKeys();
-        if (keyList.length === 0) {
-          console.log("Nycklar finns inte");
-        }
-        console.log("Alla hämtade nycklar", keyList);
-        setKeys(keyList);
-      } catch (err) {
-        console.error("Fel vid hämtning av nycklar:", err.message);
-        setError(err);
-      } finally {
-        setLoading(false);
+  const fetchKeys = async () => {
+    try {
+      const keyList = await getAllKeys();
+      if (keyList.length === 0) {
+        console.log("Nycklar finns inte");
       }
-    };
+      console.log("Alla hämtade nycklar", keyList);
+      setKeys(keyList);
+    } catch (err) {
+      console.error("Fel vid hämtning av nycklar:", err.message);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchKeys();
   }, []);
 
-  return { keys, loading, error };
+  return { keys, fetchKeys, loading, error };
 }

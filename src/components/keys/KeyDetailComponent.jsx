@@ -9,10 +9,10 @@ import toast, { Toaster } from "react-hot-toast";
 const KeyDetailComponent = () => {
   //Custom hooks
   const { users } = useFetchUsers();
-  const { keys, loading, error } = useFetchKeys();
+  const { keys, fetchKeys, loading, error } = useFetchKeys();
   const [selectedKeyId, setSelectedKeyId] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null);
-  const [selectedUserType, setSelectedUserType] = useState("");
+  //   const [selectedUserType, setSelectedUserType] = useState("");
 
   //userRouter() to navigate
   const router = useRouter();
@@ -38,18 +38,14 @@ const KeyDetailComponent = () => {
     // console.log("KEY", key);
     const userId = selectedUserId;
     console.log("User UD", userId);
-    const userType = key.borrowedByModel || key.lastBorrowedByModel;
-    const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
-    console.log(
-      "userType by checkOutHandler()",
-      fixedUserType,
-      userId,
-      key._id
-    );
+    const userType = selectedUser.userType;
+    key.lastBorrowedByModel = userType;
+    console.log("userType by checkOutHandler()", userType, userId, key._id);
     try {
-      //   await checkoutKey(fixedUserType, userId, key._id);
-      //   toast.success("Nyckeln har lånats ut");
-      //   router.push("/keys");
+      await checkoutKey(userType, userId, key._id);
+      //   await fetchKeys();
+      toast.success("Nyckeln har lånats ut");
+      router.push("/keys");
     } catch (error) {
       console.error("Error", error);
     }

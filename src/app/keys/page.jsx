@@ -132,7 +132,8 @@ function KeyPage() {
                   </span>
                 </td>
                 <td className="border border-gray-200 p-2">
-                  {key.status === "checked-out" ? key.borrowedBy.name : "—"}
+                  {/* {key.status === "checked-out" ? key.borrowedBy.name : "—"} */}
+                  lånetagare
                 </td>
 
                 <td className="border border-gray-200 p-2">
