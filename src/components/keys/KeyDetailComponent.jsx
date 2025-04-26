@@ -4,8 +4,9 @@ import { checkoutKey, checkinKey } from "@/backend/keyAPI";
 import { useFetchKeys } from "@/customhook/useFetchKeys";
 import { useFetchUsers } from "@/customhook/useFetchUsers";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import KeyTable from "../keyTable";
 
 const KeyDetailComponent = () => {
   const { users } = useFetchUsers();
@@ -36,7 +37,7 @@ const KeyDetailComponent = () => {
 
     try {
       key.lastBorrowedByModel = selectedUser.userType;
-      await checkoutKey(selectedUser.userType, selectedUserId, key._id);
+      await checkoutKey(selectedUserId, key._id);
       toast.success("Nyckeln har lånats ut!");
       router.push("/keys");
     } catch (error) {
@@ -47,19 +48,25 @@ const KeyDetailComponent = () => {
 
   const checkInHandler = async (key) => {
     const userId = key.lastBorrowedBy;
-    const userType = key.borrowedByModel || key.lastBorrowedByModel;
 
-    if (!userId || !userType) {
+    console.log("checkInHandler - key:", key);
+    console.log("userId:", userId);
+
+    if (!userId) {
       toast.error("Ingen lånetagare kopplad till denna nyckel.");
       return;
     }
 
-    const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
+    console.log(
+      "Selected KEY ID och SelectedUSER ID",
+      selectedKeyId,
+      selectedUser
+    );
 
     try {
-      await checkinKey(fixedUserType, userId, key._id);
-      await fetchKeys();
-      toast.success("Nyckeln har återlämnats!");
+      //   await checkinKey(userId, key._id);
+      //   await fetchKeys();
+      //   toast.success("Nyckeln har återlämnats!");
     } catch (error) {
       console.error("Error", error);
       toast.error("Kunde inte lämna tillbaka nyckeln.");
@@ -72,7 +79,10 @@ const KeyDetailComponent = () => {
   const availableKeys = keys.filter(
     (key) => key.status === "available" || key.status === "returned"
   );
-
+  useEffect(() => {
+    console.log("Lediga nycklar", availableKeys);
+    console.log("Utlånade nycklar", keysWithBorrowedStatus);
+  }, [selectedKeyId, selectedUser]);
   const showAvailableKeys = () => {
     setSelectedKeyId(null);
     setSelectedUserId(null);
@@ -146,7 +156,8 @@ const KeyDetailComponent = () => {
               keyData={selectedKey}
               onClick={() => checkOutHandler(selectedKey)}
               actionLabel="Låna"
-              btnColor="bg-green-400"
+              btnColor="text-white-500"
+              bgColor="bg-green-500"
             />
           )}
         </>
@@ -167,6 +178,21 @@ const KeyDetailComponent = () => {
                 </option>
               ))}
             </select>
+            {selectedKey && selectedKey.status === "checked-out" && (
+              <select
+                onChange={handleBorrowChange}
+                value={selectedUserId || ""}
+                className="w-full bg-gray-200 px-5 py-2 text-black">
+                <option disabled value="">
+                  Välj lånetagare
+                </option>
+                {users.map((user) => (
+                  <option key={user._id} value={user._id}>
+                    {user.name}
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
 
           {selectedKey && (
@@ -174,58 +200,12 @@ const KeyDetailComponent = () => {
               keyData={selectedKey}
               onClick={() => checkInHandler(selectedKey)}
               actionLabel="Lämna in"
-              actionColor="bg-red-400"
+              actionColor="text-white-700"
+              bgColor="bg-red-400"
             />
           )}
         </>
       )}
-    </div>
-  );
-};
-
-const KeyTable = ({ keyData, onClick, actionLabel, btnColor }) => {
-  return (
-    <div className="p-3">
-      <table className="border border-gray-400 w-full">
-        <thead className="bg-gray-400">
-          <tr>
-            <th className="border border-gray-200 text-left p-2">
-              Nyckelbeteckning
-            </th>
-            <th className="border border-gray-200 text-left p-2">Plats</th>
-            <th className="border border-gray-200 text-left p-2">Status</th>
-            <th className="border border-gray-200 text-left p-2">Datum</th>
-            <th className="border border-gray-200 text-left p-2">Åtgärd</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="hover:bg-gray-100">
-            <td className="border border-gray-200 p-2">{keyData.keyLabel}</td>
-            <td className="border border-gray-200 p-2">{keyData.location}</td>
-            <td className="border border-gray-200 p-2">
-              {keyData.status === "checked-out" ? (
-                <span className="text-red-500 font-bold">Utlånad</span>
-              ) : (
-                <span className="text-green-600 font-bold">Inne</span>
-              )}
-            </td>
-            <td className="border border-gray-200 p-2">
-              {keyData.borrowedAt
-                ? new Date(keyData.borrowedAt).toLocaleString("sv-SE")
-                : keyData.returnedAt
-                ? new Date(keyData.returnedAt).toLocaleString("sv-SE")
-                : "Ingen data"}
-            </td>
-            <td className="border border-gray-200 p-2">
-              <button
-                onClick={onClick}
-                className={`w-full py-2 px-4 text-white rounded ${btnColor}`}>
-                {actionLabel}
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   );
 };

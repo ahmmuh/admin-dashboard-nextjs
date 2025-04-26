@@ -82,15 +82,12 @@ export const deleteKey = async (keyId) => {
 
 export const checkoutKey = async (userType, userId, keyId) => {
   try {
-    const res = await fetch(
-      `${BASE_URL}/${userType}/${userId}/keys/${keyId}/checkout`,
-      {
-        method: "PATCH", // POST eller PUT beroende på din backend
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/checkout/keys/${keyId}/${userId}`, {
+      method: "PATCH", // POST eller PUT beroende på din backend
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!res.ok) {
       console.error(`Fel vid låning av nyckel. Status: ${res.status}`);
@@ -107,17 +104,14 @@ export const checkoutKey = async (userType, userId, keyId) => {
 
 //Lämna nyckel tillbaka
 
-export const checkinKey = async (userType, userId, keyId) => {
+export const checkinKey = async (userId, keyId) => {
   try {
-    const res = await fetch(
-      `${BASE_URL}/${userType}/${userId}/keys/${keyId}/checkin`,
-      {
-        method: "PATCH", // eller PATCH beroende på hur din backend funkar
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/checkin/keys/${keyId}/${userId}`, {
+      method: "PATCH", // eller PATCH beroende på hur din backend funkar
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!res.ok) {
       console.error(
