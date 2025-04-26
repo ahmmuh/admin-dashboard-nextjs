@@ -120,7 +120,9 @@ export const checkinKey = async (userType, userId, keyId) => {
     );
 
     if (!res.ok) {
-      console.error(`Fel vid återlämning av nyckel. Status: ${res.status}`);
+      console.error(
+        `Fel vid återlämning av nyckel. Status: ${res.status}, meddelande: ${res.statusText}`
+      );
       return null;
     }
 

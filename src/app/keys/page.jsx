@@ -28,19 +28,20 @@ function KeyPage() {
   // };
 
   const checkInHandler = async (key) => {
-    const userId = key.borrowedBy ? key.borrowedBy : key.lastBorrowedBy;
+    const userId = key.lastBorrowedBy;
+    console.log("USER ID I FRONTEND checkInHandler() function", userId);
 
-    if (!userId) {
-      console.error("Ingen användare kopplad till denna nyckel");
-      return null;
-    }
+    // if (!userId) {
+    //   console.error("Ingen användare kopplad till denna nyckel");
+    //   return null;
+    // }
     const userType = key.borrowedByModel || key.lastBorrowedByModel;
     const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
     console.log("userType by checkInHandler()", fixedUserType);
     console.log("User ID:", userId);
     console.log("Nyckel ID", key._id);
     try {
-      await checkinKey(fixedUserType, userId._id, key._id);
+      await checkinKey(fixedUserType, userId, key._id);
       await fetchKeys();
       toast.success("Nyckeln har återlämnats");
     } catch (error) {
@@ -132,8 +133,7 @@ function KeyPage() {
                   </span>
                 </td>
                 <td className="border border-gray-200 p-2">
-                  {/* {key.status === "checked-out" ? key.borrowedBy.name : "—"} */}
-                  lånetagare
+                  {key.status === "checked-out" ? key.borrowedBy : "—"}
                 </td>
 
                 <td className="border border-gray-200 p-2">
@@ -146,24 +146,21 @@ function KeyPage() {
                     ? new Date(key.returnedAt).toLocaleString("sv-SE")
                     : "—"}
                 </td>
-                {key.status === "returned" && (
-                  <td className="text-green-500 font-bold p-2">
-                    {/* <button onClick={() => checkOutHandler(key)}>Link </button>
-                     */}
-                    <Link href={`/keys/${key._id}/borrow`}>Låna</Link>
-                  </td>
-                )}
-                {key.status === "available" && (
-                  <td className="text-green-500 font-bold p-2">
-                    {/* <button onClick={() => checkOutHandler(key)}>Link</button> */}
-                    <Link href={`/keys/${key._id}/borrow`}>Låna</Link>
-                  </td>
-                )}
+                {key.status === "returned" ||
+                  (key.status === "available" && (
+                    <td className="text-green-500 font-bold p-2">
+                      {/* <button onClick={() => checkOutHandler(key)}>Link </button>
+                       */}
+                      <Link href={`/keys/${key._id}/borrow`}>Låna</Link>
+                    </td>
+                  ))}
+
                 {key.status === "checked-out" && (
                   <td className="text-red-500 p-2">
-                    <button onClick={() => checkInHandler(key)}>
+                    {/* <button onClick={() => checkInHandler(key)}>
                       Lämna in
-                    </button>
+                    </button> */}
+                    <Link href={`/keys/${key._id}/borrow`}>Lämna in</Link>
                   </td>
                 )}
               </tr>
