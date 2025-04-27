@@ -46,9 +46,11 @@ const KeyDetailComponent = () => {
     }
   };
 
+  //Återlämna nyckel
+
   const checkInHandler = async (key) => {
-    const userId = key.lastBorrowedBy;
-    console.log("lastBorrowedBy", key.lastBorrowedBy);
+    const userId = selectedUserId;
+    console.log("borrowedBy", userId);
     console.log("checkInHandler - key:", key);
     console.log("userId:", userId);
 
