@@ -144,23 +144,23 @@ function KeyPage() {
                     ? new Date(key.returnedAt).toLocaleString("sv-SE")
                     : "—"}
                 </td>
-                {key.status === "returned" ||
-                  (key.status === "available" && (
-                    <td className="text-green-500 font-bold p-2">
-                      {/* <button onClick={() => checkOutHandler(key)}>Link </button>
-                       */}
+                <td className=" font-bold p-2">
+                  <span className="text-green-500">
+                    {key.status === "returned" && (
                       <Link href={`/keys/${key._id}/borrow`}>Låna</Link>
-                    </td>
-                  ))}
-
-                {key.status === "checked-out" && (
-                  <td className="text-red-500 p-2">
-                    {/* <button onClick={() => checkInHandler(key)}>
-                      Lämna in
-                    </button> */}
-                    <Link href={`/keys/${key._id}/borrow`}>Lämna in</Link>
-                  </td>
-                )}
+                    )}
+                  </span>
+                  <span className="text-green-500">
+                    {key.status === "available" && (
+                      <Link href={`/keys/${key._id}/borrow`}>Låna</Link>
+                    )}
+                  </span>
+                  <span className="text-red-500">
+                    {key.status === "checked-out" && (
+                      <Link href={`/keys/${key._id}/borrow`}>Lämna in</Link>
+                    )}
+                  </span>
+                </td>
               </tr>
             ))}
           </tbody>

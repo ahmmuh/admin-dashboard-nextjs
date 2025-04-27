@@ -43,6 +43,7 @@ const KeyDetailComponent = () => {
     } catch (error) {
       console.error("Error", error);
       toast.error("Kunde inte låna ut nyckeln.");
+      return;
     }
   };
 
@@ -54,8 +55,12 @@ const KeyDetailComponent = () => {
     console.log("checkInHandler - key:", key);
     console.log("userId:", userId);
 
-    if (!userId) {
-      toast.error("Ingen lånetagare kopplad till denna nyckel.");
+    if (!selectedUserId || !selectedUser) {
+      toast.error("Välj en lånetagare.");
+      return;
+    }
+    if (key.borrowedBy?._id !== selectedUserId) {
+      toast.error("Fel lånetagare vald för denna nyckel.");
       return;
     }
 
@@ -70,9 +75,11 @@ const KeyDetailComponent = () => {
       let userType = selectedUser.userType;
       await checkinKey(userType, userId, key._id);
       toast.success("Nyckeln har återlämnats!");
+      router.push("/keys");
     } catch (error) {
       console.error("Error", error);
       toast.error("Kunde inte lämna tillbaka nyckeln.");
+      return;
     }
   };
 
