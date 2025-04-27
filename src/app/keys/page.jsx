@@ -31,17 +31,13 @@ function KeyPage() {
     const userId = key.lastBorrowedBy;
     console.log("USER ID I FRONTEND checkInHandler() function", userId);
 
-    // if (!userId) {
-    //   console.error("Ingen användare kopplad till denna nyckel");
-    //   return null;
-    // }
     const userType = key.borrowedByModel || key.lastBorrowedByModel;
     const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
     console.log("userType by checkInHandler()", fixedUserType);
     console.log("User ID:", userId);
     console.log("Nyckel ID", key._id);
     try {
-      await checkinKey(fixedUserType, userId, key._id);
+      await checkinKey(userId, key._id);
       await fetchKeys();
       toast.success("Nyckeln har återlämnats");
     } catch (error) {
@@ -133,7 +129,9 @@ function KeyPage() {
                   </span>
                 </td>
                 <td className="border border-gray-200 p-2">
-                  {key.status === "checked-out" ? key.borrowedBy : "—"}
+                  {key.status === "checked-out"
+                    ? key.lastBorrowedBy?.name
+                    : "—"}
                 </td>
 
                 <td className="border border-gray-200 p-2">

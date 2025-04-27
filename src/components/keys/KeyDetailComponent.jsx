@@ -36,8 +36,8 @@ const KeyDetailComponent = () => {
     }
 
     try {
-      key.lastBorrowedByModel = selectedUser.userType;
-      await checkoutKey(selectedUserId, key._id);
+      let userType = selectedUser.userType;
+      await checkoutKey(userType, selectedUserId, key._id);
       toast.success("Nyckeln har lånats ut!");
       router.push("/keys");
     } catch (error) {
@@ -48,7 +48,7 @@ const KeyDetailComponent = () => {
 
   const checkInHandler = async (key) => {
     const userId = key.lastBorrowedBy;
-
+    console.log("lastBorrowedBy", key.lastBorrowedBy);
     console.log("checkInHandler - key:", key);
     console.log("userId:", userId);
 
@@ -64,9 +64,10 @@ const KeyDetailComponent = () => {
     );
 
     try {
-      //   await checkinKey(userId, key._id);
-      //   await fetchKeys();
-      //   toast.success("Nyckeln har återlämnats!");
+      console.log("nyckel som ska lämnas in: ", userId, key._id);
+      let userType = selectedUser.userType;
+      await checkinKey(userType, userId, key._id);
+      toast.success("Nyckeln har återlämnats!");
     } catch (error) {
       console.error("Error", error);
       toast.error("Kunde inte lämna tillbaka nyckeln.");
