@@ -2,6 +2,7 @@
 import { createApartment } from "@/backend/apartmentAPI";
 import React, { useState } from "react";
 import DatePickerComponent from "../datePicker";
+import toast, { Toaster } from "react-hot-toast";
 
 function CreateApartmentComponent() {
   const priorityList = ["Normal", "Låg", "Hög"];
@@ -35,6 +36,7 @@ function CreateApartmentComponent() {
     };
     console.log("NEW APARTMENT ", newApartment);
     await createApartment(newApartment);
+    toast.success("Ny lägenhet har publicerats");
     setApartment({
       apartmentLocation: "",
       keyLocation: "",
@@ -45,6 +47,7 @@ function CreateApartmentComponent() {
 
   return (
     <div className="">
+      <Toaster />
       <h3 className="text-purple-500 font-bold pt-6 text-2xl">
         Lägg till ny lägenhet
       </h3>

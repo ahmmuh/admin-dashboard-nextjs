@@ -86,9 +86,16 @@ function KeyPage() {
   return (
     <div>
       <Toaster />
-      <h1 className="text-2xl font-bold mb-10 text-purple-500 italic">
-        Nyckel hantering
-      </h1>
+      <div className="flex p-2 mb-5 border-b border-b-orange-300">
+        <h1 className="text-2xl font-bold text-purple-500 italic">
+          Nyckel hantering
+        </h1>
+        <Link
+          href={"/keys/create"}
+          className="text-blue-600 font-bold  mt-2 ml-10 w-1/2 text-center py-1">
+          Ny nyckel
+        </Link>
+      </div>
       <div className="pr-10">
         <table className=" border border-gray-400 w-full ">
           <thead>
@@ -112,6 +119,8 @@ function KeyPage() {
             {keys.map((key) => (
               <tr key={key._id} className="hover:bg-gray-300">
                 <td className="border border-gray-200 p-2">
+                  {" "}
+                  🔑
                   <Link href={`/keys/${key._id}/`}>{key.keyLabel}</Link>
                 </td>
                 <td className="border border-gray-200 p-2">{key.location}</td>
@@ -129,9 +138,7 @@ function KeyPage() {
                   </span>
                 </td>
                 <td className="border border-gray-200 p-2">
-                  {key.status === "checked-out"
-                    ? key.lastBorrowedBy?.name
-                    : "—"}
+                  {key.status === "checked-out" ? key.borrowedBy.name : "—"}
                 </td>
 
                 <td className="border border-gray-200 p-2">

@@ -1,5 +1,28 @@
 import { BASE_URL } from "./base_url";
 
+export const createNewKey = async (newKey) => {
+  try {
+    const res = await fetch(`${BASE_URL}/keys/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newKey),
+    });
+    if (!res.ok) {
+      console.log(
+        `Server error when creating a new key data, status: ${res.status}`
+      );
+      return null;
+    }
+    console.log("NEw created key", newKey);
+    return newKey;
+  } catch (error) {
+    console.error("Error when creating a new key", error.message);
+    return null;
+  }
+};
+
 export const getAllKeys = async () => {
   try {
     const res = await fetch(`${BASE_URL}/keys`);

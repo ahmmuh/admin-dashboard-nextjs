@@ -63,6 +63,7 @@ function KeyLogPage() {
             logs.slice(0, visibleLogs).map((log) => (
               <tr key={log._id} className="hover:bg-gray-200 pl-2 pt-3 pb-20">
                 <td className="text-black border border-gray-200 border-b-2 p-1">
+                  <span className="pr-2">🔑</span>
                   {log.key ? log.key.keyLabel : "Nyckel saknas"}
                 </td>
                 <td className="text-black border border-gray-200 border-b-2 p-1">

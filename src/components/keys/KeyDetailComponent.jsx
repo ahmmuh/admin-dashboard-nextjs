@@ -51,15 +51,18 @@ const KeyDetailComponent = () => {
 
   const checkInHandler = async (key) => {
     const userId = selectedUserId;
-    console.log("borrowedBy", userId);
-    console.log("checkInHandler - key:", key);
-    console.log("userId:", userId);
+    // console.log("borrowedBy", userId);
+    // console.log("checkInHandler - key:", key);
+    // console.log("userId:", userId);
 
     if (!selectedUserId || !selectedUser) {
       toast.error("Välj en lånetagare.");
       return;
     }
-    if (key.borrowedBy?._id !== selectedUserId) {
+    if (
+      key.borrowedBy !== selectedUserId &&
+      key.borrowedBy?._id !== selectedUserId
+    ) {
       toast.error("Fel lånetagare vald för denna nyckel.");
       return;
     }
@@ -73,6 +76,7 @@ const KeyDetailComponent = () => {
     try {
       console.log("nyckel som ska lämnas in: ", userId, key._id);
       let userType = selectedUser.userType;
+      console.log("Lämna in", userType, userId, key._id);
       await checkinKey(userType, userId, key._id);
       toast.success("Nyckeln har återlämnats!");
       router.push("/keys");

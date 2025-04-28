@@ -3,6 +3,7 @@ import { getApartmentByID, updateApartment } from "@/backend/apartmentAPI";
 import React, { useEffect, useState } from "react";
 import DatePickerComponent from "../datePicker";
 import { useParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 function EditApartmentComponent() {
   const priorityList = ["Normal", "Låg", "Hög"];
@@ -15,6 +16,7 @@ function EditApartmentComponent() {
   const fetchApartmentById = async () => {
     try {
       const apartmentData = await getApartmentByID(apartmentId);
+      toast.success("Lägenheten har uppdaterats");
       console.log("Hämtad APARTMENT", apartmentData);
       setApartment(apartmentData);
     } catch (error) {

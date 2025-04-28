@@ -68,21 +68,21 @@ function ApartmentList({ apartments: initialApartments }) {
                   {new Date(apartment.endDate).toLocaleString()}
                 </li>
                 {apartment.status === "Ej påbörjat" && (
-                  <li className="mb-2 border-b-2 border-indigo-200 p-2 text-red-700 hover:bg-gray-200 ">
+                  <li className="mb-2 border-b-2 border-indigo-200 p-2 text-red-800 hover:bg-gray-200 ">
                     <span className="font-bold"> Status:</span>{" "}
                     {apartment.status}
                   </li>
                 )}
 
                 {apartment.status === "Påbörjat" && (
-                  <li className="mb-2 border-b-2 border-indigo-200 p-2 text-orange-400 hover:bg-gray-200 ">
+                  <li className="mb-2 border-b-2 border-indigo-200 p-2 text-orange-500 hover:bg-gray-200 ">
                     <span className="font-bold"> Status:</span>{" "}
                     {apartment.status}
                   </li>
                 )}
 
                 {apartment.status === "Färdigt" && (
-                  <li className="mb-2 border-b-2 border-indigo-200 p-2 text-green-600 hover:bg-gray-200 ">
+                  <li className="mb-2 border-b-2 border-indigo-200 p-2 text-green-700 hover:bg-gray-200 ">
                     <span className="font-bold "> Status:</span>{" "}
                     {apartment.status}
                   </li>
@@ -91,13 +91,13 @@ function ApartmentList({ apartments: initialApartments }) {
                   <Link
                     href={`/apartments/${apartment._id}/edit`}
                     className=" bg-green-200 p-3   hover:bg-green-300 rounded-xl w-full">
-                    Update
+                    Uppdatera
                   </Link>
                   <button
                     type="submit"
                     onClick={() => handleDelete(apartment._id)}
                     className=" bg-red-200 p-3   hover:bg-red-300  rounded-xl w-full ml-2">
-                    Delete
+                    Ta bort
                   </button>
                 </div>
               </ul>
