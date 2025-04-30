@@ -10,7 +10,7 @@ import KeyTable from "../keyTable";
 
 const KeyDetailComponent = () => {
   const { users } = useFetchUsers();
-  const { keys, fetchKeys, loading, error } = useFetchKeys();
+  const { keys, loading, error } = useFetchKeys();
   const [selectedKeyId, setSelectedKeyId] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [isShowForm, setShowForm] = useState(true);
