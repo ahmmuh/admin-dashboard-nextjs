@@ -45,7 +45,9 @@ export const getKeyByID = async (keyId) => {
   try {
     const res = await fetch(`${BASE_URL}/keys/${keyId}`);
     if (!res.ok) {
-      console.log(`Server error when fething KEY data, status: ${res.status}`);
+      console.log(
+        `Server error when fething KEY data, status: ${res.status}, statusInfo: ${res.statusText}`
+      );
       return null;
     }
     const data = await res.json();

@@ -118,10 +118,11 @@ function KeyPage() {
           <tbody>
             {keys.map((key) => (
               <tr key={key._id} className="hover:bg-gray-300">
-                <td className="border border-gray-200 p-2">
-                  {" "}
+                <td className="border border-gray-200 border-b-cyan-900 p-2 text-blue-400 font-bold">
                   🔑
-                  <Link href={`/keys/${key._id}/`}>{key.keyLabel}</Link>
+                  <Link href={`/keys/${key._id}/borrow`}>
+                    {key.keyLabel.toUpperCase()}
+                  </Link>
                 </td>
                 <td className="border border-gray-200 p-2">{key.location}</td>
                 <td className="border border-gray-200 p-2">
