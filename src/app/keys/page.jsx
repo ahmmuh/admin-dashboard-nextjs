@@ -120,7 +120,7 @@ function KeyPage() {
               <tr key={key._id} className="hover:bg-gray-300">
                 <td className="border border-gray-200 border-b-cyan-900 p-2 text-blue-400 font-bold">
                   🔑
-                  <Link href={`/keys/${key._id}/borrow`}>
+                  <Link href={`/keys/${key._id}`}>
                     {key.keyLabel.toUpperCase()}
                   </Link>
                 </td>

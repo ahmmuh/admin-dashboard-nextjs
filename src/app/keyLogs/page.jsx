@@ -13,7 +13,7 @@ function KeyLogPage() {
     try {
       const logData = await getKeyLogs();
       console.log("KEY LOG DATA", logData);
-      setLogs(logData);
+      setLogs(Array.isArray(logData) ? logData : []);
       setLoading(false);
     } catch (error) {
       console.error("Error vid hämtning av KEY LOGS");
@@ -41,9 +41,15 @@ function KeyLogPage() {
       </div>
     );
   }
-
+  if (Array.isArray(logs) && logs.length === 0) {
+    return (
+      <div className="flex justify-center items-center p-10">
+        <h4 className="text-2xl text-green-700">Inga loggar finns att visa</h4>
+      </div>
+    );
+  }
   return (
-    <div className="pb-20">
+    <div className="pb-20 pt-10">
       <table className="border border-gray-200 w-full">
         <thead>
           <tr>

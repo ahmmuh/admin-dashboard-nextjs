@@ -3,6 +3,7 @@ import { deleteApartment, getApartments } from "@/backend/apartmentAPI";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 function ApartmentList({ apartments: initialApartments }) {
   const [apartments, setApartments] = useState(initialApartments);
@@ -15,9 +16,10 @@ function ApartmentList({ apartments: initialApartments }) {
 
   const handleDelete = async (id) => {
     console.log("Deleted Apartment ID", id);
-    await deleteApartment(id);
+    const lgh = await deleteApartment(id);
     const updatedApartments = await getApartments();
     setApartments(updatedApartments);
+    toast.error(`lägenhet: ${lgh.name} har tagits bort`);
   };
   return (
     <div className=" p-6">
@@ -61,11 +63,11 @@ function ApartmentList({ apartments: initialApartments }) {
                 </li>
                 <li className="mb-2 border-b-2 border-indigo-200 p-2 hover:bg-gray-200 ">
                   <span className="font-bold"> Planerat Start Datum:</span>{" "}
-                  {new Date(apartment.startDate).toLocaleString()}
+                  {new Date(apartment.startDate).toLocaleDateString()}
                 </li>
                 <li className="mb-2 border-b-2 border-indigo-200 p-2 ">
                   <span className="font-bold"> Planerat Slut Datum:</span>{" "}
-                  {new Date(apartment.endDate).toLocaleString()}
+                  {new Date(apartment.endDate).toLocaleDateString()}
                 </li>
                 {apartment.status === "Ej påbörjat" && (
                   <li className="mb-2 border-b-2 border-indigo-200 p-2 text-red-800 hover:bg-gray-200 ">

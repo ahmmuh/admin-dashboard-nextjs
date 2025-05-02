@@ -26,12 +26,12 @@ function SpecialistActions({ unitId, specialist }) {
           <CustomLink
             className="bg-blue-400 text-white w-48 text-center p-2 rounded-xl shadow shadow-blue-500 hover:bg-blue-600 transition duration-200"
             url={`/units/${unitId}/specialister/edit/?specialistId=${specialist._id}&name=${specialist.name}&phone=${specialist.phone}&email=${specialist.email}`}
-            title={"Update specialist"}
+            title={"Uppdatera"}
           />
           <button
             onClick={() => deleteHandler(specialist._id)}
             className="bg-red-400 text-white text-center w-48 p-2 rounded-xl shadow shadow-red-300 hover:bg-red-600 transition duration-200">
-            Delete
+            Ta bort
           </button>
         </>
       )}

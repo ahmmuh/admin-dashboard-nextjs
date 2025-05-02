@@ -171,8 +171,7 @@ export const getKeyLogs = async () => {
     console.log("Key LOGS data from getKeyLogs ", data);
     return data;
   } catch (error) {
-    if (error instanceof Error)
-      console.error("Error fetching keys,", error.message);
+    if (error) console.error("Error fetching keys,", error.message);
     return null;
   }
 };

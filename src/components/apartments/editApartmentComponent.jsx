@@ -2,10 +2,11 @@
 import { getApartmentByID, updateApartment } from "@/backend/apartmentAPI";
 import React, { useEffect, useState } from "react";
 import DatePickerComponent from "../datePicker";
-import { useParams } from "next/navigation";
-import toast from "react-hot-toast";
+import { useParams, useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 function EditApartmentComponent() {
+  const router = useRouter();
   const priorityList = ["Normal", "Låg", "Hög"];
   const statusar = ["Ej påbörjat", "Påbörjat", "Färdigt"];
   const { apartmentId } = useParams();
@@ -50,10 +51,15 @@ function EditApartmentComponent() {
     };
     console.log("Updated APARTMENT ", updatedApartment);
     await updateApartment(apartmentId, updatedApartment);
+    toast.success(
+      `Lägenhet med address: ${updatedApartment.apartmentLocation} har uppdaterats`
+    );
+    router.push("/apartments");
   };
 
   return (
     <div className="">
+      <Toaster />
       <h3 className="text-purple-500 font-bold pt-2 px-5 text-2xl">
         Update lägenhet
       </h3>
