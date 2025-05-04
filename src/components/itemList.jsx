@@ -7,22 +7,22 @@ function ItemList({
   description,
   name,
   completed,
-  enhet,
   icon,
-  Uppdaterats,
+  task,
+  updatedAt,
   createdAt,
   children,
   ...props
 }) {
-  console.log("ENHET ID: ", enhet);
+  // console.log("ENHET ID: ", enhet);
 
   const [takerUnit, setTakerUnit] = useState({});
   const [loading, setLoading] = useState(false);
-
+  // console.log("Enhet i Itemlist ", enhet);
   useEffect(() => {
     async function findTakerUnit() {
       try {
-        const foundedUnit = await getUnitByID(enhet);
+        const foundedUnit = await getUnitByID(task.unit);
         if (!foundedUnit) return;
         console.log("Founed Unit", foundedUnit);
         setTakerUnit(foundedUnit);
@@ -31,7 +31,7 @@ function ItemList({
       }
     }
     findTakerUnit();
-  }, [enhet]);
+  }, [task.unit]);
 
   return (
     <>
@@ -57,7 +57,7 @@ function ItemList({
                   <>
                     <span>Uppdaterad av {takerUnit.name}</span> <br />
                     <span>
-                      Datum: {new Date(Uppdaterats).toLocaleString()}{" "}
+                      Datum: {new Date(updatedAt).toLocaleString()}{" "}
                     </span>{" "}
                     <br />
                     <span className="text-green-500 font-bold">
@@ -71,7 +71,7 @@ function ItemList({
                 <p className="text-gray-500 text-md">
                   <span>Uppdaterad av {takerUnit.name}</span> <br />
                   <span>
-                    Datum: {new Date(Uppdaterats).toLocaleString()}{" "}
+                    Datum: {new Date(updatedAt).toLocaleString()}{" "}
                   </span>{" "}
                   <br />
                   <span className="text-orange-500 text-md font-bold">

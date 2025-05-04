@@ -43,6 +43,20 @@ export const getUnitTasks = async (unitId) => {
   }
 };
 
+export const getAllTasks = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/tasks`);
+    if (!res.ok) {
+      console.log(`Server error when fething data, status: ${res.status}`);
+      return null;
+    }
+    const tasks = await res.json();
+    console.log("Hämtat tasks från servern ", tasks);
+    return tasks;
+  } catch (error) {
+    if (error instanceof Error) console.error("Server Error: ", error.message);
+  }
+};
 //Tilldela task med Barre
 export const assignTaskToUnit = async (unitId, taskId, assignedTask) => {
   try {
@@ -113,14 +127,11 @@ export const getTaskStatuses = async (unitId) => {
 
 // DELETE TASK
 
-export const deleteTask = async (unitId, taskId) => {
+export const deleteTask = async (taskId) => {
   try {
-    const response = await fetch(
-      `${BASE_URL}/units/${unitId}/tasks/${taskId}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await fetch(`${BASE_URL}/tasks/${taskId}`, {
+      method: "DELETE",
+    });
 
     if (!response.ok) {
       console.log(`Error deleting task: ${response.status}`);

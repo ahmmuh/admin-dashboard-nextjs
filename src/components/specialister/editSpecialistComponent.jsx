@@ -1,9 +1,12 @@
 "use client";
 import { updateSpecialist } from "@/backend/api";
+import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function EditSpecialistComponent({ unitId, specialist }) {
   console.log("Specialist i EditSpecialistComponent ", specialist);
+  const router = useRouter();
   const [specialistData, setSpecialistData] = useState({
     name: "",
     phone: "",
@@ -47,9 +50,15 @@ function EditSpecialistComponent({ unitId, specialist }) {
       console.log(
         `specialist med ${updatedSpecialist.specialistId} har uppdaterats`
       );
+      displaySuccessMessage("Specialist har uppdaterats");
+      router.push(`/units/${unitId}/specialister`);
     } catch (error) {
       console.error(`PROBLEM: Vid uppdatering specialist: ${error.message}`);
       setSpecialistData(null);
+      displayErrorMessage(
+        `PROBLEM: Vid uppdatering specialist: ${error.message}`
+      );
+      router.push(`/units/${unitId}/specialister`);
     }
   };
   return (

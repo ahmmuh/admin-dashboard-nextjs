@@ -1,8 +1,11 @@
 "use client";
 import { updateChef } from "@/backend/api";
+import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function EditChefComponent({ unitId, chef }) {
+  const router = useRouter();
   const [chefData, setChefData] = useState({
     name: "",
     phone: "",
@@ -37,8 +40,12 @@ function EditChefComponent({ unitId, chef }) {
     try {
       const updatedChef = await updateChef(unitId, chef.chefId, chefData);
       console.log(`Chef med ${updatedChef.chefId} har uppdaterats`);
+      displaySuccessMessage(`Chef har uppdaterats`);
+      router.push(`/units/${unitId}/chefer`);
     } catch (error) {
       console.error(`PROBLEM: Vid uppdatering chef: ${error.message}`);
+      displayErrorMessage(`PROBLEM: Vid uppdatering`);
+      router.push(`/${unitId}/chefer`);
     }
   };
   return (

@@ -1,10 +1,12 @@
 "use client";
 import { addChefToUnit, addSpecialistToUnit, getUnitByID } from "@/backend/api";
+import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function CreateSpecialistComponent({ unitId }) {
   console.log("Unit ID i frontend i (CreateSpecialistComponent):", unitId);
-
+  const router = useRouter();
   const [specialistData, setSpecialistData] = useState({
     name: "",
     phone: "",
@@ -35,8 +37,12 @@ function CreateSpecialistComponent({ unitId }) {
       console.log(
         `Ny specialist med följande data ${specialistData.name} har lagts i databasen`
       );
+      displaySuccessMessage(`Ny specialist har lagts i databasen`);
+      router.push(`/units/${unitId}/specialister`);
     } catch (error) {
       console.error(`Det gick inte att lägga till ny chef`);
+      displayErrorMessage(`Det gick inte att lägga till ny Specialist`);
+      router.push(`/units/${unitId}/specialister`);
     }
   };
 

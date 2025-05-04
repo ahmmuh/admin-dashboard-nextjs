@@ -1,9 +1,12 @@
 "use client";
 import { addChefToUnit, getUnitByID } from "@/backend/api";
+import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 function CreateChefComponent({ unitId }) {
+  const router = useRouter();
   console.log("Unit ID i frontend i (CreateChefComponent):", unitId);
 
   const [chefData, setChefData] = useState({
@@ -49,11 +52,17 @@ function CreateChefComponent({ unitId }) {
     try {
       console.log("unitId, chefData", unitId, chefData);
       const chef = await addChefToUnit(unitId, chefData);
+      displaySuccessMessage(
+        `Ny chef med följande data ${chefData.name} har lagts i databasen`
+      );
       console.log(
         `Ny chef med följande data ${chefData.name} har lagts i databasen`
       );
+      router.push("/chefer");
     } catch (error) {
       console.error(`Det gick inte att lägga till ny chef`);
+      displayErrorMessage("Det gick inte att lägga till ny chef");
+      router.push("/chefer");
     }
   };
 

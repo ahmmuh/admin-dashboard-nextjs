@@ -2,11 +2,14 @@
 import { getPlaces } from "@/backend/googlePlaceApi";
 import { addNewTask } from "@/backend/taskApi";
 import { useFetchPlaces } from "@/customhook/useFetchPlaces";
+import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 import { faAd, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function CreateTaskClientComponent({ unitId }) {
+  const router = useRouter();
   console.log("UNIT ID i CREATE TASK CLIENT COMPONENT", unitId);
   const [task, setTask] = useState({
     title: "",
@@ -50,10 +53,16 @@ function CreateTaskClientComponent({ unitId }) {
       await addNewTask(unitId, newTask);
       console.log("NY TASK on the WAY", newTask);
       setTask({ title: "", description: "" });
+      displaySuccessMessage("Ny task har lagts");
+      router.push(`/units/${unitId}/tasks`);
     } catch (error) {
       console.error(
         `Fel vid uppdatering av enhet med NY TASK ${error.message}`
       );
+      displayErrorMessage(
+        `Fel vid uppdatering av enhet med NY TASK ${error.message}`
+      );
+      router.push(`/units/${unitId}/tasks`);
     }
   };
   return (

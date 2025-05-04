@@ -29,7 +29,7 @@ async function UnitPage({ params }) {
                     </span>
                   </Link>
 
-                  <Link href={`/units/${unit._id}/tasks`}>
+                  <Link href={`/tasks`}>
                     <span className="block text-md font-semibold text-gray-800 hover:text-purple-600 transition-colors border-b pb-2">
                       📝 {unit.tasks.length} Todos
                     </span>

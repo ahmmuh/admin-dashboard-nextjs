@@ -1,7 +1,7 @@
 import React from "react";
 import { getUnits } from "@/backend/api";
 import "./globals.css";
-
+import { Toaster } from "react-hot-toast";
 import Sidebar from "@/components/sidebar";
 
 export default async function RootLayout({ children }) {
@@ -10,6 +10,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="sv">
       <body>
+        <Toaster />
         <div className="flex h-full gap-4">
           <Sidebar units={units} />
 

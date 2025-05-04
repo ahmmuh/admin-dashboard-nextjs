@@ -218,10 +218,12 @@
 import { useFetchPlaces } from "@/customhook/useFetchPlaces";
 import { assignTaskToUnit, updateTask } from "@/backend/taskApi";
 import React, { useEffect, useState } from "react";
+import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
+import { useRouter } from "next/navigation";
 
 function EditTaskClientComponent({ task }) {
+  const router = useRouter();
   const statusOptions = ["Ej påbörjat", "Påbörjat", "Färdigt"];
-
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
@@ -266,10 +268,16 @@ function EditTaskClientComponent({ task }) {
       };
 
       await updateTask(taskData.taskId, updatedTask);
+      displaySuccessMessage("Task har uppdaterats");
+      router.push(`/tasks`);
     } catch (error) {
       console.error(
-        `Det gick inte att uppdatera task med status: ${error.message}`
+        `Fel vid uppdatering av enhet med NY TASK ${error.message}`
       );
+      displayErrorMessage(
+        `Fel vid uppdatering av enhet med NY TASK ${error.message}`
+      );
+      router.push(`/tasks`);
     }
   };
 
@@ -349,7 +357,7 @@ function EditTaskClientComponent({ task }) {
               ? "bg-pink-400 hover:bg-pink-500 text-white"
               : "bg-gray-300 text-gray-500 cursor-not-allowed"
           }`}>
-          Update
+          Uppdatera
         </button>
       </form>
     </div>

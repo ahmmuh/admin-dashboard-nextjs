@@ -21,7 +21,6 @@ const Sidebar = ({ units }) => {
               Alla enheter
             </span>
           </Link>
-
           <Link href={"/apartments"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
               Lägenheter (Flytstäd)
@@ -35,6 +34,12 @@ const Sidebar = ({ units }) => {
           <Link href={"/keyLogs"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
               Nyckel loggar
+            </span>
+          </Link>
+
+          <Link href={"/key_QRcode"}>
+            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
+              Generate QR Code (Nyckel)
             </span>
           </Link>
         </ul>
