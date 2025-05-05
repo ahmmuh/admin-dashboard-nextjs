@@ -4,10 +4,10 @@ import { BASE_URL } from "./base_url";
 
 //add new task to unit
 
-export const addNewTask = async (unitId, newTask) => {
+export const addNewTask = async (newTask) => {
   try {
-    const res = await fetch(`${BASE_URL}/units/${unitId}/tasks/add`, {
-      method: "PATCH",
+    const res = await fetch(`${BASE_URL}/tasks/add`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },

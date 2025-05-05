@@ -1,5 +1,6 @@
 "use client";
 import { checkinKey, checkoutKey, getAllKeys } from "@/backend/keyAPI";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -118,11 +119,28 @@ function KeyPage() {
           <tbody>
             {keys.map((key) => (
               <tr key={key._id} className="hover:bg-gray-300">
-                <td className="border border-gray-200 border-b-cyan-900 p-2 text-blue-400 font-bold">
+                <td
+                  className="border border-gray-200 border-b-cyan-900 
+                text-blue-400 font-bold">
                   🔑
                   <Link href={`/keys/${key._id}`}>
                     {key.keyLabel.toUpperCase()}
                   </Link>
+                  {key && key.qrCode && (
+                    <div style={{ paddingLeft: 20 }}>
+                      <Image
+                        width={150}
+                        height={200}
+                        src={key.qrCode}
+                        alt="QrCode image"
+                      />
+                      <a href={key.qrCode} download="qrcode.png">
+                        <button style={{ marginTop: 10 }}>
+                          Ladda ner QR-kod
+                        </button>
+                      </a>
+                    </div>
+                  )}
                 </td>
                 <td className="border border-gray-200 p-2">{key.location}</td>
                 <td className="border border-gray-200 p-2">

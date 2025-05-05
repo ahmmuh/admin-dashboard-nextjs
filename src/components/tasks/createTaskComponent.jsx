@@ -49,12 +49,13 @@ function CreateTaskClientComponent({ unitId }) {
       const newTask = {
         title: task.title,
         description: task.description,
+        location: task.location,
       };
-      await addNewTask(unitId, newTask);
+      await addNewTask(newTask);
       console.log("NY TASK on the WAY", newTask);
       setTask({ title: "", description: "" });
       displaySuccessMessage("Ny task har lagts");
-      router.push(`/units/${unitId}/tasks`);
+      router.push(`/tasks`);
     } catch (error) {
       console.error(
         `Fel vid uppdatering av enhet med NY TASK ${error.message}`
