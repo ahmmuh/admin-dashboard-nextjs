@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-function CreateTaskClientComponent({ unitId }) {
+function CreateTaskClientComponent() {
   const router = useRouter();
-  console.log("UNIT ID i CREATE TASK CLIENT COMPONENT", unitId);
+  // console.log("UNIT ID i CREATE TASK CLIENT COMPONENT", unitId);
   const [task, setTask] = useState({
     title: "",
     location: "",
@@ -63,7 +63,7 @@ function CreateTaskClientComponent({ unitId }) {
       displayErrorMessage(
         `Fel vid uppdatering av enhet med NY TASK ${error.message}`
       );
-      router.push(`/units/${unitId}/tasks`);
+      router.push(`/tasks`);
     }
   };
   return (

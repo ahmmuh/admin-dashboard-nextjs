@@ -27,6 +27,7 @@ async function SpecialistPage({ params }) {
       {unit.specialister &&
         unit.specialister.map((specialist) => (
           <PersonList
+            key={specialist._id }
             name={specialist ? specialist.name : "No specialist än"}
             phone={specialist ? specialist.phone : "Inget telefonnummer"}
             email={specialist ? specialist.email : "Ingen e-post"}>

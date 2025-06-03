@@ -5,7 +5,7 @@ const Sidebar = ({ units }) => {
   console.log("Units from Sidebar", units);
 
   return (
-    <aside className="bg-blue-900 flex flex-col  px-5 py-2 w-80 min-h-screen  text-gray-400">
+    <aside className="bg-blue-900 flex flex-col  px-5  w-80 min-h-screen  text-gray-400">
       <h4 className="text-2xl my-4">
         <Link href={`/dashbiard`}>Dashboard</Link>
       </h4>
@@ -16,28 +16,28 @@ const Sidebar = ({ units }) => {
               Start
             </span>
           </Link>
-          <Link href={"/units"}>
+          <Link href={"/dashboard/units"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
               Alla enheter
             </span>
           </Link>
-          <Link href={"/apartments"}>
+          <Link href={"/dashboard/apartments"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
               Lägenheter (Flytstäd)
             </span>
           </Link>
-          <Link href={"/keys"}>
+          <Link href={"/dashboard/keys"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
               Nyckel hantering
             </span>
           </Link>
-          <Link href={"/keyLogs"}>
+          <Link href={"/dashboard/keyLogs"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
               Nyckel loggar
             </span>
           </Link>
 
-          <Link href={"/key_QRcode"}>
+          <Link href={"/dashboard/key_QRcode"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
               Generate QR Code (Nyckel)
             </span>

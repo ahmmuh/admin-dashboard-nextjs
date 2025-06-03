@@ -36,7 +36,7 @@ function TaskPage() {
             // enhet={task.unit} //fixa sen
             description={task.description}
             updatedAt={task.updatedAt}
-            createdAt={task.skapats}
+            createdAt={task.createdAt}
             completed={task.completed}>
             <TaskActions task={task} />
           </ItemList>

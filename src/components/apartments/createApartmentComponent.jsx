@@ -3,8 +3,10 @@ import { createApartment } from "@/backend/apartmentAPI";
 import React, { useState } from "react";
 import DatePickerComponent from "../datePicker";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 function CreateApartmentComponent() {
+  const router = useRouter();
   const priorityList = ["Normal", "Låg", "Hög"];
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -37,6 +39,7 @@ function CreateApartmentComponent() {
     console.log("NEW APARTMENT ", newApartment);
     await createApartment(newApartment);
     toast.success("Ny lägenhet har publicerats");
+    router.push("/apartments");
     setApartment({
       apartmentLocation: "",
       keyLocation: "",
