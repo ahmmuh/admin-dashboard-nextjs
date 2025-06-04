@@ -39,7 +39,8 @@ function SignUpPage() {
       console.log("New användare", userInfo);
       await signUp(userInfo);
       displaySuccessMessage("Ny Användare registrerats");
-      router.push("/dashboard/");
+      return;
+      // router.push("/dashboard/");
     } catch (error) {
       throw new Error("Kunde inte REGISTRERA NY ANVÄNDARE");
     }

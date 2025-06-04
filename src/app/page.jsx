@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default function HomePage() {
-  const token = cookies().get("userToken")?.value;
+  const token = cookies().get("token")?.value;
 
   if (token) {
     redirect("/dashboard");

@@ -24,11 +24,10 @@ export const signIn = async (user) => {
   try {
     const res = await fetch(`${BASE_URL}/users/auth/login`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
-
       body: JSON.stringify(user),
     });
 
@@ -49,7 +48,7 @@ export const logout = async () => {
   try {
     const res = await fetch(`${BASE_URL}/users/auth/logout`, {
       method: "POST",
-      credentials: "include", 
+      credentials: "include",
     });
 
     const data = await res.json();

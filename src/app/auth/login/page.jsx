@@ -31,7 +31,7 @@ function LoginPage() {
       };
       await signIn(userInfo);
       displaySuccessMessage("Logged in successfull");
-      // router.push("/dashboard");
+      router.push("/dashboard");
     } catch (error) {
       throw new Error("Kunde inte logga in");
     }

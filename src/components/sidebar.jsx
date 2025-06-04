@@ -7,7 +7,7 @@ const Sidebar = ({ units }) => {
   return (
     <aside className="bg-blue-900 flex flex-col  px-5  w-80 min-h-screen  text-gray-400">
       <h4 className="text-2xl my-4">
-        <Link href={`/dashbiard`}>Dashboard</Link>
+        <Link href={`/dashboard`}>Dashboard</Link>
       </h4>
       <nav className="flex flex-col">
         <ul className="space-y-3">
