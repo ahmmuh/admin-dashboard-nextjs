@@ -4,6 +4,8 @@ export const createUnit = async (newUnit) => {
   try {
     const res = await fetch(`${BASE_URL}/units`, {
       method: "POST",
+      credentials: "include",
+
       headers: {
         "Content-Type": "application/json",
       },
@@ -25,7 +27,10 @@ export const createUnit = async (newUnit) => {
 
 export const getUnits = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/units`);
+    const res = await fetch(`${BASE_URL}/units`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       throw new Error(`HTTP Error! status: ${res.status}`);
     }
@@ -41,7 +46,10 @@ export const getUnits = async () => {
 
 export const getUnitByID = async (unitId) => {
   try {
-    const res = await fetch(`${BASE_URL}/units/${unitId}`);
+    const res = await fetch(`${BASE_URL}/units/${unitId}`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       console.log(`Server error when fething data, status: ${res.status}`);
       return null;
@@ -60,6 +68,7 @@ export const getWorkplace = async (unitId, workplaceId) => {
       `${BASE_URL}/units/${unitId}/workplaces/${workplaceId}`,
       {
         method: "GET",
+        credentials: "include",
         "Content-Type": "application/json",
       }
     );
@@ -81,15 +90,10 @@ export const getWorkplace = async (unitId, workplaceId) => {
 ///units/:unitId/specialister/:specialistId
 
 export const addSpecialistToUnit = async (unitId, newSpecialist) => {
-  console.log(
-    "📢 Skickar request till:",
-    `${BASE_URL}/units/${unitId}/specialister`
-  );
-  console.log("📦 Med data:", newSpecialist);
-
   try {
     const res = await fetch(`${BASE_URL}/units/${unitId}/specialister`, {
       method: "PUT",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -116,16 +120,12 @@ export const addSpecialistToUnit = async (unitId, newSpecialist) => {
   }
 };
 export const updateSpecialist = async (unitId, specialistId, newSpecialist) => {
-  console.log(
-    "Fetching:",
-    `${BASE_URL}/units/${unitId}/specialister/${specialistId}`
-  );
-
   try {
     const res = await fetch(
       `${BASE_URL}/units/${unitId}/specialister/${specialistId}`,
       {
         method: "PUT",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -154,6 +154,7 @@ export const deleteSpecialist = async (unitId, specialistId) => {
       `${BASE_URL}/units/${unitId}/specialister/${specialistId}`,
       {
         method: "DELETE",
+        credentials: "include",
       }
     );
 
@@ -175,6 +176,7 @@ export const deleteWorkplace = async (unitId, workplaceId) => {
       `${BASE_URL}/units/${unitId}/workplaces/${workplaceId}`,
       {
         method: "DELETE",
+        credentials: "include",
       }
     );
 
@@ -196,6 +198,7 @@ export const updateChef = async (unitId, chefId, newChef) => {
   try {
     const res = await fetch(`${BASE_URL}/units/${unitId}/chefer/${chefId}`, {
       method: "PUT",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -226,6 +229,8 @@ export const addChefToUnit = async (unitId, newChef) => {
   try {
     const res = await fetch(`${BASE_URL}/units/${unitId}/chefer`, {
       method: "PATCH",
+      credentials: "include",
+
       headers: {
         "Content-Type": "application/json",
       },
@@ -255,6 +260,7 @@ export const deleteChef = async (unitId, chefId) => {
       `${BASE_URL}/units/${unitId}/chefer/${chefId}`,
       {
         method: "DELETE",
+        credentials: "include",
       }
     );
 

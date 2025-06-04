@@ -5,6 +5,7 @@ export const registerNewKey = async (newKey) => {
   try {
     const res = await fetch(`${BASE_URL}/keys/qrcode`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -28,6 +29,7 @@ export const createNewKey = async (newKey) => {
   try {
     const res = await fetch(`${BASE_URL}/keys/add`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -49,7 +51,10 @@ export const createNewKey = async (newKey) => {
 
 export const getAllKeys = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/keys`);
+    const res = await fetch(`${BASE_URL}/keys`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       throw new Error(`HTTP Error! status: ${res.status}`);
     }
@@ -71,6 +76,7 @@ export const checkoutKey = async (userType, userId, keyId) => {
       `${BASE_URL}/${userType}/keys/${keyId}/${userId}/checkout`,
       {
         method: "PATCH", // POST eller PUT beroende på din backend
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -98,6 +104,8 @@ export const checkinKey = async (userType, userId, keyId) => {
       `${BASE_URL}/${userType}/keys/${keyId}/${userId}/checkin`,
       {
         method: "PATCH", // eller PATCH beroende på hur din backend funkar
+        credentials: "include",
+
         headers: {
           "Content-Type": "application/json",
         },
@@ -123,7 +131,10 @@ export const checkinKey = async (userType, userId, keyId) => {
 
 export const getKeyLogs = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/logs`);
+    const res = await fetch(`${BASE_URL}/logs`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       throw new Error(`HTTP Error! status: ${res.status}`);
     }
@@ -140,7 +151,10 @@ export const getKeyLogs = async () => {
 
 export const getKeyByID = async (keyId) => {
   try {
-    const res = await fetch(`${BASE_URL}/keys/${keyId}`);
+    const res = await fetch(`${BASE_URL}/keys/${keyId}`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       console.log(
         `Server error when fething KEY data, status: ${res.status}, statusInfo: ${res.statusText}`
@@ -161,6 +175,7 @@ export const updateKey = async (keyID, updatedKey) => {
   try {
     const res = await fetch(`${BASE_URL}/keys/${keyID}`, {
       method: "PATCH",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -188,6 +203,7 @@ export const deleteKey = async (keyId) => {
   try {
     const response = await fetch(`${BASE_URL}/keys/${keyId}`, {
       method: "DELETE",
+      credentials: "include",
     });
     if (!response.ok) {
       console.log(`Error deleting Key (nyckel): ${response.status}`);

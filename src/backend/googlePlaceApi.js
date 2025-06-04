@@ -5,6 +5,7 @@ export const getPlaces = async (query) => {
     const params = new URLSearchParams({ query }).toString();
     const res = await fetch(`${BASE_URL}/places?${params}`, {
       method: "GET",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -22,7 +23,10 @@ export const getPlaces = async (query) => {
 
 export const getPlaceDetails = async (placeId) => {
   try {
-    const res = await fetch(`${BASE_URL}/places/details/${placeId}`);
+    const res = await fetch(`${BASE_URL}/places/details/${placeId}`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       console.error(`HTTP error: ${res.status} TEXT: ${res.statusText}`);
       return null;

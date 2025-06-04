@@ -8,6 +8,8 @@ export const addNewTask = async (newTask) => {
   try {
     const res = await fetch(`${BASE_URL}/tasks/add`, {
       method: "POST",
+      credentials: "include",
+
       headers: {
         "Content-Type": "application/json",
       },
@@ -30,7 +32,10 @@ export const addNewTask = async (newTask) => {
 };
 export const getUnitTasks = async (unitId) => {
   try {
-    const res = await fetch(`${BASE_URL}/units/${unitId}/tasks`);
+    const res = await fetch(`${BASE_URL}/units/${unitId}/tasks`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       console.log(`Server error when fething data, status: ${res.status}`);
       return null;
@@ -45,7 +50,10 @@ export const getUnitTasks = async (unitId) => {
 
 export const getAllTasks = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/tasks`);
+    const res = await fetch(`${BASE_URL}/tasks`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       console.log(`Server error when fething data, status: ${res.status}`);
       return null;
@@ -64,6 +72,7 @@ export const assignTaskToUnit = async (unitId, taskId, assignedTask) => {
       `${BASE_URL}/units/${unitId}/tasks/${taskId}/assign`,
       {
         method: "PATCH",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -89,6 +98,7 @@ export const updateTask = async (taskId, newTask) => {
   try {
     const res = await fetch(`${BASE_URL}/tasks/${taskId}/update`, {
       method: "PATCH",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -110,7 +120,10 @@ export const updateTask = async (taskId, newTask) => {
 //GET TASK STATUS
 export const getTaskStatuses = async (unitId) => {
   try {
-    const res = await fetch(`${BASE_URL}/units/${unitId}/tasks/statuses`);
+    const res = await fetch(`${BASE_URL}/units/${unitId}/tasks/statuses`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       console.log(
         `Ingen response vid hämtning av status: status: ${res.status} status Text: ${res.statusText}`
@@ -131,6 +144,7 @@ export const deleteTask = async (taskId) => {
   try {
     const response = await fetch(`${BASE_URL}/tasks/${taskId}`, {
       method: "DELETE",
+      credentials: "include",
     });
 
     if (!response.ok) {

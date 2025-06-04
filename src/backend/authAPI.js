@@ -2,11 +2,12 @@ import { BASE_URL } from "./base_url";
 
 export const signUp = async (user) => {
   try {
-    const res = await fetch(`${BASE_URL}/users/auth/login`, {
+    const res = await fetch(`${BASE_URL}/users/auth/signUp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+
       body: JSON.stringify(user),
     });
     if (!res.ok) {
@@ -26,6 +27,8 @@ export const signIn = async (user) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
+
       body: JSON.stringify(user),
     });
 
@@ -33,7 +36,6 @@ export const signIn = async (user) => {
     if (!res.ok) {
       throw new Error(`${res.message} || Failed to login`);
     }
-    localStorage.setItem("userToken", data.token);
     console.log("User Data", user);
     return data;
   } catch (error) {
@@ -41,13 +43,35 @@ export const signIn = async (user) => {
   }
 };
 
+//Logout
+
+export const logout = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/users/auth/logout`, {
+      method: "POST",
+      credentials: "include", 
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Failed to logout");
+    }
+
+    console.log("Logout successful");
+    return data;
+  } catch (error) {
+    throw new Error(`Logout-fel: ${error.message}`);
+  }
+};
+
+//Current user
 export const getCurrentUser = async () => {
   try {
-    const token = localStorage.getItem("userToken");
     const res = await fetch(`${BASE_URL}/users/me`, {
       method: "GET",
+      credentials: "include",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });

@@ -1,5 +1,4 @@
 import React from "react";
-import { getUnits } from "@/backend/api";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 

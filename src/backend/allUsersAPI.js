@@ -2,7 +2,10 @@ import { BASE_URL } from "./base_url";
 
 export const getAllUsers = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/users`);
+    const res = await fetch(`${BASE_URL}/users`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       throw new Error(`HTTP Error! status: ${res.status}`);
     }

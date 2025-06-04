@@ -5,6 +5,7 @@ export const createApartment = async (newApartment) => {
   try {
     const res = await fetch(`${BASE_URL}/apartments`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -26,7 +27,10 @@ export const createApartment = async (newApartment) => {
 
 export const getApartments = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/apartments`);
+    const res = await fetch(`${BASE_URL}/apartments`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       throw new Error(`HTTP Error! status: ${res.status}`);
     }
@@ -42,7 +46,10 @@ export const getApartments = async () => {
 
 export const getApartmentByID = async (apartmentId) => {
   try {
-    const res = await fetch(`${BASE_URL}/apartments/${apartmentId}`);
+    const res = await fetch(`${BASE_URL}/apartments/${apartmentId}`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       console.log(
         `Server error when fething APARTMENT data, status: ${res.status}`
@@ -61,6 +68,8 @@ export const updateApartment = async (apartmentId, updatedApartment) => {
   try {
     const res = await fetch(`${BASE_URL}/apartments/${apartmentId}`, {
       method: "PATCH",
+      credentials: "include",
+
       headers: {
         "Content-Type": "application/json",
       },
@@ -86,6 +95,7 @@ export const deleteApartment = async (apartmentId) => {
   try {
     const response = await fetch(`${BASE_URL}/apartments/${apartmentId}`, {
       method: "DELETE",
+      credentials: "include",
     });
     if (!response.ok) {
       console.log(`Error deleting  (Apartment): ${response.status}`);
