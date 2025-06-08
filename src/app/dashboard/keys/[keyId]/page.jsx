@@ -1,5 +1,6 @@
 "use client";
 import { deleteKey, getKeyByID, updateKey } from "@/backend/keyAPI";
+import { displayErrorMessage } from "@/helper/toastAPI";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -88,8 +89,9 @@ function EditKey() {
   const deleteKeyHandler = async (e) => {
     e.preventDefault();
     if (keyId) {
-      await deleteKey(keyId);
-      router.back();
+      // await deleteKey(keyId);
+      displayErrorMessage(`Nyckel: ${key.keyLabel} har tagits bort`);
+      // router.push("/dashboard/keys");
     }
   };
   if (loading) {

@@ -93,7 +93,7 @@ function KeyPage() {
         </h1>
         <Link
           href={"/keys/create"}
-          className="text-blue-600 font-bold  mt-2 ml-10 w-1/2 text-center py-1">
+          className="text-blue-600 font-bold  mt-2 ml-10 w-1/2 text-center py-1 border-b-red-200">
           Ny nyckel
         </Link>
       </div>
@@ -117,78 +117,85 @@ function KeyPage() {
             </tr>
           </thead>
           <tbody>
-            {keys.map((key) => (
-              <tr key={key._id} className="hover:bg-gray-300">
-                <td
-                  className="border border-gray-200 border-b-cyan-900 
+            {keys &&
+              keys.map((key) => (
+                <tr key={key._id} className="hover:bg-gray-300">
+                  <td
+                    className="border border-gray-200 border-b-cyan-900 
                 text-blue-400 font-bold">
-                  🔑
-                  <Link href={`/keys/${key._id}`}>
-                    {key.keyLabel.toUpperCase()}
-                  </Link>
-                  {key && key.qrCode && (
-                    <div style={{ paddingLeft: 20 }}>
-                      <Image
-                        width={150}
-                        height={200}
-                        src={key.qrCode}
-                        alt="QrCode image"
-                      />
-                      <a href={key.qrCode} download="qrcode.png">
-                        <button style={{ marginTop: 10 }}>
-                          Ladda ner QR-kod
-                        </button>
-                      </a>
-                    </div>
-                  )}
-                </td>
-                <td className="border border-gray-200 p-2">{key.location}</td>
-                <td className="border border-gray-200 p-2">
-                  {key.status === "available" && (
-                    <span className="text-green-700 font-bold">Inne</span>
-                  )}
-
-                  <span className="text-green-700 font-bold">
-                    {key.status === "returned" && "Inlämnad"}
-                  </span>
-
-                  <span className="text-red-700 font-bold">
-                    {key.status === "checked-out" && "Utlånad"}
-                  </span>
-                </td>
-                <td className="border border-gray-200 p-2">
-                  {key.status === "checked-out" ? key.borrowedBy.name : "—"}
-                </td>
-
-                <td className="border border-gray-200 p-2">
-                  {key.status === "checked-out" && key.borrowedAt
-                    ? new Date(key.borrowedAt).toLocaleString("sv-SE")
-                    : "—"}
-                </td>
-                <td className="border border-gray-200 p-2">
-                  {key.status === "returned" && key.returnedAt
-                    ? new Date(key.returnedAt).toLocaleString("sv-SE")
-                    : "—"}
-                </td>
-                <td className=" font-bold p-2">
-                  <span className="text-green-500">
-                    {key.status === "returned" && (
-                      <Link href={`/keys/${key._id}/borrow`}>Låna</Link>
+                    🔑
+                    <Link href={`/dashboard/keys/${key._id}`}>
+                      {key.keyLabel.toUpperCase()}
+                    </Link>
+                    {key && key.qrCode && (
+                      <div style={{ paddingLeft: 20 }}>
+                        <Image
+                          width={150}
+                          height={200}
+                          src={key.qrCode}
+                          alt="QrCode image"
+                        />
+                        <a href={key.qrCode} download="qrcode.png">
+                          <button style={{ marginTop: 10 }}>
+                            Ladda ner QR-kod
+                          </button>
+                        </a>
+                      </div>
                     )}
-                  </span>
-                  <span className="text-green-500">
+                  </td>
+                  <td className="border border-gray-200 p-2">{key.location}</td>
+                  <td className="border border-gray-200 p-2">
                     {key.status === "available" && (
-                      <Link href={`/keys/${key._id}/borrow`}>Låna</Link>
+                      <span className="text-green-700 font-bold">Inne</span>
                     )}
-                  </span>
-                  <span className="text-red-500">
-                    {key.status === "checked-out" && (
-                      <Link href={`/keys/${key._id}/borrow`}>Lämna in</Link>
-                    )}
-                  </span>
-                </td>
-              </tr>
-            ))}
+
+                    <span className="text-green-700 font-bold">
+                      {key.status === "returned" && "Inlämnad"}
+                    </span>
+
+                    <span className="text-red-700 font-bold">
+                      {key.status === "checked-out" && "Utlånad"}
+                    </span>
+                  </td>
+                  <td className="border border-gray-200 p-2">
+                    {key.status === "checked-out" ? key.borrowedBy.name : "—"}
+                  </td>
+
+                  <td className="border border-gray-200 p-2">
+                    {key.status === "checked-out" && key.borrowedAt
+                      ? new Date(key.borrowedAt).toLocaleString("sv-SE")
+                      : "—"}
+                  </td>
+                  <td className="border border-gray-200 p-2">
+                    {key.status === "returned" && key.returnedAt
+                      ? new Date(key.returnedAt).toLocaleString("sv-SE")
+                      : "—"}
+                  </td>
+                  <td className=" font-bold p-2">
+                    <span className="text-green-500">
+                      {key.status === "returned" && (
+                        <Link href={`/dashboard/keys/${key._id}/borrow`}>
+                          Låna
+                        </Link>
+                      )}
+                    </span>
+                    <span className="text-green-500">
+                      {key.status === "available" && (
+                        <Link href={`/dashboard/keys/${key._id}/borrow`}>
+                          Låna
+                        </Link>
+                      )}
+                    </span>
+                    <span className="text-red-500">
+                      {key.status === "checked-out" && (
+                        <Link href={`/dashboard/keys/${key._id}/borrow`}>
+                          Lämna in
+                        </Link>
+                      )}
+                    </span>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

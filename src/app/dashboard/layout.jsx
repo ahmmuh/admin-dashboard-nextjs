@@ -8,9 +8,9 @@ function DashboardLayout({ children }) {
 
   const token = cookieStore.get("token")?.value;
 
-  if (!token) {
-    redirect("/login");
-  }
+  // if (!token) {
+  //   redirect("/login");
+  // }
 
   return (
     <div className="flex h-full gap-4">

@@ -29,7 +29,7 @@ function ApartmentList({ apartments: initialApartments }) {
       <div className=" flex justify-start flex-col ">
         <div className="flex ">
           <Link
-            href={`/apartments/create`}
+            href={`/dashboard/apartments/create`}
             className="mb-5 bg-green-100 p-3  w-96 rounded-xl hover:bg-green-200 ">
             Ny lägenhet
           </Link>

@@ -36,6 +36,8 @@ export const getApartments = async () => {
     }
     const data = await res.json();
     console.log("Apartments i getApartments() ", data);
+    console.log("📦 Apartments res.status:", res.status);
+
     return data;
   } catch (error) {
     if (error instanceof Error)
