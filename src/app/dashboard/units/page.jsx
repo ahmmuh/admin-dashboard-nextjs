@@ -39,6 +39,13 @@ async function UnitPage({ params }) {
                     </span>
                   </Link>
 
+                  <Link href={`/dashboard/keys`}>
+                    <span className="block text-md font-semibold text-gray-800 hover:text-purple-600 transition-colors border-b pb-2">
+                      {unit.keys.length}
+                      Nycklar
+                    </span>
+                  </Link>
+
                   <Link href={`/dashboard/units/${unit._id}/workplaces`}>
                     <span className="block text-md font-semibold text-gray-800 hover:text-purple-600 transition-colors pb-2">
                       {/* 🏢 {unit.workPlaces.length} */}

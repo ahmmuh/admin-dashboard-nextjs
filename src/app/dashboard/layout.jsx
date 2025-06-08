@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 function DashboardLayout({ children }) {
-  const cookieStore = cookies();
+  // const cookieStore = cookies();
 
-  const token = cookieStore.get("token")?.value;
+  // const token = cookieStore.get("token")?.value;
 
   // if (!token) {
   //   redirect("/login");

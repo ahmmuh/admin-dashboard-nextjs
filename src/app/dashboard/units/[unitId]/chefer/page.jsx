@@ -1,7 +1,4 @@
-import { getUnitByID } from "@/backend/api";
 import React from "react";
-import PersonList from "@/components/personList";
-import ActionsHandler from "../../../../components/actions/actionsHandler";
 
 async function ChefPage({ params }) {
   // console.log("Chef ", params.unitId);
