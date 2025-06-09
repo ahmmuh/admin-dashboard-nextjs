@@ -92,7 +92,7 @@ function KeyPage() {
           Nyckel hantering
         </h1>
         <Link
-          href={"/keys/create"}
+          href={"/dashboard/keys/create"}
           className="text-blue-600 font-bold  mt-2 ml-10 w-1/2 text-center py-1 border-b-red-200">
           Ny nyckel
         </Link>

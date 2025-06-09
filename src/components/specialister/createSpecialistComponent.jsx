@@ -38,11 +38,11 @@ function CreateSpecialistComponent({ unitId }) {
         `Ny specialist med följande data ${specialistData.name} har lagts i databasen`
       );
       displaySuccessMessage(`Ny specialist har lagts i databasen`);
-      router.push(`/units/${unitId}/specialister`);
+      router.push(`/dashboard/units/${unitId}/specialister`);
     } catch (error) {
       console.error(`Det gick inte att lägga till ny chef`);
       displayErrorMessage(`Det gick inte att lägga till ny Specialist`);
-      router.push(`/units/${unitId}/specialister`);
+      router.push(`/dashboard/units/${unitId}/specialister`);
     }
   };
 

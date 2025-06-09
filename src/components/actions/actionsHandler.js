@@ -21,7 +21,7 @@ function ActionsHandler({ unitId, chef }) {
         <>
           <CustomLink
             className="bg-blue-400 text-white w-32 text-center p-2 rounded-xl shadow-lg shadow-blue-500 hover:bg-blue-600 transition duration-200"
-            url={`/units/${unitId}/chefer/edit/?chefId=${chef._id}&name=${chef.name}&phone=${chef.phone}&email=${chef.email}`}
+            url={`/dashboard/units/${unitId}/chefer/edit/?chefId=${chef._id}&name=${chef.name}&phone=${chef.phone}&email=${chef.email}`}
             title={"Update Chef"}
           />
           <button
@@ -35,7 +35,7 @@ function ActionsHandler({ unitId, chef }) {
         <CustomLink
           className="bg-green-400 text-white w-32 text-center p-2 rounded-xl shadow-lg shadow-green-500 hover:bg-green-500 transition duration-200"
           title={"Ny chef"}
-          url={`/units/${unitId}/chefer/create`}
+          url={`/dashboard/units/${unitId}/chefer/create`}
         />
       )}
     </div>

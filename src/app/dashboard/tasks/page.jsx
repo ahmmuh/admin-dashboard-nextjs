@@ -23,7 +23,7 @@ function TaskPage() {
           icon={
             <FontAwesomeIcon icon={faHome} className="text-2xl text-blue-500" />
           }
-          url={`/tasks/create`}
+          url={`/dashboard/tasks/create`}
         />
       </>
 

@@ -36,7 +36,7 @@ function TaskActions({ task }) {
         <>
           <CustomLink
             className="bg-blue-300 text-white w-32 text-center p-2 rounded-xl hover:bg-blue-400 transition duration-200"
-            url={`/tasks/edit/?taskId=${task._id}&title=${task.title}&description=${task.description}&status=${task.completed}`}
+            url={`/dashboard/tasks/edit/?taskId=${task._id}&title=${task.title}&description=${task.description}&status=${task.completed}`}
             title={<FontAwesomeIcon icon={faEdit} />}
           />
           <button

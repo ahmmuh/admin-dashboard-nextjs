@@ -14,26 +14,28 @@ async function SpecialistPage({ params }) {
     <div className="flex flex-col text-blue-600 ">
       <h4 className="text-2xl ">Specialist(er) på {unit.name}</h4>
       <>
-        {unit.specialister.length < 2 && (
+        {unit.users.length < 2 && (
           <>
             <CustomLink
               className="bg-green-100 text-black w-48 my-5 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200"
               title={"Ny specialist"}
-              url={`/units/${unitId}/specialister/create`}
+              url={`/dashboard/units/${unitId}/specialister/create`}
             />
           </>
         )}
       </>
-      {unit.specialister &&
-        unit.specialister.map((specialist) => (
-          <PersonList
-            key={specialist._id }
-            name={specialist ? specialist.name : "No specialist än"}
-            phone={specialist ? specialist.phone : "Inget telefonnummer"}
-            email={specialist ? specialist.email : "Ingen e-post"}>
-            <SpecialistActions unitId={unitId} specialist={specialist} />
-          </PersonList>
-        ))}
+      {unit.users &&
+        unit.users
+          .filter((user) => user.role === "Specialist")
+          .map((specialist) => (
+            <PersonList
+              key={specialist._id}
+              name={specialist ? specialist.name : "No specialist än"}
+              phone={specialist ? specialist.phone : "Inget telefonnummer"}
+              email={specialist ? specialist.email : "Ingen e-post"}>
+              <SpecialistActions unitId={unitId} specialist={specialist} />
+            </PersonList>
+          ))}
     </div>
   );
 }

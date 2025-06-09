@@ -41,7 +41,7 @@ function EditChefComponent({ unitId, chef }) {
       const updatedChef = await updateChef(unitId, chef.chefId, chefData);
       console.log(`Chef med ${updatedChef.chefId} har uppdaterats`);
       displaySuccessMessage(`Chef har uppdaterats`);
-      router.push(`/units/${unitId}/chefer`);
+      router.push(`/dashboard/units/${unitId}/chefer`);
     } catch (error) {
       console.error(`PROBLEM: Vid uppdatering chef: ${error.message}`);
       displayErrorMessage(`PROBLEM: Vid uppdatering`);
