@@ -26,6 +26,12 @@ const Sidebar = ({ units }) => {
               Lägenheter (Flytstäd)
             </span>
           </Link>
+
+          <Link href={"/dashboard/tasks"}>
+            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
+              Att göra
+            </span>
+          </Link>
           <Link href={"/dashboard/keys"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
               Nyckel hantering

@@ -26,6 +26,7 @@ export const createApartment = async (newApartment) => {
 };
 
 export const getApartments = async () => {
+  console.log("Apartments i getApartments");
   try {
     const res = await fetch(`${BASE_URL}/apartments`, {
       method: "GET",

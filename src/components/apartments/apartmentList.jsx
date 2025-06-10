@@ -34,7 +34,7 @@ function ApartmentList({ apartments: initialApartments }) {
             Ny lägenhet
           </Link>
           <h5 className="ml-10 mb-5 bg-green-100 p-3  w-96 rounded-xl  ">
-            Pågående flytstäd ({apartments.length})
+            Pågående flytstäd ({apartments?.length})
           </h5>
         </div>
         {apartments &&
@@ -91,7 +91,7 @@ function ApartmentList({ apartments: initialApartments }) {
                 )}
                 <div className="flex  justify-between items-center text-center my-5 w-1/2">
                   <Link
-                    href={`/apartments/${apartment._id}/edit`}
+                    href={`/dashboard/apartments/${apartment._id}/edit`}
                     className=" bg-green-200 p-3   hover:bg-green-300 rounded-xl w-full">
                     Uppdatera
                   </Link>

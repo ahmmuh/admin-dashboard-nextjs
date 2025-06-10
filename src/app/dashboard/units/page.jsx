@@ -1,6 +1,9 @@
+"use client";
+
 import { getUnits } from "@/backend/api";
 import MainCard from "@/components/maincard";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
   HiOutlineKey,
   HiOutlineUser,
@@ -9,8 +12,55 @@ import {
   HiOutlineOfficeBuilding,
 } from "react-icons/hi";
 
-async function UnitPage({ params }) {
-  const units = await getUnits();
+function UnitPage({ params }) {
+  const [units, setUnits] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUnits = async () => {
+      try {
+        const unitList = await getUnits();
+
+        setUnits(unitList || []);
+        setLoading(false);
+      } catch (error) {
+        console.log("Error", error.message);
+        setLoading(false);
+        setError(error);
+      }
+    };
+
+    fetchUnits();
+  }, []);
+  // const apartments = await getApartments();
+  console.log("units i unitPage", units);
+
+  //Loading
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center p-5">
+        <p className="text-2xl font-bold">Loading</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center p-5">
+        <p className="text-2xl font-bold">{error.message}</p>
+      </div>
+    );
+  }
+
+  if (units.length === 0) {
+    return (
+      <div className="flex justify-center items-center p-5">
+        <p>Det finns inga ENHETER att visa just nu.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
@@ -55,7 +105,7 @@ async function UnitPage({ params }) {
                       <HiOutlineClipboardList className="text-purple-500 w-5 h-5" />
                     }
                     href={`/dashboard/tasks`}
-                    text="Att göra"
+                    text={`Att göra ${unit.tasks.length}`}
                   />
 
                   <CardRow
