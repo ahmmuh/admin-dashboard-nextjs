@@ -2,6 +2,7 @@
 
 import { getUnits } from "@/backend/api";
 import MainCard from "@/components/maincard";
+import SearchInput from "@/components/searhInput";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
@@ -67,6 +68,12 @@ function UnitPage({ params }) {
       <h1 className="text-4xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
         Alla enheter
       </h1>
+      {/* <SearchInput
+        type="text"
+        onSearch={() => console.log("Söker key logs")}
+        delay={400}
+        placeholder="Sök...."
+      /> */}
 
       <div className="flex flex-col gap-8">
         {units &&

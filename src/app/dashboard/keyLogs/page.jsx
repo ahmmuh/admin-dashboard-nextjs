@@ -1,5 +1,6 @@
 "use client";
 import { getKeyLogs } from "@/backend/keyAPI";
+import SearchInput from "@/components/searhInput";
 import React, { useEffect, useState } from "react";
 
 function KeyLogPage() {
@@ -8,6 +9,8 @@ function KeyLogPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [visibleLogs, setVisibleLogs] = useState(15);
+
+  const searchHandler = (e) => {};
 
   async function fetchLogs() {
     try {
@@ -43,7 +46,14 @@ function KeyLogPage() {
   }
   if (Array.isArray(logs) && logs.length === 0) {
     return (
-      <div className="flex justify-center items-center p-10">
+      <div className="flex flex-col justify-center items-center p-10">
+        <SearchInput
+          type="text"
+          onSearch={() => console.log("Söker key logs")}
+          delay={400}
+          placeholder="Sök...."
+        />
+
         <h4 className="text-2xl text-green-700">Inga loggar finns att visa</h4>
       </div>
     );

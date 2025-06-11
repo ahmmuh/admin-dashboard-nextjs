@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import SearchInput from "../searhInput";
 
 function ApartmentList({ apartments: initialApartments }) {
   const [apartments, setApartments] = useState(initialApartments);
@@ -26,6 +27,7 @@ function ApartmentList({ apartments: initialApartments }) {
       <h4 className="text-2xl mb-10 font-bold text-purple-500">
         Alla lägenheter
       </h4>
+
       <div className=" flex justify-start flex-col ">
         <div className="flex ">
           <Link
@@ -40,6 +42,12 @@ function ApartmentList({ apartments: initialApartments }) {
         {apartments &&
           apartments.map((apartment) => (
             <div className="border border-b-2  p-5" key={apartment._id}>
+              {/* <SearchInput
+                type="text"
+                onSearch={() => console.log("Söker key logs")}
+                delay={400}
+                placeholder="Sök...."
+              /> */}
               <ul className="flex justify-start p-6  flex-col">
                 <li className="border border-b-4 p-4 border-b-orange-400 bg-gray-200">
                   <span className="font-bold"> Lägenheten ligger på :</span>{" "}
