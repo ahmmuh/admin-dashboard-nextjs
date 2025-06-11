@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/app/loading";
 import { getApartments } from "@/backend/apartmentAPI";
 import ApartmentList from "@/components/apartments/apartmentList";
 import React, { useEffect, useState } from "react";
@@ -30,11 +31,7 @@ function ApartmentPage() {
   //Loading
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center p-5">
-        <p className="text-2xl font-bold">Loading</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (error) {

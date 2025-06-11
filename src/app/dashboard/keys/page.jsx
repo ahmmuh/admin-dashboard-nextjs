@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/app/loading";
 import { checkinKey, checkoutKey, getAllKeys } from "@/backend/keyAPI";
 import Image from "next/image";
 import Link from "next/link";
@@ -70,11 +71,7 @@ function KeyPage() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center p-10">
-        <h5>Loading .....</h5>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (error) {

@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/app/loading";
 import { deleteKey, getKeyByID, updateKey } from "@/backend/keyAPI";
 import { displayErrorMessage } from "@/helper/toastAPI";
 import { useParams, useRouter } from "next/navigation";
@@ -95,11 +96,7 @@ function EditKey() {
     }
   };
   if (loading) {
-    return (
-      <div className="flex justify-center items-center p-10">
-        <h4>Loading ...</h4>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (error) {

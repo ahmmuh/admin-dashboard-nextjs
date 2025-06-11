@@ -136,8 +136,12 @@ export const getKeyLogs = async () => {
       credentials: "include",
     });
     if (!res.ok) {
+      if (res.status === 400) {
+        return [];
+      }
       throw new Error(`HTTP Error! status: ${res.status}`);
     }
+
     const data = await res.json();
     console.log("Key LOGS data from getKeyLogs ", data);
     return data;

@@ -29,7 +29,7 @@ function KeyLogPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center p-10">
-        <h5>Loading .....</h5>
+        <h5>Laddar .....</h5>
       </div>
     );
   }

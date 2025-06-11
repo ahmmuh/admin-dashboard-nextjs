@@ -4,8 +4,6 @@ import { Toaster } from "react-hot-toast";
 import { getApartments } from "@/backend/apartmentAPI";
 
 export default async function RootLayout({ children }) {
-  // const apartments = await getApartments();
-  // console.log("Apartment i RootLayout lista", apartments);
   return (
     <html lang="sv">
       <body>
