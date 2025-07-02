@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import DatePickerComponent from "../datePicker";
 import { useParams, useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import { displayErrorMessage } from "@/helper/toastAPI";
 
 function EditApartmentComponent() {
   const router = useRouter();
@@ -12,7 +13,15 @@ function EditApartmentComponent() {
   const { apartmentId } = useParams();
   console.log("Apartment ID: ", apartmentId);
 
-  const [apartment, setApartment] = useState({});
+  const [apartment, setApartment] = useState({
+    apartmentLocation: "",
+    keyLocation: "",
+    description: "",
+    priority: "",
+    status: "",
+    startDate: "",
+    endDate: "",
+  });
 
   const fetchApartmentById = async () => {
     try {
@@ -49,11 +58,16 @@ function EditApartmentComponent() {
       endDate: apartment.endDate,
     };
     console.log("Updated APARTMENT ", updatedApartment);
-    await updateApartment(apartmentId, updatedApartment);
-    toast.success(
-      `Lägenhet med address: ${updatedApartment.apartmentLocation} har uppdaterats`
-    );
-    router.push("/apartments");
+    try {
+      await updateApartment(apartmentId, updatedApartment);
+      toast.success(
+        `Lägenhet med address: ${updatedApartment.apartmentLocation} har uppdaterats`
+      );
+      router.push("/dashboard/apartments");
+    } catch (error) {
+      displayErrorMessage("Lägenhet kunde inte uppdateras");
+      router.push("/dashboard/apartments");
+    }
   };
 
   return (
@@ -116,6 +130,7 @@ function EditApartmentComponent() {
               Planerat Start Datum
             </label>
             <DatePickerComponent
+              name={apartment.startDate}
               onChange={(date) =>
                 setApartment((prevData) => ({
                   ...prevData,
@@ -133,6 +148,7 @@ function EditApartmentComponent() {
               Planerat slut datum
             </label>
             <DatePickerComponent
+              name={apartment.endDate}
               onChange={(date) =>
                 setApartment((prevData) => ({
                   ...prevData,
@@ -190,8 +206,8 @@ function EditApartmentComponent() {
           </div>
 
           <button
-            className="bg-green-400 text-white p-2 w-1/5 border border-b-2
-          border-b-slate-500 rounded hover:bg-green-500"
+            className="bg-purple-400 text-white p-2 w-1/5 border border-b-2
+          border-b-slate-500 rounded hover:bg-purple-500"
             type="submit">
             Spara
           </button>

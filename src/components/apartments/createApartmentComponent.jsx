@@ -39,7 +39,7 @@ function CreateApartmentComponent() {
     console.log("NEW APARTMENT ", newApartment);
     await createApartment(newApartment);
     toast.success("Ny lägenhet har publicerats");
-    router.push("/apartments");
+    router.push("/dashboard/apartments");
     setApartment({
       apartmentLocation: "",
       keyLocation: "",
