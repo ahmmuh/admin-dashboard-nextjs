@@ -1,10 +1,10 @@
 "use client";
-import { updateSpecialist } from "@/backend/api";
+import { updateUser } from "@/backend/api";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-function EditSpecialistComponent({ unitId, specialist }) {
+function EditSpecialistComponent({ specialist, unitId }) {
   console.log("Specialist i EditSpecialistComponent ", specialist);
   const router = useRouter();
   const [specialistData, setSpecialistData] = useState({
@@ -32,18 +32,16 @@ function EditSpecialistComponent({ unitId, specialist }) {
   const updateSpecialistHandler = async (e) => {
     e.preventDefault();
 
-    console.log("unitId : i updateSpecialistHandler", unitId); // Logga unitId
     console.log(
       "specialistId i updateSpecialistHandler:",
       specialist.specialistId
     ); // Logga specialistId
-    if (!specialist.specialistId || !unitId) {
+    if (!specialist.specialistId) {
       console.error(`Det saknas specialistId eller unitID`);
       return;
     }
     try {
-      const updatedSpecialist = await updateSpecialist(
-        unitId,
+      const updatedSpecialist = await updateUser(
         specialist.specialistId,
         specialistData
       );
@@ -51,7 +49,7 @@ function EditSpecialistComponent({ unitId, specialist }) {
         `specialist med ${updatedSpecialist.specialistId} har uppdaterats`
       );
       displaySuccessMessage("Specialist har uppdaterats");
-      router.push(`/units/${unitId}/specialister`);
+      router.push(`/dashboard/units/${unitId}/specialister`);
     } catch (error) {
       console.error(`PROBLEM: Vid uppdatering specialist: ${error.message}`);
       setSpecialistData(null);
@@ -62,14 +60,14 @@ function EditSpecialistComponent({ unitId, specialist }) {
     }
   };
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center my-5">
       {specialist && (
         <h3 className="text-purple-600 text-2xl ">
-          Du redigerar {specialist.name} med ID: {specialist.specialistId}
+          Du redigerar {specialist.name}
         </h3>
       )}
       <form onSubmit={updateSpecialistHandler}>
-        <div className="flex flex-1 mb-4">
+        <div className="flex flex-1 my-4">
           <input
             type="text"
             name="name"

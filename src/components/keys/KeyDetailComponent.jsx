@@ -39,7 +39,7 @@ const KeyDetailComponent = () => {
       let userType = selectedUser.userType;
       await checkoutKey(userType, selectedUserId, key._id);
       toast.success("Nyckeln har lånats ut!");
-      router.push("/keys");
+      router.push("/dashboard/keys");
     } catch (error) {
       console.error("Error", error);
       toast.error("Kunde inte låna ut nyckeln.");
@@ -79,7 +79,7 @@ const KeyDetailComponent = () => {
       console.log("Lämna in", userType, userId, key._id);
       await checkinKey(userType, userId, key._id);
       toast.success("Nyckeln har återlämnats!");
-      router.push("/keys");
+      router.push("/dashboard/keys");
     } catch (error) {
       console.error("Error", error);
       toast.error("Kunde inte lämna tillbaka nyckeln.");

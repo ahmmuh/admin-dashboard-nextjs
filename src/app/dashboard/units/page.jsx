@@ -121,15 +121,6 @@ function UnitPage({ params }) {
                     href={`/dashboard/keys`}
                     text={`${unit.keys.length} st`}
                   />
-
-                  <CardRow
-                    label="Objekt"
-                    icon={
-                      <HiOutlineOfficeBuilding className="text-purple-500 w-5 h-5" />
-                    }
-                    href={`/dashboard/units/${unit._id}/workplaces`}
-                    text="Mina objekt"
-                  />
                 </div>
               </MainCard>
             );

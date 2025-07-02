@@ -17,7 +17,6 @@ function EditApartmentComponent() {
   const fetchApartmentById = async () => {
     try {
       const apartmentData = await getApartmentByID(apartmentId);
-      toast.success("Lägenheten har uppdaterats");
       console.log("Hämtad APARTMENT", apartmentData);
       setApartment(apartmentData);
     } catch (error) {

@@ -24,7 +24,7 @@
 //     title: "",
 //     description: "",
 //     location: "",
-//     completed: "",
+//     status: "",
 //     unit: "",
 //     taskId: "",
 //   });
@@ -34,7 +34,7 @@
 //     return (
 //       (taskData.title.trim() !== "" &&
 //         taskData.description.trim() !== "" &&
-//         taskData.completed !== "" &&
+//         taskData.status !== "" &&
 //         taskData.unit !== null) ||
 //       taskData.unit !== undefined
 //     );
@@ -63,7 +63,7 @@
 //       const updatedTask = {
 //         title: taskData.title,
 //         description: taskData.description,
-//         completed: taskData.completed,
+//         status: taskData.status,
 //         location: taskData.location,
 //         unit: taskData.unit,
 //         taskId: taskData.taskId,
@@ -96,7 +96,7 @@
 //     setTaskData({
 //       title: task.title || "",
 //       description: task.description || "",
-//       completed: task.completed,
+//       status: task.status,
 //       unit: task.unit,
 //       taskId: task.taskId,
 //     });
@@ -153,8 +153,8 @@
 //           <div className="w-1/2">
 //             <select
 //               className="w-full bg-gray-100 p-2 border border-b-gray-400 mb-4"
-//               name="completed"
-//               value={taskData.completed}
+//               name="status"
+//               value={taskData.status}
 //               onChange={changeHandler}>
 //               {statusOptions.map((status) => (
 //                 <option key={status} value={status}>
@@ -228,7 +228,7 @@ function EditTaskClientComponent({ task }) {
     title: "",
     description: "",
     location: "",
-    completed: "",
+    status: "",
     taskId: "",
   });
 
@@ -238,7 +238,7 @@ function EditTaskClientComponent({ task }) {
     return (
       taskData.title.trim() !== "" &&
       taskData.description.trim() !== "" &&
-      taskData.completed !== ""
+      taskData.status !== ""
     );
   };
 
@@ -262,14 +262,14 @@ function EditTaskClientComponent({ task }) {
       const updatedTask = {
         title: taskData.title,
         description: taskData.description,
-        completed: taskData.completed,
+        status: taskData.status,
         location: taskData.location,
         taskId: taskData.taskId,
       };
 
       await updateTask(taskData.taskId, updatedTask);
       displaySuccessMessage("Task har uppdaterats");
-      router.push(`/tasks`);
+      router.push(`/dashboard/tasks`);
     } catch (error) {
       console.error(
         `Fel vid uppdatering av enhet med NY TASK ${error.message}`
@@ -277,7 +277,7 @@ function EditTaskClientComponent({ task }) {
       displayErrorMessage(
         `Fel vid uppdatering av enhet med NY TASK ${error.message}`
       );
-      router.push(`/tasks`);
+      router.push(`/dashboard/tasks`);
     }
   };
 
@@ -285,7 +285,7 @@ function EditTaskClientComponent({ task }) {
     setTaskData({
       title: task.title || "",
       description: task.description || "",
-      completed: task.completed,
+      status: task.status,
       location: task.location || "",
       taskId: task.taskId,
     });
@@ -294,7 +294,7 @@ function EditTaskClientComponent({ task }) {
   return (
     <div className="flex flex-col">
       <h3 className="text-purple-600 text-2xl py-3 mb-5">
-        Du uppdaterar {taskData.title} {taskData.taskId}
+        Du uppdaterar ett uppdrag
       </h3>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -319,8 +319,8 @@ function EditTaskClientComponent({ task }) {
         <div className="mb-3">
           <select
             className="w-full bg-gray-100 p-2 border border-b-gray-400 mb-4"
-            name="completed"
-            value={taskData.completed}
+            name="status"
+            value={taskData.status}
             onChange={changeHandler}>
             {statusOptions.map((status) => (
               <option key={status} value={status}>

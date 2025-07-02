@@ -96,7 +96,7 @@ export const assignTaskToUnit = async (unitId, taskId, assignedTask) => {
 
 export const updateTask = async (taskId, newTask) => {
   try {
-    const res = await fetch(`${BASE_URL}/tasks/${taskId}/update`, {
+    const res = await fetch(`${BASE_URL}/tasks/${taskId}`, {
       method: "PATCH",
       credentials: "include",
       headers: {

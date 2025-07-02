@@ -50,7 +50,7 @@ function TaskPage() {
             description={task.description}
             updatedAt={task.updatedAt}
             createdAt={task.createdAt}
-            completed={task.completed}>
+            status={task.status}>
             <TaskActions task={task} />
           </ItemList>
         ))}

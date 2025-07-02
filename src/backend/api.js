@@ -194,29 +194,32 @@ export const deleteWorkplace = async (unitId, workplaceId) => {
 
 //chef operations
 
-export const updateChef = async (unitId, chefId, newChef) => {
+export const updateUser = async (userId, updatedUser) => {
   try {
-    const res = await fetch(`${BASE_URL}/units/${unitId}/chefer/${chefId}`, {
+    const res = await fetch(`${BASE_URL}/users/${userId}`, {
       method: "PUT",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newChef),
+      body: JSON.stringify(updatedUser),
     });
+
     if (!res.ok) {
       console.error(
         `Fel vid uppdatering av chef. Status: ${res.status} (${res.statusText})`
       );
       return null;
     }
+
     const data = await res.json();
-    console.log(
-      `NEW CHEF ${newChef} has been added to the UNIT med ID ${unitId}`
-    );
+
+    console.log("Chefen har uppdaterats:", data);
+
     return data;
   } catch (error) {
-    console.error(`Error on the Server ${error.message}`);
+    console.error(`Serverfel vid uppdatering av chef: ${error.message}`);
+    return null;
   }
 };
 

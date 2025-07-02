@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 
 function EditChefPage({ params }) {
-  const { unitId } = params;
+  const { unitId } = React.use(params);
   const { chefId } = params;
 
   console.log("UNIT ID in Edit Chef Page", unitId);

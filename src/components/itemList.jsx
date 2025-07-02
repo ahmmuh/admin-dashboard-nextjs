@@ -6,7 +6,7 @@ function ItemList({
   title,
   description,
   name,
-  completed,
+  status,
   icon,
   task,
   updatedAt,
@@ -44,15 +44,15 @@ function ItemList({
             <p className="text-gray-600">{description}</p>
 
             <div>
-              {completed === "Ej påbörjat" && (
+              {status === "Ej påbörjat" && (
                 <>
                   <span>Skapades: {new Date(createdAt).toLocaleString()} </span>{" "}
                   <p className="text-red-600 text-md font-bold">
-                    Status: {completed}
+                    Status: {status}
                   </p>
                 </>
               )}
-              {completed === "Färdigt" && (
+              {status === "Färdigt" && (
                 <p className="text-gray-600 ">
                   <>
                     <span>Uppdaterad av {takerUnit.name}</span> <br />
@@ -61,13 +61,13 @@ function ItemList({
                     </span>{" "}
                     <br />
                     <span className="text-green-500 font-bold">
-                      Status: {completed}
+                      Status: {status}
                     </span>
                   </>
                 </p>
               )}
 
-              {completed === "Påbörjat" && (
+              {status === "Påbörjat" && (
                 <p className="text-gray-500 text-md">
                   <span>Uppdaterad av {takerUnit.name}</span> <br />
                   <span>
@@ -75,7 +75,7 @@ function ItemList({
                   </span>{" "}
                   <br />
                   <span className="text-orange-500 text-md font-bold">
-                    Status: {completed}
+                    Status: {status}
                   </span>
                 </p>
               )}
