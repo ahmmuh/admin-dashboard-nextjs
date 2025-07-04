@@ -28,8 +28,8 @@ export const createUnit = async (newUnit) => {
 export const getUnits = async () => {
   try {
     const res = await fetch(`${BASE_URL}/units`, {
-      method: "GET",
       credentials: "include",
+      method: "GET",
     });
     if (!res.ok) {
       throw new Error(`HTTP Error! status: ${res.status}`);

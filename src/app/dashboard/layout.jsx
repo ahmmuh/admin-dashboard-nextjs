@@ -1,3 +1,5 @@
+import { logout } from "@/backend/authAPI";
+import LogoutButton from "@/components/logoutButton";
 import Sidebar from "@/components/sidebar";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -15,7 +17,12 @@ function DashboardLayout({ children }) {
   return (
     <div className="flex h-full gap-4">
       <Sidebar />
-      <main className="flex-1 min-h-screen">{children}</main>
+      <main className="flex-1 min-h-screen">
+        <div className=" flex justify-end pr-4">
+          <LogoutButton />
+        </div>
+        {children}
+      </main>
     </div>
   );
 }

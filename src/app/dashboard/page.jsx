@@ -28,7 +28,7 @@ function Dashboard() {
 
   return (
     <>
-      <h2 className="text-2xl my-3 text-purple-500 italic ">
+      <h2 className="text-2xl text-purple-500 italic ">
         Hej och välkommen {user.name}
       </h2>
     </>
