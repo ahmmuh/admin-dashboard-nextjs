@@ -36,8 +36,9 @@ const KeyDetailComponent = () => {
     }
 
     try {
-      let userType = selectedUser.userType;
-      await checkoutKey(userType, selectedUserId, key._id);
+      let userType = selectedUser;
+      console.log("USER TYPE", userType);
+      // await checkoutKey(userType, selectedUserId, key._id);
       toast.success("Nyckeln har lånats ut!");
       router.push("/dashboard/keys");
     } catch (error) {

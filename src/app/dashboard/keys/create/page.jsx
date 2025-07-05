@@ -8,6 +8,7 @@ import {
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { HiOutlineKey } from "react-icons/hi";
 
 function CreateNewKey() {
   const [key, setKey] = useState({

@@ -49,13 +49,13 @@ function CreateApartmentComponent() {
   };
 
   return (
-    <div className="">
+    <div className="mb-10">
       <Toaster />
-      <h3 className="text-purple-500 font-bold pt-6 text-2xl">
+      <h3 className="text-purple-500 font-bold  text-2xl">
         Lägg till ny lägenhet
       </h3>
 
-      <div className="flex flex-col pt-6 pr-20">
+      <div className="flex flex-col mt-6 pr-20">
         <form onSubmit={handleSubmit}>
           <div className="">
             <label

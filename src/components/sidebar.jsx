@@ -48,6 +48,12 @@ const Sidebar = ({ units }) => {
               Generate QR Code (Nyckel)
             </span>
           </Link>
+
+          <Link href={"/dashboard/users"}>
+            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
+              Ny användare
+            </span>
+          </Link>
         </ul>
       </nav>
     </aside>

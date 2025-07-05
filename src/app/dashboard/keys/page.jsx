@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 // import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { HiOutlineKey } from "react-icons/hi";
 
 function KeyPage() {
   const [loading, setLoading] = useState(true);
@@ -87,14 +88,14 @@ function KeyPage() {
   return (
     <div>
       <Toaster />
-      <div className="flex p-2 mb-5 border-b border-b-orange-300">
+      <div className="p-2 mb-5 border-b border-b-orange-300">
         <h1 className="text-2xl font-bold text-purple-500 italic">
           Nyckel hantering
         </h1>
         <Link
           href={"/dashboard/keys/create"}
-          className="text-blue-600 font-bold  mt-2 ml-10 w-1/2 text-center py-1 border-b-red-200">
-          Ny nyckel
+          className="text-green-600 font-bold  mt-2 w-1/2  py-1 border-b-red-200 flex items-center">
+          <span>Ny nyckel</span> <HiOutlineKey className="ml-2" />
         </Link>
       </div>
       <div className="pr-10">

@@ -10,12 +10,15 @@ import React, { useState } from "react";
 function SignUpPage() {
   const router = useRouter();
 
+  const roles = ["Chef", "Specialist"];
+
   const [user, setUser] = useState({
     name: "",
     email: "",
     phone: "",
     username: "",
     password: "",
+    role: "",
   });
 
   const changeHandler = (e) => {
@@ -35,6 +38,7 @@ function SignUpPage() {
         phone: user.phone,
         username: user.username,
         password: user.password,
+        role: user.role,
       };
       console.log("New användare", userInfo);
       await signUp(userInfo);
@@ -47,7 +51,7 @@ function SignUpPage() {
   };
   return (
     <div className="flex  flex-col justify-center items-center h-screen bg-gray-50">
-      <h3 className="mb-5 text-2xl">Skapa konto</h3>
+      <h3 className="mb-2 text-2xl">Skapa konto</h3>
 
       <div className="flex flex-col p-8 shadow-lg shadow-blue-200 bg-white w-full min-h-fit max-w-md ">
         <form onSubmit={SignUpHandler}>
@@ -91,6 +95,26 @@ function SignUpPage() {
             label={"Lösenord"}
             changeHandler={changeHandler}
           />
+          <div className="mb-5">
+            <label
+              htmlFor="role"
+              className="block mb-2 text-sm font-medium text-gray-700"></label>
+            <select
+              onChange={changeHandler}
+              name="role"
+              id="role"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              defaultValue="">
+              <option value="" disabled>
+                -- Välj roll --
+              </option>
+              {roles.map((rol, index) => (
+                <option key={index} value={rol}>
+                  {rol}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="">
             <button
               type="submit"
