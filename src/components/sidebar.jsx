@@ -49,7 +49,7 @@ const Sidebar = ({ units }) => {
             </span>
           </Link>
 
-          <Link href={"/dashboard/users"}>
+          <Link href={"/dashboard/signUp"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
               Ny användare
             </span>

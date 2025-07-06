@@ -1,7 +1,7 @@
 "use client";
-
 import { signIn, signUp } from "@/backend/authAPI";
 import MainInput from "@/components/input";
+import { useFetchUnits } from "@/customhook/useFetchUnits";
 import { displaySuccessMessage } from "@/helper/toastAPI";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,8 @@ import React, { useState } from "react";
 
 function SignUpPage() {
   const router = useRouter();
-
+  const { units } = useFetchUnits();
+  console.log("UNITS", units);
   const roles = ["Chef", "Specialist"];
 
   const [user, setUser] = useState({
@@ -19,6 +20,7 @@ function SignUpPage() {
     username: "",
     password: "",
     role: "",
+    unit: "",
   });
 
   const changeHandler = (e) => {
@@ -32,13 +34,17 @@ function SignUpPage() {
   const SignUpHandler = async (e) => {
     e.preventDefault();
     try {
+      const { unit, ...rest } = user;
       const userInfo = {
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        username: user.username,
-        password: user.password,
-        role: user.role,
+        // name: user.name,
+        // email: user.email,
+        // phone: user.phone,
+        // username: user.username,
+        // password: user.password,
+        // role: user.role,
+        // unit: user.unit,
+        ...rest,
+        unitId: user.unit,
       };
       console.log("New användare", userInfo);
       await signUp(userInfo);
@@ -50,11 +56,10 @@ function SignUpPage() {
     }
   };
   return (
-    <div className="flex  flex-col justify-center items-center h-screen bg-gray-50">
-      <h3 className="mb-2 text-2xl">Skapa konto</h3>
-
-      <div className="flex flex-col p-8 shadow-lg shadow-blue-200 bg-white w-full min-h-fit max-w-md ">
-        <form onSubmit={SignUpHandler}>
+    <div className="mb-6 flex flex-col w-full bg-gray-50">
+      <h4 className="text-2xl">Registrera ny användare</h4>
+      <div className="flex flex-col p-4 shadow-lg shadow-blue-200 bg-white w-full min-h-fit  ">
+        <form onSubmit={SignUpHandler} className="w-full">
           <MainInput
             className={"p-1 w-full border border-black rounded-lg"}
             type={"text"}
@@ -115,18 +120,33 @@ function SignUpPage() {
               ))}
             </select>
           </div>
+          <div className="mb-5">
+            <label
+              htmlFor="role"
+              className="block mb-2 text-sm font-medium text-gray-700"></label>
+            <select
+              onChange={changeHandler}
+              name="unit"
+              id="unit"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              defaultValue="">
+              <option value="" disabled>
+                -- Välj enhet --
+              </option>
+              {units &&
+                units.map((unit) => (
+                  <option key={unit._id} value={unit._id}>
+                    {unit.name}
+                  </option>
+                ))}
+            </select>
+          </div>
           <div className="">
             <button
               type="submit"
               className="bg-green-200 w-full p-2 hover:bg-green-300">
               Skapa
             </button>
-            <Link href={"/auth/login"}>
-              <span className="text-sm text-blue-600">
-                Redan har ett konto?{" "}
-              </span>
-              Logga in
-            </Link>
           </div>
         </form>
       </div>
