@@ -51,14 +51,14 @@ function EditChefComponent({ unitId, chef }) {
   return (
     <div className="flex flex-col justify-center gap-y-4">
       {chef && (
-        <h3 className="text-purple-600 text-2xl ">Du redigerar {chef.name}</h3>
+        <h3 className="text-purple-600 text-xl ">Du redigerar {chef.name}</h3>
       )}
       <form onSubmit={updateChefHandler}>
         <div className="flex flex-1 mb-4">
           <input
             type="text"
             name="name"
-            className="w-full p-2 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
+            className="w-full px-2 py-1 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
             value={chefData.name}
             onChange={changeHandler}
           />
@@ -68,7 +68,7 @@ function EditChefComponent({ unitId, chef }) {
             type="number"
             name="phone"
             min={0}
-            className="w-full p-2 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
+            className="w-full px-2 py-1 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
             value={chefData.phone}
             onChange={changeHandler}
           />
@@ -77,13 +77,13 @@ function EditChefComponent({ unitId, chef }) {
           <input
             type="email"
             name="email"
-            className="w-full p-2 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
+            className="w-full px-2 py-1 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
             value={chefData.email}
             onChange={changeHandler}
           />
         </div>
-        <button className="bg-green-500 text-white p-2 w-32 rounded-xl">
-          Update
+        <button className="p-2 w-32  bg-indigo-100 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-200 transition">
+          Spara
         </button>
       </form>
     </div>

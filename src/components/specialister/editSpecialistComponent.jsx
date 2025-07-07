@@ -3,6 +3,7 @@ import { updateUser } from "@/backend/api";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { HiOutlinePencilAlt } from "react-icons/hi";
 
 function EditSpecialistComponent({ specialist, unitId }) {
   console.log("Specialist i EditSpecialistComponent ", specialist);
@@ -71,7 +72,7 @@ function EditSpecialistComponent({ specialist, unitId }) {
           <input
             type="text"
             name="name"
-            className="w-full  border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
+            className="w-full px-2 py-1 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
             value={specialistData.name}
             onChange={changeHandler}
           />
@@ -81,7 +82,7 @@ function EditSpecialistComponent({ specialist, unitId }) {
             type="number"
             name="phone"
             min={0}
-            className="w-full  border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
+            className="w-full px-2 py-1 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
             value={specialistData.phone}
             onChange={changeHandler}
           />
@@ -90,13 +91,13 @@ function EditSpecialistComponent({ specialist, unitId }) {
           <input
             type="email"
             name="email"
-            className="w-full border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
+            className="w-full px-2 py-1 border border-gray-400 bg-gray-200 focus:bg-orange-50 rounded-xl"
             value={specialistData.email}
             onChange={changeHandler}
           />
         </div>
-        <button className="bg-green-500 text-white p-2 w-32 rounded-xl">
-          Update
+        <button className="p-2 w-32  bg-indigo-100 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-200 transition">
+          Spara
         </button>
       </form>
     </div>

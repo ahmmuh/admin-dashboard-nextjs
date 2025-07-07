@@ -206,8 +206,7 @@ function EditApartmentComponent() {
           </div>
 
           <button
-            className="bg-purple-400 text-white p-2 w-1/5 border border-b-2
-          border-b-slate-500 rounded hover:bg-purple-500"
+            className="p-2 w-1/5  bg-indigo-200 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-300 transition"
             type="submit">
             Spara
           </button>

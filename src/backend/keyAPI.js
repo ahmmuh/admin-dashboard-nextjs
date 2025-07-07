@@ -70,18 +70,15 @@ export const getAllKeys = async () => {
 
 //Låna ut nyckel
 
-export const checkoutKey = async (userType, userId, keyId) => {
+export const checkoutKey = async (userId, keyId) => {
   try {
-    const res = await fetch(
-      `${BASE_URL}/${userType}/keys/${keyId}/${userId}/checkout`,
-      {
-        method: "PATCH", // POST eller PUT beroende på din backend
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/keys/${keyId}/${userId}/checkout`, {
+      method: "PATCH",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!res.ok) {
       console.error(`Fel vid låning av nyckel. Status: ${res.status}`);
@@ -98,19 +95,16 @@ export const checkoutKey = async (userType, userId, keyId) => {
 
 //Lämna nyckel tillbaka
 
-export const checkinKey = async (userType, userId, keyId) => {
+export const checkinKey = async (userId, keyId) => {
   try {
-    const res = await fetch(
-      `${BASE_URL}/${userType}/keys/${keyId}/${userId}/checkin`,
-      {
-        method: "PATCH", // eller PATCH beroende på hur din backend funkar
-        credentials: "include",
+    const res = await fetch(`${BASE_URL}/keys/${keyId}/${userId}/checkin`, {
+      method: "PATCH", // eller PATCH beroende på hur din backend funkar
+      credentials: "include",
 
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!res.ok) {
       console.error(

@@ -36,9 +36,12 @@ const KeyDetailComponent = () => {
     }
 
     try {
-      let userType = selectedUser;
-      console.log("USER TYPE", userType);
-      // await checkoutKey(userType, selectedUserId, key._id);
+      // let userType = selectedUser;
+      // console.log("USER TYPE", userType);
+      // console.log("USER ROLE", userType.role);
+
+      console.log("Utlånas", selectedUserId, key._id);
+      await checkoutKey(selectedUserId, key._id);
       toast.success("Nyckeln har lånats ut!");
       router.push("/dashboard/keys");
     } catch (error) {
@@ -52,10 +55,6 @@ const KeyDetailComponent = () => {
 
   const checkInHandler = async (key) => {
     const userId = selectedUserId;
-    // console.log("borrowedBy", userId);
-    // console.log("checkInHandler - key:", key);
-    // console.log("userId:", userId);
-
     if (!selectedUserId || !selectedUser) {
       toast.error("Välj en lånetagare.");
       return;
@@ -76,9 +75,8 @@ const KeyDetailComponent = () => {
 
     try {
       console.log("nyckel som ska lämnas in: ", userId, key._id);
-      let userType = selectedUser.userType;
-      console.log("Lämna in", userType, userId, key._id);
-      await checkinKey(userType, userId, key._id);
+      console.log("Lämna in", userId, key._id);
+      await checkinKey(userId, key._id);
       toast.success("Nyckeln har återlämnats!");
       router.push("/dashboard/keys");
     } catch (error) {

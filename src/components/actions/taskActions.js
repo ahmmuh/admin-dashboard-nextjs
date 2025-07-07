@@ -17,7 +17,6 @@ function TaskActions({ task }) {
         );
       }
       displayErrorMessage("Task har tagits bort");
-      P;
       router.push(`/dashboard/tasks`);
       return task;
     } catch (error) {

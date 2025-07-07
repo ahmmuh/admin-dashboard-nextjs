@@ -85,10 +85,9 @@ function KeyLogPage() {
                 <td className="text-black border border-gray-200 border-b-2 p-1">
                   {log.key ? log.key.location : "Ingen plats"}
                 </td>
+
                 <td className="text-black border border-gray-200 border-b-2 p-1">
-                  {log.key?.borrowedBy
-                    ? log.key.borrowedBy.name
-                    : "Ej lånetagare"}
+                  {log.key?.lastBorrowedBy?.name || log.key?.borrowedBy?.name}
                 </td>
                 <td className="text-black border border-gray-200 border-b-2 p-1">
                   {log.key?.borrowedAt

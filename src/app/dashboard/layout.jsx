@@ -11,7 +11,7 @@ function DashboardLayout({ children }) {
   const token = cookieStore.get("token")?.value;
 
   if (!token) {
-    redirect("/login");
+    redirect("/auth/login");
   }
 
   return (
