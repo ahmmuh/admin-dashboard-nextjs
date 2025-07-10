@@ -146,8 +146,7 @@ function CreateApartmentComponent() {
           </div>
 
           <button
-            className="bg-blue-500 text-white p-2 w-1/5 border border-b-2
-          border-b-slate-500 rounded hover:bg-blue-600"
+            className="p-2 w-1/3  bg-indigo-200 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-300 transition"
             type="submit">
             Spara
           </button>

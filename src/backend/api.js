@@ -1,3 +1,4 @@
+import { fetchWithAuth } from "@/app/lib/fetchWithAuth";
 import { BASE_URL } from "./base_url";
 
 export const createUnit = async (newUnit) => {
@@ -27,7 +28,7 @@ export const createUnit = async (newUnit) => {
 
 export const getUnits = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/units`, {
+    const res = await fetchWithAuth(`${BASE_URL}/units`, {
       credentials: "include",
       method: "GET",
     });

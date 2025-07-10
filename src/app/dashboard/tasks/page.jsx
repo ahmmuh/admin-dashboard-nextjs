@@ -7,7 +7,9 @@ import SearchInput from "@/components/searhInput";
 import { useFetchTask } from "@/customhook/useFetchTaskAPI";
 import { faHome, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import React, { useState } from "react";
+import { HiOutlineDocumentAdd } from "react-icons/hi";
 
 function TaskPage() {
   const { tasks } = useFetchTask();
@@ -20,18 +22,14 @@ function TaskPage() {
 
   return (
     <div className="flex flex-col  p-5">
-      <h4 className="text-3xl font-bold mb-5 text-purple-500">Att göra </h4>
       <>
-        <CustomLink
-          className=" bg-green-200 text-white w-20 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200"
-          title={
-            <FontAwesomeIcon icon={faPlus} className="text-2xl text-blue-500" />
-          }
-          icon={
-            <FontAwesomeIcon icon={faHome} className="text-2xl text-blue-500" />
-          }
-          url={`/dashboard/tasks/create`}
-        />
+        <h4 className="text-2xl font-bold mb-3 text-purple-500 ">Att göra </h4>
+        <Link
+          className=" flex justify-center gap-x-5 items-center bg-green-200  px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
+          href={`/dashboard/tasks/create`}>
+          <FontAwesomeIcon icon={faPlus} className="text-2xl " />
+          Lägg till
+        </Link>
         <SearchInput
           type="text"
           onSearch={() => console.log("Söker key logs")}

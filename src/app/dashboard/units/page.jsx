@@ -111,14 +111,14 @@ function UnitPage({ params }) {
                     icon={
                       <HiOutlineClipboardList className="text-purple-500 w-5 h-5" />
                     }
-                    href={`/dashboard/tasks`}
-                    text={`Att göra ${unit.tasks.length}`}
+                    href={`/dashboard/units/${unit._id}/unitTasks`}
+                    text={`Att göra ${unit?.tasks?.length}`}
                   />
 
                   <CardRow
                     label="Nycklar"
                     icon={<HiOutlineKey className="text-purple-500 w-5 h-5" />}
-                    href={`/dashboard/keys`}
+                    href={`/dashboard/units/${unit._id}/unitKeys`}
                     text={`${unit.keys.length} st`}
                   />
                 </div>
@@ -130,7 +130,7 @@ function UnitPage({ params }) {
   );
 }
 
-function CardRow({ label, icon, href, text }) {
+export function CardRow({ label, icon, href, text }) {
   return (
     <div className="py-4 flex items-center gap-3 group">
       {icon}

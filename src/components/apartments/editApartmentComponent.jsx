@@ -74,7 +74,7 @@ function EditApartmentComponent() {
     <div className="">
       <Toaster />
       <h3 className="text-purple-500 font-bold pt-2 px-5 text-2xl">
-        Update lägenhet
+        Uppdatera lägenhet
       </h3>
 
       <div className="flex flex-col p-5 ">
@@ -206,7 +206,7 @@ function EditApartmentComponent() {
           </div>
 
           <button
-            className="p-2 w-1/5  bg-indigo-200 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-300 transition"
+            className="p-2 w-1/3  bg-indigo-200 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-300 transition"
             type="submit">
             Spara
           </button>

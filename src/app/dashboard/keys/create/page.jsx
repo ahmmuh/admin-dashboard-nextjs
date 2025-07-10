@@ -56,7 +56,7 @@ function CreateNewKey() {
       <Toaster />
       <div className="flex flex-col">
         <h2 className="text-2xl text-purple-500 font-bold mb-5">
-          Lägg till ny nyckel 🔑
+          Ny nyckel 🔑
         </h2>
         <form onSubmit={addNewKey}>
           <div className="mb-4 w-full ">
@@ -78,7 +78,8 @@ function CreateNewKey() {
             />
           </div>
 
-          <button className="bg-green-400  text-white text-center px-4 py-2 w-64 hover:bg-green-500">
+          <button
+            className=" w-1/3 flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-200 transition">
             Spara
           </button>
         </form>

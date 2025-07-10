@@ -145,7 +145,7 @@ function SignUpPage() {
             <button
               type="submit"
               className="bg-green-200 w-full p-2 hover:bg-green-300">
-              Skapa
+              Lägg till
             </button>
           </div>
         </form>

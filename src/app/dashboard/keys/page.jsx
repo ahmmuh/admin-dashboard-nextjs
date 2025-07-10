@@ -1,5 +1,7 @@
 "use client";
 import { checkinKey, checkoutKey, getAllKeys } from "@/backend/keyAPI";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -88,15 +90,14 @@ function KeyPage() {
   return (
     <div>
       <Toaster />
-      <div className="p-2 mb-5 border-b border-b-orange-300">
-        <h1 className="text-2xl font-bold text-purple-500 italic">
-          Nyckel hantering
-        </h1>
+      <div className="p-2  border-b border-b-orange-300">
         <Link
-          href={"/dashboard/keys/create"}
-          className="text-green-600 font-bold  mt-2 w-1/2  py-1 border-b-red-200 flex items-center">
-          <span>Ny nyckel</span> <HiOutlineKey className="ml-2" />
+          className=" flex justify-center gap-x-5 items-center bg-green-200  px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
+          href={`/dashboard/keys/create`}>
+          <FontAwesomeIcon icon={faPlus} className="text-2xl " />
+          Lägg till nyckel
         </Link>
+        <h3 className=" font-bold text-purple-500 italic">Nyckel hantering</h3>
       </div>
       <div className="pr-10">
         <table className=" border border-gray-400 w-full ">

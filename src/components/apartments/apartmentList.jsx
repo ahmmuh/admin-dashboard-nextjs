@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 import SearchInput from "../searhInput";
 import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
 import { displayErrorMessage } from "@/helper/toastAPI";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function ApartmentList({ apartments: initialApartments }) {
   const [apartments, setApartments] = useState(initialApartments);
@@ -26,19 +28,15 @@ function ApartmentList({ apartments: initialApartments }) {
   };
   return (
     <div className=" p-6">
-      <h4 className="text-2xl mb-10 font-bold text-purple-500">
-        Alla lägenheter
-      </h4>
-
       <div className=" flex justify-start flex-col ">
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           {/* Ny lägenhet */}
           <Link
-            href={`/dashboard/apartments/create`}
-            className="bg-indigo-100 text-indigo-800 font-medium px-5 py-3 w-full sm:w-96 rounded-xl border border-indigo-200 hover:bg-indigo-200 transition">
+            className=" flex justify-center gap-x-5 items-center bg-green-200  px-4 py-2   text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200"
+            href={`/dashboard/apartments/create`}>
+            <FontAwesomeIcon icon={faPlus} className="text-2xl " />
             Ny lägenhet
           </Link>
-
           {/* Pågående flyttstäd */}
           <h5 className="bg-blue-100 text-blue-800 font-medium px-5 py-3 w-full sm:w-96 rounded-xl border border-blue-200">
             Pågående flyttstäd ({apartments?.length})
@@ -48,6 +46,9 @@ function ApartmentList({ apartments: initialApartments }) {
         {apartments &&
           apartments.map((apartment) => (
             <div className="border border-b-2  p-5" key={apartment._id}>
+              <h4 className="text-2xl mb-10 font-bold text-purple-500">
+                Alla lägenheter
+              </h4>
               {/* <SearchInput
                 type="text"
                 onSearch={() => console.log("Söker key logs")}
@@ -133,23 +134,6 @@ function ApartmentList({ apartments: initialApartments }) {
                     Ta bort
                   </button>
                 </div>
-
-                {/* <div className="flex  justify-between items-center text-center my-5 w-1/2">
-                  <Link
-                    href={`/dashboard/apartments/${apartment._id}/edit`}
-                    className="bg-purple-400 text-white p-2 w-full border border-b-2
-          border-b-slate-500 rounded hover:bg-purple-500">
-                    {" "}
-                    Uppdatera
-                  </Link>
-                  <button
-                    type="submit"
-                    onClick={() => handleDelete(apartment._id)}
-                    className="bg-red-300 text-white p-2 w-full border border-b-2
-          border-b-slate-500 rounded hover:bg-red-400">
-                    Ta bort
-                  </button>
-                </div> */}
               </ul>
             </div>
           ))}
@@ -159,40 +143,3 @@ function ApartmentList({ apartments: initialApartments }) {
 }
 
 export default ApartmentList;
-
-// apartmentLocation
-// :
-// "Danmarksgatan 26"
-// assignedAt
-// :
-// null
-// assignedUnit
-// :
-// "6739998297a4cb689a4a83b2"
-// completedAt
-// :
-// null
-// createdAt
-// :
-// "2025-04-20T09:35:23.489Z"
-// description
-// :
-// "Mycket skitlägenhet"
-// endDate
-// :
-// null
-// keyLocation
-// :
-// "Sagergatan 17"
-// priority
-// :
-// "Hög"
-// startDate
-// :
-// "2025-04-20T09:35:23.486Z"
-// status
-// :
-// "Ej påbörjat"
-// updatedAt
-// :
-// "2025-04-20T09:35:23.489Z"
