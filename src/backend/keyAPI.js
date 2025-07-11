@@ -213,3 +213,17 @@ export const deleteKey = async (keyId) => {
     console.error("Error deleting Key (nyckel):", error.message);
   }
 };
+
+//Sök nycklar
+
+// frontend/keyAPI.js
+export const searchKeys = async (query) => {
+  const res = await fetch(`${BASE_URL}/keys/search?keyLabel=${query}`, {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await res.json();
+
+  if (!res.ok) throw new Error(data.message);
+  return data.data;
+};

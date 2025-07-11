@@ -1,6 +1,7 @@
 "use client";
 
 import { checkinKey, getAllKeys } from "@/backend/keyAPI";
+import KeySearch from "@/components/keys/keySearch";
 import SearchInput from "@/components/searhInput";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -79,18 +80,12 @@ function KeyPage() {
       </div>
 
       <div className="pr-10 ">
-        <div className="mr-5">
-          <SearchInput
-            type="text"
-            onSearch={() => console.log("Söker key logs")}
-            delay={400}
-            className="w-full"
-            placeholder="Sök...."
-          />
+        <div className="my-5">
+          <KeySearch />
         </div>
         <table className="border border-gray-400 w-full">
           {keys && keys.length > 0 && (
-            <thead className="pt-6">
+            <thead className="">
               <tr>
                 <th className="border border-gray-200 text-left ">
                   Nyckelbeteckning
