@@ -44,7 +44,7 @@ function UnitTasksPage() {
   console.log("TASK i UNIT TASK PAGE", tasks);
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="mx-auto p-6">
       <h1 className="text-3xl font-bold text-purple-700 mb-6 border-b pb-2">
         Uppgifter för enhet: {unit?.name}
       </h1>
@@ -76,9 +76,11 @@ function UnitTasksPage() {
               )}
 
               <div className="text-xs text-gray-500 flex flex-col sm:flex-row sm:gap-4">
-                <span>
-                  Skapad: {new Date(task.createdAt).toLocaleDateString()}
-                </span>
+                {task.status === "Available" && (
+                  <span>
+                    Skapad: {new Date(task.createdAt).toLocaleDateString()}
+                  </span>
+                )}
                 <span>
                   Uppdaterad: {new Date(task.updatedAt).toLocaleDateString()}
                 </span>

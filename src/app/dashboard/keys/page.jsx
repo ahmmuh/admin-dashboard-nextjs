@@ -1,14 +1,14 @@
 "use client";
-import { checkinKey, checkoutKey, getAllKeys } from "@/backend/keyAPI";
+
+import { checkinKey, getAllKeys } from "@/backend/keyAPI";
+import SearchInput from "@/components/searhInput";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-// import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { HiOutlineKey } from "react-icons/hi";
 
 function KeyPage() {
   const [loading, setLoading] = useState(true);
@@ -16,30 +16,11 @@ function KeyPage() {
   const [keys, setKeys] = useState([]);
   const router = useRouter();
 
-  // låne och återlämna actions
-  // const checkOutHandler = async (key) => {
-  //   const userId = key.borrowedBy ? key.borrowedBy : key.lastBorrowedBy;
-  //   const userType = key.borrowedByModel || key.lastBorrowedByModel;
-  //   const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
-  //   console.log("userType by checkOutHandler()", fixedUserType);
-  //   try {
-  //     await checkoutKey(fixedUserType, userId, key._id);
-  //     toast.success("Nyckeln har lånats ut");
-  //     await fetchKeys();
-  //   } catch (error) {
-  //     console.error("Error");
-  //   }
-  // };
-
   const checkInHandler = async (key) => {
     const userId = key.lastBorrowedBy;
-    console.log("USER ID I FRONTEND checkInHandler() function", userId);
-
     const userType = key.borrowedByModel || key.lastBorrowedByModel;
     const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
-    console.log("userType by checkInHandler()", fixedUserType);
-    console.log("User ID:", userId);
-    console.log("Nyckel ID", key._id);
+
     try {
       await checkinKey(userId, key._id);
       await fetchKeys();
@@ -50,15 +31,9 @@ function KeyPage() {
     }
   };
 
-  //Fetch alla nycklar
-
   const fetchKeys = async () => {
     try {
       const keyList = await getAllKeys();
-      if (keyList.length === 0) {
-        console.log("Nycklar finns ingte");
-      }
-      console.log("ALla hämtade nycklar", keyList);
       setKeys(keyList);
       setLoading(false);
     } catch (error) {
@@ -87,49 +62,70 @@ function KeyPage() {
       </div>
     );
   }
+
   return (
     <div>
       <Toaster />
-      <div className="p-2  border-b border-b-orange-300">
+      <div className="p-2 ">
         <Link
-          className=" flex justify-center gap-x-5 items-center bg-green-200  px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
+          className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
           href={`/dashboard/keys/create`}>
-          <FontAwesomeIcon icon={faPlus} className="text-2xl " />
+          <FontAwesomeIcon icon={faPlus} className="text-2xl" />
           Lägg till nyckel
         </Link>
-        <h3 className=" font-bold text-purple-500 italic">Nyckel hantering</h3>
+        {keys && keys.length > 0 && (
+          <h3 className="font-bold text-purple-500 italic">Nyckel hantering</h3>
+        )}
       </div>
-      <div className="pr-10">
-        <table className=" border border-gray-400 w-full ">
-          <thead>
-            <tr className="">
-              <th className="border border-gray-200 text-left">
-                Nyckelbeteckning
-              </th>
-              <th className="border border-gray-200 text-left">Plats</th>
-              <th className="border border-gray-200 text-left">Status</th>
-              <th className="border border-gray-200 text-left">Lånetagare</th>
-              <th className="border border-gray-200 text-left">
-                Utlånat datum
-              </th>
-              <th className="border border-gray-200 text-left">
-                Inlämnat datum
-              </th>
-              <th className="border border-gray-200 text-left">Action</th>
-            </tr>
-          </thead>
+
+      <div className="pr-10 ">
+        <div className="mr-5">
+          <SearchInput
+            type="text"
+            onSearch={() => console.log("Söker key logs")}
+            delay={400}
+            className="w-full"
+            placeholder="Sök...."
+          />
+        </div>
+        <table className="border border-gray-400 w-full">
+          {keys && keys.length > 0 && (
+            <thead className="pt-6">
+              <tr>
+                <th className="border border-gray-200 text-left ">
+                  Nyckelbeteckning
+                </th>
+                <th className="border border-gray-200 text-left">Plats</th>
+                <th className="border border-gray-200 text-left">Status</th>
+                <th className="border border-gray-200 text-left">Lånetagare</th>
+                <th className="border border-gray-200 text-left">
+                  Utlånat datum
+                </th>
+                <th className="border border-gray-200 text-left">
+                  Inlämnat datum
+                </th>
+                <th className="border border-gray-200 text-left">Action</th>
+              </tr>
+            </thead>
+          )}
+
           <tbody>
-            {keys &&
+            {keys.length === 0 ? (
+              <tr>
+                <td colSpan="7" className="text-center text-red-500 p-4">
+                  Det finns inga nycklar att visa just nu.
+                </td>
+              </tr>
+            ) : (
+              keys &&
               keys.map((key) => (
                 <tr key={key._id} className="hover:bg-gray-300">
-                  <td
-                    className="border border-gray-200 border-b-cyan-900 
-                text-blue-400 font-bold">
-                    🔑
+                  <td className="border border-gray-200 text-blue-400 font-bold">
+                    🔑{" "}
                     <Link href={`/dashboard/keys/${key._id}`}>
                       {key.keyLabel.toUpperCase()}
                     </Link>
-                    {key && key.qrCode && (
+                    {key.qrCode && (
                       <div style={{ paddingLeft: 20 }}>
                         <Image
                           width={150}
@@ -150,19 +146,16 @@ function KeyPage() {
                     {key.status === "available" && (
                       <span className="text-green-700 font-bold">Inne</span>
                     )}
-
-                    <span className="text-green-700 font-bold">
-                      {key.status === "returned" && "Inlämnad"}
-                    </span>
-
-                    <span className="text-red-700 font-bold">
-                      {key.status === "checked-out" && "Utlånad"}
-                    </span>
+                    {key.status === "returned" && (
+                      <span className="text-green-700 font-bold">Inlämnad</span>
+                    )}
+                    {key.status === "checked-out" && (
+                      <span className="text-red-700 font-bold">Utlånad</span>
+                    )}
                   </td>
                   <td className="border border-gray-200 p-2">
                     {key.status === "checked-out" ? key.borrowedBy.name : "—"}
                   </td>
-
                   <td className="border border-gray-200 p-2">
                     {key.status === "checked-out" && key.borrowedAt
                       ? new Date(key.borrowedAt).toLocaleString("sv-SE")
@@ -173,31 +166,25 @@ function KeyPage() {
                       ? new Date(key.returnedAt).toLocaleString("sv-SE")
                       : "—"}
                   </td>
-                  <td className=" font-bold p-2">
-                    <span className="text-green-500">
-                      {key.status === "returned" && (
+                  <td className="font-bold p-2">
+                    {["available", "returned"].includes(key.status) && (
+                      <span className="text-green-500">
                         <Link href={`/dashboard/keys/${key._id}/borrow`}>
                           Låna
                         </Link>
-                      )}
-                    </span>
-                    <span className="text-green-500">
-                      {key.status === "available" && (
-                        <Link href={`/dashboard/keys/${key._id}/borrow`}>
-                          Låna
-                        </Link>
-                      )}
-                    </span>
-                    <span className="text-red-500">
-                      {key.status === "checked-out" && (
+                      </span>
+                    )}
+                    {key.status === "checked-out" && (
+                      <span className="text-red-500">
                         <Link href={`/dashboard/keys/${key._id}/borrow`}>
                           Lämna in
                         </Link>
-                      )}
-                    </span>
+                      </span>
+                    )}
                   </td>
                 </tr>
-              ))}
+              ))
+            )}
           </tbody>
         </table>
       </div>

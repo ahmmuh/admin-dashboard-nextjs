@@ -144,7 +144,7 @@ function SignUpPage() {
           <div className="">
             <button
               type="submit"
-              className="bg-green-200 w-full p-2 hover:bg-green-300">
+              className={` cursor-pointer p-2 w-80 border rounded-2xl bg-green-200 text-black hover:bg-green-300 hover:text-white `}>
               Lägg till
             </button>
           </div>

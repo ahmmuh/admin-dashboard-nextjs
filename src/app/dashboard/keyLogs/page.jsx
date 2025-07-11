@@ -46,74 +46,82 @@ function KeyLogPage() {
   }
   if (Array.isArray(logs) && logs.length === 0) {
     return (
-      <div className="flex flex-col justify-center items-center p-10">
-        <SearchInput
-          type="text"
-          onSearch={() => console.log("Söker key logs")}
-          delay={400}
-          placeholder="Sök...."
-        />
-
+      <div className="flex flex-col justify-center items-center py-3">
         <h4 className="text-2xl text-green-700">Inga loggar finns att visa</h4>
       </div>
     );
   }
   return (
-    <div className="pb-20 pt-10">
-      <table className="border border-gray-200 w-full">
-        <thead>
-          <tr>
-            <th className="border border-gray-200 text-left">
-              Nyckelbeteckning
-            </th>
-            <th className="border border-gray-200 text-left">Tillhör</th>
-            <th className="border border-gray-200 text-left">Lånetagare</th>
-            <th className="border border-gray-200 text-left">Utlånat datum</th>
-            <th className="border border-gray-200 text-left">Inlämnat datum</th>
-            <th className="border border-gray-200 text-left">Status</th>
-          </tr>
-        </thead>
+    <>
+      <div className="mr-5">
+        <SearchInput
+          type="text"
+          onSearch={() => console.log("Söker key logs")}
+          delay={400}
+          className="w-full"
+          placeholder="Sök...."
+        />
+      </div>
+      <div className="pb-20">
+        <table className="border border-gray-200 w-full">
+          <thead>
+            <tr>
+              <th className="border border-gray-200 text-left">
+                Nyckelbeteckning
+              </th>
+              <th className="border border-gray-200 text-left">Tillhör</th>
+              <th className="border border-gray-200 text-left">Lånetagare</th>
+              <th className="border border-gray-200 text-left">
+                Utlånat datum
+              </th>
+              <th className="border border-gray-200 text-left">
+                Inlämnat datum
+              </th>
+              <th className="border border-gray-200 text-left">Status</th>
+            </tr>
+          </thead>
 
-        <tbody className="">
-          {logs &&
-            logs.slice(0, visibleLogs).map((log) => (
-              <tr key={log._id} className="hover:bg-gray-200 pl-2 pt-3 pb-20">
-                <td className="text-black border border-gray-200 border-b-2 p-1">
-                  <span className="pr-2">🔑</span>
-                  {log.key ? log.key.keyLabel : "Nyckel saknas"}
-                </td>
-                <td className="text-black border border-gray-200 border-b-2 p-1">
-                  {log.key ? log.key.location : "Ingen plats"}
-                </td>
+          <tbody className="">
+            {logs &&
+              logs.slice(0, visibleLogs).map((log) => (
+                <tr key={log._id} className="hover:bg-gray-200 pl-2 pt-3 pb-20">
+                  <td className="text-black border border-gray-200 border-b-2 p-1">
+                    <span className="pr-2">🔑</span>
+                    {log.key ? log.key.keyLabel : "Nyckel saknas"}
+                  </td>
+                  <td className="text-black border border-gray-200 border-b-2 p-1">
+                    {log.key ? log.key.location : "Ingen plats"}
+                  </td>
 
-                <td className="text-black border border-gray-200 border-b-2 p-1">
-                  {log.key?.lastBorrowedBy?.name || log.key?.borrowedBy?.name}
-                </td>
-                <td className="text-black border border-gray-200 border-b-2 p-1">
-                  {log.key?.borrowedAt
-                    ? new Date(log.key.borrowedAt).toLocaleDateString()
-                    : "-"}
-                </td>
-                <td className="text-black border border-gray-200 border-b-2 p-1">
-                  {log.key?.returnedAt
-                    ? new Date(log.key.returnedAt).toLocaleDateString()
-                    : "-"}
-                </td>
-                <td className="text-black border border-gray-200 border-b-2 p-1">
-                  {log.key?.status === "returned" ? "Inlämnad" : "Utlånad"}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-      {visibleLogs < logs.length && (
-        <button
-          className="bg-red-100 p-2 my-4"
-          onClick={() => setVisibleLogs(visibleLogs + 10)}>
-          Visa fler
-        </button>
-      )}
-    </div>
+                  <td className="text-black border border-gray-200 border-b-2 p-1">
+                    {log.key?.lastBorrowedBy?.name || log.key?.borrowedBy?.name}
+                  </td>
+                  <td className="text-black border border-gray-200 border-b-2 p-1">
+                    {log.key?.borrowedAt
+                      ? new Date(log.key.borrowedAt).toLocaleDateString()
+                      : "-"}
+                  </td>
+                  <td className="text-black border border-gray-200 border-b-2 p-1">
+                    {log.key?.returnedAt
+                      ? new Date(log.key.returnedAt).toLocaleDateString()
+                      : "-"}
+                  </td>
+                  <td className="text-black border border-gray-200 border-b-2 p-1">
+                    {log.key?.status === "returned" ? "Inlämnad" : "Utlånad"}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+        {visibleLogs < logs.length && (
+          <button
+            className="bg-red-100 p-2 my-4"
+            onClick={() => setVisibleLogs(visibleLogs + 10)}>
+            Visa fler
+          </button>
+        )}
+      </div>
+    </>
   );
 }
 

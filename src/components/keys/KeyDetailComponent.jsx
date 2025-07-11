@@ -36,22 +36,14 @@ const KeyDetailComponent = () => {
     }
 
     try {
-      // let userType = selectedUser;
-      // console.log("USER TYPE", userType);
-      // console.log("USER ROLE", userType.role);
-
-      console.log("Utlånas", selectedUserId, key._id);
       await checkoutKey(selectedUserId, key._id);
       toast.success("Nyckeln har lånats ut!");
       router.push("/dashboard/keys");
     } catch (error) {
       console.error("Error", error);
       toast.error("Kunde inte låna ut nyckeln.");
-      return;
     }
   };
-
-  //Återlämna nyckel
 
   const checkInHandler = async (key) => {
     const userId = selectedUserId;
@@ -59,6 +51,7 @@ const KeyDetailComponent = () => {
       toast.error("Välj en lånetagare.");
       return;
     }
+
     if (
       key.borrowedBy !== selectedUserId &&
       key.borrowedBy?._id !== selectedUserId
@@ -67,22 +60,13 @@ const KeyDetailComponent = () => {
       return;
     }
 
-    console.log(
-      "Selected KEY ID och SelectedUSER ID",
-      selectedKeyId,
-      selectedUser
-    );
-
     try {
-      console.log("nyckel som ska lämnas in: ", userId, key._id);
-      console.log("Lämna in", userId, key._id);
       await checkinKey(userId, key._id);
       toast.success("Nyckeln har återlämnats!");
       router.push("/dashboard/keys");
     } catch (error) {
       console.error("Error", error);
       toast.error("Kunde inte lämna tillbaka nyckeln.");
-      return;
     }
   };
 
@@ -92,10 +76,10 @@ const KeyDetailComponent = () => {
   const availableKeys = keys.filter(
     (key) => key.status === "available" || key.status === "returned"
   );
-  useEffect(() => {
-    console.log("Lediga nycklar", availableKeys);
-    console.log("Utlånade nycklar", keysWithBorrowedStatus);
-  }, [selectedKeyId, selectedUser]);
+
+  availableKeys.length = 0;
+  keysWithBorrowedStatus.length = 0;
+
   const showAvailableKeys = () => {
     setSelectedKeyId(null);
     setSelectedUserId(null);
@@ -114,6 +98,8 @@ const KeyDetailComponent = () => {
   return (
     <div className="p-5">
       <Toaster />
+
+      {/* Toggle-knappar */}
       <div className="flex justify-around mb-5">
         <button
           onClick={showAvailableKeys}
@@ -130,6 +116,7 @@ const KeyDetailComponent = () => {
       {isShowForm ? (
         <>
           <h4 className="text-purple-500 text-2xl mb-4">Låna nyckel</h4>
+
           <div className="flex gap-4 mb-6">
             <select
               onChange={handleSelectChange}
@@ -144,10 +131,19 @@ const KeyDetailComponent = () => {
                 </option>
               ))}
             </select>
+          </div>
 
-            {selectedKey &&
-              (selectedKey.status === "returned" ||
-                selectedKey.status === "available") && (
+          {/* Meddelande om inga nycklar att låna */}
+          {availableKeys.length === 0 && (
+            <p className="text-red-500 mt-2">
+              Det finns inga nycklar tillgängliga för utlåning just nu.
+            </p>
+          )}
+
+          {selectedKey &&
+            (selectedKey.status === "returned" ||
+              selectedKey.status === "available") && (
+              <div className="mb-6">
                 <select
                   onChange={handleBorrowChange}
                   value={selectedUserId || ""}
@@ -161,9 +157,10 @@ const KeyDetailComponent = () => {
                     </option>
                   ))}
                 </select>
-              )}
-          </div>
+              </div>
+            )}
 
+          {/* Visa bara om nyckel och användare är valda */}
           {selectedKey && (
             <KeyTable
               keyData={selectedKey}
@@ -177,6 +174,7 @@ const KeyDetailComponent = () => {
       ) : (
         <>
           <h4 className="text-purple-500 text-2xl mb-4">Återlämna nyckel</h4>
+
           <div className="flex gap-4 mb-6">
             <select
               onChange={handleSelectChange}
@@ -191,7 +189,17 @@ const KeyDetailComponent = () => {
                 </option>
               ))}
             </select>
-            {selectedKey && selectedKey.status === "checked-out" && (
+          </div>
+
+          {/* Meddelande om inga nycklar att återlämna */}
+          {keysWithBorrowedStatus.length === 0 && (
+            <p className="text-red-500 mt-2">
+              Det finns inga nycklar att återlämna just nu.
+            </p>
+          )}
+
+          {selectedKey && selectedKey.status === "checked-out" && (
+            <div className="mb-6">
               <select
                 onChange={handleBorrowChange}
                 value={selectedUserId || ""}
@@ -205,8 +213,8 @@ const KeyDetailComponent = () => {
                   </option>
                 ))}
               </select>
-            )}
-          </div>
+            </div>
+          )}
 
           {selectedKey && (
             <KeyTable

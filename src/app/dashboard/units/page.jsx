@@ -88,7 +88,6 @@ function UnitPage({ params }) {
                 <div className="flex flex-col divide-y divide-gray-300">
                   {chefer.length > 0 && (
                     <CardRow
-                      label="Chef"
                       icon={
                         <HiOutlineUser className="text-purple-500 w-5 h-5" />
                       }
@@ -97,29 +96,29 @@ function UnitPage({ params }) {
                     />
                   )}
 
-                  {specialister.length > 0 && (
-                    <CardRow
-                      icon={
-                        <HiOutlineUserGroup className="text-purple-500 w-5 h-5" />
-                      }
-                      href={`/dashboard/units/${unit._id}/specialister`}
-                      text={"Specialister"}
-                    />
-                  )}
+                  <CardRow
+                    icon={
+                      <HiOutlineUserGroup className="text-purple-500 w-5 h-5" />
+                    }
+                    href={`/dashboard/units/${unit._id}/specialister`}
+                    text={`Specialister (${
+                      unit?.users.filter((user) => user.role === "Specialist")
+                        ?.length
+                    })`}
+                  />
 
                   <CardRow
                     icon={
                       <HiOutlineClipboardList className="text-purple-500 w-5 h-5" />
                     }
                     href={`/dashboard/units/${unit._id}/unitTasks`}
-                    text={`Att göra ${unit?.tasks?.length}`}
+                    text={`Att göra (${unit?.tasks?.length})`}
                   />
 
                   <CardRow
-                    label="Nycklar"
                     icon={<HiOutlineKey className="text-purple-500 w-5 h-5" />}
                     href={`/dashboard/units/${unit._id}/unitKeys`}
-                    text={`${unit.keys.length} st`}
+                    text={`Nycklar (${unit.keys.length})`}
                   />
                 </div>
               </MainCard>

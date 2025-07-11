@@ -40,7 +40,7 @@ function SpecialistPage({ params }) {
   return (
     <div className="flex flex-col text-purple-500 mt-6 ">
       <h4 className="text-3xl ">Specialist(er) på {unit.name}</h4>
-      {unit.users.length < 2 && (
+      {unit?.users?.length < 2 && (
         <CustomLink
           className="bg-green-100 text-black w-48 my-5 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200"
           title={"Ny specialist"}
