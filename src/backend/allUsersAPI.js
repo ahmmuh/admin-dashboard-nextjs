@@ -6,7 +6,11 @@ export const getAllUsers = async () => {
       method: "GET",
       credentials: "include",
     });
+
     if (!res.ok) {
+      if (res.status === 404) {
+        return [];
+      }
       throw new Error(`HTTP Error! status: ${res.status}`);
     }
     const data = await res.json();

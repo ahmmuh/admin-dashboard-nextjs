@@ -216,14 +216,19 @@ export const deleteKey = async (keyId) => {
 
 //Sök nycklar
 
-// frontend/keyAPI.js
 export const searchKeys = async (query) => {
+  if (!query.trim()) return [];
   const res = await fetch(`${BASE_URL}/keys/search?keyLabel=${query}`, {
     method: "GET",
     credentials: "include",
   });
   const data = await res.json();
 
-  if (!res.ok) throw new Error(data.message);
+  if (!res.ok) {
+    if (res.status === 404) {
+      return [];
+    }
+    throw new Error(`HTTP Error! status: ${res.status}`);
+  }
   return data.data;
 };

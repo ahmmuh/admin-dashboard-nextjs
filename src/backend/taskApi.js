@@ -158,3 +158,22 @@ export const deleteTask = async (taskId) => {
     console.error("Error deleting task:", error.message);
   }
 };
+
+//Sök tasks
+
+export const searchTasks = async (query) => {
+  if (!query.trim()) return [];
+  const res = await fetch(`${BASE_URL}/tasks/search?title=${query}`, {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+    if (res.status === 404) {
+      return [];
+    }
+    throw new Error(`HTTP Error! status: ${res.status}`);
+  }
+  return data.data;
+};

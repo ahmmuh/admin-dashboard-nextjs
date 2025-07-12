@@ -1,5 +1,6 @@
 "use client";
 import { getKeyLogs } from "@/backend/keyAPI";
+import KeySearch from "@/components/keys/keySearch";
 import SearchInput from "@/components/searhInput";
 import React, { useEffect, useState } from "react";
 
@@ -54,13 +55,7 @@ function KeyLogPage() {
   return (
     <>
       <div className="mr-5">
-        <SearchInput
-          type="text"
-          onSearch={() => console.log("Söker key logs")}
-          delay={400}
-          className="w-full"
-          placeholder="Sök...."
-        />
+        <KeySearch />
       </div>
       <div className="pb-20">
         <table className="border border-gray-200 w-full">

@@ -8,6 +8,7 @@ import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
 import { displayErrorMessage } from "@/helper/toastAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import SearchApartment from "./searchApartment";
 
 function ApartmentList({ apartments: initialApartments }) {
   const [apartments, setApartments] = useState(initialApartments);
@@ -39,7 +40,6 @@ function ApartmentList({ apartments: initialApartments }) {
           </h5>
         </div>
 
-        {/* Visa meddelande om inga lägenheter */}
         {apartments.length === 0 ? (
           <div className="flex justify-center items-center">
             <p className="text-gray-600 text-lg">
@@ -49,7 +49,7 @@ function ApartmentList({ apartments: initialApartments }) {
         ) : (
           <div>
             <h5 className="text-2xl mb-10  text-purple-500">Alla lägenheter</h5>
-
+            <SearchApartment />
             {apartments.map((apartment) => (
               <div className="border border-b-2 p-5 mb-8" key={apartment._id}>
                 <ul className="flex justify-start p-6 flex-col bg-gray-50 rounded-md shadow-sm">

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { searchKeys } from "@/backend/keyAPI";
 import { FiSearch } from "react-icons/fi";
-import Link from "next/link";
+import KeyModal from "../modals/keyModal";
 
 function KeySearch() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedKey, setSelectedKey] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (!query.trim()) {
@@ -28,9 +30,13 @@ function KeySearch() {
     return () => clearTimeout(timeoutId);
   }, [query]);
 
+  const handleKeyClick = (key) => {
+    setSelectedKey(key);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="w-full mx-auto">
-      {/* Input + ikon wrapper */}
       <div className="relative">
         <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
           <FiSearch />
@@ -44,25 +50,35 @@ function KeySearch() {
         />
       </div>
 
-      {/* {error && <p className="text-red-500 mt-2">{error}</p>} */}
-
-      <ul className={` ${results.length > 0 ? "overflow-y-scroll h-44" : ""}`}>
+      <ul
+        className={`mt-4 ${
+          results.length > 0 ? "overflow-y-scroll h-44" : ""
+        }`}>
         {results.map((key) => (
-          <li key={key._id} className="border border-b-purple-600 pb-3">
-            🔑{" "}
-            <strong>
-              <Link
-                href={`/dashboard/${key.unit}/unitKeys`}
-                className="text-blue-600 ">
-                {key.keyLabel}
-              </Link>
-            </strong>{" "}
-            ({key.location})
+          <li
+            key={key._id}
+            onClick={() => handleKeyClick(key)}
+            className="border-b border-purple-600 pb-3 cursor-pointer hover:bg-gray-100 px-2">
+            🔑 <strong className="text-blue-600">{key.keyLabel}</strong>{" "}
+            <span className="text-sm text-gray-500">({key.location})</span>
           </li>
         ))}
       </ul>
+
       {results.length === 0 && query.trim() && (
         <p className="text-red-500 mt-3">Ingen nyckel matchar sökningen.</p>
+      )}
+
+      {isModalOpen && selectedKey && (
+        <KeyModal
+          keyLabel={selectedKey.keyLabel}
+          keyType={selectedKey.keyType}
+          location={selectedKey.location}
+          unit={selectedKey.unit}
+          createdAt={selectedKey.createdAt}
+          updatedAt={selectedKey.updatedAt}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
     </div>
   );

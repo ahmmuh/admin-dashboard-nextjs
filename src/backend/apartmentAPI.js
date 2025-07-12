@@ -33,6 +33,9 @@ export const getApartments = async () => {
       credentials: "include",
     });
     if (!res.ok) {
+      if (res.status === 404) {
+        return [];
+      }
       throw new Error(`HTTP Error! status: ${res.status}`);
     }
     const data = await res.json();
@@ -109,4 +112,27 @@ export const deleteApartment = async (apartmentId) => {
   } catch (error) {
     console.error("Error deleting  (Apartment):", error.message);
   }
+};
+
+//Sök lägenhet
+
+export const searchApartments = async (query) => {
+  if (!query.trim()) return [];
+  const res = await fetch(
+    `${BASE_URL}/apartments/search?apartmentLocation=${query}`,
+    {
+      method: "GET",
+      credentials: "include",
+    }
+  );
+  const data = await res.json();
+
+  if (!res.ok) {
+    if (res.status === 404) {
+      return [];
+    }
+    throw new Error(data.message);
+  }
+
+  return data.data;
 };

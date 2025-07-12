@@ -33,6 +33,9 @@ export const getUnits = async () => {
       method: "GET",
     });
     if (!res.ok) {
+      if (res.status === 404) {
+        return [];
+      }
       throw new Error(`HTTP Error! status: ${res.status}`);
     }
     const data = await res.json();
@@ -51,15 +54,21 @@ export const getUnitByID = async (unitId) => {
       method: "GET",
       credentials: "include",
     });
+
     if (!res.ok) {
-      console.log(`Server error when fething data, status: ${res.status}`);
+      console.log(`Server error when fetching data, status: ${res.status}`);
       return null;
     }
+
     const data = await res.json();
-    console.log("Hämtat data från servern ", data);
-    return data;
+    console.log("Hämtat data från servern: ", data);
+
+    return data.data;
   } catch (error) {
-    if (error instanceof Error) console.error("Server Error: ", error.message);
+    if (error instanceof Error) {
+      console.error("Server Error:", error.message);
+    }
+    return null;
   }
 };
 
@@ -278,4 +287,23 @@ export const deleteChef = async (unitId, chefId) => {
   } catch (error) {
     console.error("Error deleting chef:", error.message);
   }
+};
+
+//Sök Enheter
+
+export const searchUnits = async (query) => {
+  if (!query.trim()) return [];
+  const res = await fetch(`${BASE_URL}/units/search?name=${query}`, {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+    if (res.status === 404) {
+      return [];
+    }
+    throw new Error(`HTTP Error! status: ${res.status}`);
+  }
+  return data.data;
 };
