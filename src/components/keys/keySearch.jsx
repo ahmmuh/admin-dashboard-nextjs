@@ -72,9 +72,10 @@ function KeySearch() {
       {isModalOpen && selectedKey && (
         <KeyModal
           keyLabel={selectedKey.keyLabel}
-          keyType={selectedKey.keyType}
+          // keyType={selectedKey.keyType}
           location={selectedKey.location}
           unit={selectedKey.unit}
+          status={selectedKey.status}
           createdAt={selectedKey.createdAt}
           updatedAt={selectedKey.updatedAt}
           onClose={() => setIsModalOpen(false)}

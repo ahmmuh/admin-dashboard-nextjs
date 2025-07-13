@@ -64,11 +64,12 @@ function LoginPage() {
             <button
               type="submit"
               className="bg-green-200 w-full p-2 hover:bg-green-300">
-              Login
+              Logga in
             </button>
             <Link href={"/auth/signUp"}>
-              <span className="text-sm text-blue-600 pt-4">Inget konto? </span>
-              Skapa konto
+              <span className="text-sm text-blue-600 pt-4">
+                Inget konto? Skapa konto
+              </span>
             </Link>
           </div>
         </form>

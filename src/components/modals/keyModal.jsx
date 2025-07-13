@@ -2,11 +2,12 @@ import React from "react";
 
 function KeyModal({
   keyLabel,
-  keyType,
+  //   keyType,
   location,
   createdAt,
   updatedAt,
   onClose,
+  status,
 }) {
   return (
     <div
@@ -25,29 +26,39 @@ function KeyModal({
         <div className="space-y-2">
           {keyLabel && <h2 className="text-xl font-semibold">🔑 {keyLabel}</h2>}
 
-          {keyType && (
-            <p>
-              <strong>Typ:</strong> {keyType}
+          {status === "returned" && (
+            <p className="text-green-500">
+              <strong>Status:</strong> Återlämnad
             </p>
           )}
 
+          {status === "checked-out" && (
+            <p className="text-red-500">
+              <strong>Status:</strong> Utlånad
+            </p>
+          )}
+          {status === "available" && (
+            <p className="text-green-500">
+              <strong>Status:</strong> Inne
+            </p>
+          )}
           {location && (
             <p>
               <strong>Plats:</strong> {location}
             </p>
           )}
 
-          {createdAt && (
-            <p>
-              <strong>Skapad:</strong>{" "}
-              {new Date(createdAt).toLocaleDateString()}
-            </p>
-          )}
-
-          {updatedAt && (
+          {(status === "checked-out" || status === "returned") && (
             <p>
               <strong>Uppdaterad:</strong>{" "}
               {new Date(updatedAt).toLocaleDateString()}
+            </p>
+          )}
+
+          {status === "available" && (
+            <p>
+              <strong>Skapad:</strong>{" "}
+              {new Date(createdAt).toLocaleDateString()}
             </p>
           )}
         </div>

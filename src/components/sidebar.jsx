@@ -23,7 +23,7 @@ const Sidebar = ({ units }) => {
           </Link>
           <Link href={"/dashboard/apartments"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
-              Lägenheter (Flytstäd)
+              Flyttstäd
             </span>
           </Link>
 
@@ -49,9 +49,9 @@ const Sidebar = ({ units }) => {
             </span>
           </Link>
 
-          <Link href={"/dashboard/signUp"}>
+          <Link href={"/dashboard/users"}>
             <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
-              Ny användare
+              Medarbetare
             </span>
           </Link>
         </ul>

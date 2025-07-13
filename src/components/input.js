@@ -8,6 +8,7 @@ function MainInput({
   changeHandler,
   className,
   id,
+  value,
 }) {
   return (
     <div className="mb-4">
@@ -19,6 +20,7 @@ function MainInput({
       <input
         type={type}
         name={name}
+        value={value}
         placeholder={placeholder}
         onChange={changeHandler}
         className={className}
