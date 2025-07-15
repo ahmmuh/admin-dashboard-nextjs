@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 const Sidebar = ({ units }) => {
-  console.log("Units from Sidebar", units);
+  // console.log("Units from Sidebar", units);
 
   return (
     <aside className="bg-blue-900 flex flex-col  px-5  w-80 min-h-screen  text-gray-400">

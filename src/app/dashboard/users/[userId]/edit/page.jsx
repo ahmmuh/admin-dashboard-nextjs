@@ -5,18 +5,22 @@ import { getUnits } from "@/backend/api";
 import { getUserById } from "@/backend/userAPI";
 import MainInput from "@/components/input";
 import { displaySuccessMessage } from "@/helper/toastAPI";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-function UserProfile({ params }) {
-  const { userId } = React.use(params);
+function UserProfile() {
+  const params = useParams();
+  const userId = params.userId;
   console.log("User ID i UserProfile", userId);
 
   const router = useRouter();
   const roles = ["Chef", "Specialist"];
   const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingUser, setUserLoading] = useState(true);
+
   const [error, setError] = useState(null);
+  const [userError, setUserError] = useState(null);
 
   const [user, setUser] = useState(null);
 
@@ -33,27 +37,34 @@ function UserProfile({ params }) {
   const fetchUser = async () => {
     try {
       const foundUser = await getUserById(userId);
+      console.log("Found user before:  if (!foundUser) return;", foundUser);
       if (!foundUser) return;
 
-      console.log("Found Unit", foundUser);
-      setUser(foundUser);
-      setLoading(false);
+      console.log("Found user", foundUser);
+      setUser({
+        ...foundUser,
+        unit: foundUser.unit?._id || foundUser.unit,
+      });
+      setUserLoading(false);
     } catch (error) {
       console.log("Error", error);
-      setError(error);
+      setUserError(error);
     }
   };
 
   useEffect(() => {
+    if (!userId) return;
+    console.log("Running fetchUser useEffect...");
     fetchUser();
   }, [userId]);
 
+  console.log("FOUND USER ", user);
   const fetchUnits = async () => {
     try {
       const foundUnit = await getUnits();
       if (!foundUnit) return;
 
-      // console.log("Found Unit", foundUnit);
+      console.log("Found Unit", foundUnit);
       setUnits(foundUnit);
       setLoading(false);
     } catch (error) {
@@ -81,7 +92,7 @@ function UserProfile({ params }) {
         username: user.username,
         password: user.password,
         role: user.role,
-        unit: unitId,
+        unit: user?.unit,
       };
       displaySuccessMessage("Användaren uppdaterats");
       router.push("/dashboard/");
@@ -90,17 +101,25 @@ function UserProfile({ params }) {
     }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error) {
+  if (loadingUser) {
     return (
-      <div className="flex justify-center items-center p-5">
-        <h5 className="text-red-500">{error}</h5>
+      <div className="flex justify-center items-center">
+        <h4 className="text-blue-400">Hämtar användare ....</h4>
       </div>
     );
   }
+
+  // if (loading) {
+  //   return <Loading />;
+  // }
+
+  // if (error) {
+  //   return (
+  //     <div className="flex justify-center items-center p-5">
+  //       <h5 className="text-red-500">{error}</h5>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -190,7 +209,7 @@ function UserProfile({ params }) {
                     -- Välj enhet --
                   </option>
                   {units.map((u) => (
-                    <option key={u._id} value={u.name}>
+                    <option key={u._id} value={u._id}>
                       {u.name}
                     </option>
                   ))}

@@ -48,7 +48,7 @@ function UserPage() {
                 <td className="px-4 py-2 border-b">
                   <div className="flex items-center gap-2">
                     <Link
-                      href={"/dashboard/users/" + user._id + "/edit"}
+                      href={`/dashboard/users/${user._id}/edit`}
                       className="p-2 border border-gray-300 rounded
                             >
                       

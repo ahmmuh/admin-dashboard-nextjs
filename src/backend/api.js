@@ -39,7 +39,7 @@ export const getUnits = async () => {
       throw new Error(`HTTP Error! status: ${res.status}`);
     }
     const data = await res.json();
-    console.log("Unit data from getUnits ", data);
+    // console.log("Unit data from getUnits ", data);
     return data;
   } catch (error) {
     if (error instanceof Error)

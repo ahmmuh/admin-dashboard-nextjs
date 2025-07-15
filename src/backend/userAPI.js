@@ -13,9 +13,9 @@ export const getUserById = async (userId) => {
     }
 
     const data = await res.json();
-    console.log("Hämtat data från servern: ", data);
+    // console.log("Hämtat USER data i getUserById: ", data);
 
-    return data.data;
+    return data;
   } catch (error) {
     if (error instanceof Error) {
       console.error("Server Error:", error.message);

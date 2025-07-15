@@ -7,12 +7,13 @@ import { useRouter } from "next/navigation";
 import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
 
 function EditTaskClientComponent({ task }) {
+  console.log("TASK ID", task.taskId);
   const router = useRouter();
   const statusOptions = ["Ej påbörjat", "Påbörjat", "Färdigt"];
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
-    location: "",
+    // location: "",
     status: "",
     taskId: "",
   });
@@ -48,8 +49,8 @@ function EditTaskClientComponent({ task }) {
         title: taskData.title,
         description: taskData.description,
         status: taskData.status,
-        location: taskData.location,
-        taskId: taskData.taskId,
+        // location: taskData.location,
+        taskId: taskData._id,
       };
 
       await updateTask(taskData.taskId, updatedTask);
@@ -66,14 +67,26 @@ function EditTaskClientComponent({ task }) {
     }
   };
 
+  // useEffect(() => {
+  //   setTaskData({
+  //     title: task.title || "",
+  //     description: task.description || "",
+  //     status: task.status,
+  //     location: task.location || "",
+  //     taskId: task.taskId,
+  //   });
+  // }, [task]);
+
   useEffect(() => {
-    setTaskData({
-      title: task.title || "",
-      description: task.description || "",
-      status: task.status,
-      location: task.location || "",
-      taskId: task.taskId,
-    });
+    if (task) {
+      setTaskData({
+        title: task.title || "",
+        description: task.description || "",
+        status: task.status || "Ej påbörjat", // fallback om undefined
+        // location: task.location || "",
+        taskId: task.taskId || "", // rätt namn från mongoose
+      });
+    }
   }, [task]);
 
   return (
@@ -108,16 +121,13 @@ function EditTaskClientComponent({ task }) {
             value={taskData.status}
             onChange={changeHandler}>
             {statusOptions.map((status) => (
-              <option
-                key={status}
-                value={status}
-                disabled={status === "Ej påbörjat"}>
+              <option key={status} value={status}>
                 {status}
               </option>
             ))}
           </select>
         </div>
-
+        {/* 
         {placeResults && placeResults.length > 0 && (
           <div className="bg-white p-2 rounded-2xl my-2 max-h-60 overflow-y-scroll border">
             {placeResults.map((place, index) => (
@@ -136,7 +146,7 @@ function EditTaskClientComponent({ task }) {
               </div>
             ))}
           </div>
-        )}
+        )} */}
 
         <button
           disabled={!isFormValid()}
