@@ -14,28 +14,11 @@ function ItemList({
   children,
   ...props
 }) {
-  // console.log("ENHET ID: ", enhet);
-
-  const [takerUnit, setTakerUnit] = useState({});
-  const [loading, setLoading] = useState(false);
-  // console.log("Enhet i Itemlist ", enhet);
-  useEffect(() => {
-    async function findTakerUnit() {
-      try {
-        const foundedUnit = await getUnitByID(task.unit);
-        if (!foundedUnit) return;
-        console.log("Founed Unit", foundedUnit);
-        setTakerUnit(foundedUnit);
-      } catch (error) {
-        console.warn("WARNING", error.message);
-      }
-    }
-    findTakerUnit();
-  }, [task.unit]);
+  console.log("Enhet i Itemlist ", task?.unit);
 
   return (
     <>
-      {loading && <div>Loading ...</div>}
+      {/* {loading && <div>Loading ...</div>} */}
       <ul className="flex flex-col my-6 " {...props}>
         <li className="p-4 border rounded-lg shadow-sm  hover:bg-purple-50 cursor-pointer">
           <article>
@@ -55,7 +38,7 @@ function ItemList({
               {status === "Färdigt" && (
                 <p className="text-gray-600 ">
                   <>
-                    <span>Uppdaterad av {takerUnit.name}</span> <br />
+                    <span>Uppdaterad av {task?.unit?.name}</span> <br />
                     <span>
                       Datum: {new Date(updatedAt).toLocaleString()}{" "}
                     </span>{" "}
@@ -69,7 +52,7 @@ function ItemList({
 
               {status === "Påbörjat" && (
                 <p className="text-gray-500 text-md">
-                  <span>Uppdaterad av {takerUnit.name}</span> <br />
+                  <span>Uppdaterad av {task?.unit?.name}</span> <br />
                   <span>
                     Datum: {new Date(updatedAt).toLocaleString()}{" "}
                   </span>{" "}

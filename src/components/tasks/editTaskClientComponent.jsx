@@ -108,7 +108,10 @@ function EditTaskClientComponent({ task }) {
             value={taskData.status}
             onChange={changeHandler}>
             {statusOptions.map((status) => (
-              <option key={status} value={status}>
+              <option
+                key={status}
+                value={status}
+                disabled={status === "Ej påbörjat"}>
                 {status}
               </option>
             ))}

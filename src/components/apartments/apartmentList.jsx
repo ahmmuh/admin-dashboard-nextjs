@@ -108,7 +108,11 @@ function ApartmentList({ apartments: initialApartments }) {
                   {apartment.status === "Färdigt" && (
                     <li className="mb-2 border-b-2 border-indigo-200 p-2 text-green-700 hover:bg-gray-200">
                       <span className="font-bold">Status:</span>{" "}
-                      {apartment.status}
+                      {apartment.status}{" "}
+                      <span className="text-gray-800">
+                        | Uppdaterad:{" "}
+                        {new Date(apartment.updatedAt).toLocaleString()}
+                      </span>
                     </li>
                   )}
                   {/* Action buttons */}

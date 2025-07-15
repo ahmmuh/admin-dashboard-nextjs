@@ -31,7 +31,7 @@ function TaskPage() {
       )}
 
       {/* Om inga uppgifter finns */}
-      {tasks && tasks.length === 0 && (
+      {!tasks && tasks.length === 0 && (
         <div className="text-center text-red-500 text-lg mt-10">
           Det finns inga uppgifter att visa.
         </div>
@@ -41,9 +41,9 @@ function TaskPage() {
       {/* Lista med uppgifter */}
       {tasks &&
         tasks.length > 0 &&
-        tasks.map((task, index) => (
+        tasks.map((task) => (
           <ItemList
-            key={`${task._id}-${index}`}
+            key={task._id}
             task={task}
             title={task.title}
             description={task.description}
