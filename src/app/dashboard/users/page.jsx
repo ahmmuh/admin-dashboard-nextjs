@@ -26,48 +26,55 @@ function UserPage() {
       )}
 
       {!loading && !error && users?.length > 0 && (
-        <table className="w-full border border-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="text-left px-4 py-2 border-b">Namn</th>
-              <th className="text-left px-4 py-2 border-b">E-post</th>
-              <th className="text-left px-4 py-2 border-b">Telefon</th>
-              <th className="text-left px-4 py-2 border-b">Roll</th>
-              <th className="text-left px-4 py-2 border-b">Enhet</th>
-              <th className="text-left px-4 py-2 border-b">Åtgärder</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user._id} className="hover:bg-gray-50">
-                <td className="px-4 py-2 border-b">{user.name}</td>
-                <td className="px-4 py-2 border-b">{user.email}</td>
-                <td className="px-4 py-2 border-b">{user.phone}</td>
-                <td className="px-4 py-2 border-b">{user.role}</td>
-                <td className="px-4 py-2 border-b">{user.unit?.name || "-"}</td>
-                <td className="px-4 py-2 border-b">
-                  <div className="flex items-center gap-2">
-                    <Link
-                      href={`/dashboard/users/${user._id}/edit`}
-                      className="p-2 border border-gray-300 rounded
+        <div
+          className={` ${
+            users.length > 15 ? "max-h-[400px] overflow-y-auto" : ""
+          }`}>
+          <table className="w-full border border-gray-200 ">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="text-left px-4 py-2 border-b">Namn</th>
+                <th className="text-left px-4 py-2 border-b">E-post</th>
+                <th className="text-left px-4 py-2 border-b">Telefon</th>
+                <th className="text-left px-4 py-2 border-b">Roll</th>
+                <th className="text-left px-4 py-2 border-b">Enhet</th>
+                <th className="text-left px-4 py-2 border-b">Åtgärder</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id} className="hover:bg-gray-50">
+                  <td className="px-4 py-2 border-b">{user.name}</td>
+                  <td className="px-4 py-2 border-b">{user.email}</td>
+                  <td className="px-4 py-2 border-b">{user.phone}</td>
+                  <td className="px-4 py-2 border-b">{user.role}</td>
+                  <td className="px-4 py-2 border-b">
+                    {user.unit?.name || "-"}
+                  </td>
+                  <td className="px-4 py-2 border-b">
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/dashboard/users/${user._id}/edit`}
+                        className="p-2 border border-gray-300 rounded
                             >
                       
                       hover:bg-gray-100 transition"
-                      title="Uppdatera">
-                      <HiOutlinePencil className="text-gray-600 w-5 h-5" />
-                    </Link>
-                    <button
-                      onClick={() => console.log("Ta bort", user.id)}
-                      className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
-                      title="Ta bort">
-                      <HiOutlineTrash className="text-gray-600 w-5 h-5" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                        title="Uppdatera">
+                        <HiOutlinePencil className="text-gray-600 w-5 h-5" />
+                      </Link>
+                      <button
+                        onClick={() => console.log("Ta bort", user.id)}
+                        className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+                        title="Ta bort">
+                        <HiOutlineTrash className="text-gray-600 w-5 h-5" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

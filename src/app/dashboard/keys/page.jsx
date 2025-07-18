@@ -70,7 +70,7 @@ function KeyPage() {
       <div className="p-2 ">
         <Link
           className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
-          href={`/dashboard/keys/create`}>
+          href={`/dashboard/key_QRcode`}>
           <FontAwesomeIcon icon={faPlus} className="text-2xl" />
           Lägg till nyckel
         </Link>

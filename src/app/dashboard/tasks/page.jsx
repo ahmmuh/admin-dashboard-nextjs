@@ -14,7 +14,7 @@ function TaskPage() {
   const [searchValue, setSearchValue] = useState("");
 
   return (
-    <div className="flex flex-col p-5">
+    <div className="flex flex-col">
       <h4 className="text-2xl font-bold mb-3 text-purple-500">Att göra</h4>
 
       <Link

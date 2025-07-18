@@ -28,9 +28,7 @@ function Dashboard() {
 
   return (
     <>
-      <h2 className="text-2xl text-purple-500 italic ">
-        Hej och välkommen {user.name}
-      </h2>
+      <h2 className="text-2xl px-10 italic ">Välkommen {user.name}</h2>
     </>
   );
 }

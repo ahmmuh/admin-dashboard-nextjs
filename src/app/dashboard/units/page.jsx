@@ -42,7 +42,7 @@ function UnitPage({ params }) {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center p-5">
+      <div className="flex justify-center items-center">
         <p className="text-2xl font-bold">Loading</p>
       </div>
     );
@@ -50,7 +50,7 @@ function UnitPage({ params }) {
 
   if (error) {
     return (
-      <div className="flex justify-center items-center p-5">
+      <div className="flex justify-center items-center">
         <p className="text-2xl font-bold">{error.message}</p>
       </div>
     );
@@ -58,14 +58,14 @@ function UnitPage({ params }) {
 
   if (units.length === 0) {
     return (
-      <div className="flex justify-center items-center p-5">
+      <div className="flex justify-center items-center">
         <p>Det finns inga ENHETER att visa just nu.</p>
       </div>
     );
   }
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className=" max-w-6xl mx-auto">
       <h1 className="text-4xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
         Alla enheter
       </h1>

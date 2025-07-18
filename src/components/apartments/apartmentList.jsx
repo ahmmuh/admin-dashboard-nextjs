@@ -26,7 +26,7 @@ function ApartmentList({ apartments: initialApartments }) {
   };
 
   return (
-    <div className="p-6">
+    <div className="">
       <div className="flex flex-col">
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           <Link

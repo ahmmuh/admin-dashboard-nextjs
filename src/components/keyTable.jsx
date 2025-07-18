@@ -3,7 +3,7 @@ import React from "react";
 const KeyTable = ({ keyData, onClick, actionLabel, btnColor, bgColor }) => {
   return (
     <div className="p-3">
-      <table className="border border-gray-400 w-full">
+      <table className="border border-gray-400 w-full ">
         <thead className="bg-gray-400">
           <tr>
             <th className="border border-gray-200 text-left p-2">

@@ -57,7 +57,7 @@ function UserProfileClientComponent() {
                       <HiOutlinePencil className="text-gray-600 w-5 h-5" />
                     </Link>
                     <button
-                      onClick={() => console.log("Ta bort", user.id)}
+                      onClick={() => alert("Vill du ta bort? ", user.id)}
                       className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
                       title="Ta bort">
                       <HiOutlineTrash className="text-gray-600 w-5 h-5" />

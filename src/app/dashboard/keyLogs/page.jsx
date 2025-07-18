@@ -57,8 +57,8 @@ function KeyLogPage() {
       <div className="mr-5">
         <KeySearch />
       </div>
-      <div className="pb-20">
-        <table className="border border-gray-200 w-full">
+      <div className="pb-20 ">
+        <table className="border border-gray-200 w-full ">
           <thead>
             <tr>
               <th className="border border-gray-200 text-left">

@@ -1,59 +1,86 @@
 "use client";
 import Link from "next/link";
+import {
+  HiOutlineClock,
+  HiOutlineDocumentText,
+  HiOutlineHome,
+  HiOutlineKey,
+  HiOutlineOfficeBuilding,
+  HiOutlineSparkles,
+  HiOutlineUserGroup,
+} from "react-icons/hi";
 
-const Sidebar = ({ units }) => {
-  // console.log("Units from Sidebar", units);
-
+const Sidebar = () => {
   return (
-    <aside className="bg-blue-900 flex flex-col  px-5  w-80 min-h-screen  text-gray-400">
-      <h4 className="text-2xl my-4">
-        <Link href={`/dashboard`}>Dashboard</Link>
+    <aside className="fixed top-0 left-0 h-screen w-80 bg-blue-900 text-gray-400 px-5 py-6 overflow-y-auto">
+      <h4 className="text-2xl text-white font-semibold mb-8">
+        <Link href="/dashboard">Dashboard</Link>
       </h4>
-      <nav className="flex flex-col">
-        <ul className="space-y-3">
-          <Link href={"/dashboard"}>
-            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
-              Start
-            </span>
-          </Link>
-          <Link href={"/dashboard/units"}>
-            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
-              Alla enheter
-            </span>
-          </Link>
-          <Link href={"/dashboard/apartments"}>
-            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
-              Flyttstäd
-            </span>
-          </Link>
 
-          <Link href={"/dashboard/tasks"}>
-            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
-              Att göra
-            </span>
-          </Link>
-          <Link href={"/dashboard/keys"}>
-            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
-              Nyckel hantering
-            </span>
-          </Link>
-          <Link href={"/dashboard/keyLogs"}>
-            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
-              Nyckel loggar
-            </span>
-          </Link>
+      <nav>
+        <ul className="space-y-4">
+          <li>
+            <Link
+              href="/dashboard"
+              className="flex items-center hover:text-pink-600">
+              <HiOutlineHome className="w-5 h-5" />
+              <span className="text-lg font-medium pl-3">Start</span>
+            </Link>
+          </li>
 
-          <Link href={"/dashboard/key_QRcode"}>
-            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
-              Generate QR Code (Nyckel)
-            </span>
-          </Link>
+          <li>
+            <Link
+              href="/dashboard/units"
+              className="flex items-center hover:text-pink-600">
+              <HiOutlineOfficeBuilding className="w-5 h-5" />
+              <span className="text-lg font-medium pl-3">Alla enheter</span>
+            </Link>
+          </li>
 
-          <Link href={"/dashboard/users"}>
-            <span className="block text-lg font-medium p-3 border-b-2 text-gray-400 hover:text-pink-600">
-              Medarbetare
-            </span>
-          </Link>
+          <li>
+            <Link
+              href="/dashboard/apartments"
+              className="flex items-center hover:text-pink-600">
+              <HiOutlineSparkles className="w-5 h-5" />
+              <span className="text-lg font-medium pl-3">Flyttstädning</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              href="/dashboard/tasks"
+              className="flex items-center hover:text-pink-600">
+              <HiOutlineDocumentText className="w-5 h-5" />
+              <span className="text-lg font-medium pl-3">Att göra</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              href="/dashboard/keys"
+              className="flex items-center hover:text-pink-600">
+              <HiOutlineKey className="w-5 h-5" />
+              <span className="text-lg font-medium pl-3">Nyckelhantering</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              href="/dashboard/keyLogs"
+              className="flex items-center hover:text-pink-600">
+              <HiOutlineClock className="w-5 h-5" />
+              <span className="text-lg font-medium pl-3">Nyckelhistorik</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              href="/dashboard/users"
+              className="flex items-center hover:text-pink-600">
+              <HiOutlineUserGroup className="w-5 h-5" />
+              <span className="text-lg font-medium pl-3">Medarbetare</span>
+            </Link>
+          </li>
         </ul>
       </nav>
     </aside>

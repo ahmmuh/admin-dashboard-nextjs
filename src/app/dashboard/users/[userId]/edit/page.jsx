@@ -1,7 +1,7 @@
 "use client";
 
 import Loading from "@/app/loading";
-import { getUnits } from "@/backend/api";
+import { getUnits, updateUser } from "@/backend/api";
 import { getUserById } from "@/backend/userAPI";
 import MainInput from "@/components/input";
 import { displaySuccessMessage } from "@/helper/toastAPI";
@@ -90,12 +90,14 @@ function UserProfile() {
         email: user.email,
         phone: user.phone,
         username: user.username,
-        password: user.password,
         role: user.role,
         unit: user?.unit,
       };
+
+      console.log("Uppdaterade Användare", userInfo);
+      await updateUser(userId, userInfo);
       displaySuccessMessage("Användaren uppdaterats");
-      router.push("/dashboard/");
+      router.push("/dashboard/users");
     } catch (error) {
       console.error("Uppdatering misslyckades", error);
     }
@@ -109,24 +111,28 @@ function UserProfile() {
     );
   }
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
+  if (loading) {
+    return <Loading />;
+  }
 
-  // if (error) {
-  //   return (
-  //     <div className="flex justify-center items-center p-5">
-  //       <h5 className="text-red-500">{error}</h5>
-  //     </div>
-  //   );
-  // }
+  if (error) {
+    return (
+      <div className="flex justify-center items-center p-5">
+        <h5 className="text-red-500">{error}</h5>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
-          Uppdatera användare
-        </h2>
+        <h4
+          className=" font-semibold  mb-6 text-gray-800 border border-b-2
+        border-b-blue-200
+        pb-3
+        ">
+          Uppdatera {user?.name}
+        </h4>
 
         {user && (
           <form onSubmit={updateUserProfile} className="space-y-4">
@@ -177,7 +183,7 @@ function UserProfile() {
                 <select
                   id="role"
                   name="role"
-                  value={user?.role}
+                  value={user?.role || ""}
                   onChange={changeHandler}
                   className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                   <option value="" disabled>
@@ -202,7 +208,7 @@ function UserProfile() {
                 <select
                   id="unit"
                   name="unit"
-                  value={user?.unit}
+                  value={user?.unit?.name || ""}
                   onChange={changeHandler}
                   className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                   <option value="" disabled>

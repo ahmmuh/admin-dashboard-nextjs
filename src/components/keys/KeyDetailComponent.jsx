@@ -100,7 +100,7 @@ const KeyDetailComponent = () => {
       <Toaster />
 
       {/* Toggle-knappar */}
-      <div className="flex justify-around mb-5">
+      <div className="flex justify-around mb-5 ">
         <button
           onClick={showAvailableKeys}
           className="border rounded shadow text-black bg-green-100 hover:bg-green-200 w-1/2 mr-2 p-2">
