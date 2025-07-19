@@ -54,7 +54,7 @@ function KeyLogPage() {
   }
   return (
     <>
-      <div className="mr-5">
+      <div className="mr-5 mt-10">
         <KeySearch />
       </div>
       <div className="pb-20 ">

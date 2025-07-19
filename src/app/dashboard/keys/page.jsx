@@ -3,12 +3,17 @@
 import { checkinKey, getAllKeys } from "@/backend/keyAPI";
 import KeySearch from "@/components/keys/keySearch";
 import SearchInput from "@/components/searhInput";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
 import toast, { Toaster } from "react-hot-toast";
 
 function KeyPage() {
@@ -16,6 +21,8 @@ function KeyPage() {
   const [error, setError] = useState(null);
   const [keys, setKeys] = useState([]);
   const router = useRouter();
+
+  const [qrVisible, setQrVisible] = useState({});
 
   const checkInHandler = async (key) => {
     const userId = key.lastBorrowedBy;
@@ -47,6 +54,14 @@ function KeyPage() {
   useEffect(() => {
     fetchKeys();
   }, []);
+
+  //Visa eller gömma QR Code
+  const toggleQRCode = (keyId) => {
+    setQrVisible((prev) => ({
+      ...prev,
+      [keyId]: !prev[keyId],
+    }));
+  };
 
   if (loading) {
     return (
@@ -121,6 +136,16 @@ function KeyPage() {
                       {key.keyLabel.toUpperCase()}
                     </Link>
                     {key.qrCode && (
+                      <button
+                        onClick={() => toggleQRCode(key._id)}
+                        className="block "
+                        style={{ fontSize: ".6rem" }}>
+                        <span className="text-center pl-7">
+                          {qrVisible[key._id] ? "Göm QR kod" : "Visa QR kod"}{" "}
+                        </span>
+                      </button>
+                    )}
+                    {key.qrCode && qrVisible[key._id] && (
                       <div style={{ paddingLeft: 20 }}>
                         <Image
                           width={150}
@@ -128,9 +153,12 @@ function KeyPage() {
                           src={key.qrCode}
                           alt="QrCode image"
                         />
-                        <a href={key.qrCode} download="qrcode.png">
+                        <a
+                          href={key.qrCode}
+                          download="qrcode.png"
+                          style={{ fontSize: ".7rem" }}>
                           <button style={{ marginTop: 10 }}>
-                            Ladda ner QR-kod
+                            Ladda ner QR kod
                           </button>
                         </a>
                       </div>

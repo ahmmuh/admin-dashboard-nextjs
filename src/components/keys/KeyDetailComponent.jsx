@@ -77,8 +77,8 @@ const KeyDetailComponent = () => {
     (key) => key.status === "available" || key.status === "returned"
   );
 
-  availableKeys.length = 0;
-  keysWithBorrowedStatus.length = 0;
+  // availableKeys.length = 0;
+  // keysWithBorrowedStatus.length = 0;
 
   const showAvailableKeys = () => {
     setSelectedKeyId(null);
