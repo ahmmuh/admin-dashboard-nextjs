@@ -8,6 +8,7 @@ import {
 } from "react-icons/hi";
 import React from "react";
 import Link from "next/link";
+import SearchUser from "@/components/users/searchUser";
 
 function UserPage() {
   const { users, loading, error, refetch } = useFetchUsers();
@@ -15,6 +16,7 @@ function UserPage() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-6">Användaröversikt</h1>
+      <SearchUser />
 
       {loading && <p>Laddar användare...</p>}
       {error && (

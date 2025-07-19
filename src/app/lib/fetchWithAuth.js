@@ -1,22 +1,26 @@
-// Ny version av fetchWithAuth – returnerar Response
 export const fetchWithAuth = async (url, options = {}) => {
-  const token = localStorage.getItem("token");
-
-  const res = await fetch(url, {
+  const mergedOptions = {
     ...options,
+    credentials: "include",
     headers: {
       ...options.headers,
-      token: token,
+      "Content-Type": "application/json",
     },
-  });
+  };
 
-  if (res.status === 401) {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("token");
-      window.location.href = "/auth/login";
+  try {
+    const res = await fetch(url, mergedOptions);
+
+    if (res.status === 401) {
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
+      throw new Error("Unauthorized");
     }
-    return null;
-  }
 
-  return res; // 👈 Returnera Response istället
+    return await res.json();
+  } catch (error) {
+    console.error("Fetch error:", error.message);
+    throw error;
+  }
 };

@@ -1,19 +1,22 @@
-"use client";
+export const fetchWithAuth = async (url, options = {}) => {
+  const mergedOptions = {
+    credentials: "include",
+    ...options,
+  };
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
-import Sidebar from "./sidebar";
+  const res = await fetch(url, mergedOptions);
 
-export default function AuthWrapper({ children, units }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { user, loading, error } = useFetchCurrentUser();
-  const router = useRouter();
+  if (res.status === 401) {
+    if (typeof window !== "undefined") {
+      window.location.href = "/auth/login";
+    }
+    throw new Error("Unauthorized");
+  }
 
-  return (
-    <div className="flex h-full gap-4">
-      <Sidebar units={units} />
-      <main className="flex-1 mt-3 min-h-screen">{children}</main>
-    </div>
-  );
-}
+  if (!res.ok) {
+    const message = `HTTP error! status: ${res.status}`;
+    throw new Error(message);
+  }
+
+  return res.json();
+};
