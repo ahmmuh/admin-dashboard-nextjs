@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getUnitByID } from "@/backend/api";
 import { HiOutlineKey } from "react-icons/hi";
+import LoadingPage from "@/app/loading";
 
 function UnitKeys() {
   const params = useParams();
@@ -32,7 +33,7 @@ function UnitKeys() {
     fetchUnit();
   }, [unitId]);
 
-  if (loading) return <p className="p-5 text-lg text-gray-700">Laddar...</p>;
+  if (loading) return <LoadingPage message="Hämtar enhetens nycklar" />;
   if (error) return <p className="p-5 text-red-600 font-semibold">{error}</p>;
 
   const { keys } = unit;
@@ -43,7 +44,10 @@ function UnitKeys() {
         Nycklar för enheten: {unit.name}
       </h1>
 
-      <div className="space-y-6">
+      <div
+        className={`space-y-6 ${
+          keys.length > 10 ? "max-h-[400px] overflow-x-scroll" : ""
+        }`}>
         {keys && keys.length > 0 ? (
           keys.map((key) => (
             <div

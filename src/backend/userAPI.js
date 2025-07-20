@@ -15,6 +15,19 @@ export const getUserById = async (userId) => {
   }
 };
 
+// Delete user:
+export const deleteUser = async (userId) => {
+  try {
+    const data = await fetchWithAuth(`${BASE_URL}/users/${userId}`, {
+      method: "DELETE",
+    });
+    return data;
+  } catch (error) {
+    console.error("Error deleting chef:", error.message);
+    return error;
+  }
+};
+
 // Sök användare
 export const searchUsers = async (query) => {
   if (!query.trim()) return [];

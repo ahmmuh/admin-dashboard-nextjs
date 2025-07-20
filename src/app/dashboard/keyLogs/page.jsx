@@ -1,4 +1,5 @@
 "use client";
+import LoadingPage from "@/app/loading";
 import { getKeyLogs } from "@/backend/keyAPI";
 import KeySearch from "@/components/keys/keySearch";
 import SearchInput from "@/components/searhInput";
@@ -31,11 +32,7 @@ function KeyLogPage() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center p-10">
-        <h5>Laddar .....</h5>
-      </div>
-    );
+    return <LoadingPage message="Vi hämtar nyckelhistorik..." />;
   }
 
   if (error) {
@@ -64,7 +61,7 @@ function KeyLogPage() {
               <th className="border border-gray-200 text-left">
                 Nyckelbeteckning
               </th>
-              <th className="border border-gray-200 text-left">Tillhör</th>
+              <th className="border border-gray-200 text-left">Plats</th>
               <th className="border border-gray-200 text-left">Lånetagare</th>
               <th className="border border-gray-200 text-left">
                 Utlånat datum

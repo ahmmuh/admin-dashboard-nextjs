@@ -5,9 +5,11 @@ import React, { useEffect, useState } from "react";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 import { useRouter } from "next/navigation";
 import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
+import LoadingPage from "@/app/loading";
 
 function EditTaskClientComponent({ task }) {
-  console.log("TASK ID", task.taskId);
+  // console.log("TASK ID", task.taskId);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const statusOptions = ["Ej påbörjat", "Påbörjat", "Färdigt"];
   const [taskData, setTaskData] = useState({
@@ -67,16 +69,6 @@ function EditTaskClientComponent({ task }) {
     }
   };
 
-  // useEffect(() => {
-  //   setTaskData({
-  //     title: task.title || "",
-  //     description: task.description || "",
-  //     status: task.status,
-  //     location: task.location || "",
-  //     taskId: task.taskId,
-  //   });
-  // }, [task]);
-
   useEffect(() => {
     if (task) {
       setTaskData({
@@ -86,8 +78,15 @@ function EditTaskClientComponent({ task }) {
         // location: task.location || "",
         taskId: task.taskId || "", // rätt namn från mongoose
       });
+
+      const timeout = setTimeout(() => {
+        setLoading(false);
+      }, 300);
+      return () => clearTimeout(timeout);
     }
   }, [task]);
+
+  if (loading) return <LoadingPage message="Laddar uppdrag..." />;
 
   return (
     <div className="flex flex-col">

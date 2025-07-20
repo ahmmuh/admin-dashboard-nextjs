@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getUnitByID } from "@/backend/api";
 import ActionsHandler from "@/components/actions/actionsHandler";
 import PersonList from "@/components/personList";
+import LoadingPage from "@/app/loading";
 
 function ChefPage({ params }) {
   const { unitId } = React.use(params);
@@ -31,7 +32,7 @@ function ChefPage({ params }) {
     fetchUnit();
   }, [unitId]);
 
-  if (loading) return <p>Laddar...</p>;
+  if (loading) return <LoadingPage message="Laddar användardetaljer..." />;
   if (error) return <p className="text-red-500">{error}</p>;
 
   if (!unit || !unit.users) {
@@ -47,7 +48,7 @@ function ChefPage({ params }) {
   }
 
   const chef = filterUser[0];
-  console.log("Founded CHEF ", chef);
+  // console.log("Founded CHEF ", chef);
 
   return (
     <PersonList

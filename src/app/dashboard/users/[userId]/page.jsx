@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getUserById } from "@/backend/userAPI";
+import LoadingPage from "@/app/loading";
 
 function UserDetail() {
   const searchParams = useSearchParams();
@@ -37,11 +38,7 @@ function UserDetail() {
   }, [userId]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[40vh]">
-        <h4 className="text-blue-500 text-lg">Laddar användardetaljer...</h4>
-      </div>
-    );
+    return <LoadingPage message="Laddar användardetaljer..." />;
   }
 
   if (error) {

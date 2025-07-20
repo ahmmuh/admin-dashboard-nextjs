@@ -8,6 +8,7 @@ import {
 } from "react-icons/hi";
 import React from "react";
 import Link from "next/link";
+import LoadingPage from "@/app/loading";
 
 function UserProfileClientComponent() {
   const { users, loading, error, refetch } = useFetchUsers();
@@ -16,7 +17,7 @@ function UserProfileClientComponent() {
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-6">Användaröversikt</h1>
 
-      {loading && <p>Laddar användare...</p>}
+      {loading && <LoadingPage message="Vi hämtar din profil..." />}
       {error && (
         <p className="text-red-600">Fel vid hämtning: {error.message}</p>
       )}

@@ -121,7 +121,7 @@ export const searchTasks = async (query) => {
   if (!query.trim()) return [];
   try {
     const data = await fetchWithAuth(`${BASE_URL}/tasks/search?title=${query}`);
-    return data.data || [];
+    return data || [];
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
     if (error.message.includes("404")) return [];

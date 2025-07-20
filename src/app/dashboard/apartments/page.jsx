@@ -1,5 +1,5 @@
 "use client";
-import Loading from "@/app/loading";
+import LoadingPage from "@/app/loading";
 import { getApartments } from "@/backend/apartmentAPI";
 import ApartmentList from "@/components/apartments/apartmentList";
 import React, { useEffect, useState } from "react";
@@ -31,7 +31,7 @@ function ApartmentPage() {
   //Loading
 
   if (loading) {
-    return <Loading />;
+    return <LoadingPage />;
   }
 
   if (error) {

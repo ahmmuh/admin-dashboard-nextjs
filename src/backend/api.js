@@ -381,7 +381,7 @@ export const getUnits = async () => {
 export const getUnitByID = async (unitId) => {
   try {
     const data = await fetchWithAuth(`${BASE_URL}/units/${unitId}`);
-    return data.data;
+    return data;
   } catch (error) {
     console.error("Error fetching unit by ID:", error.message);
     return null;
@@ -529,7 +529,7 @@ export const searchUnits = async (query) => {
 
   try {
     const data = await fetchWithAuth(`${BASE_URL}/units/search?name=${query}`);
-    return data.data;
+    return data;
   } catch (error) {
     if (error.message.includes("404")) return [];
     console.error("Error searching units:", error.message);

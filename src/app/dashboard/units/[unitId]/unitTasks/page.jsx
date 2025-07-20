@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getUnitByID } from "@/backend/api";
+import LoadingPage from "@/app/loading";
 
 function UnitTasksPage() {
   const params = useParams();
@@ -35,8 +36,7 @@ function UnitTasksPage() {
     fetchUnit();
   }, [unitId]);
 
-  if (loading)
-    return <p className="p-5 text-lg text-gray-700">Laddar uppgifter...</p>;
+  if (loading) return <LoadingPage message=" Laddar enhetens uppgift(er)..." />;
 
   if (error) return <p className="p-5 text-red-600 font-semibold">{error}</p>;
 

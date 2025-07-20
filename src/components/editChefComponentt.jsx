@@ -1,4 +1,5 @@
 "use client";
+import LoadingPage from "@/app/loading";
 import { updateUser } from "@/backend/api";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 import { useRouter } from "next/navigation";

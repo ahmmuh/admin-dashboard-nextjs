@@ -6,6 +6,7 @@ import { getUnitByID } from "@/backend/api";
 import PersonList from "@/components/personList";
 import SpecialistActions from "@/components/actions/specialistActions";
 import CustomLink from "@/components/link";
+import LoadingPage from "@/app/loading";
 
 function SpecialistPage({ params }) {
   const { unitId } = React.use(params);
@@ -34,7 +35,7 @@ function SpecialistPage({ params }) {
     fetchUnit();
   }, [unitId]);
 
-  if (loading) return <p>Laddar...</p>;
+  if (loading) return <LoadingPage message="Laddar användardetaljer..." />;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (

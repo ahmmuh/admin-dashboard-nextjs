@@ -1,4 +1,5 @@
 "use client";
+import LoadingPage from "@/app/loading";
 import { getApartmentByID } from "@/backend/apartmentAPI";
 import React, { useEffect, useState } from "react";
 
@@ -27,11 +28,7 @@ function ApartmentDetail({ params }) {
   }, [apartmentId]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[40vh]">
-        <h4 className="text-blue-500 text-lg">Laddar lägenhetsdetaljer...</h4>
-      </div>
-    );
+    return <LoadingPage message="Laddar lägenhetsdetaljer." />;
   }
 
   if (error) {

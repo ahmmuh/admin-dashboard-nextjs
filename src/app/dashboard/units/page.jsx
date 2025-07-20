@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingPage from "@/app/loading";
 import { getUnits } from "@/backend/api";
 import MainCard from "@/components/maincard";
 import SearchInput from "@/components/searhInput";
@@ -41,11 +42,7 @@ function UnitPage({ params }) {
   //Loading
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center">
-        <p className="text-2xl font-bold">Loading</p>
-      </div>
-    );
+    return <LoadingPage message="Laddar enheter..." />;
   }
 
   if (error) {

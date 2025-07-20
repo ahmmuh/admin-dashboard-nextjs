@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/app/loading";
+import LoadingPage from "@/app/loading";
 import { getUnits } from "@/backend/api";
 import CreateApartmentComponent from "@/components/apartments/createApartmentComponent";
 import { useFetchUnits } from "@/customhook/useFetchUnits";
@@ -10,7 +10,7 @@ function CreateApartmentPage() {
   const { units, loading, error } = useFetchUnits();
 
   if (loading) {
-    return <Loading />;
+    return <LoadingPage />;
   }
 
   if (error) {

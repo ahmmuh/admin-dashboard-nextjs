@@ -1,5 +1,5 @@
 "use client";
-import Loading from "@/app/loading";
+import LoadingPage from "@/app/loading";
 import { deleteKey, getKeyByID, updateKey } from "@/backend/keyAPI";
 import { displayErrorMessage } from "@/helper/toastAPI";
 import { useParams, useRouter } from "next/navigation";
@@ -97,7 +97,7 @@ function EditKey() {
     }
   };
   if (loading) {
-    return <Loading />;
+    return <LoadingPage />;
   }
 
   if (error) {

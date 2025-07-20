@@ -8,10 +8,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React, { useState } from "react";
 import TaskSearch from "@/components/tasks/taskSearch";
+import LoadingPage from "@/app/loading";
 
 function TaskPage() {
-  const { tasks } = useFetchTask();
+  const { tasks, loading } = useFetchTask();
   const [searchValue, setSearchValue] = useState("");
+
+  if (loading) {
+    return <LoadingPage message="Laddar uppgifer ...." />;
+  }
 
   return (
     <div className="flex flex-col">

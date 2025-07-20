@@ -1,13 +1,13 @@
 "use client";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
-import Loading from "../loading";
+import LoadingPage from "../loading";
 
 function Dashboard() {
   const { user, loading, error } = useFetchCurrentUser();
   console.log("Loggad user", user);
 
   if (loading) {
-    return <Loading />;
+    return <LoadingPage message="Vi hämtar allt åt dig" />;
   }
 
   if (error) {

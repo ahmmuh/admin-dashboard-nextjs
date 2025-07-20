@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingPage from "@/app/loading";
 import { checkinKey, getAllKeys } from "@/backend/keyAPI";
 import KeySearch from "@/components/keys/keySearch";
 import SearchInput from "@/components/searhInput";
@@ -64,11 +65,7 @@ function KeyPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center p-10">
-        <h5>Loading .....</h5>
-      </div>
-    );
+    return <LoadingPage message="Hämtar alla nycklar..." />;
   }
 
   if (error) {
@@ -177,7 +174,7 @@ function KeyPage() {
                     )}
                   </td>
                   <td className="border border-gray-200 p-2">
-                    {key.status === "checked-out" ? key.borrowedBy.name : "—"}
+                    {key.status === "checked-out" ? key.borrowedBy?.name : "—"}
                   </td>
                   <td className="border border-gray-200 p-2">
                     {key.status === "checked-out" && key.borrowedAt

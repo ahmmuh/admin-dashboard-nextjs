@@ -6,7 +6,7 @@ async function DetailPage({ params }) {
   console.log("UNIT ID i DetailPage", unitId);
   try {
     const unit = await getUnitByID(unitId);
-    console.log("Fetched unit from API:", unit);
+    // console.log("Fetched unit from API:", unit);
 
     if (!unit) {
       return (

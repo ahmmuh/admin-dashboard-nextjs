@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import KeyTable from "../keyTable";
+import LoadingPage from "@/app/loading";
 
 const KeyDetailComponent = () => {
   const { users } = useFetchUsers();
@@ -92,7 +93,7 @@ const KeyDetailComponent = () => {
     setShowForm(false);
   };
 
-  if (loading) return <p>Laddar nycklar...</p>;
+  if (loading) return <LoadingPage message="Hämtar nycklar..." />;
   if (error) return <p>{error.message}</p>;
 
   return (

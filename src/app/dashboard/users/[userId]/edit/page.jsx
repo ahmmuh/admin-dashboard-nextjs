@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingPage from "@/app/loading";
 import Loading from "@/app/loading";
 import { getUnits, updateUser } from "@/backend/api";
 import { getUserById } from "@/backend/userAPI";
@@ -112,7 +113,7 @@ function UserProfile() {
   }
 
   if (loading) {
-    return <Loading />;
+    return <LoadingPage />;
   }
 
   if (error) {
