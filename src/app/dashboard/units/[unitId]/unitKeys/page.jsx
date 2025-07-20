@@ -22,6 +22,7 @@ function UnitKeys() {
         if (!data) {
           setError("Kunde inte hämta nycklar");
         }
+        console.log("Key i UnitKeys", data);
         setUnit(data);
       } catch (err) {
         console.error(err);
@@ -85,6 +86,13 @@ function UnitKeys() {
                     <strong>Senast lånad av:</strong> {key.lastBorrowedBy.name}
                   </p>
                 )}
+
+                {key.location && (
+                  <p>
+                    <strong>Tillhör:</strong> {key.location}
+                  </p>
+                )}
+
                 <p className="text-xs text-gray-500">
                   Uppdaterad: {new Date(key.updatedAt).toLocaleDateString()}
                 </p>

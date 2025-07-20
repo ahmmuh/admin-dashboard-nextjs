@@ -60,7 +60,7 @@ function SearchUnit() {
               key={unit._id}
               className="border p-4 rounded hover:bg-gray-100 transition cursor-pointer">
               <Link
-                href={`/dashboard/units/${unit._id}/unitDetail`}
+                href={`/dashboard/units/${unit._id}`}
                 className="text-blue-600 font-semibold">
                 🏢 {unit.name}
               </Link>
@@ -72,9 +72,7 @@ function SearchUnit() {
         </ul>
       ) : (
         query.trim() &&
-        !error && (
-          <p className="text-gray-500">Ingen enhet matchar sökningen.</p>
-        )
+        !error && <p className="text-red-500">Ingen enhet matchar sökningen.</p>
       )}
 
       {/* Felmeddelande */}

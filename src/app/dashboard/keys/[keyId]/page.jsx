@@ -91,7 +91,8 @@ function EditKey() {
   const deleteKeyHandler = async (e) => {
     e.preventDefault();
     if (keyId) {
-      // await deleteKey(keyId);
+      await deleteKey(keyId);
+      router.back();
       displayErrorMessage(`Nyckel: ${key.keyLabel} har tagits bort`);
       // router.push("/dashboard/keys");
     }
