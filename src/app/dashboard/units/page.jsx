@@ -64,8 +64,13 @@ function UnitPage({ params }) {
   return (
     <div className=" max-w-6xl mx-auto">
       <h1 className="text-4xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
-        Alla enheter
+        Alla enheter 1
       </h1>
+      <div className="my-6">
+        <Link className="text-green-800" href={"/dashboard/units/create"}>
+          Skapa enhet
+        </Link>
+      </div>
       <SearchUnit />
 
       <div className="flex flex-col gap-8">

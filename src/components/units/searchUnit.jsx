@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import Link from "next/link";
 import { searchUnits } from "@/backend/api";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 function SearchUnit() {
   const [query, setQuery] = useState("");
@@ -60,9 +61,9 @@ function SearchUnit() {
               key={unit._id}
               className="border p-4 rounded hover:bg-gray-100 transition cursor-pointer">
               <Link
-                href={`/dashboard/units/${unit._id}`}
+                href={`/dashboard/units/${unit._id}/unitDetail`}
                 className="text-blue-600 font-semibold">
-                🏢 {unit.name}
+                <HiOutlineOfficeBuilding /> {unit.name}
               </Link>
               {unit.description && (
                 <p className="text-sm text-gray-600 mt-1">{unit.description}</p>
@@ -75,7 +76,6 @@ function SearchUnit() {
         !error && <p className="text-red-500">Ingen enhet matchar sökningen.</p>
       )}
 
-      {/* Felmeddelande */}
       {error && <p className="text-red-500 mt-2">{error}</p>}
     </div>
   );
