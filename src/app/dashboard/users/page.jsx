@@ -12,10 +12,12 @@ import SearchUser from "@/components/users/searchUser";
 import LoadingPage from "@/app/loading";
 import { deleteUser } from "@/backend/userAPI";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 
 function UserPage() {
   const { users, loading, error } = useFetchUsers();
   const [userList, setUserList] = useState([]);
+  const { currentUser } = useFetchCurrentUser();
   // const deleteHandler = async (id) => {
   //   console.log("Denna användare kommer tas bort", id);
   //   try {
@@ -84,7 +86,11 @@ function UserPage() {
                 <th className="text-left px-4 py-2 border-b">Telefon</th>
                 <th className="text-left px-4 py-2 border-b">Roll</th>
                 <th className="text-left px-4 py-2 border-b">Enhet</th>
-                <th className="text-left px-4 py-2 border-b">Åtgärder</th>
+                {currentUser &&
+                  currentUser.role !== "Enhetschef" &&
+                  currentUser.roler !== "Specilare" && (
+                    <th className="text-left px-4 py-2 border-b">Åtgärder</th>
+                  )}
               </tr>
             </thead>
             <tbody>
@@ -97,25 +103,30 @@ function UserPage() {
                   <td className="px-4 py-2 border-b">
                     {user.unit?.name || "-"}
                   </td>
-                  <td className="px-4 py-2 border-b">
-                    <div className="flex items-center gap-2">
-                      <Link
-                        href={`/dashboard/users/${user._id}/edit`}
-                        className="p-2 border border-gray-300 rounded
+
+                  {currentUser &&
+                    currentUser.role !== "Enhetschef" &&
+                    currentUser.roler !== "Specilare" && (
+                      <td className="px-4 py-2 border-b">
+                        <div className="flex items-center gap-2">
+                          <Link
+                            href={`/dashboard/users/${user._id}/edit`}
+                            className="p-2 border border-gray-300 rounded
                             >
                       
                       hover:bg-gray-100 transition"
-                        title="Uppdatera">
-                        <HiOutlinePencil className="text-gray-600 w-5 h-5" />
-                      </Link>
-                      <button
-                        onClick={() => deleteHandler(user._id)}
-                        className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
-                        title="Ta bort">
-                        <HiOutlineTrash className="text-gray-600 w-5 h-5" />
-                      </button>
-                    </div>
-                  </td>
+                            title="Uppdatera">
+                            <HiOutlinePencil className="text-gray-600 w-5 h-5" />
+                          </Link>
+                          <button
+                            onClick={() => deleteHandler(user._id)}
+                            className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+                            title="Ta bort">
+                            <HiOutlineTrash className="text-gray-600 w-5 h-5" />
+                          </button>
+                        </div>
+                      </td>
+                    )}
                 </tr>
               ))}
             </tbody>

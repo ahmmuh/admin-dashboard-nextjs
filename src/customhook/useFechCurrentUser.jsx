@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getCurrentUser } from "@/backend/authAPI";
 
 export function useFetchCurrentUser() {
-  const [user, setUser] = useState({});
+  const [currentUser, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -27,5 +27,5 @@ export function useFetchCurrentUser() {
     fetchCurrentUser();
   }, []);
 
-  return { user, loading, error };
+  return { currentUser, loading, error };
 }

@@ -5,6 +5,7 @@ import Loading from "@/app/loading";
 import { getUnits, updateUser } from "@/backend/api";
 import { getUserById } from "@/backend/userAPI";
 import MainInput from "@/components/input";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import { displaySuccessMessage } from "@/helper/toastAPI";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -15,7 +16,7 @@ function UserProfile() {
   console.log("User ID i UserProfile", userId);
 
   const router = useRouter();
-  const roles = ["Chef", "Specialist"];
+  const roles = ["Avdelningschef ", "Områdeschef", "Enhetschef", "Specialare"];
   const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingUser, setUserLoading] = useState(true);
@@ -24,6 +25,10 @@ function UserProfile() {
   const [userError, setUserError] = useState(null);
 
   const [user, setUser] = useState(null);
+
+  //Hämta den inloggade användare:
+
+  const { currentUser } = useFetchCurrentUser();
 
   //   name: "",
   // email: "",
@@ -175,53 +180,59 @@ function UserProfile() {
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
 
-              <div className="md:col-span-2">
-                <label
-                  htmlFor="role"
-                  className="block text-sm font-medium text-gray-700 mb-1">
-                  Roll
-                </label>
-                <select
-                  id="role"
-                  name="role"
-                  value={user?.role || ""}
-                  onChange={changeHandler}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
-                  <option value="" disabled>
-                    -- Välj roll --
-                  </option>
-                  {roles.map((role, index) => (
-                    <option key={index} value={role}>
-                      {role}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {currentUser &&
+                currentUser.role !== "Enhetschef" &&
+                currentUser.role !== "Specialare" && (
+                  <>
+                    <div className="md:col-span-2">
+                      <label
+                        htmlFor="role"
+                        className="block text-sm font-medium text-gray-700 mb-1">
+                        Roll
+                      </label>
+                      <select
+                        id="role"
+                        name="role"
+                        value={user?.role || ""}
+                        onChange={changeHandler}
+                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <option value="" disabled>
+                          -- Välj roll --
+                        </option>
+                        {roles.map((role, index) => (
+                          <option key={index} value={role}>
+                            {role}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-              {/* Lägg till en användare i en ENHET */}
+                    {/* Lägg till en användare i en ENHET */}
 
-              <div className="md:col-span-2">
-                <label
-                  htmlFor="role"
-                  className="block text-sm font-medium text-gray-700 mb-1">
-                  Enhet
-                </label>
-                <select
-                  id="unit"
-                  name="unit"
-                  value={user?.unit?.name || ""}
-                  onChange={changeHandler}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
-                  <option value="" disabled>
-                    -- Välj enhet --
-                  </option>
-                  {units.map((u) => (
-                    <option key={u._id} value={u._id}>
-                      {u.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                    <div className="md:col-span-2">
+                      <label
+                        htmlFor="role"
+                        className="block text-sm font-medium text-gray-700 mb-1">
+                        Enhet
+                      </label>
+                      <select
+                        id="unit"
+                        name="unit"
+                        value={user?.unit?.name || ""}
+                        onChange={changeHandler}
+                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <option value="" disabled>
+                          -- Välj enhet --
+                        </option>
+                        {units.map((u) => (
+                          <option key={u._id} value={u._id}>
+                            {u.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </>
+                )}
             </div>
 
             <button

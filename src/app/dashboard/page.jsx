@@ -3,8 +3,8 @@ import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import LoadingPage from "../loading";
 
 function Dashboard() {
-  const { user, loading, error } = useFetchCurrentUser();
-  console.log("Loggad user", user);
+  const { currentUser, loading, error } = useFetchCurrentUser();
+  console.log("Loggad user", currentUser);
 
   if (loading) {
     return <LoadingPage message="Vi hämtar allt åt dig" />;
@@ -18,7 +18,7 @@ function Dashboard() {
     );
   }
 
-  if (!user || Object.keys(user).length === 0) {
+  if (!currentUser || Object.keys(currentUser).length === 0) {
     return (
       <div className="p-4 text-gray-500">
         Ingen användare hittades. Är du inloggad?
@@ -28,7 +28,10 @@ function Dashboard() {
 
   return (
     <>
-      <h2 className="text-2xl px-10 italic ">Välkommen {user.name}</h2>
+      <h2 className="text-2xl px-10 italic ">
+        Välkommen {currentUser.name}{" "}
+        <span className="text-sm block">({currentUser.role})</span>
+      </h2>
     </>
   );
 }
