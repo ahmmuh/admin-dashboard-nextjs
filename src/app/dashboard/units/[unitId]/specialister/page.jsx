@@ -51,7 +51,7 @@ function SpecialistPage({ params }) {
 
       {unit.users &&
         unit.users
-          .filter((user) => user.role === "Specialist")
+          .filter((user) => user.role === "Specialare")
           .map((specialist) => (
             <PersonList
               key={specialist._id}

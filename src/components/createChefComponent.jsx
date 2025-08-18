@@ -1,9 +1,9 @@
 "use client";
 import { addChefToUnit, getUnitByID } from "@/backend/api";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 function CreateChefComponent({ unitId }) {
   const router = useRouter();

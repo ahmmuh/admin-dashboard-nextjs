@@ -9,6 +9,8 @@ function UserDetail() {
   const searchParams = useSearchParams();
   const userId = searchParams.get("userId");
 
+  console.log("USER ID", userId);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);

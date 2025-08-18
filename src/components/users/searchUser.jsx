@@ -54,7 +54,7 @@ function SearchUser() {
               key={user._id}
               className="border p-4 rounded hover:bg-gray-100 transition cursor-pointer">
               <Link
-                href={`/dashboard/users/${user._id}`}
+                href={`/dashboard/users/user?userId=${user._id}`}
                 className="text-blue-600 font-semibold">
                 <HiOutlineUser /> {user.name}
               </Link>

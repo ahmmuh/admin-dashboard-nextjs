@@ -60,14 +60,16 @@ function UnitPage({ params }) {
       </div>
     );
   }
-
+  const filteredKeys = units?.filter((key) => key.status === "checked-out");
   return (
     <div className=" max-w-6xl mx-auto">
       <h1 className="text-4xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
         Alla enheter 1
       </h1>
       <div className="my-6">
-        <Link className="text-green-800" href={"/dashboard/units/create"}>
+        <Link
+          className="text-green-800 font-bold"
+          href={"/dashboard/units/create"}>
           Skapa enhet
         </Link>
       </div>
@@ -76,9 +78,11 @@ function UnitPage({ params }) {
       <div className="flex flex-col gap-8">
         {units &&
           units.map((unit) => {
-            const chefer = unit.users?.filter((user) => user.role === "Chef");
+            const chefer = unit.users?.filter(
+              (user) => user.role === "Enhetschef"
+            );
             const specialister = unit.users?.filter(
-              (user) => user.role === "Specialist"
+              (user) => user.role === "Specialare"
             );
 
             return (
@@ -99,10 +103,7 @@ function UnitPage({ params }) {
                       <HiOutlineUserGroup className="text-purple-500 w-5 h-5" />
                     }
                     href={`/dashboard/units/${unit._id}/specialister`}
-                    text={`Specialister (${
-                      unit?.users.filter((user) => user.role === "Specialist")
-                        ?.length
-                    })`}
+                    text={`Specialister (${specialister.length})`}
                   />
 
                   <CardRow
@@ -116,7 +117,7 @@ function UnitPage({ params }) {
                   <CardRow
                     icon={<HiOutlineKey className="text-purple-500 w-5 h-5" />}
                     href={`/dashboard/units/${unit._id}/unitKeys`}
-                    text={`Nycklar (${unit.keys.length})`}
+                    text={`Nycklar (${filteredKeys.length})`}
                   />
                 </div>
               </MainCard>

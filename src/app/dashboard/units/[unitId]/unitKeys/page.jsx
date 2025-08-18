@@ -49,60 +49,51 @@ function UnitKeys() {
         className={`space-y-6 ${
           keys.length > 10 ? "max-h-[400px] overflow-x-scroll" : ""
         }`}>
-        {keys && keys.length > 0 ? (
-          keys.map((key) => (
-            <div
-              key={key._id}
-              className="bg-white shadow-md rounded-md p-5 border border-gray-200">
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="text-xl font-semibold flex items-center gap-2 text-gray-800">
-                  <HiOutlineKey className="text-purple-600 w-5 h-5" />
-                  {key.keyLabel}
-                </h2>
-                <span
-                  className={`px-3 py-1 text-sm rounded-full font-medium ${
-                    key.status === "checked-out"
-                      ? "bg-orange-100 text-orange-800"
-                      : key.status === "returned"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-gray-100 text-gray-700"
-                  }`}>
-                  {key.status === "checked-out"
-                    ? "Utlånad"
-                    : key.status === "returned"
-                    ? "Inlämnad"
-                    : "Inne"}
-                </span>
+        {keys &&
+        keys.filter((key) => key.status === "checked-out").length > 0 ? (
+          keys
+            .filter((key) => key.status === "checked-out")
+            .map((key) => (
+              <div
+                key={key._id}
+                className="bg-white shadow-md rounded-md p-5 border border-gray-200">
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-xl font-semibold flex items-center gap-2 text-gray-800">
+                    <HiOutlineKey className="text-purple-600 w-5 h-5" />
+                    {key.keyLabel}
+                  </h2>
+                  <span className="px-3 py-1 text-sm rounded-full font-medium bg-orange-100 text-orange-800">
+                    Utlånad
+                  </span>
+                </div>
+
+                <div className="text-sm text-gray-700 space-y-1">
+                  {key.borrowedBy && (
+                    <p>
+                      <strong>Just nu hos:</strong> {key.borrowedBy.name}
+                    </p>
+                  )}
+                  {key.lastBorrowedBy && (
+                    <p>
+                      <strong>Senast lånad av:</strong>{" "}
+                      {key.lastBorrowedBy.name}
+                    </p>
+                  )}
+
+                  {key.location && (
+                    <p>
+                      <strong>Tillhör:</strong> {key.location}
+                    </p>
+                  )}
+
+                  <p className="text-xs text-gray-500">
+                    Uppdaterad: {new Date(key.updatedAt).toLocaleDateString()}
+                  </p>
+                </div>
               </div>
-
-              <div className="text-sm text-gray-700 space-y-1">
-                {key.borrowedBy && (
-                  <p>
-                    <strong>Just nu hos:</strong> {key.borrowedBy.name}
-                  </p>
-                )}
-                {key.lastBorrowedBy && (
-                  <p>
-                    <strong>Senast lånad av:</strong> {key.lastBorrowedBy.name}
-                  </p>
-                )}
-
-                {key.location && (
-                  <p>
-                    <strong>Tillhör:</strong> {key.location}
-                  </p>
-                )}
-
-                <p className="text-xs text-gray-500">
-                  Uppdaterad: {new Date(key.updatedAt).toLocaleDateString()}
-                </p>
-              </div>
-            </div>
-          ))
+            ))
         ) : (
-          <p className="text-gray-500">
-            Inga nycklar hittades för denna enhet.
-          </p>
+          <p className="text-gray-500">Inga utlånade nycklar.</p>
         )}
       </div>
     </div>
