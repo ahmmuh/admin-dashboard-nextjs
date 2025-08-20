@@ -63,10 +63,10 @@ function SpecialistActions({ unitId, specialist }) {
               </button>
 
               <Link
-                href={`/dashboard/units/${unitId}/chefer/create`}
+                href={`/dashboard/units/${unitId}/specialister/create`}
                 className="flex items-center gap-2 px-4  bg-green-100 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-200 transition">
                 <HiPlus className="w-5" />
-                Lägg till ny chef
+                Lägg till ny specialare
               </Link>
             </>
           )}

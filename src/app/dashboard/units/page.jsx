@@ -37,7 +37,7 @@ function UnitPage({ params }) {
     fetchUnits();
   }, []);
   // const apartments = await getApartments();
-  console.log("units i unitPage", units);
+  // console.log("units i unitPage", units);
 
   //Loading
 
@@ -60,11 +60,11 @@ function UnitPage({ params }) {
       </div>
     );
   }
-  const filteredKeys = units?.filter((key) => key.status === "checked-out");
+
   return (
     <div className=" max-w-6xl mx-auto">
       <h1 className="text-4xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
-        Alla enheter 1
+        Alla enheter
       </h1>
       <div className="my-6">
         <Link
@@ -78,12 +78,20 @@ function UnitPage({ params }) {
       <div className="flex flex-col gap-8">
         {units &&
           units.map((unit) => {
+            console.log("Unit med keys", unit);
             const chefer = unit.users?.filter(
               (user) => user.role === "Enhetschef"
             );
             const specialister = unit.users?.filter(
               (user) => user.role === "Specialare"
             );
+
+            // const checkedOutKeysCount =
+            //   unit.users
+            //     ?.flatMap((user) => user.keys || []) // plattar ut alla keys från alla users
+            //     .filter((key) => key.status === "checked-out").length || 0; // filtrerar bara utlånade
+
+            // console.log("checkedOutKeysCount", checkedOutKeysCount);
 
             return (
               <MainCard key={unit._id} title={unit.name}>
@@ -117,7 +125,7 @@ function UnitPage({ params }) {
                   <CardRow
                     icon={<HiOutlineKey className="text-purple-500 w-5 h-5" />}
                     href={`/dashboard/units/${unit._id}/unitKeys`}
-                    text={`Nycklar (${filteredKeys.length})`}
+                    text={`Nycklar (${unit?.keys?.length})`}
                   />
                 </div>
               </MainCard>

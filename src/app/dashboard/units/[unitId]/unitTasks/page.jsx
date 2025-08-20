@@ -82,7 +82,8 @@ function UnitTasksPage() {
                   </span>
                 )}
                 <span>
-                  Uppdaterad: {new Date(task.updatedAt).toLocaleDateString()}
+                  Senast ändrad:{" "}
+                  {new Date(task.updatedAt).toLocaleString("sv-SE")}
                 </span>
               </div>
             </li>

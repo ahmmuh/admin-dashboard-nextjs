@@ -51,10 +51,16 @@ function UserDetail() {
     );
   }
 
+  if (user) console.log("USER INFO", user);
+
+  const userWithKeys = user?.keys?.filter(
+    (key) => key.status === "checked-out"
+  );
+
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white mt-6">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-        Användarinformation
+        Användaruppgifter
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
@@ -68,13 +74,21 @@ function UserDetail() {
           <span className="font-semibold">Roll:</span> {user.role}
         </div>
         <div>
-          <span className="font-semibold">Skapad:</span>{" "}
-          {new Date(user.createdAt).toLocaleDateString("sv-SE")}
+          <span className="font-semibold">Antal utlånade nycklar:</span>{" "}
+          {userWithKeys ? userWithKeys.length : 0}
         </div>
-        <div>
-          <span className="font-semibold">Uppdaterad:</span>{" "}
-          {new Date(user.updatedAt).toLocaleDateString("sv-SE")}
-        </div>
+        {user.createdAt && (
+          <div>
+            <span className="font-semibold">Skapad:</span>{" "}
+            {new Date(user.createdAt).toLocaleDateString("sv-SE")}
+          </div>
+        )}
+        {user.updatedAt && (
+          <div>
+            <span className="font-semibold">Senast ändrad:</span>{" "}
+            {new Date(user.updatedAt).toLocaleDateString("sv-SE")}
+          </div>
+        )}
       </div>
     </div>
   );

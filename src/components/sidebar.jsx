@@ -14,7 +14,7 @@ const Sidebar = () => {
   return (
     <aside className="fixed top-0 left-0 h-screen w-80 bg-blue-900 text-gray-400 px-5 py-6 overflow-y-auto">
       <h4 className="text-2xl text-white font-semibold mb-8">
-        <Link href="/dashboard">Dashboard</Link>
+        <Link href="/dashboard">Översikt</Link>
       </h4>
 
       <nav>

@@ -35,10 +35,15 @@ export default function CreateUnitClientPage() {
 
   return (
     <div className=" mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-blue-500">Skapa Ny Enhet</h1>
+      <h1 className="text-2xl font-bold mb-4 text-blue-500">Skapa ny enhet</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-medium">Namn</label>
+          <label className="block font-medium">
+            Namn{" "}
+            <span className="text-sm font-normal" style={{ fontSize: 12 }}>
+              t.ex. Enhet Öst 2
+            </span>
+          </label>
           <input
             name="name"
             type="text"
@@ -49,7 +54,12 @@ export default function CreateUnitClientPage() {
           />
         </div>
         <div>
-          <label className="block font-medium">Adress</label>
+          <label className="block font-medium mb-1">
+            Address{" "}
+            <span className="text-sm font-normal" style={{ fontSize: 12 }}>
+              En central address för nya enheten
+            </span>
+          </label>
           <input
             name="address"
             type="text"
