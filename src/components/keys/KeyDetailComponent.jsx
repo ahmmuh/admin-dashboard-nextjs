@@ -95,7 +95,9 @@ const KeyDetailComponent = () => {
     setShowForm(false);
   };
 
-  if (loading) return <LoadingPage message="Hämtar nycklar..." />;
+  if (loading) {
+    return <LoadingPage message="Hämtar nycklar..." />;
+  }
   if (error) return <p>{error.message}</p>;
 
   return (

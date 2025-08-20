@@ -59,7 +59,7 @@ function SearchUser() {
                 <HiOutlineUser /> {user.name}
               </Link>
               <p className="text-sm text-gray-600">
-                Roll: {user.role || "Okänd"}
+                Roll: {user.role?.join(", ") || "Okänd"}
               </p>
             </li>
           ))}

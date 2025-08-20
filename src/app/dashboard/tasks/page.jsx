@@ -56,7 +56,7 @@ function TaskPage() {
             updatedAt={task.updatedAt}
             createdAt={task.createdAt}
             status={task.status}>
-            <TaskActions task={task} />
+            {currentUser && <TaskActions task={task} />}
           </ItemList>
         ))}
     </div>

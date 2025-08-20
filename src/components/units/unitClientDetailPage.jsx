@@ -5,12 +5,13 @@ import { useParams } from "next/navigation";
 import { getUnitByID } from "@/backend/api";
 import LoadingPage from "@/app/loading";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 
 export default function UnitClientDetailPage() {
   const { unitId } = useParams();
   const [unit, setUnit] = useState(null);
   const [error, setError] = useState(null);
-
+  const { currentUser, loading } = useFetchCurrentUser();
   useEffect(() => {
     if (!unitId) return;
 
@@ -49,16 +50,16 @@ export default function UnitClientDetailPage() {
       <h1 className="text-3xl font-bold text-blue-700 mb-4">
         <HiOutlineOfficeBuilding /> {unit.name}
       </h1>
-      {unit.users.map((user) => (
-        <p>
+      {/* {unit.users.map((user) => (
+        <p key={user._id}>
           {" "}
-          {user && user.role === "Chef" && (
+          {user && user.role === "Specialare" && (
             <span>
               {user.role}: {user.name}
             </span>
           )}
         </p>
-      ))}
+      ))} */}
       <p className="text-gray-800 mb-2">
         <span className="font-semibold">Adress:</span> {unit.address}
       </p>

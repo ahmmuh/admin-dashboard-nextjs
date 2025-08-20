@@ -3,41 +3,31 @@
 import LoadingPage from "@/app/loading";
 import { checkinKey, getAllKeys } from "@/backend/keyAPI";
 import KeySearch from "@/components/keys/keySearch";
-import SearchInput from "@/components/searhInput";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
-import {
-  faArrowLeft,
-  faArrowRight,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
 import toast, { Toaster } from "react-hot-toast";
 
 function KeyPage() {
-  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [keys, setKeys] = useState([]);
   const router = useRouter();
   const { currentUser, loading } = useFetchCurrentUser();
-
   const [qrVisible, setQrVisible] = useState({});
+  const [keyLoading, setKeyLoading] = useState(true);
 
   const checkInHandler = async (key) => {
     const userId = key.lastBorrowedBy;
-    const userType = key.borrowedByModel || key.lastBorrowedByModel;
-    const fixedUserType = userType === "Specialist" ? "specialister" : "chefer";
-
     try {
       await checkinKey(userId, key._id);
       await fetchKeys();
       toast.success("Nyckeln har återlämnats");
     } catch (error) {
-      console.error("Error");
+      console.error("Error", error);
       toast.error("Något har gått fel");
     }
   };
@@ -46,11 +36,11 @@ function KeyPage() {
     try {
       const keyList = await getAllKeys();
       setKeys(keyList);
-      // setLoading(false);
+      setKeyLoading(false);
     } catch (error) {
       console.error("Error vid hämtning av nycklar", error.message);
       setError(error);
-      // setLoading(false);
+      setKeyLoading(false);
     }
   };
 
@@ -58,7 +48,6 @@ function KeyPage() {
     fetchKeys();
   }, []);
 
-  //Visa eller gömma QR Code
   const toggleQRCode = (keyId) => {
     setQrVisible((prev) => ({
       ...prev,
@@ -66,7 +55,7 @@ function KeyPage() {
     }));
   };
 
-  if (loading) {
+  if (loading || keyLoading) {
     return <LoadingPage message="Hämtar alla nycklar..." />;
   }
 
@@ -81,7 +70,7 @@ function KeyPage() {
   return (
     <div>
       <Toaster />
-      <div className="p-2 ">
+      <div className="p-2">
         {currentUser.role !== "Enhetschef" && (
           <Link
             className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
@@ -90,20 +79,28 @@ function KeyPage() {
             Lägg till nyckel
           </Link>
         )}
-        {keys && keys.length > 0 && (
+
+        {keys.length > 0 && (
           <h3 className="font-bold text-purple-500 italic">Nyckel hantering</h3>
         )}
       </div>
 
-      <div className="pr-10 ">
+      <div className="pr-10">
         <div className="my-5">
           <KeySearch />
         </div>
-        <table className="border border-gray-400 w-full">
-          {keys && keys.length > 0 && (
-            <thead className="">
+
+        {keyLoading || loading ? (
+          <LoadingPage message="Hämtar användare och nycklar..." />
+        ) : keys.length === 0 ? (
+          <div className="text-center text-red-500 p-4">
+            Det finns inga nycklar att visa just nu.
+          </div>
+        ) : (
+          <table className="border border-gray-400 w-full">
+            <thead>
               <tr>
-                <th className="border border-gray-200 text-left ">
+                <th className="border border-gray-200 text-left">
                   Nyckelbeteckning
                 </th>
                 <th className="border border-gray-200 text-left">Plats</th>
@@ -115,24 +112,13 @@ function KeyPage() {
                 <th className="border border-gray-200 text-left">
                   Inlämnat datum
                 </th>
-
                 {currentUser.role !== "Enhetschef" && (
                   <th className="border border-gray-200 text-left">Action</th>
                 )}
               </tr>
             </thead>
-          )}
-
-          <tbody>
-            {keys.length === 0 ? (
-              <tr>
-                <td colSpan="7" className="text-center text-red-500 p-4">
-                  Det finns inga nycklar att visa just nu.
-                </td>
-              </tr>
-            ) : (
-              keys &&
-              keys.map((key) => (
+            <tbody>
+              {keys.map((key) => (
                 <tr key={key._id} className="hover:bg-gray-300">
                   <td className="border border-gray-200 text-blue-400 font-bold">
                     🔑{" "}
@@ -140,32 +126,34 @@ function KeyPage() {
                       {key.keyLabel.toUpperCase()}
                     </Link>
                     {key.qrCode && (
-                      <button
-                        onClick={() => toggleQRCode(key._id)}
-                        className="block "
-                        style={{ fontSize: ".6rem" }}>
-                        <span className="text-center pl-7">
-                          {qrVisible[key._id] ? "Göm QR kod" : "Visa QR kod"}{" "}
-                        </span>
-                      </button>
-                    )}
-                    {key.qrCode && qrVisible[key._id] && (
-                      <div style={{ paddingLeft: 20 }}>
-                        <Image
-                          width={150}
-                          height={200}
-                          src={key.qrCode}
-                          alt="QrCode image"
-                        />
-                        <a
-                          href={key.qrCode}
-                          download="qrcode.png"
-                          style={{ fontSize: ".7rem" }}>
-                          <button style={{ marginTop: 10 }}>
-                            Ladda ner QR kod
-                          </button>
-                        </a>
-                      </div>
+                      <>
+                        <button
+                          onClick={() => toggleQRCode(key._id)}
+                          className="block"
+                          style={{ fontSize: ".6rem" }}>
+                          <span className="text-center pl-7">
+                            {qrVisible[key._id] ? "Göm QR kod" : "Visa QR kod"}
+                          </span>
+                        </button>
+                        {qrVisible[key._id] && (
+                          <div style={{ paddingLeft: 20 }}>
+                            <Image
+                              width={150}
+                              height={200}
+                              src={key.qrCode}
+                              alt="QrCode image"
+                            />
+                            <a
+                              href={key.qrCode}
+                              download="qrcode.png"
+                              style={{ fontSize: ".7rem" }}>
+                              <button style={{ marginTop: 10 }}>
+                                Ladda ner QR kod
+                              </button>
+                            </a>
+                          </div>
+                        )}
+                      </>
                     )}
                   </td>
                   <td className="border border-gray-200 p-2">{key.location}</td>
@@ -213,10 +201,10 @@ function KeyPage() {
                     </td>
                   )}
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

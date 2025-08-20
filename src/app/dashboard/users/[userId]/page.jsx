@@ -70,8 +70,9 @@ function UserDetail() {
         <div>
           <span className="font-semibold">E-post:</span> {user.email}
         </div>
+
         <div>
-          <span className="font-semibold">Roll:</span> {user.role}
+          <span className="font-semibold">Roll:</span> {user.role?.join(", ")}
         </div>
         <div>
           <span className="font-semibold">Antal utlånade nycklar:</span>{" "}

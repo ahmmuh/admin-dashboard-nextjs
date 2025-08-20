@@ -51,7 +51,7 @@ function CreateTaskClientComponent() {
         description: task.description,
         location: task.location,
       };
-      await addNewTask(newTask);
+      // await addNewTask(newTask);
       console.log("NY TASK on the WAY", newTask);
       setTask({ title: "", description: "" });
       displaySuccessMessage("Ny task har lagts");
@@ -68,7 +68,7 @@ function CreateTaskClientComponent() {
   };
   return (
     <div className="p-5">
-      <h4 className="text-3xl text-purple-500 mb-3">Lägg till ny task</h4>
+      <h4 className="text-3xl text-purple-500 mb-3">Lägg till nytt uppdrag</h4>
 
       <form onSubmit={submitHandler}>
         <div className="mb-3">

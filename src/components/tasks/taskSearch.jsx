@@ -19,7 +19,8 @@ function TaskSearch() {
     const timeoutId = setTimeout(async () => {
       try {
         const data = await searchTasks(query);
-        setResults(data);
+        console.log("SÖKTA UPPGIFTER", data);
+        setResults(Array.isArray(data) ? data : data.results || []);
         setError(null);
       } catch (err) {
         setResults([]);
@@ -52,16 +53,17 @@ function TaskSearch() {
 
       <ul
         className={`mt-4 ${
-          results.length > 0 ? "overflow-y-scroll h-44" : ""
+          results?.length > 0 ? "overflow-y-scroll h-44" : ""
         }`}>
-        {results.map((task) => (
-          <li
-            key={task._id}
-            className="border-b border-purple-600 pb-3 cursor-pointer hover:bg-gray-100 px-2"
-            onClick={() => handleTaskClick(task)}>
-            🔍 <strong className="text-blue-600">{task.title}</strong>
-          </li>
-        ))}
+        {Array.isArray(results) &&
+          results?.map((task) => (
+            <li
+              key={task._id}
+              className="border-b border-purple-600 pb-3 cursor-pointer hover:bg-gray-100 px-2"
+              onClick={() => handleTaskClick(task)}>
+              🔍 <strong className="text-blue-600">{task.title}</strong>
+            </li>
+          ))}
       </ul>
 
       {/* Felmeddelande */}

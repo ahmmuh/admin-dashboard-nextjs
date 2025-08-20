@@ -3,7 +3,7 @@ import { getPlaces } from "@/backend/googlePlaceApi";
 export const fetchPlaces = async (query) => {
   if (!query) return [];
   try {
-    if (!query) return;
+    // if (!query) return;
     const response = await getPlaces(query);
     if (!response?.results) {
       console.warn("Inga platser hittades eller fel i response ", response);
