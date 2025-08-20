@@ -16,7 +16,13 @@ function UserProfile() {
   console.log("User ID i UserProfile", userId);
 
   const router = useRouter();
-  const roles = ["Avdelningschef ", "Områdeschef", "Enhetschef", "Specialare"];
+  const roles = [
+    "Avdelningschef ",
+    "Områdeschef",
+    "Enhetschef",
+    "Flyttstädansvarig",
+    "Specialare",
+  ];
   const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingUser, setUserLoading] = useState(true);
@@ -96,7 +102,7 @@ function UserProfile() {
         email: user.email,
         phone: user.phone,
         username: user.username,
-        role: user.role,
+        role: user.roles,
         unit: user?.unit,
       };
 
@@ -134,9 +140,9 @@ function UserProfile() {
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
         <h4
           className=" font-semibold  mb-6 text-gray-800 border border-b-2
-        border-b-blue-200
-        pb-3
-        ">
+          border-b-blue-200
+          pb-3
+          ">
           Uppdatera {user?.name}
         </h4>
 
@@ -191,10 +197,17 @@ function UserProfile() {
                         Roll
                       </label>
                       <select
+                        multiple
                         id="role"
-                        name="role"
-                        value={user?.role || ""}
-                        onChange={changeHandler}
+                        name="roles"
+                        value={user?.roles || []}
+                        onChange={(e) => {
+                          const selected = Array.from(
+                            e.target.selectedOptions,
+                            (option) => option.value
+                          );
+                          setUser((prev) => ({ ...prev, roles: selected }));
+                        }}
                         className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                         <option value="" disabled>
                           -- Välj roll --

@@ -44,7 +44,9 @@ function UserProfileClientComponent() {
                 <td className="px-4 py-2 border-b">{user.name}</td>
                 <td className="px-4 py-2 border-b">{user.email}</td>
                 <td className="px-4 py-2 border-b">{user.phone}</td>
-                <td className="px-4 py-2 border-b">{user.role}</td>
+                <td className="px-4 py-2 border-b">
+                  {user.roles?.map((r) => r)}
+                </td>
                 <td className="px-4 py-2 border-b">{user.unit?.name || "-"}</td>
                 <td className="px-4 py-2 border-b">
                   <div className="flex items-center gap-2">

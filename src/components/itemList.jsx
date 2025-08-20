@@ -1,5 +1,7 @@
 "use client";
+import LoadingPage from "@/app/loading";
 import { getUnitByID } from "@/backend/api";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import React, { useEffect, useState } from "react";
 
 function ItemList({
@@ -53,12 +55,12 @@ function ItemList({
               {status === "Påbörjat" && (
                 <p className="text-gray-500 text-md">
                   <span>Uppdaterad av {task?.unit?.name}</span> <br />
-                  <span>
-                    Datum: {new Date(updatedAt).toLocaleString()}{" "}
-                  </span>{" "}
-                  <br />
                   <span className="text-orange-500 text-md font-bold">
                     Status: {status}
+                    <span className="text-gray-400 text-sm">
+                      {""} | Senast ändrad:{" "}
+                      {new Date(updatedAt).toLocaleString()}{" "}
+                    </span>
                   </span>
                 </p>
               )}

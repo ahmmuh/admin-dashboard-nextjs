@@ -4,6 +4,7 @@ import LoadingPage from "@/app/loading";
 import { checkinKey, getAllKeys } from "@/backend/keyAPI";
 import KeySearch from "@/components/keys/keySearch";
 import SearchInput from "@/components/searhInput";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import {
   faArrowLeft,
   faArrowRight,
@@ -18,10 +19,11 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 function KeyPage() {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [keys, setKeys] = useState([]);
   const router = useRouter();
+  const { currentUser, loading } = useFetchCurrentUser();
 
   const [qrVisible, setQrVisible] = useState({});
 
@@ -44,11 +46,11 @@ function KeyPage() {
     try {
       const keyList = await getAllKeys();
       setKeys(keyList);
-      setLoading(false);
+      // setLoading(false);
     } catch (error) {
       console.error("Error vid hämtning av nycklar", error.message);
       setError(error);
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -80,12 +82,14 @@ function KeyPage() {
     <div>
       <Toaster />
       <div className="p-2 ">
-        <Link
-          className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
-          href={`/dashboard/key_QRcode`}>
-          <FontAwesomeIcon icon={faPlus} className="text-2xl" />
-          Lägg till nyckel
-        </Link>
+        {currentUser.role !== "Enhetschef" && (
+          <Link
+            className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
+            href={`/dashboard/key_QRcode`}>
+            <FontAwesomeIcon icon={faPlus} className="text-2xl" />
+            Lägg till nyckel
+          </Link>
+        )}
         {keys && keys.length > 0 && (
           <h3 className="font-bold text-purple-500 italic">Nyckel hantering</h3>
         )}
@@ -111,7 +115,10 @@ function KeyPage() {
                 <th className="border border-gray-200 text-left">
                   Inlämnat datum
                 </th>
-                <th className="border border-gray-200 text-left">Action</th>
+
+                {currentUser.role !== "Enhetschef" && (
+                  <th className="border border-gray-200 text-left">Action</th>
+                )}
               </tr>
             </thead>
           )}
@@ -186,22 +193,25 @@ function KeyPage() {
                       ? new Date(key.returnedAt).toLocaleString("sv-SE")
                       : "—"}
                   </td>
-                  <td className="font-bold p-2">
-                    {["available", "returned"].includes(key.status) && (
-                      <span className="text-green-500">
-                        <Link href={`/dashboard/keys/${key._id}/borrow`}>
-                          Låna
-                        </Link>
-                      </span>
-                    )}
-                    {key.status === "checked-out" && (
-                      <span className="text-red-500">
-                        <Link href={`/dashboard/keys/${key._id}/borrow`}>
-                          Lämna in
-                        </Link>
-                      </span>
-                    )}
-                  </td>
+
+                  {currentUser.role !== "Enhetschef" && (
+                    <td className="font-bold p-2">
+                      {["available", "returned"].includes(key.status) && (
+                        <span className="text-green-500">
+                          <Link href={`/dashboard/keys/${key._id}/borrow`}>
+                            Låna
+                          </Link>
+                        </span>
+                      )}
+                      {key.status === "checked-out" && (
+                        <span className="text-red-500">
+                          <Link href={`/dashboard/keys/${key._id}/borrow`}>
+                            Lämna in
+                          </Link>
+                        </span>
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))
             )}

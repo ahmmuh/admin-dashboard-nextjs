@@ -8,13 +8,15 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import KeyTable from "../keyTable";
 import LoadingPage from "@/app/loading";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 
 const KeyDetailComponent = () => {
   const { users } = useFetchUsers();
-  const { keys, loading, error } = useFetchKeys();
+  const { keys, error } = useFetchKeys();
   const [selectedKeyId, setSelectedKeyId] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [isShowForm, setShowForm] = useState(true);
+  const { currentUser, loading } = useFetchCurrentUser();
 
   const router = useRouter();
 

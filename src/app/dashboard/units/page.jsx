@@ -5,6 +5,7 @@ import { getUnits } from "@/backend/api";
 import MainCard from "@/components/maincard";
 import SearchInput from "@/components/searhInput";
 import SearchUnit from "@/components/units/searchUnit";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
@@ -19,6 +20,7 @@ function UnitPage({ params }) {
   const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { currentUser } = useFetchCurrentUser();
 
   useEffect(() => {
     const fetchUnits = async () => {
@@ -66,19 +68,23 @@ function UnitPage({ params }) {
       <h1 className="text-4xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
         Alla enheter
       </h1>
-      <div className="my-6">
-        <Link
-          className="text-green-800 font-bold"
-          href={"/dashboard/units/create"}>
-          Skapa enhet
-        </Link>
-      </div>
+
+      {currentUser.role !== "Enhetschef" && (
+        <div className="my-6">
+          <Link
+            className="text-green-800 font-bold"
+            href={"/dashboard/units/create"}>
+            Skapa enhet
+          </Link>
+        </div>
+      )}
+
       <SearchUnit />
 
       <div className="flex flex-col gap-8">
         {units &&
           units.map((unit) => {
-            console.log("Unit med keys", unit);
+            console.log("Unit med keys", unit?.keys);
             const chefer = unit.users?.filter(
               (user) => user.role === "Enhetschef"
             );

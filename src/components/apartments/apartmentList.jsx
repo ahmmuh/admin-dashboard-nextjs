@@ -9,10 +9,13 @@ import { displayErrorMessage } from "@/helper/toastAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import SearchApartment from "./searchApartment";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
+import LoadingPage from "@/app/loading";
 
 function ApartmentList({ apartments: initialApartments }) {
   const [apartments, setApartments] = useState(initialApartments);
   const router = useRouter();
+  const { currentUser, loading } = useFetchCurrentUser();
 
   useEffect(() => {
     setApartments(initialApartments);
@@ -25,15 +28,20 @@ function ApartmentList({ apartments: initialApartments }) {
     displayErrorMessage("lägenhet: har tagits bort");
   };
 
+  if (loading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="">
       <div className="flex flex-col">
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <Link
-            className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200"
-            href={`/dashboard/apartments/create`}>
-            Ny lägenhet
-          </Link>
+          {currentUser.role !== "Enhetschef" && (
+            <Link
+              className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200"
+              href={`/dashboard/apartments/create`}>
+              Ny lägenhet
+            </Link>
+          )}
 
           <h5 className="bg-blue-100 text-blue-800 font-medium px-5 py-3 w-full sm:w-96 rounded-xl border border-blue-200">
             Pågående flyttstäd ({apartments?.length})
@@ -116,29 +124,31 @@ function ApartmentList({ apartments: initialApartments }) {
                     </li>
                   )}
                   {/* Action buttons */}
-                  <div className="flex gap-3  mt-4">
-                    <Link
-                      href={`/dashboard/apartments/${apartment._id}/edit`}
-                      className="flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-200 transition">
-                      <HiOutlinePencilAlt className="w-5 h-5" />
-                      Uppdatera
-                    </Link>
+                  {currentUser.role !== "Enhetschef" && (
+                    <div className="flex gap-3  mt-4">
+                      <Link
+                        href={`/dashboard/apartments/${apartment._id}/edit`}
+                        className="flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-200 transition">
+                        <HiOutlinePencilAlt className="w-5 h-5" />
+                        Uppdatera
+                      </Link>
 
-                    <button
-                      onClick={() => {
-                        if (
-                          confirm(
-                            "Är du säker på att du vill ta bort denna lägenhet?"
-                          )
-                        ) {
-                          handleDelete(apartment._id);
-                        }
-                      }}
-                      className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md shadow-sm hover:bg-red-200 transition">
-                      <HiOutlineTrash className="w-5 h-5" />
-                      Ta bort
-                    </button>
-                  </div>
+                      <button
+                        onClick={() => {
+                          if (
+                            confirm(
+                              "Är du säker på att du vill ta bort denna lägenhet?"
+                            )
+                          ) {
+                            handleDelete(apartment._id);
+                          }
+                        }}
+                        className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md shadow-sm hover:bg-red-200 transition">
+                        <HiOutlineTrash className="w-5 h-5" />
+                        Ta bort
+                      </button>
+                    </div>
+                  )}
                 </ul>
               </div>
             ))}

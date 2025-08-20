@@ -9,8 +9,9 @@ import Link from "next/link";
 import React, { useState } from "react";
 import TaskSearch from "@/components/tasks/taskSearch";
 import LoadingPage from "@/app/loading";
-
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 function TaskPage() {
+  const { currentUser } = useFetchCurrentUser();
   const { tasks, loading } = useFetchTask();
   const [searchValue, setSearchValue] = useState("");
 
@@ -21,13 +22,13 @@ function TaskPage() {
   return (
     <div className="flex flex-col">
       <h4 className="text-2xl font-bold mb-3 text-purple-500">Att göra</h4>
-
-      <Link
-        className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
-        href={`/dashboard/tasks/create`}>
-        Lägg till
-      </Link>
-
+      {currentUser.role !== "Enhetschef" && (
+        <Link
+          className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
+          href={`/dashboard/tasks/create`}>
+          Lägg till
+        </Link>
+      )}
       {/* Laddar-indikator */}
       {!tasks && (
         <div className="text-center text-gray-500 text-lg mt-10">

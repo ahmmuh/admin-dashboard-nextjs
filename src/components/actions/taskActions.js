@@ -5,8 +5,11 @@ import { displayErrorMessage } from "@/helper/toastAPI";
 import { useRouter } from "next/navigation";
 import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 import Link from "next/link";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
+import LoadingPage from "@/app/loading";
 function TaskActions({ task }) {
   const router = useRouter();
+  const { currentUser, loading } = useFetchCurrentUser();
   const deleteHandler = async (id) => {
     try {
       const task = await deleteTask(id);
@@ -29,6 +32,10 @@ function TaskActions({ task }) {
       router.push(`/tasks`);
     }
   };
+
+  if (loading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="flex gap-4 mt-6">
       {task && (
@@ -43,18 +50,21 @@ function TaskActions({ task }) {
             </Link>
 
             {/* Ta bort-knapp */}
-            <button
-              onClick={() => {
-                if (
-                  confirm("Är du säker på att du vill ta bort denna uppgift?")
-                ) {
-                  deleteHandler(task._id);
-                }
-              }}
-              className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md shadow-sm hover:bg-red-200 transition">
-              <HiOutlineTrash className="w-5 h-5" />
-              Ta bort
-            </button>
+
+            {currentUser.role !== "Enhetschef" && (
+              <button
+                onClick={() => {
+                  if (
+                    confirm("Är du säker på att du vill ta bort denna uppgift?")
+                  ) {
+                    deleteHandler(task._id);
+                  }
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md shadow-sm hover:bg-red-200 transition">
+                <HiOutlineTrash className="w-5 h-5" />
+                Ta bort
+              </button>
+            )}
           </div>
         </>
       )}

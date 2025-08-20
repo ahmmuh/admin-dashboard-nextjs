@@ -46,32 +46,33 @@ function SearchApartment() {
         />
       </div>
 
-      {results.length > 0 ? (
+      {results && results.length > 0 ? (
         <ul className="overflow-y-auto h-44 ">
-          {results.map((apt) => (
-            <li
-              key={apt._id}
-              className="border p-4 rounded hover:bg-gray-100 transition cursor-pointer">
-              <Link
-                href={`/dashboard/apartments/${apt._id}`}
-                className="text-blue-600 font-semibold">
-                🏠 {apt.apartmentLocation}
-              </Link>
-              <p className="text-sm text-gray-600">
-                Tilldelad: {apt.assignedUnit?.name || "Ingen"} | Status:{" "}
-                <span
-                  className={
-                    apt.status === "Ej påbörjat"
-                      ? "text-red-500"
-                      : apt.status === "Påbörjat"
-                      ? "text-orange-500"
-                      : "text-green-600"
-                  }>
-                  {apt.status}
-                </span>
-              </p>
-            </li>
-          ))}
+          {results &&
+            results.map((apt) => (
+              <li
+                key={apt._id}
+                className="border p-4 rounded hover:bg-gray-100 transition cursor-pointer">
+                <Link
+                  href={`/dashboard/apartments/${apt._id}`}
+                  className="text-blue-600 font-semibold">
+                  🏠 {apt.apartmentLocation}
+                </Link>
+                <p className="text-sm text-gray-600">
+                  Tilldelad: {apt.assignedUnit?.name || "Ingen"} | Status:{" "}
+                  <span
+                    className={
+                      apt.status === "Ej påbörjat"
+                        ? "text-red-500"
+                        : apt.status === "Påbörjat"
+                        ? "text-orange-500"
+                        : "text-green-600"
+                    }>
+                    {apt.status}
+                  </span>
+                </p>
+              </li>
+            ))}
         </ul>
       ) : (
         query.trim() && (
