@@ -71,7 +71,7 @@ function KeyPage() {
     <div>
       <Toaster />
       <div className="p-2">
-        {currentUser.role !== "Enhetschef" && (
+        {!currentUser.role?.includes("Enhetschef") && (
           <Link
             className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
             href={`/dashboard/key_QRcode`}>
@@ -112,8 +112,9 @@ function KeyPage() {
                 <th className="border border-gray-200 text-left">
                   Inlämnat datum
                 </th>
-                {currentUser.role !== "Enhetschef" && (
-                  <th className="border border-gray-200 text-left">Action</th>
+
+                {!currentUser.role?.includes("Enhetschef") && (
+                  <th className="border border-gray-200 text-left">Åtgärd</th>
                 )}
               </tr>
             </thead>
@@ -182,7 +183,7 @@ function KeyPage() {
                       : "—"}
                   </td>
 
-                  {currentUser.role !== "Enhetschef" && (
+                  {!currentUser.role?.includes("Enhetschef") && (
                     <td className="font-bold p-2">
                       {["available", "returned"].includes(key.status) && (
                         <span className="text-green-500">

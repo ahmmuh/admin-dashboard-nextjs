@@ -68,8 +68,7 @@ function UnitPage({ params }) {
       <h1 className="text-4xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
         Alla enheter
       </h1>
-
-      {currentUser.role !== "Enhetschef" && (
+      {!currentUser.role.includes("Enhetschef") && (
         <div className="my-6">
           <Link
             className="text-green-800 font-bold"
@@ -78,6 +77,9 @@ function UnitPage({ params }) {
           </Link>
         </div>
       )}
+      {/* {currentUser.role !== "Enhetschef" && (
+       
+      )} */}
 
       <SearchUnit />
 

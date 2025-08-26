@@ -22,27 +22,19 @@ function TaskPage() {
   return (
     <div className="flex flex-col">
       <h4 className="text-2xl font-bold mb-3 text-purple-500">Att göra</h4>
-      {currentUser.role !== "Enhetschef" && (
-        <Link
-          className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
-          href={`/dashboard/tasks/create`}>
-          Lägg till
-        </Link>
-      )}
-      {/* Laddar-indikator */}
-      {!tasks && (
-        <div className="text-center text-gray-500 text-lg mt-10">
-          Laddar uppgifter...
-        </div>
-      )}
+      <Link
+        className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
+        href={`/dashboard/tasks/create`}>
+        Lägg till nytt uppdrag
+      </Link>
 
-      {/* Om inga uppgifter finns */}
-      {!tasks && tasks.length === 0 && (
+      <TaskSearch />
+
+      {tasks && tasks.length === 0 && (
         <div className="text-center text-red-500 text-lg mt-10">
-          Det finns inga uppgifter att visa.
+          Det finns inga uppgifter att visa...
         </div>
       )}
-      <TaskSearch />
 
       {/* Lista med uppgifter */}
       {tasks &&

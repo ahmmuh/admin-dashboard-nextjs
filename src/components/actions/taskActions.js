@@ -81,7 +81,7 @@ function TaskActions({ task }) {
           </Link>
 
           {/* Ta bort-knapp */}
-          {currentUser.role?.join(", ") !== "Enhetschef" && (
+          {!currentUser.role?.includes("Enhetschef") && (
             <button
               onClick={() => {
                 if (

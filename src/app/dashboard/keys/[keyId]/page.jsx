@@ -111,11 +111,11 @@ function EditKey() {
     );
   }
   return (
-    <div className="w-full border border-x-2 py-5 px-2">
+    <div className="w-full border border-x-2 px-2">
       <div className="flex flex-col">
-        <h2 className="text-2xl text-purple-500 font-bold mb-5">
-          Uppdatera nyckel 🔑🔑 {key.keyLabel}
-        </h2>
+        <h4 className=" text-purple-500 font-bold mb-5">
+          Uppdatera nyckel 🔑 {key.keyLabel}
+        </h4>
         <form>
           <div className="mb-4 w-full ">
             <input
@@ -144,7 +144,7 @@ function EditKey() {
               Uppdatera
             </button>
 
-            {currentUser.role !== "Enhetschef" && (
+            {!currentUser.role?.includes("Enhetschef") && (
               <button
                 onClick={deleteKeyHandler}
                 className="w-1/3 ml-3 flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md shadow-sm hover:bg-red-200 transition">

@@ -67,15 +67,16 @@ function CreateTaskClientComponent() {
     }
   };
   return (
-    <div className="p-5">
-      <h4 className="text-3xl text-purple-500 mb-3">Lägg till nytt uppdrag</h4>
+    <div className="p-2">
+      <h4 className="text-2xl text-purple-500 mb-3">Lägg till nytt uppdrag</h4>
 
       <form onSubmit={submitHandler}>
         <div className="mb-3">
           <input
-            className="bg-gray-200 w-full p-2 rounded-2xl border focus:bg-yellow-100"
+            className="bg-white w-full p-2 rounded-2xl border "
             type="text"
             name="title"
+            placeholder="Ange plats, t.ex. Katedralskolan"
             value={task.title}
             onChange={handlePlaceInputChange}
           />
@@ -85,8 +86,9 @@ function CreateTaskClientComponent() {
         <div className="mb-3">
           <textarea
             rows={10}
-            className="bg-gray-200 w-full p-2 rounded-2xl border focus:bg-yellow-100"
+            className="bg-white w-full p-2 rounded-2xl border "
             type="text"
+            placeholder="Beskriv uppdraget, t.ex. Vi har personalbrist på Katedralskolan och behöver hjälp med två våningar"
             name="description"
             onChange={changeHandler}
             value={task.description}></textarea>

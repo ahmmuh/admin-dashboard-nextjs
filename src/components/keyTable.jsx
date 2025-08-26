@@ -11,7 +11,7 @@ const KeyTable = ({ keyData, onClick, actionLabel, btnColor, bgColor }) => {
             </th>
             <th className="border border-gray-200 text-left p-2">Plats</th>
             <th className="border border-gray-200 text-left p-2">Status</th>
-            <th className="border border-gray-200 text-left p-2">Datum</th>
+            <th className="border border-gray-200 text-left p-2">Datum </th>
             <th className="border border-gray-200 text-left p-2">Åtgärd</th>
           </tr>
         </thead>
@@ -31,7 +31,7 @@ const KeyTable = ({ keyData, onClick, actionLabel, btnColor, bgColor }) => {
                 ? new Date(keyData.borrowedAt).toLocaleString("sv-SE")
                 : keyData.returnedAt
                 ? new Date(keyData.returnedAt).toLocaleString("sv-SE")
-                : "Ingen data"}
+                : "Inget datum"}
             </td>
             <td className="border border-gray-200 p-2">
               <button

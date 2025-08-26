@@ -44,7 +44,7 @@ function ApartmentList({ apartments: initialApartments }) {
             <Link
               className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200"
               href={`/dashboard/apartments/create`}>
-              Ny lägenhet
+              Ny flyttstäd
             </Link>
           )}
 
@@ -61,7 +61,7 @@ function ApartmentList({ apartments: initialApartments }) {
           </div>
         ) : (
           <div>
-            <h5 className="text-2xl mb-10  text-purple-500">Alla lägenheter</h5>
+            <h5 className="text-2xl mb-10  text-purple-500">Alla Flyttstäd</h5>
             <SearchApartment />
             {apartments.map((apartment) => (
               <div className="border border-b-2 p-5 mb-8" key={apartment._id}>

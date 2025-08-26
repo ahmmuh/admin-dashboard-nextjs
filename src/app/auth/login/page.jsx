@@ -30,7 +30,7 @@ function LoginPage() {
         password: user.password,
       };
       await signIn(userInfo);
-      displaySuccessMessage("Logged in successfull");
+      displaySuccessMessage("Inloggning lyckades");
       router.push("/dashboard");
     } catch (error) {
       throw new Error("Kunde inte logga in");

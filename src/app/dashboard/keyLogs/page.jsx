@@ -3,10 +3,16 @@ import LoadingPage from "@/app/loading";
 import { getKeyLogs } from "@/backend/keyAPI";
 import KeySearch from "@/components/keys/keySearch";
 import SearchInput from "@/components/searhInput";
+import { useFetchKeys } from "@/customhook/useFetchKeys";
+import { useFetchUsers } from "@/customhook/useFetchUsers";
 import React, { useEffect, useState } from "react";
 
 function KeyLogPage() {
   const [logs, setLogs] = useState([]);
+  const { users } = useFetchUsers();
+  const { keys } = useFetchKeys();
+  // console.log("USERS", users);
+  console.log("keys", keys);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
