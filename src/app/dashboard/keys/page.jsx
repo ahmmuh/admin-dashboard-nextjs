@@ -163,7 +163,9 @@ function KeyPage() {
                       <span className="text-green-700 font-bold">Inne</span>
                     )}
                     {key.status === "returned" && (
-                      <span className="text-green-700 font-bold">Inlämnad</span>
+                      <span className="text-green-700 font-bold">
+                        Återlämnad
+                      </span>
                     )}
                     {key.status === "checked-out" && (
                       <span className="text-red-700 font-bold">Utlånad</span>

@@ -87,7 +87,7 @@ function UnitKeys() {
                   )}
 
                   <p className="text-xs text-gray-500">
-                    Uppdaterad: {new Date(key.updatedAt).toLocaleDateString()}
+                    Senast ändrad: {new Date(key.updatedAt).toLocaleDateString()}
                   </p>
                 </div>
               </div>

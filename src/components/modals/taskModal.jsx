@@ -55,14 +55,14 @@ function TaskModal({
 
           {status === "Påbörjat" && updatedAt && (
             <p>
-              <strong> Uppdaterad:</strong>{" "}
+              <strong> Senast ändrad:</strong>{" "}
               {new Date(updatedAt).toLocaleDateString()}
             </p>
           )}
 
           {status === "Färdigt" && updatedAt && (
             <p>
-              <strong>Uppdaterad:</strong>{" "}
+              <strong>Senast ändrad:</strong>{" "}
               {new Date(updatedAt).toLocaleDateString()}
             </p>
           )}

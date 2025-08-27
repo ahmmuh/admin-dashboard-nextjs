@@ -50,7 +50,7 @@ function KeyModal({
 
           {(status === "checked-out" || status === "returned") && (
             <p>
-              <strong>Uppdaterad:</strong>{" "}
+              <strong>Senast ändrad:</strong>{" "}
               {new Date(updatedAt).toLocaleDateString()}
             </p>
           )}

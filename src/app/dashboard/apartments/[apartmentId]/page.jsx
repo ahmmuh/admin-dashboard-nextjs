@@ -91,7 +91,7 @@ function ApartmentDetail({ params }) {
       {apartment.status === "Påbörjat" && apartment.status === "Färdigt" && (
         <div className="mt-6 text-sm text-gray-500">
           <p>
-            Senast uppdaterad:{" "}
+            Senast ändrad:{" "}
             {new Date(apartment.updatedAt).toLocaleString("sv-SE")}
           </p>
         </div>
