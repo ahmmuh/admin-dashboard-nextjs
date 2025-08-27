@@ -65,7 +65,7 @@ function UnitPage({ params }) {
 
   return (
     <div className=" max-w-6xl mx-auto">
-      <h1 className="text-4xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
+      <h1 className="text-2xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
         Alla enheter
       </h1>
       {!currentUser.role.includes("Enhetschef") && (
@@ -77,21 +77,22 @@ function UnitPage({ params }) {
           </Link>
         </div>
       )}
-      {/* {currentUser.role !== "Enhetschef" && (
-       
-      )} */}
 
-      <SearchUnit />
+      <div className="hidden md:block">
+        <SearchUnit />
+      </div>
 
       <div className="flex flex-col gap-8">
         {units &&
           units.map((unit) => {
             console.log("Unit med keys", unit?.keys);
-            const chefer = unit.users?.filter(
-              (user) => user.role === "Enhetschef"
+            console.log("Unit med users", unit?.users);
+
+            const chefer = unit.users?.filter((user) =>
+              user.role.includes("Enhetschef")
             );
-            const specialister = unit.users?.filter(
-              (user) => user.role === "Specialare"
+            const specialister = unit.users?.filter((user) =>
+              user.role.includes("Specialare")
             );
 
             // const checkedOutKeysCount =
@@ -119,7 +120,7 @@ function UnitPage({ params }) {
                       <HiOutlineUserGroup className="text-purple-500 w-5 h-5" />
                     }
                     href={`/dashboard/units/${unit._id}/specialister`}
-                    text={`Specialister (${specialister.length})`}
+                    text={`Specialare (${specialister?.length})`}
                   />
 
                   <CardRow

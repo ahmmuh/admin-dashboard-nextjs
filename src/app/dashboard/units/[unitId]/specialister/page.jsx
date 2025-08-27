@@ -51,11 +51,11 @@ function SpecialistPage({ params }) {
 
       {unit.users &&
         unit.users
-          .filter((user) => user.role === "Specialare")
+          .filter((user) => user.role?.includes("Specialare"))
           .map((specialist) => (
             <PersonList
               key={specialist._id}
-              name={specialist?.name || "No specialist än"}
+              name={specialist?.name || "Ingen specialare än"}
               phone={specialist?.phone || "Inget telefonnummer"}
               email={specialist?.email || "Ingen e-post"}>
               <SpecialistActions unitId={unitId} specialist={specialist} />

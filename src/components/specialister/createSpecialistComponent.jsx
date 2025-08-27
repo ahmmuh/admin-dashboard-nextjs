@@ -48,7 +48,7 @@ function CreateSpecialistComponent({ unitId }) {
 
   return (
     <div className="flex flex-col justify-between gap-4 w-full">
-      <h4 className="text-pink-400 text-2xl">Lägg till ny specialist</h4>
+      <h4 className="text-pink-400 text-2xl">Lägg till ny specialare</h4>
       <form onSubmit={submitHandler}>
         <div className="mb-4">
           <input

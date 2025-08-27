@@ -1,7 +1,6 @@
 "use client";
 
 import LoadingPage from "@/app/loading";
-import Loading from "@/app/loading";
 import { getUnits, updateUser } from "@/backend/api";
 import { getUserById } from "@/backend/userAPI";
 import MainInput from "@/components/input";
@@ -9,78 +8,60 @@ import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import { displaySuccessMessage } from "@/helper/toastAPI";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { HiTrash } from "react-icons/hi";
 
 function UserProfile() {
   const params = useParams();
   const userId = params.userId;
-  console.log("User ID i UserProfile", userId);
 
   const router = useRouter();
-  const roles = [
-    "Avdelningschef ",
+  const role = [
+    "Avdelningschef",
     "Områdeschef",
     "Enhetschef",
     "Flyttstädansvarig",
     "Specialare",
+    "Lokalvårdare",
   ];
   const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingUser, setUserLoading] = useState(true);
-
   const [error, setError] = useState(null);
   const [userError, setUserError] = useState(null);
-
   const [user, setUser] = useState(null);
-
-  //Hämta den inloggade användare:
+  const [userRole, setUserRole] = useState(false);
+  const [userEnhet, setUserEnhet] = useState(false);
 
   const { currentUser } = useFetchCurrentUser();
 
-  //   name: "",
-  // email: "",
-  // phone: "",
-  // username: "",
-  // password: "",
-  // role: "",
-  // unit: "",
-
-  // Fetch USER
-
+  // Hämta användare
   const fetchUser = async () => {
     try {
       const foundUser = await getUserById(userId);
-      console.log("Found user before:  if (!foundUser) return;", foundUser);
       if (!foundUser) return;
-
-      console.log("Found user", foundUser);
       setUser({
         ...foundUser,
         unit: foundUser.unit?._id || foundUser.unit,
       });
       setUserLoading(false);
     } catch (error) {
-      console.log("Error", error);
       setUserError(error);
     }
   };
 
   useEffect(() => {
     if (!userId) return;
-    console.log("Running fetchUser useEffect...");
     fetchUser();
   }, [userId]);
 
-  console.log("FOUND USER ", user);
+  // Hämta enheter
   const fetchUnits = async () => {
     try {
       const foundUnit = await getUnits();
       if (!foundUnit) return;
-
-      console.log("Found Unit", foundUnit);
       setUnits(foundUnit);
       setLoading(false);
     } catch (error) {
-      console.log("Error", error);
       setError(error);
     }
   };
@@ -102,11 +83,9 @@ function UserProfile() {
         email: user.email,
         phone: user.phone,
         username: user.username,
-        role: user.roles,
+        role: user.role,
         unit: user?.unit,
       };
-
-      console.log("Uppdaterade Användare", userInfo);
       await updateUser(userId, userInfo);
       displaySuccessMessage("Användaren uppdaterats");
       router.push("/dashboard/users");
@@ -135,14 +114,20 @@ function UserProfile() {
     );
   }
 
+  const handleUserRole = (e) => {
+    e.preventDefault();
+    setUserRole(true);
+  };
+
+  const handleUserEnhet = (e) => {
+    e.preventDefault();
+    setUserEnhet(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
-        <h4
-          className=" font-semibold  mb-6 text-gray-800 border border-b-2
-          border-b-blue-200
-          pb-3
-          ">
+        <h4 className="font-semibold mb-6 text-gray-800 border border-b-2 border-b-blue-200 pb-3">
           Uppdatera {user?.name}
         </h4>
 
@@ -186,66 +171,94 @@ function UserProfile() {
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
 
-              {currentUser &&
-                currentUser.role !== "Enhetschef" &&
-                currentUser.role !== "Specialare" && (
-                  <>
-                    <div className="md:col-span-2">
-                      <label
-                        htmlFor="role"
-                        className="block text-sm font-medium text-gray-700 mb-1">
-                        Roll
-                      </label>
-                      <select
-                        multiple
-                        id="role"
-                        name="roles"
-                        value={user?.roles || []}
-                        onChange={(e) => {
-                          const selected = Array.from(
-                            e.target.selectedOptions,
-                            (option) => option.value
-                          );
-                          setUser((prev) => ({ ...prev, roles: selected }));
-                        }}
-                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
-                        <option value="" disabled>
-                          -- Välj roll --
-                        </option>
-                        {roles.map((role, index) => (
-                          <option key={index} value={role}>
-                            {role}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    {/* Lägg till en användare i en ENHET */}
-
-                    <div className="md:col-span-2">
-                      <label
-                        htmlFor="role"
-                        className="block text-sm font-medium text-gray-700 mb-1">
-                        Enhet
-                      </label>
-                      <select
-                        id="unit"
-                        name="unit"
-                        value={user?.unit?.name || ""}
-                        onChange={changeHandler}
-                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
-                        <option value="" disabled>
-                          -- Välj enhet --
-                        </option>
-                        {units.map((u) => (
-                          <option key={u._id} value={u._id}>
-                            {u.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </>
+              {/* Knappar för att visa roll och enhet */}
+              <div className="col-span-2 flex gap-3">
+                <button
+                  type="button"
+                  onClick={handleUserRole}
+                  className="px-4 py-2 bg-blue-100 text-blue-800 rounded-md hover:bg-blue-200 transition">
+                  Lägg till roll
+                </button>
+                {userRole && (
+                  <button
+                    type="button"
+                    onClick={handleUserEnhet}
+                    className="px-4 py-2 bg-green-100 text-green-800 rounded-md hover:bg-green-200 transition">
+                    Lägg till enhet
+                  </button>
                 )}
+              </div>
+
+              {/* Rollfält med ta bort-knapp */}
+              {userRole && (
+                <div className="md:col-span-2 flex flex-col gap-1 relative">
+                  <button
+                    type="button"
+                    onClick={() => setUserRole(false)}
+                    className="flex items-center gap-1 text-red-600 hover:text-red-800 self-start mb-1">
+                    <HiTrash /> Ta bort roll
+                  </button>
+                  <label
+                    htmlFor="role"
+                    className="block text-sm font-medium text-gray-700 mb-1">
+                    Roll
+                  </label>
+                  <select
+                    multiple
+                    id="role"
+                    name="role"
+                    value={Array.isArray(user?.role) ? user.role : []}
+                    onChange={(e) => {
+                      const selected = Array.from(
+                        e.target.selectedOptions,
+                        (option) => option.value
+                      );
+                      setUser((prev) => ({ ...prev, role: selected }));
+                    }}
+                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                    <option value="" disabled>
+                      -- Välj roll --
+                    </option>
+                    {role.map((r, index) => (
+                      <option key={index} value={r}>
+                        {r}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {/* Enhetsfält med ta bort-knapp */}
+              {userEnhet && (
+                <div className="md:col-span-2 flex flex-col gap-1 relative">
+                  <button
+                    type="button"
+                    onClick={() => setUserEnhet(false)}
+                    className="flex items-center gap-1 text-red-600 hover:text-red-800 self-start mb-1">
+                    <HiTrash /> Ta bort enhet
+                  </button>
+                  <label
+                    htmlFor="unit"
+                    className="block text-sm font-medium text-gray-700 mb-1">
+                    Enhet
+                  </label>
+                  <select
+                    id="unit"
+                    name="unit"
+                    value={user?.unit || ""}
+                    onChange={changeHandler}
+                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                    <option value="" disabled>
+                      -- Välj enhet --
+                    </option>
+                    {units.map((u) => (
+                      <option key={u._id} value={u._id}>
+                        {u.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
 
             <button

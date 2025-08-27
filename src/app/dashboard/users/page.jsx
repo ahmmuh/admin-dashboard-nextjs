@@ -3,8 +3,10 @@
 import { useFetchUsers } from "@/customhook/useFetchUsers";
 import {
   HiOutlinePencil,
+  HiOutlinePlus,
   HiOutlineRefresh,
   HiOutlineTrash,
+  HiPlusCircle,
 } from "react-icons/hi";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
@@ -62,8 +64,16 @@ function UserPage() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-6">Användaröversikt</h1>
-      <SearchUser />
+      <Link
+        href="/dashboard/users/create"
+        className="flex items-center gap-1 text-green-800 hover:text-green-900">
+        <HiOutlinePlus className="w-5 h-5" />
+        Ny användare
+      </Link>
 
+      <div className="hidden md:block mt-6">
+        <SearchUser />
+      </div>
       {loading && <LoadingPage message="Hämtar alla användare..." />}
       {error && (
         <p className="text-red-600">Fel vid hämtning: {error.message}</p>

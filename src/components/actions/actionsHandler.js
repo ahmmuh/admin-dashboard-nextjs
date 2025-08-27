@@ -1,16 +1,16 @@
 "use client";
 import React from "react";
-import { deleteChef } from "@/backend/api";
 import Link from "next/link";
 import { HiOutlinePencilAlt, HiOutlineTrash, HiPlus } from "react-icons/hi";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import LoadingPage from "@/app/loading";
+import { deleteUser } from "@/backend/userAPI";
 
 function ActionsHandler({ unitId, chef }) {
   const { currentUser, loading } = useFetchCurrentUser();
   const deleteHandler = async (id) => {
     try {
-      const chef = await deleteChef(unitId, id);
+      const chef = await deleteUser(id);
       console.log(`Chef ${id} has been deleted`);
       return chef;
     } catch (error) {
@@ -33,8 +33,8 @@ function ActionsHandler({ unitId, chef }) {
           {/* Uppdatera-knapp */}
 
           {(currentUser._id === chef._id ||
-            currentUser.role?.trim() === "Områdeschef" ||
-            currentUser.role?.trim() === "Avdelningschef") && (
+            currentUser.role?.includes("Områdeschef") ||
+            currentUser.role?.includes("Avdelningschef")) && (
             <Link
               href={`/dashboard/units/${unitId}/chefer/edit/?chefId=${chef._id}&name=${chef.name}&phone=${chef.phone}&email=${chef.email}`}
               className="flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-200 transition">
@@ -44,7 +44,7 @@ function ActionsHandler({ unitId, chef }) {
           )}
 
           {/* Ta bort-knapp */}
-          {currentUser?.role.trim() !== "Enhetschef" && (
+          {!currentUser?.role?.includes("Enhetschef") && (
             <>
               <button
                 onClick={() => {

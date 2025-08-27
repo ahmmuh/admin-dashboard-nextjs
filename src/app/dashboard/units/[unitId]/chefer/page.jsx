@@ -41,7 +41,9 @@ function ChefPage({ params }) {
     );
   }
 
-  const filterUser = unit.users.filter((user) => user.role === "Enhetschef");
+  const filterUser = unit.users.filter((user) =>
+    user.role.includes("Enhetschef")
+  );
 
   if (filterUser.length === 0) {
     return <p className="text-red-600">Det finns ingen chef för denna enhet</p>;

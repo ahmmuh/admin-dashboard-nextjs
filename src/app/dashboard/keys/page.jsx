@@ -86,7 +86,7 @@ function KeyPage() {
       </div>
 
       <div className="pr-10">
-        <div className="my-5">
+        <div className="hidden md:block my-5">
           <KeySearch />
         </div>
 

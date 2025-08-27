@@ -1,4 +1,3 @@
-// hooks/useFetchKeys.js (eller .ts om du använder TypeScript)
 import { useEffect, useState } from "react";
 import { getAllKeys } from "@/backend/keyAPI";
 
@@ -15,6 +14,7 @@ export function useFetchKeys() {
       }
       console.log("Alla hämtade nycklar", keyList);
       setKeys(keyList);
+      setLoading(false);
     } catch (err) {
       console.error("Fel vid hämtning av nycklar:", err.message);
       setError(err);
