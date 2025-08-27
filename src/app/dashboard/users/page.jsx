@@ -97,8 +97,8 @@ function UserPage() {
                 <th className="text-left px-4 py-2 border-b">Roll</th>
                 <th className="text-left px-4 py-2 border-b">Enhet</th>
                 {currentUser &&
-                  currentUser.role !== "Enhetschef" &&
-                  currentUser.roler !== "Specilare" && (
+                  !currentUser.role?.includes("Enhetschef") &&
+                  !currentUser.role?.includes("Specilare") && (
                     <th className="text-left px-4 py-2 border-b">Åtgärder</th>
                   )}
               </tr>
@@ -121,8 +121,8 @@ function UserPage() {
                   </td>
 
                   {currentUser &&
-                    currentUser.role !== "Enhetschef" &&
-                    currentUser.roler !== "specialare" && (
+                    !currentUser.role?.includes("Enhetschef") &&
+                    !currentUser.role?.includes("specialare") && (
                       <td className="px-4 py-2 border-b">
                         <div className="flex items-center gap-2">
                           <Link

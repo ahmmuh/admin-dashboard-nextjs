@@ -18,7 +18,14 @@ export const fetchWithAuth = async (url, options = {}) => {
       throw new Error("Unauthorized");
     }
 
-    return await res.json();
+    // Kontrollera content-type
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      return await res.json();
+    } else {
+      // Om ingen JSON returneras, returnera bara status
+      return { status: res.status, statusText: res.statusText };
+    }
   } catch (error) {
     console.error("Fetch error:", error.message);
     throw error;

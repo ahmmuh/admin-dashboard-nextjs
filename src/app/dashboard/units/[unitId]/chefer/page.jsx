@@ -1,5 +1,4 @@
-"use client"; // Viktigt! Gör detta till en client component
-
+"use client";
 import React, { useEffect, useState } from "react";
 import { getUnitByID } from "@/backend/api";
 import ActionsHandler from "@/components/actions/actionsHandler";
@@ -7,7 +6,8 @@ import PersonList from "@/components/personList";
 import LoadingPage from "@/app/loading";
 
 function ChefPage({ params }) {
-  const { unitId } = React.use(params);
+  // I Next.js 15+ måste du "unwrap" params med React.use()
+  const unitId = React.use(params).unitId; // <-- korrekt
 
   const [unit, setUnit] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,28 +29,21 @@ function ChefPage({ params }) {
         setLoading(false);
       }
     }
-    fetchUnit();
+    if (unitId) fetchUnit();
   }, [unitId]);
 
   if (loading) return <LoadingPage message="Laddar användardetaljer..." />;
   if (error) return <p className="text-red-500">{error}</p>;
 
-  if (!unit || !unit.users) {
-    return (
-      <p className="text-red-500">Kunde inte hämta enhet eller användare</p>
-    );
-  }
-
-  const filterUser = unit.users.filter((user) =>
-    user.role.includes("Enhetschef")
+  const filterUser = unit?.users?.filter((user) =>
+    user.role?.some((r) => r === "Enhetschef")
   );
 
-  if (filterUser.length === 0) {
+  if (!filterUser || filterUser.length === 0) {
     return <p className="text-red-600">Det finns ingen chef för denna enhet</p>;
   }
 
   const chef = filterUser[0];
-  // console.log("Founded CHEF ", chef);
 
   return (
     <PersonList
@@ -58,7 +51,16 @@ function ChefPage({ params }) {
       phone={chef.phone || "Ingen telefon"}
       email={chef.email || "Ingen e-post"}
       role={chef.role}>
-      <ActionsHandler unitId={unitId} chef={chef} />
+      <ActionsHandler
+        unitId={unitId}
+        chef={chef}
+        onDelete={(id) => {
+          setUnit((prev) => ({
+            ...prev,
+            users: prev.users.filter((u) => u._id !== id),
+          }));
+        }}
+      />
     </PersonList>
   );
 }

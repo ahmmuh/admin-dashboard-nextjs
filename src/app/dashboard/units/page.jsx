@@ -68,7 +68,7 @@ function UnitPage({ params }) {
       <h1 className="text-2xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
         Alla enheter
       </h1>
-      {!currentUser.role.includes("Enhetschef") && (
+      {!currentUser?.role?.includes("Enhetschef") && (
         <div className="my-6">
           <Link
             className="text-green-800 font-bold"
@@ -89,10 +89,10 @@ function UnitPage({ params }) {
             console.log("Unit med users", unit?.users);
 
             const chefer = unit.users?.filter((user) =>
-              user.role.includes("Enhetschef")
+              user?.role?.includes("Enhetschef")
             );
             const specialister = unit.users?.filter((user) =>
-              user.role.includes("Specialare")
+              user?.role?.includes("Specialare")
             );
 
             // const checkedOutKeysCount =
