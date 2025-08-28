@@ -1,20 +1,17 @@
-import { fetchPlaces } from "@/helper/fetchPlaces";
-import React, { useState, useCallback } from "react";
+import { getPlaces } from "@/backend/openStreetMapPlaceApi";
+import { useState, useCallback } from "react";
 
 export const useFetchPlaces = () => {
   const [placeResults, setPlaceResults] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const fetchPlaceData = useCallback(async (query) => {
-    if (!query) {
-      setPlaceResults([]);
-      return;
-    }
     setLoading(true);
     try {
-      const results = await fetchPlaces(query);
-      setPlaceResults(results || []);
+      const results = await getPlaces(query);
+      setPlaceResults(results);
     } catch (error) {
-      console.error("Error vid hämtning av platser", error.message);
+      console.error("Fel vid hämtning av platser:", error.message);
       setPlaceResults([]);
     } finally {
       setLoading(false);

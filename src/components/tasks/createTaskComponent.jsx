@@ -1,120 +1,124 @@
 "use client";
-import { getPlaces } from "@/backend/googlePlaceApi";
-import { addNewTask } from "@/backend/taskApi";
+
+import { addTask } from "@/backend/taskApi";
 import { useFetchPlaces } from "@/customhook/useFetchPlaces";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
-import { faAd, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function CreateTaskClientComponent() {
   const router = useRouter();
-  // console.log("UNIT ID i CREATE TASK CLIENT COMPONENT", unitId);
+
   const [task, setTask] = useState({
     title: "",
     location: "",
+    coordinates: null,
     description: "",
   });
 
-  // const [placeResults, setPlaceResults] = useState([]);
-
-  //custom hook
-
   const { placeResults, loading, fetchPlaceData } = useFetchPlaces();
 
-  //validate
-  const isFormValid = () => {
-    return task.title.trim() !== "" && task.description.trim() !== "";
-  };
+  // Validate form
+  const isFormValid = () =>
+    task.title.trim() !== "" && task.description.trim() !== "";
 
+  // Hantera input för plats (autocomplete)
   const handlePlaceInputChange = (e) => {
     const { value } = e.target;
-    setTask((prevTask) => ({
-      ...prevTask,
-      title: value,
-    }));
-    console.log("SÖKTA PLATS: ", value);
-    fetchPlaceData(value);
+    setTask((prev) => ({ ...prev, title: value }));
+    if (value.length > 1) fetchPlaceData(value); // sök när minst 2 tecken
   };
 
-  function changeHandler(e) {
+  // Hantera textarea
+  const changeHandler = (e) => {
     const { name, value } = e.target;
-    setTask((prevTask) => ({ ...prevTask, [name]: value }));
-  }
+    setTask((prev) => ({ ...prev, [name]: value }));
+  };
 
+  // Submit task
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!isFormValid()) {
+      displayErrorMessage("Fyll i titel och beskrivning");
+      return;
+    }
+
     try {
       const newTask = {
         title: task.title,
         description: task.description,
         location: task.location,
+        coordinates: task.coordinates,
       };
-      // await addNewTask(newTask);
-      console.log("NY TASK on the WAY", newTask);
-      setTask({ title: "", description: "" });
-      displaySuccessMessage("Ny task har lagts");
-      router.push(`/tasks`);
+
+      await addTask(newTask);
+      console.log("NY TASK", newTask);
+
+      displaySuccessMessage("Ny task har lagts till!");
+      setTask({ title: "", location: "", coordinates: null, description: "" });
+      router.push("/dashboard/tasks");
     } catch (error) {
-      console.error(
-        `Fel vid uppdatering av enhet med NY TASK ${error.message}`
-      );
-      displayErrorMessage(
-        `Fel vid uppdatering av enhet med NY TASK ${error.message}`
-      );
-      router.push(`/tasks`);
+      console.error(`Fel vid skapande av task: ${error.message}`);
+      displayErrorMessage(`Fel vid skapande av task: ${error.message}`);
     }
   };
+
   return (
     <div className="p-2">
       <h4 className="text-2xl text-purple-500 mb-3">Lägg till nytt uppdrag</h4>
 
       <form onSubmit={submitHandler}>
-        <div className="mb-3">
+        {/* Platsinput */}
+        <div className="mb-3 relative">
           <input
-            className="bg-white w-full p-2 rounded-2xl border "
+            className="bg-white w-full p-2 rounded-2xl border"
             type="text"
             name="title"
             placeholder="Ange plats, t.ex. Katedralskolan"
             value={task.title}
             onChange={handlePlaceInputChange}
+            autoComplete="off"
           />
+          {loading && <div>Vi hämtar platser åt dig...</div>}
 
-          {loading && <div>Vi hämtar platser åt dej</div>}
+          {/* Visa autocomplete-resultat */}
+          {placeResults.length > 0 && (
+            <div className="bg-white p-2 rounded-2xl my-2 max-h-60 overflow-y-scroll border absolute z-10 w-full">
+              {placeResults.map((place, index) => (
+                <div
+                  key={index}
+                  className="border-b border-purple-600 hover:bg-gray-100 cursor-pointer p-2"
+                  onClick={() => {
+                    setTask((prev) => ({
+                      ...prev,
+                      title: place.name,
+                      location: place.adress,
+                      coordinates: place.coordinates,
+                    }));
+                    fetchPlaceData(""); // rensa resultat
+                  }}>
+                  {place.name} ({place.adress})
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+
+        {/* Beskrivning */}
         <div className="mb-3">
           <textarea
             rows={10}
-            className="bg-white w-full p-2 rounded-2xl border "
-            type="text"
+            className="bg-white w-full p-2 rounded-2xl border"
             placeholder="Beskriv uppdraget, t.ex. Vi har personalbrist på Katedralskolan och behöver hjälp med två våningar"
             name="description"
             onChange={changeHandler}
             value={task.description}></textarea>
         </div>
-        {/* //visa place result */}
-        {placeResults && placeResults.length > 0 && (
-          <div className="bg-white p-2 rounded-2xl my-2 max-h-60 overflow-y-scroll border">
-            {placeResults.map((place, index) => (
-              <div
-                key={index}
-                className="border-b border-purple-600  hover:bg-gray-100 cursor-pointer p-2 my-2"
-                onClick={() => {
-                  setTask((prevTask) => ({
-                    ...prevTask,
-                    title: place.name,
-                    location: place.formatted_address,
-                  }));
-                  fetchPlaceData("");
-                }}>
-                {place.name} {place.formatted_address}
-              </div>
-            ))}
-          </div>
-        )}
+
+        {/* Submit */}
         <button
-          className={` cursor-pointer p-2 w-80 border rounded-2xl bg-green-200 text-black hover:bg-green-300 hover:text-white `}>
+          type="submit"
+          className="cursor-pointer p-2 w-80 border rounded-2xl bg-green-200 text-black hover:bg-green-300 hover:text-white">
           Spara
         </button>
       </form>

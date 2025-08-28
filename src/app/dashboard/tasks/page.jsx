@@ -23,12 +23,15 @@ function TaskPage() {
     <div className="flex flex-col">
       <h4 className="text-2xl font-bold mb-3 text-purple-500">Att göra</h4>
       <Link
-        className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
+        className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black sm:w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6
+        "
         href={`/dashboard/tasks/create`}>
         Lägg till nytt uppdrag
       </Link>
 
-      <TaskSearch />
+      <div className="hidden md:block">
+        <TaskSearch />
+      </div>
 
       {tasks && tasks.length === 0 && (
         <div className="text-center text-red-500 text-lg mt-10">
