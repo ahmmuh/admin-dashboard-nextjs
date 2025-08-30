@@ -47,12 +47,12 @@ function ActionsHandler({ unitId, chef, onDelete }) {
             Ta bort
           </button>
 
-          <Link
+          {/* <Link
             href={`/dashboard/units/${unitId}/chefer/create`}
             className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 border border-green-300 rounded-md shadow-sm hover:bg-green-200 transition">
             <HiPlus className="w-5 h-5" />
             Lägg till ny chef
-          </Link>
+          </Link> */}
         </>
       )}
     </div>

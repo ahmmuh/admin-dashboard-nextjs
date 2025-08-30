@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import TaskSearch from "@/components/tasks/taskSearch";
 import LoadingPage from "@/app/loading";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
+import { HiOutlineClipboardList, HiOutlineShoppingCart } from "react-icons/hi";
 function TaskPage() {
   const { currentUser } = useFetchCurrentUser();
   const { tasks, loading } = useFetchTask();
@@ -21,11 +22,18 @@ function TaskPage() {
 
   return (
     <div className="flex flex-col">
-      <h4 className="text-2xl font-bold mb-3 text-purple-500">Att göra</h4>
+      <div className="mb-6">
+        <h4 className="text-2xl font-bold text-purple-500 flex items-center gap-2">
+          <HiOutlineClipboardList className="w-6 h-6" />
+          Uppdrag för idag
+        </h4>
+        <p className="text-gray-500 text-md">
+          Här visas alla aktuella uppdrag för enheten under dagen.
+        </p>
+      </div>
+
       <Link
-        className="sm:w-1/2 flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2
-         text-black  text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6
-        "
+        className="sm:w-1/2 flex justify-center gap-x-5 items-center bg-purple-500 text-white px-4 py-2 rounded-xl shadow shadow-purple-400 hover:bg-purple-600 transition duration-200 mb-6"
         href={`/dashboard/tasks/create`}>
         Lägg till nytt uppdrag
       </Link>
@@ -33,28 +41,33 @@ function TaskPage() {
       <div className="hidden md:block">
         <TaskSearch />
       </div>
-
       {tasks && tasks.length === 0 && (
-        <div className="text-center text-red-500 text-lg mt-10">
-          Det finns inga uppgifter att visa...
+        <div className="flex flex-col items-center text-center text-blue-500 text-lg mt-10">
+          <HiOutlineClipboardList className="w-12 h-12 mb-2" />
+          <p>Det finns inga uppgifter att visa...</p>
         </div>
       )}
-
       {/* Lista med uppgifter */}
-      {tasks &&
-        tasks.length > 0 &&
-        tasks.map((task) => (
-          <ItemList
-            key={task._id}
-            task={task}
-            title={task.title}
-            description={task.description}
-            updatedAt={task.updatedAt}
-            createdAt={task.createdAt}
-            status={task.status}>
-            {currentUser && <TaskActions task={task} />}
-          </ItemList>
-        ))}
+      <div
+        className={`${
+          tasks.length > 2 ? "overflow-y-auto max-h-[500px]" : ""
+        }`}>
+        {tasks &&
+          tasks.length > 0 &&
+          tasks.map((task) => (
+            <ItemList
+              key={task._id}
+              task={task}
+              title={task.title}
+              location={task.location}
+              description={task.description}
+              updatedAt={task.updatedAt}
+              createdAt={task.createdAt}
+              status={task.status}>
+              {currentUser && <TaskActions task={task} />}
+            </ItemList>
+          ))}
+      </div>
     </div>
   );
 }

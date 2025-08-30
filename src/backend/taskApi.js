@@ -103,7 +103,7 @@ export const deleteTask = async (taskId) => {
     const data = await fetchWithAuth(`${BASE_URL}/tasks/${taskId}`, {
       method: "DELETE",
     });
-    console.log(`Task deleted: ${data.message}`);
+    console.log(`En uppgift har tagits bort: ${data.message}`);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
