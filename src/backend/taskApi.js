@@ -1,34 +1,20 @@
 import { fetchWithAuth } from "@/app/lib/fetchWithAuth";
 import { BASE_URL } from "./base_url";
 
-// Add new task to unit
-export const addTask = async (req, res) => {
-  const { title, description, location, coordinates } = req.body;
-
-  if (!title || !description || !location) {
-    return res.status(400).json({
-      message:
-        "Det saknas en eller fler av följande: title, description, location",
-    });
-  }
-
+export const addTask = async (newTask) => {
   try {
-    const newTask = new Task({
-      title,
-      description,
-      location,
-      coordinates,
-      // unit och createdBy lämnas tomma
+    const data = await fetchWithAuth(`${BASE_URL}/tasks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTask),
     });
 
-    await newTask.save();
-    return res.status(200).json(newTask);
+    return data; // här har du redan JSON
   } catch (error) {
-    console.error("Fel vid skapande av task:", error.message);
-    return res.status(500).json({
-      message: "Serverfel vid skapande av ny task",
-      error: error.message,
-    });
+    console.error("Fel vid skapande av uppdrag:", error.message);
+    throw error;
   }
 };
 
