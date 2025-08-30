@@ -4,6 +4,7 @@ function TaskModal({
   title,
   description,
   status,
+  location,
   assignmentUnit,
   createdAt,
   updatedAt,
@@ -27,6 +28,8 @@ function TaskModal({
         {/* Modalinnehåll */}
         <div className="space-y-2">
           {title && <h2 className="text-xl font-semibold">{title}</h2>}
+          {location && <h6 className="text-xl ">{location}</h6>}
+
           {description && <p>{description}</p>}
           {assignmentUnit && (
             <p>

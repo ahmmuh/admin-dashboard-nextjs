@@ -20,7 +20,7 @@ function TaskSearch() {
       try {
         const data = await searchTasks(query);
         console.log("SÖKTA UPPGIFTER", data);
-        setResults(Array.isArray(data) ? data : data.results || []);
+        setResults(Array.isArray(data) ? data : data.data || []);
         setError(null);
       } catch (err) {
         setResults([]);
@@ -75,6 +75,7 @@ function TaskSearch() {
       {isModalOpen && selectedTask && (
         <TaskModal
           title={selectedTask.title}
+          location={selectedTask.location}
           description={selectedTask.description}
           status={selectedTask.status}
           assignmentUnit={selectedTask.assignmentUnit}
