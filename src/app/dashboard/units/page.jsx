@@ -14,6 +14,8 @@ import {
   HiOutlineUserGroup,
   HiOutlineClipboardList,
   HiOutlineOfficeBuilding,
+  HiOutlinePencil,
+  HiOutlinePencilAlt,
 } from "react-icons/hi";
 
 function UnitPage({ params }) {
@@ -95,15 +97,15 @@ function UnitPage({ params }) {
               user?.role?.includes("Specialare")
             );
 
-            // const checkedOutKeysCount =
-            //   unit.users
-            //     ?.flatMap((user) => user.keys || []) // plattar ut alla keys från alla users
-            //     .filter((key) => key.status === "checked-out").length || 0; // filtrerar bara utlånade
-
-            // console.log("checkedOutKeysCount", checkedOutKeysCount);
-
             return (
-              <MainCard key={unit._id} title={unit.name}>
+              <MainCard
+                key={unit._id}
+                link={
+                  <Link href={`/dashboard/units/${unit._id}/edit`}>
+                    <HiOutlinePencilAlt className="w-5 h-5 text-gray-500 hover:text-purple-600" />
+                  </Link>
+                }
+                title={unit.name}>
                 <div className="flex flex-col divide-y divide-gray-300">
                   {chefer.length > 0 && (
                     <CardRow

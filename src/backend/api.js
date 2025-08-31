@@ -388,6 +388,22 @@ export const getUnitByID = async (unitId) => {
   }
 };
 
+export const updateUnit = async (unitId, updatedUnit) => {
+  try {
+    const data = await fetchWithAuth(`${BASE_URL}/units/${unitId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedUnit),
+    });
+    return data;
+  } catch (error) {
+    console.error("Fel vid uppdatering av enhet:", error.message);
+    return null;
+  }
+};
+
 // GET WORKPLACE
 export const getWorkplace = async (unitId, workplaceId) => {
   try {
