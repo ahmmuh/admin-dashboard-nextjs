@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getUnitByID } from "@/backend/api";
 import LoadingPage from "@/app/loading";
+import Link from "next/link";
 
 function UnitTasksPage() {
   const params = useParams();
@@ -49,9 +50,15 @@ function UnitTasksPage() {
         Uppgifter för enhet: {unit?.name}
       </h1>
 
+      <Link
+        className="sm:w-1/2 flex justify-center gap-x-5 items-center bg-purple-500 text-white px-4 py-2 rounded-xl shadow shadow-purple-400 hover:bg-purple-600 transition duration-200 mb-6"
+        href={`/dashboard/tasks/create`}>
+        Skapa morgonjobb
+      </Link>
+
       {tasks && tasks.length > 0 ? (
         <ul className="space-y-4">
-          {tasks.map((task) => (
+          {tasks?.map((task) => (
             <li
               key={task._id}
               className="p-4 bg-white rounded-md shadow border border-gray-200">

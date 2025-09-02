@@ -1,7 +1,6 @@
 import React from "react";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import { getApartments } from "@/backend/apartmentAPI";
 
 export default async function RootLayout({ children }) {
   return (

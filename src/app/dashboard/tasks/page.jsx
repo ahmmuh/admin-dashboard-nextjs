@@ -10,7 +10,12 @@ import React, { useState } from "react";
 import TaskSearch from "@/components/tasks/taskSearch";
 import LoadingPage from "@/app/loading";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
-import { HiOutlineClipboardList, HiOutlineShoppingCart } from "react-icons/hi";
+import {
+  HiOutlineClipboardList,
+  HiOutlineShoppingCart,
+  HiPlus,
+} from "react-icons/hi";
+import { getWeekNumber } from "@/helper/weekNumber";
 function TaskPage() {
   const { currentUser } = useFetchCurrentUser();
   const { tasks, loading } = useFetchTask();
@@ -23,20 +28,22 @@ function TaskPage() {
   return (
     <div className="flex flex-col">
       <div className="mb-6">
-        <h4 className="text-2xl font-bold text-purple-500 flex items-center gap-2">
+        <h3 className=" font-bold text-blue-500 flex items-center gap-2">
           <HiOutlineClipboardList className="w-6 h-6" />
-          Uppdrag för idag
-        </h4>
-        <p className="text-gray-500 text-md">
+          Alla morgonjobb för {new Date().toDateString("sv-SE")}
+        </h3>
+        <p className="text-gray-500 text-md px-6">
           Här visas alla aktuella uppdrag för enheten under dagen.
         </p>
       </div>
-
-      <Link
-        className="sm:w-1/2 flex justify-center gap-x-5 items-center bg-purple-500 text-white px-4 py-2 rounded-xl shadow shadow-purple-400 hover:bg-purple-600 transition duration-200 mb-6"
-        href={`/dashboard/tasks/create`}>
-        Lägg till nytt uppdrag
-      </Link>
+      <div className="my-6">
+        <Link
+          className="text-green-800  flex items-center gap-3"
+          href={"/dashboard/tasks/create"}>
+          <HiPlus />
+          <span>Skapa morgonjobb</span>
+        </Link>
+      </div>
 
       <div className="hidden md:block">
         <TaskSearch />
@@ -54,7 +61,7 @@ function TaskPage() {
         }`}>
         {tasks &&
           tasks.length > 0 &&
-          tasks.map((task) => (
+          tasks?.map((task) => (
             <ItemList
               key={task._id}
               task={task}

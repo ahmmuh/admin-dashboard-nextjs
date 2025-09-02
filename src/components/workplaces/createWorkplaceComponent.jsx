@@ -46,7 +46,7 @@ const CreateWorkplaceComponent = () => {
             className="p-2 w-full border border-blue-500 rounded-xl focus:bg-yellow-200"
           />
         </div>
-        <button className="bg-blue-400 hover:bg-blue-500 text-center w-32 p-2 rounded border border-b-gray-700 shadow shadow-blue-300 transition text-white">
+        <button className="bg-indigo-200   border-indigo-300  hover:bg-indigo-300  text-center w-32 p-2 rounded border border-b-gray-700 shadow shadow-blue-300 transition text-white">
           Spara
         </button>
       </form>

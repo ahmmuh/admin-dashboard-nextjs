@@ -105,8 +105,8 @@ function CreateChefComponent({ unitId }) {
         </div>
         <button
           type="submit"
-          className="bg-green-400 w-full  p-2 text-center  border border-b-gray-200 shado shadow-slate-400
-          hover:bg-green-500 text-white">
+          className="bg-indigo-200  border-indigo-300 rounded-md shadow-sm hover:bg-indigo-300 transition w-full  p-2 text-center  border border-b-gray-200 shado shadow-slate-400
+          text-white">
           Spara
         </button>
       </form>

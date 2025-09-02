@@ -42,7 +42,7 @@ function UnitKeys() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold text-purple-700 mb-8 border-b pb-2">
-        Nycklar för enheten: {unit.name}
+        Nycklar för: {unit.name}
       </h1>
 
       <div
@@ -87,7 +87,8 @@ function UnitKeys() {
                   )}
 
                   <p className="text-xs text-gray-500">
-                    Senast ändrad: {new Date(key.updatedAt).toLocaleDateString()}
+                    Senast ändrad:{" "}
+                    {new Date(key.updatedAt).toLocaleDateString()}
                   </p>
                 </div>
               </div>

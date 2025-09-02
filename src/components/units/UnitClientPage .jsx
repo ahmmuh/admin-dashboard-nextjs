@@ -27,7 +27,8 @@ export default function UnitClientPage({ units }) {
       <SearchUnit />
 
       <div className="flex flex-col gap-8">
-        {units.map((unit) => {
+        {units.length === 0 && <p>Det finns inga enheter att visa just nu</p>}
+        {units?.map((unit) => {
           const chefer = unit.users?.filter((user) => user.role === "Chef");
           const specialister = unit.users?.filter(
             (user) => user.role === "Specialist"

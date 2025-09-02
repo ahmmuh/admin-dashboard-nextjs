@@ -22,12 +22,10 @@ function ItemList({
       <ul className="flex flex-col my-6 " {...props}>
         <li className="p-4 border rounded-lg shadow-sm  hover:bg-purple-50 cursor-pointer">
           <article>
-            <h4 className="text-2xl text-purple-700 font-semibold">{title}</h4>
+            <h4 className=" text-purple-700 font-semibold">{title}</h4>
             {name && <p className="text-gray-700 font-medium">{name}</p>}
             {location && (
-              <p classlocation="text-gray-700 font-medium ">
-                {location}
-              </p>
+              <p classlocation="text-gray-700 font-medium ">{location}</p>
             )}
 
             <p className="text-gray-600">{description}</p>
@@ -35,7 +33,9 @@ function ItemList({
             <div>
               {status === "Ej påbörjat" && (
                 <>
-                  <span>Skapad: {new Date(createdAt).toLocaleString()} </span>{" "}
+                  <span className="text-gray-500 text-sm">
+                    Skapad: {new Date(createdAt).toLocaleString("sv-SE")}{" "}
+                  </span>{" "}
                   <p className="text-red-600 text-md font-bold">
                     Status: {status}
                   </p>
@@ -45,11 +45,12 @@ function ItemList({
                 <p className="text-gray-600 ">
                   <>
                     <span>Uppdaterad av {task?.unit?.name}</span> <br />
-                    <span>
-                      Datum: {new Date(updatedAt).toLocaleString()}{" "}
+                    <span className="text-gray-500 text-sm">
+                      Senast ändrad:{" "}
+                      {new Date(updatedAt).toLocaleString("sv-SE")}{" "}
                     </span>{" "}
                     <br />
-                    <span className="text-green-500 font-bold">
+                    <span className="text-green-500 text-md font-bold">
                       Status: {status}
                     </span>
                   </>
@@ -57,14 +58,15 @@ function ItemList({
               )}
 
               {status === "Påbörjat" && (
-                <p className="text-gray-500 text-md">
+                <p className="text-gray-500">
                   <span>Uppdaterad av {task?.unit?.name}</span> <br />
-                  <span className="text-orange-500 text-md font-bold">
+                  <span className="text-gray-500 text-sm">
+                    {""} Senast ändrad:{" "}
+                    {new Date(updatedAt).toLocaleString("sv-SE")}{" "}
+                  </span>
+                  <br />
+                  <span className=" text-orange-500 text-md font-bold">
                     Status: {status}
-                    <span className="text-gray-400 text-sm">
-                      {""} | Senast ändrad:{" "}
-                      {new Date(updatedAt).toLocaleString()}{" "}
-                    </span>
                   </span>
                 </p>
               )}

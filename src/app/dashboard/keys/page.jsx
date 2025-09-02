@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { HiPlus } from "react-icons/hi";
 
 function KeyPage() {
   const [error, setError] = useState(null);
@@ -71,22 +72,23 @@ function KeyPage() {
     <div>
       <Toaster />
       <div className="p-2">
+        {keys.length > 0 && (
+          <h3 className="font-bold text-2xl text-purple-500 italic mb-6">
+            Nyckel hantering
+          </h3>
+        )}{" "}
         {!currentUser.role?.includes("Enhetschef") && (
           <Link
-            className="flex justify-center gap-x-5 items-center bg-green-200 px-4 py-2 text-black w-1/3 text-center p-2 rounded-xl shadow shadow-green-200 hover:bg-green-300 transition duration-200 mb-6"
-            href={`/dashboard/key_QRcode`}>
-            <FontAwesomeIcon icon={faPlus} className="text-2xl" />
-            Lägg till nyckel
+            className="text-green-800  flex items-center gap-3 mb-4"
+            href={"/dashboard/key_QRcode"}>
+            <HiPlus />
+            <span>Lägg till nyckel</span>
           </Link>
-        )}
-
-        {keys.length > 0 && (
-          <h3 className="font-bold text-purple-500 italic">Nyckel hantering</h3>
         )}
       </div>
 
       <div className="pr-10">
-        <div className="hidden md:block my-5">
+        <div className="hidden md:block">
           <KeySearch />
         </div>
 
@@ -119,92 +121,99 @@ function KeyPage() {
               </tr>
             </thead>
             <tbody>
-              {keys.map((key) => (
-                <tr key={key._id} className="hover:bg-gray-300">
-                  <td className="border border-gray-200 text-blue-400 font-bold">
-                    🔑{" "}
-                    <Link href={`/dashboard/keys/${key._id}`}>
-                      {key.keyLabel.toUpperCase()}
-                    </Link>
-                    {key.qrCode && (
-                      <>
-                        <button
-                          onClick={() => toggleQRCode(key._id)}
-                          className="block"
-                          style={{ fontSize: ".6rem" }}>
-                          <span className="text-center pl-7">
-                            {qrVisible[key._id] ? "Göm QR kod" : "Visa QR kod"}
-                          </span>
-                        </button>
-                        {qrVisible[key._id] && (
-                          <div style={{ paddingLeft: 20 }}>
-                            <Image
-                              width={150}
-                              height={200}
-                              src={key.qrCode}
-                              alt="QrCode image"
-                            />
-                            <a
-                              href={key.qrCode}
-                              download="qrcode.png"
-                              style={{ fontSize: ".7rem" }}>
-                              <button style={{ marginTop: 10 }}>
-                                Ladda ner QR kod
-                              </button>
-                            </a>
-                          </div>
-                        )}
-                      </>
-                    )}
-                  </td>
-                  <td className="border border-gray-200 p-2">{key.location}</td>
-                  <td className="border border-gray-200 p-2">
-                    {key.status === "available" && (
-                      <span className="text-green-700 font-bold">Inne</span>
-                    )}
-                    {key.status === "returned" && (
-                      <span className="text-green-700 font-bold">
-                        Återlämnad
-                      </span>
-                    )}
-                    {key.status === "checked-out" && (
-                      <span className="text-red-700 font-bold">Utlånad</span>
-                    )}
-                  </td>
-                  <td className="border border-gray-200 p-2">
-                    {key.status === "checked-out" ? key.borrowedBy?.name : "—"}
-                  </td>
-                  <td className="border border-gray-200 p-2">
-                    {key.status === "checked-out" && key.borrowedAt
-                      ? new Date(key.borrowedAt).toLocaleString("sv-SE")
-                      : "—"}
-                  </td>
-                  <td className="border border-gray-200 p-2">
-                    {key.status === "returned" && key.returnedAt
-                      ? new Date(key.returnedAt).toLocaleString("sv-SE")
-                      : "—"}
-                  </td>
-
-                  {!currentUser.role?.includes("Enhetschef") && (
-                    <td className="font-bold p-2">
-                      {["available", "returned"].includes(key.status) && (
-                        <span className="text-green-500">
-                          <Link href={`/dashboard/keys/${key._id}/borrow`}>
-                            Låna
-                          </Link>
+              {keys &&
+                keys?.map((key) => (
+                  <tr key={key._id} className="hover:bg-gray-300">
+                    <td className="border border-gray-200 text-blue-400 font-bold">
+                      🔑{" "}
+                      <Link href={`/dashboard/keys/${key._id}`}>
+                        {key.keyLabel.toUpperCase()}
+                      </Link>
+                      {key.qrCode && (
+                        <>
+                          <button
+                            onClick={() => toggleQRCode(key._id)}
+                            className="block"
+                            style={{ fontSize: ".6rem" }}>
+                            <span className="text-center pl-7">
+                              {qrVisible[key._id]
+                                ? "Göm QR kod"
+                                : "Visa QR kod"}
+                            </span>
+                          </button>
+                          {qrVisible[key._id] && (
+                            <div style={{ paddingLeft: 20 }}>
+                              <Image
+                                width={150}
+                                height={200}
+                                src={key.qrCode}
+                                alt="QrCode image"
+                              />
+                              <a
+                                href={key.qrCode}
+                                download="qrcode.png"
+                                style={{ fontSize: ".7rem" }}>
+                                <button style={{ marginTop: 10 }}>
+                                  Ladda ner QR kod
+                                </button>
+                              </a>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </td>
+                    <td className="border border-gray-200 p-2">
+                      {key.location}
+                    </td>
+                    <td className="border border-gray-200 p-2">
+                      {key.status === "available" && (
+                        <span className="text-green-700 font-bold">Inne</span>
+                      )}
+                      {key.status === "returned" && (
+                        <span className="text-green-700 font-bold">
+                          Återlämnad
                         </span>
                       )}
                       {key.status === "checked-out" && (
-                        <span className="text-red-500">
-                          <Link href={`/dashboard/keys/${key._id}/borrow`}>
-                            Lämna in
-                          </Link>
-                        </span>
+                        <span className="text-red-700 font-bold">Utlånad</span>
                       )}
                     </td>
-                  )}
-                </tr>
-              ))}
+                    <td className="border border-gray-200 p-2">
+                      {key.status === "checked-out"
+                        ? key.borrowedBy?.name
+                        : "—"}
+                    </td>
+                    <td className="border border-gray-200 p-2">
+                      {key.status === "checked-out" && key.borrowedAt
+                        ? new Date(key.borrowedAt).toLocaleString("sv-SE")
+                        : "—"}
+                    </td>
+                    <td className="border border-gray-200 p-2">
+                      {key.status === "returned" && key.returnedAt
+                        ? new Date(key.returnedAt).toLocaleString("sv-SE")
+                        : "—"}
+                    </td>
+
+                    {!currentUser.role?.includes("Enhetschef") && (
+                      <td className="font-bold p-2">
+                        {["available", "returned"].includes(key.status) && (
+                          <span className="text-green-500">
+                            <Link href={`/dashboard/keys/${key._id}/borrow`}>
+                              Låna
+                            </Link>
+                          </span>
+                        )}
+                        {key.status === "checked-out" && (
+                          <span className="text-red-500">
+                            <Link href={`/dashboard/keys/${key._id}/borrow`}>
+                              Lämna in
+                            </Link>
+                          </span>
+                        )}
+                      </td>
+                    )}
+                  </tr>
+                ))}
             </tbody>
           </table>
         )}

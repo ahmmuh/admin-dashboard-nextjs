@@ -80,7 +80,7 @@ function KeyQRCodePage() {
           </div>
 
           <button
-            className={` cursor-pointer p-2 w-80 border rounded-2xl bg-green-200 text-black hover:bg-green-300 hover:text-white `}>
+            className={` cursor-pointer p-2 w-80 border rounded-2xl bg-indigo-200  border-indigo-300  shadow-sm hover:bg-indigo-300 transition `}>
             Spara
           </button>
         </form>

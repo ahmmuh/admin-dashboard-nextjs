@@ -1,6 +1,7 @@
 "use client";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import LoadingPage from "../loading";
+import { getWeekNumber } from "@/helper/weekNumber";
 
 function Dashboard() {
   const { currentUser, loading, error } = useFetchCurrentUser();
@@ -29,6 +30,7 @@ function Dashboard() {
   return (
     <>
       <h2 className="text-2xl px-10 italic ">
+        <p>Vecka {getWeekNumber()}</p>
         Välkommen {currentUser.name}{" "}
         <span className="text-sm block">({currentUser.role})</span>
       </h2>

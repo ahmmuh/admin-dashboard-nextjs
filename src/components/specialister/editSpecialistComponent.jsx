@@ -96,7 +96,7 @@ function EditSpecialistComponent({ specialist, unitId }) {
             onChange={changeHandler}
           />
         </div>
-        <button className="p-2 w-32  bg-indigo-100 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-200 transition">
+        <button className="p-2 w-32  bg-indigo-200  border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-300 transition">
           Spara
         </button>
       </form>

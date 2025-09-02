@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingPage from "@/app/loading";
 import { getUnitByID, updateUnit } from "@/backend/api";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 import { useRouter, useParams } from "next/navigation";
@@ -52,11 +53,13 @@ export default function EditUnitClientPage() {
     }
   };
 
-  if (loading) return <div className="p-6">Laddar enhet...</div>;
+  if (loading) return <LoadingPage message="Laddar enhet..." />;
 
   return (
-    <div className="mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-blue-500">Redigera enhet</h1>
+    <div className="mx-auto">
+      <h1 className="text-2xl font-bold mb-4 text-purple-500">
+        Redigera enhet
+      </h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block font-medium">
@@ -92,8 +95,8 @@ export default function EditUnitClientPage() {
         </div>
         <button
           type="submit"
-          className="w-1/2 bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500">
-          Uppdatera
+          className="w-1/2 bg-indigo-200   border-indigo-300  shadow-sm hover:bg-indigo-300 transition  px-4 py-2 rounded">
+          Spara
         </button>
       </form>
     </div>

@@ -130,11 +130,12 @@ const KeyDetailComponent = () => {
               <option disabled value="">
                 Välj nyckel
               </option>
-              {availableKeys.map((key) => (
-                <option key={key._id} value={key._id}>
-                  {key.keyLabel}
-                </option>
-              ))}
+              {availableKeys &&
+                availableKeys?.map((key) => (
+                  <option key={key._id} value={key._id}>
+                    {key.keyLabel}
+                  </option>
+                ))}
             </select>
           </div>
 
@@ -156,11 +157,12 @@ const KeyDetailComponent = () => {
                   <option disabled value="">
                     Välj lånetagare
                   </option>
-                  {users.map((user) => (
-                    <option key={user._id} value={user._id}>
-                      {user.name}
-                    </option>
-                  ))}
+                  {users &&
+                    users?.map((user) => (
+                      <option key={user._id} value={user._id}>
+                        {user.name}
+                      </option>
+                    ))}
                 </select>
               </div>
             )}
@@ -172,7 +174,7 @@ const KeyDetailComponent = () => {
               onClick={() => checkOutHandler(selectedKey)}
               actionLabel="Låna"
               btnColor="text-white-500"
-              bgColor="bg-green-500"
+              bgColor="bg-green-400"
             />
           )}
         </>
@@ -212,11 +214,12 @@ const KeyDetailComponent = () => {
                 <option disabled value="">
                   Välj lånetagare
                 </option>
-                {users.map((user) => (
-                  <option key={user._id} value={user._id}>
-                    {user.name}
-                  </option>
-                ))}
+                {users &&
+                  users?.map((user) => (
+                    <option key={user._id} value={user._id}>
+                      {user.name}
+                    </option>
+                  ))}
               </select>
             </div>
           )}

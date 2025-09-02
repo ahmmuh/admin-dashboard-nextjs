@@ -95,7 +95,7 @@ function KeyLogPage() {
             </tr>
           </thead>
           <tbody>
-            {uniqueLogs.slice(0, visibleLogs).map((log, index) => {
+            {uniqueLogs.slice(0, visibleLogs)?.map((log, index) => {
               const borrowedAt =
                 log.status === "Utlånad"
                   ? new Date(log.date).toLocaleDateString()

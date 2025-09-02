@@ -127,9 +127,9 @@ function UserProfile() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
-        <h4 className="font-semibold mb-6 text-gray-800 border border-b-2 border-b-blue-200 pb-3">
-          Uppdatera {user?.name}
-        </h4>
+        <h3 className="font-semibold mb-6 text-gray-800 border border-b-2 border-b-blue-200 pb-3">
+          Uppdatera följande enhet
+        </h3>
 
         {user && (
           <form onSubmit={updateUserProfile} className="space-y-4">
@@ -251,11 +251,12 @@ function UserProfile() {
                     <option value="" disabled>
                       -- Välj enhet --
                     </option>
-                    {units.map((u) => (
-                      <option key={u._id} value={u._id}>
-                        {u.name}
-                      </option>
-                    ))}
+                    {units &&
+                      units?.map((u) => (
+                        <option key={u._id} value={u._id}>
+                          {u.name}
+                        </option>
+                      ))}
                   </select>
                 </div>
               )}
@@ -263,7 +264,7 @@ function UserProfile() {
 
             <button
               type="submit"
-              className="w-full py-2 mt-4 bg-green-300 text-black rounded-md hover:bg-green-400 transition">
+              className="w-full py-2 mt-4  bg-indigo-200  border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-300 transition">
               Spara
             </button>
           </form>

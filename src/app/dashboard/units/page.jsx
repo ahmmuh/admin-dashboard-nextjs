@@ -1,12 +1,16 @@
 "use client";
 
 import LoadingPage from "@/app/loading";
-import { getUnits } from "@/backend/api";
+import { deleteUnitById, getUnits } from "@/backend/api";
 import MainCard from "@/components/maincard";
-import SearchInput from "@/components/searhInput";
 import SearchUnit from "@/components/units/searchUnit";
+import UnitActionModal from "@/components/units/unitActionModel";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
+import { useFetchUnits } from "@/customhook/useFetchUnits";
+import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   HiOutlineKey,
@@ -16,6 +20,9 @@ import {
   HiOutlineOfficeBuilding,
   HiOutlinePencil,
   HiOutlinePencilAlt,
+  HiOutlineTrash,
+  HiOutlineDocumentAdd,
+  HiPlus,
 } from "react-icons/hi";
 
 function UnitPage({ params }) {
@@ -23,6 +30,10 @@ function UnitPage({ params }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { currentUser } = useFetchCurrentUser();
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedUnitId, setSelectedUnitId] = useState(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUnits = async () => {
@@ -65,17 +76,42 @@ function UnitPage({ params }) {
     );
   }
 
+  //Open delete modal
+
+  const openDeleteModal = (id) => {
+    setSelectedUnitId(id);
+    setDeleteModalOpen(true);
+  };
+
+  // delete unit
+  const confirmUnitDelete = async () => {
+    try {
+      await deleteUnitById(selectedUnitId);
+      setDeleteModalOpen(false);
+      const updatedUnits = await getUnits();
+      setUnits(updatedUnits);
+      displaySuccessMessage(`Enhet med ID ${selectedUnitId} har raderats`);
+    } catch (error) {
+      displayErrorMessage("Det gick inte att radera denna enhet");
+      setDeleteModalOpen(false);
+    }
+  };
+  // Avbryt radering
+  const cancelUnitDeleteModal = () => {
+    setDeleteModalOpen(false);
+  };
   return (
     <div className=" max-w-6xl mx-auto">
-      <h1 className="text-2xl font-extrabold text-purple-700 mb-10 border-b-4 border-purple-200 pb-3">
+      <h1 className="text-2xl font-extrabold text-blue-500 mb-10 border-b-4 border-purple-200 pb-3">
         Alla enheter
       </h1>
       {!currentUser?.role?.includes("Enhetschef") && (
         <div className="my-6">
           <Link
-            className="text-green-800 font-bold"
+            className="text-green-800  flex items-center gap-3"
             href={"/dashboard/units/create"}>
-            Skapa enhet
+            <HiPlus />
+            <span>Skapa enhet</span>
           </Link>
         </div>
       )}
@@ -85,8 +121,17 @@ function UnitPage({ params }) {
       </div>
 
       <div className="flex flex-col gap-8">
+        {deleteModalOpen && (
+          <UnitActionModal
+            cancelUnitDeleteModal={cancelUnitDeleteModal}
+            confirmUnitDelete={confirmUnitDelete}
+            message={
+              "Är du säker på att du vill ta bort denna enhet? Morgonjobb, nycklar och flyttstäd tas bort. Användare (chef, specialare och lokalvårdare) kopplas bort från enheten och kan flyttas till andra enheter."
+            }
+          />
+        )}
         {units &&
-          units.map((unit) => {
+          units?.map((unit) => {
             console.log("Unit med keys", unit?.keys);
             console.log("Unit med users", unit?.users);
 
@@ -100,10 +145,15 @@ function UnitPage({ params }) {
             return (
               <MainCard
                 key={unit._id}
-                link={
-                  <Link href={`/dashboard/units/${unit._id}/edit`}>
-                    <HiOutlinePencilAlt className="w-5 h-5 text-gray-500 hover:text-purple-600" />
-                  </Link>
+                actions={
+                  <div className="flex items-center gap-3">
+                    <Link href={`/dashboard/units/${unit._id}/edit`}>
+                      <HiOutlinePencilAlt className="w-5 h-5 text-gray-500 hover:text-purple-600" />
+                    </Link>
+                    <button onClick={() => openDeleteModal(unit._id)}>
+                      <HiOutlineTrash className="w-5 h-5 text-red-400 hover:text-red-600" />
+                    </button>
+                  </div>
                 }
                 title={unit.name}>
                 <div className="flex flex-col divide-y divide-gray-300">

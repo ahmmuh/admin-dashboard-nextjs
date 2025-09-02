@@ -473,7 +473,19 @@ export const deleteSpecialist = async (unitId, specialistId) => {
   }
 };
 
-// DELETE WORKPLACE
+// DELETE Enhet
+export const deleteUnitById = async (unitId) => {
+  try {
+    const data = await fetchWithAuth(`${BASE_URL}/units/${unitId}`, {
+      method: "DELETE",
+    });
+    return data;
+  } catch (error) {
+    console.error("Error deleting enhet:", error.message);
+    return null;
+  }
+};
+
 export const deleteWorkplace = async (unitId, workplaceId) => {
   try {
     const data = await fetchWithAuth(
