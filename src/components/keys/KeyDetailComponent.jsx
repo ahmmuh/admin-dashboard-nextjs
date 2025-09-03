@@ -4,11 +4,10 @@ import { checkoutKey, checkinKey } from "@/backend/keyAPI";
 import { useFetchKeys } from "@/customhook/useFetchKeys";
 import { useFetchUsers } from "@/customhook/useFetchUsers";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import KeyTable from "../keyTable";
 import LoadingPage from "@/app/loading";
-import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 
 const KeyDetailComponent = () => {
   const { users } = useFetchUsers();
@@ -16,17 +15,11 @@ const KeyDetailComponent = () => {
   const [selectedKeyId, setSelectedKeyId] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [isShowForm, setShowForm] = useState(true);
-  // const { currentUser, loading } = useFetchCurrentUser();
 
   const router = useRouter();
 
-  const handleSelectChange = (e) => {
-    setSelectedKeyId(e.target.value);
-  };
-
-  const handleBorrowChange = (e) => {
-    setSelectedUserId(e.target.value);
-  };
+  const handleSelectChange = (e) => setSelectedKeyId(e.target.value);
+  const handleBorrowChange = (e) => setSelectedUserId(e.target.value);
 
   const selectedKey = keys.find((key) => key._id === selectedKeyId) || null;
   const selectedUser =
@@ -80,9 +73,6 @@ const KeyDetailComponent = () => {
     (key) => key.status === "available" || key.status === "returned"
   );
 
-  // availableKeys.length = 0;
-  // keysWithBorrowedStatus.length = 0;
-
   const showAvailableKeys = () => {
     setSelectedKeyId(null);
     setSelectedUserId(null);
@@ -95,9 +85,7 @@ const KeyDetailComponent = () => {
     setShowForm(false);
   };
 
-  if (loading) {
-    return <LoadingPage message="Hämtar nycklar..." />;
-  }
+  if (loading) return <LoadingPage message="Hämtar nycklar..." />;
   if (error) return <p>{error.message}</p>;
 
   return (
@@ -105,15 +93,15 @@ const KeyDetailComponent = () => {
       <Toaster />
 
       {/* Toggle-knappar */}
-      <div className="flex justify-around mb-5 ">
+      <div className="flex flex-col md:flex-row justify-between mb-5 gap-2">
         <button
           onClick={showAvailableKeys}
-          className="border rounded shadow text-black bg-green-100 hover:bg-green-200 w-1/2 mr-2 p-2">
+          className="border rounded shadow text-black bg-green-100 hover:bg-green-200 md:w-1/2 p-2">
           Låna
         </button>
         <button
           onClick={showBorrowedKeys}
-          className="border rounded shadow text-black bg-green-100 hover:bg-green-200 w-1/2 ml-2 p-2">
+          className="border rounded shadow text-black bg-green-100 hover:bg-green-200 md:w-1/2 p-2">
           Återlämna
         </button>
       </div>
@@ -122,71 +110,67 @@ const KeyDetailComponent = () => {
         <>
           <h4 className="text-purple-500 text-2xl mb-4">Låna nyckel</h4>
 
-          <div className="flex gap-4 mb-6">
+          <div className="flex flex-col md:flex-row md:items-start md:gap-6 mb-6">
             <select
               onChange={handleSelectChange}
               value={selectedKeyId || ""}
-              className="w-full bg-gray-200 px-5 py-2 text-black">
+              className="w-full md:w-1/3 bg-gray-200 px-5 py-2 text-black">
               <option disabled value="">
                 Välj nyckel
               </option>
-              {availableKeys &&
-                availableKeys?.map((key) => (
-                  <option key={key._id} value={key._id}>
-                    {key.keyLabel}
-                  </option>
-                ))}
+              {availableKeys?.map((key) => (
+                <option key={key._id} value={key._id}>
+                  {key.keyLabel}
+                </option>
+              ))}
             </select>
+
+            {selectedKey &&
+              (selectedKey.status === "returned" ||
+                selectedKey.status === "available") && (
+                <select
+                  onChange={handleBorrowChange}
+                  value={selectedUserId || ""}
+                  className="w-full md:w-1/3 bg-gray-200 px-5 py-2 text-black mt-4 md:mt-0">
+                  <option disabled value="">
+                    Välj lånetagare
+                  </option>
+                  {users?.map((user) => (
+                    <option key={user._id} value={user._id}>
+                      {user.name}
+                    </option>
+                  ))}
+                </select>
+              )}
           </div>
 
-          {/* Meddelande om inga nycklar att låna */}
           {availableKeys.length === 0 && (
             <p className="text-red-500 mt-2">
               Det finns inga nycklar tillgängliga för utlåning just nu.
             </p>
           )}
 
-          {selectedKey &&
-            (selectedKey.status === "returned" ||
-              selectedKey.status === "available") && (
-              <div className="mb-6">
-                <select
-                  onChange={handleBorrowChange}
-                  value={selectedUserId || ""}
-                  className="w-full bg-gray-200 px-5 py-2 text-black">
-                  <option disabled value="">
-                    Välj lånetagare
-                  </option>
-                  {users &&
-                    users?.map((user) => (
-                      <option key={user._id} value={user._id}>
-                        {user.name}
-                      </option>
-                    ))}
-                </select>
-              </div>
-            )}
-
-          {/* Visa bara om nyckel och användare är valda */}
           {selectedKey && (
-            <KeyTable
-              keyData={selectedKey}
-              onClick={() => checkOutHandler(selectedKey)}
-              actionLabel="Låna"
-              btnColor="text-white-500"
-              bgColor="bg-green-400"
-            />
+            <div className="overflow-x-auto">
+              <KeyTable
+                keyData={selectedKey}
+                onClick={() => checkOutHandler(selectedKey)}
+                actionLabel="Låna"
+                btnColor="text-white-500"
+                bgColor="bg-green-400"
+              />
+            </div>
           )}
         </>
       ) : (
         <>
           <h4 className="text-purple-500 text-2xl mb-4">Återlämna nyckel</h4>
 
-          <div className="flex gap-4 mb-6">
+          <div className="flex flex-col md:flex-row md:items-start md:gap-6 mb-6">
             <select
               onChange={handleSelectChange}
               value={selectedKeyId || ""}
-              className="w-full bg-gray-200 px-5 py-2 text-black">
+              className="w-full md:w-1/3 bg-gray-200 px-5 py-2 text-black">
               <option disabled value="">
                 Välj nyckel
               </option>
@@ -196,42 +180,40 @@ const KeyDetailComponent = () => {
                 </option>
               ))}
             </select>
+
+            {selectedKey && selectedKey.status === "checked-out" && (
+              <select
+                onChange={handleBorrowChange}
+                value={selectedUserId || ""}
+                className="w-full md:w-1/3 bg-gray-200 px-5 py-2 text-black mt-4 md:mt-0">
+                <option disabled value="">
+                  Välj lånetagare
+                </option>
+                {users?.map((user) => (
+                  <option key={user._id} value={user._id}>
+                    {user.name}
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
 
-          {/* Meddelande om inga nycklar att återlämna */}
           {keysWithBorrowedStatus.length === 0 && (
             <p className="text-red-500 mt-2">
               Det finns inga nycklar att återlämna just nu.
             </p>
           )}
 
-          {selectedKey && selectedKey.status === "checked-out" && (
-            <div className="mb-6">
-              <select
-                onChange={handleBorrowChange}
-                value={selectedUserId || ""}
-                className="w-full bg-gray-200 px-5 py-2 text-black">
-                <option disabled value="">
-                  Välj lånetagare
-                </option>
-                {users &&
-                  users?.map((user) => (
-                    <option key={user._id} value={user._id}>
-                      {user.name}
-                    </option>
-                  ))}
-              </select>
-            </div>
-          )}
-
           {selectedKey && (
-            <KeyTable
-              keyData={selectedKey}
-              onClick={() => checkInHandler(selectedKey)}
-              actionLabel="Lämna in"
-              actionColor="text-white-700"
-              bgColor="bg-red-400"
-            />
+            <div className="overflow-x-auto">
+              <KeyTable
+                keyData={selectedKey}
+                onClick={() => checkInHandler(selectedKey)}
+                actionLabel="Lämna in"
+                actionColor="text-white-700"
+                bgColor="bg-red-400"
+              />
+            </div>
           )}
         </>
       )}

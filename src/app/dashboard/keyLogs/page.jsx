@@ -2,6 +2,7 @@
 import LoadingPage from "@/app/loading";
 import { getKeyLogs } from "@/backend/keyAPI";
 import KeySearch from "@/components/keys/keySearch";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import { useFetchKeys } from "@/customhook/useFetchKeys";
 import { useFetchUsers } from "@/customhook/useFetchUsers";
 import React, { useEffect, useState } from "react";
@@ -14,6 +15,8 @@ function KeyLogPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [visibleLogs, setVisibleLogs] = useState(15);
+
+  const { currentUser } = useFetchCurrentUser();
 
   async function fetchLogs() {
     try {
@@ -79,7 +82,8 @@ function KeyLogPage() {
 
   return (
     <>
-      <div className="hidden md:block mr-5 mt-10">
+      <div className="hidden md:block mr-5 mt-3">
+        <h3 className="text-2xl text-blue-500 mb-4">Nyckelhistorik</h3>
         <KeySearch />
       </div>
       <div className="pb-20">

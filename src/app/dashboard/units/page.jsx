@@ -6,9 +6,7 @@ import MainCard from "@/components/maincard";
 import SearchUnit from "@/components/units/searchUnit";
 import UnitActionModal from "@/components/units/unitActionModel";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
-import { useFetchUnits } from "@/customhook/useFetchUnits";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,11 +15,8 @@ import {
   HiOutlineUser,
   HiOutlineUserGroup,
   HiOutlineClipboardList,
-  HiOutlineOfficeBuilding,
-  HiOutlinePencil,
   HiOutlinePencilAlt,
   HiOutlineTrash,
-  HiOutlineDocumentAdd,
   HiPlus,
 } from "react-icons/hi";
 
@@ -39,7 +34,6 @@ function UnitPage({ params }) {
     const fetchUnits = async () => {
       try {
         const unitList = await getUnits();
-
         setUnits(unitList || []);
         setLoading(false);
       } catch (error) {
@@ -48,42 +42,30 @@ function UnitPage({ params }) {
         setError(error);
       }
     };
-
     fetchUnits();
   }, []);
-  // const apartments = await getApartments();
-  // console.log("units i unitPage", units);
 
-  //Loading
+  if (loading) return <LoadingPage message="Laddar enheter..." />;
 
-  if (loading) {
-    return <LoadingPage message="Laddar enheter..." />;
-  }
-
-  if (error) {
+  if (error)
     return (
       <div className="flex justify-center items-center">
         <p className="text-2xl font-bold">{error.message}</p>
       </div>
     );
-  }
 
-  if (units.length === 0) {
+  if (units.length === 0)
     return (
       <div className="flex justify-center items-center">
         <p>Det finns inga ENHETER att visa just nu.</p>
       </div>
     );
-  }
-
-  //Open delete modal
 
   const openDeleteModal = (id) => {
     setSelectedUnitId(id);
     setDeleteModalOpen(true);
   };
 
-  // delete unit
   const confirmUnitDelete = async () => {
     try {
       await deleteUnitById(selectedUnitId);
@@ -96,19 +78,25 @@ function UnitPage({ params }) {
       setDeleteModalOpen(false);
     }
   };
-  // Avbryt radering
+
   const cancelUnitDeleteModal = () => {
     setDeleteModalOpen(false);
   };
+
+  const isManager =
+    currentUser?.role?.includes("Avdelningschef") ||
+    currentUser?.role?.includes("Områdeschef");
+
   return (
-    <div className=" max-w-6xl mx-auto">
-      <h1 className="text-2xl font-extrabold text-blue-500 mb-10 border-b-4 border-purple-200 pb-3">
+    <div className="max-w-6xl mx-auto flex flex-col gap-6">
+      <h1 className="text-2xl font-extrabold text-blue-500 mb-6 border-b-4 border-purple-200 pb-3">
         Alla enheter
       </h1>
-      {!currentUser?.role?.includes("Enhetschef") && (
-        <div className="my-6">
+
+      {isManager && (
+        <div className="my-4">
           <Link
-            className="text-green-800  flex items-center gap-3"
+            className="text-green-800 flex items-center gap-3"
             href={"/dashboard/units/create"}>
             <HiPlus />
             <span>Skapa enhet</span>
@@ -116,44 +104,46 @@ function UnitPage({ params }) {
         </div>
       )}
 
-      <div className="hidden md:block">
+      <div className="hidden md:block mb-6">
         <SearchUnit />
       </div>
 
-      <div className="flex flex-col gap-8">
-        {deleteModalOpen && (
-          <UnitActionModal
-            cancelUnitDeleteModal={cancelUnitDeleteModal}
-            confirmUnitDelete={confirmUnitDelete}
-            message={
-              "Är du säker på att du vill ta bort denna enhet? Morgonjobb, nycklar och flyttstäd tas bort. Användare (chef, specialare och lokalvårdare) kopplas bort från enheten och kan flyttas till andra enheter."
-            }
-          />
-        )}
-        {units &&
-          units?.map((unit) => {
-            console.log("Unit med keys", unit?.keys);
-            console.log("Unit med users", unit?.users);
+      {deleteModalOpen && (
+        <UnitActionModal
+          cancelUnitDeleteModal={cancelUnitDeleteModal}
+          confirmUnitDelete={confirmUnitDelete}
+          message={
+            "Är du säker på att du vill ta bort denna enhet? Morgonjobb, nycklar och flyttstäd tas bort. Användare (chef, specialare och lokalvårdare) kopplas bort från enheten och kan flyttas till andra enheter."
+          }
+        />
+      )}
 
-            const chefer = unit.users?.filter((user) =>
-              user?.role?.includes("Enhetschef")
-            );
-            const specialister = unit.users?.filter((user) =>
-              user?.role?.includes("Specialare")
-            );
+      <div
+        className={`flex flex-col gap-6 ${
+          units.length > 5 ? "overflow-y-auto max-h-[500px]" : ""
+        }`}>
+        {units &&
+          Array.isArray(units) &&
+          units.map((unit) => {
+            const chefer =
+              unit.users?.filter((u) => u?.role?.includes("Enhetschef")) || [];
+            const specialister =
+              unit.users?.filter((u) => u?.role?.includes("Specialare")) || [];
 
             return (
               <MainCard
                 key={unit._id}
                 actions={
-                  <div className="flex items-center gap-3">
-                    <Link href={`/dashboard/units/${unit._id}/edit`}>
-                      <HiOutlinePencilAlt className="w-5 h-5 text-gray-500 hover:text-purple-600" />
-                    </Link>
-                    <button onClick={() => openDeleteModal(unit._id)}>
-                      <HiOutlineTrash className="w-5 h-5 text-red-400 hover:text-red-600" />
-                    </button>
-                  </div>
+                  isManager && (
+                    <div className="flex items-center gap-3">
+                      <Link href={`/dashboard/units/${unit._id}/edit`}>
+                        <HiOutlinePencilAlt className="w-5 h-5 text-gray-500 hover:text-purple-600" />
+                      </Link>
+                      <button onClick={() => openDeleteModal(unit._id)}>
+                        <HiOutlineTrash className="w-5 h-5 text-red-400 hover:text-red-600" />
+                      </button>
+                    </div>
+                  )
                 }
                 title={unit.name}>
                 <div className="flex flex-col divide-y divide-gray-300">
@@ -197,14 +187,11 @@ function UnitPage({ params }) {
   );
 }
 
-export function CardRow({ label, icon, href, text }) {
+export function CardRow({ icon, href, text }) {
   return (
     <div className="py-4 flex items-center gap-3 group">
       {icon}
       <div className="flex flex-col">
-        <span className="text-xs text-gray-500 uppercase tracking-wider">
-          {label}
-        </span>
         <Link href={href}>
           <span className="text-md font-semibold text-gray-900 group-hover:text-purple-600 transition">
             {text}

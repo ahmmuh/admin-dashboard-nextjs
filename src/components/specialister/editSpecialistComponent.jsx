@@ -63,7 +63,7 @@ function EditSpecialistComponent({ specialist, unitId }) {
   return (
     <div className="flex flex-col justify-center my-5">
       {specialist && (
-        <h3 className="text-purple-600 text-2xl ">
+        <h3 className="text-blue-600 text-2xl ">
           Du redigerar {specialist.name}
         </h3>
       )}

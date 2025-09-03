@@ -61,15 +61,22 @@ function UserPage() {
     }
   };
 
+  const isManager =
+    currentUser?.role?.includes("Avdelningschef") ||
+    currentUser?.role?.includes("Områdeschef");
+
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">Användaröversikt</h1>
-      <Link
-        href="/dashboard/users/create"
-        className="flex items-center gap-1 text-green-800 hover:text-green-900">
-        <HiOutlinePlus className="w-5 h-5" />
-        Ny användare
-      </Link>
+      <h1 className="text-2xl text-blue-500 mb-6">Användaröversikt</h1>
+
+      {isManager && (
+        <Link
+          href="/dashboard/users/create"
+          className="flex items-center gap-1 text-green-800 hover:text-green-900">
+          <HiOutlinePlus className="w-5 h-5" />
+          Ny användare
+        </Link>
+      )}
 
       <div className="hidden md:block mt-6">
         <SearchUser />
@@ -96,11 +103,9 @@ function UserPage() {
                 <th className="text-left px-4 py-2 border-b">Telefon</th>
                 <th className="text-left px-4 py-2 border-b">Roll</th>
                 <th className="text-left px-4 py-2 border-b">Enhet</th>
-                {currentUser &&
-                  !currentUser.role?.includes("Enhetschef") &&
-                  !currentUser.role?.includes("Specilare") && (
-                    <th className="text-left px-4 py-2 border-b">Åtgärder</th>
-                  )}
+                {isManager && (
+                  <th className="text-left px-4 py-2 border-b">Åtgärder</th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -120,29 +125,27 @@ function UserPage() {
                     {user.unit?.name || "-"}
                   </td>
 
-                  {currentUser &&
-                    !currentUser.role?.includes("Enhetschef") &&
-                    !currentUser.role?.includes("specialare") && (
-                      <td className="px-4 py-2 border-b">
-                        <div className="flex items-center gap-2">
-                          <Link
-                            href={`/dashboard/users/${user._id}/edit`}
-                            className="p-2 border border-gray-300 rounded
+                  {currentUser && isManager && (
+                    <td className="px-4 py-2 border-b">
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={`/dashboard/users/${user._id}/edit`}
+                          className="p-2 border border-gray-300 rounded
                             >
                       
                       hover:bg-gray-100 transition"
-                            title="Uppdatera">
-                            <HiOutlinePencil className="text-gray-600 w-5 h-5" />
-                          </Link>
-                          <button
-                            onClick={() => deleteHandler(user._id)}
-                            className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
-                            title="Ta bort">
-                            <HiOutlineTrash className="text-gray-600 w-5 h-5" />
-                          </button>
-                        </div>
-                      </td>
-                    )}
+                          title="Uppdatera">
+                          <HiOutlinePencil className="text-gray-600 w-5 h-5" />
+                        </Link>
+                        <button
+                          onClick={() => deleteHandler(user._id)}
+                          className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+                          title="Ta bort">
+                          <HiOutlineTrash className="text-gray-600 w-5 h-5" />
+                        </button>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>

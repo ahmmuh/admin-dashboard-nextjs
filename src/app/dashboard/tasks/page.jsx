@@ -25,6 +25,10 @@ function TaskPage() {
     return <LoadingPage message="Laddar uppgifer ...." />;
   }
 
+  const isManager =
+    currentUser?.role?.includes("Avdelningschef") ||
+    currentUser?.role?.includes("Områdeschef");
+
   return (
     <div className="flex flex-col">
       <div className="mb-6">
@@ -36,6 +40,7 @@ function TaskPage() {
           Här visas alla aktuella uppdrag för enheten under dagen.
         </p>
       </div>
+
       <div className="my-6">
         <Link
           className="text-green-800  flex items-center gap-3"
@@ -71,7 +76,7 @@ function TaskPage() {
               updatedAt={task.updatedAt}
               createdAt={task.createdAt}
               status={task.status}>
-              {currentUser && <TaskActions task={task} />}
+              {<TaskActions task={task} />}
             </ItemList>
           ))}
       </div>

@@ -68,16 +68,18 @@ function KeyPage() {
     );
   }
 
+  const isManager =
+    currentUser?.role?.includes("Avdelningschef") ||
+    currentUser?.role?.includes("Områdeschef");
+
   return (
     <div>
       <Toaster />
       <div className="p-2">
         {keys.length > 0 && (
-          <h3 className="font-bold text-2xl text-purple-500 italic mb-6">
-            Nyckel hantering
-          </h3>
+          <h3 className="text-2xl text-blue-500  mb-6">Nyckelhantering</h3>
         )}{" "}
-        {!currentUser.role?.includes("Enhetschef") && (
+        {isManager && (
           <Link
             className="text-green-800  flex items-center gap-3 mb-4"
             href={"/dashboard/key_QRcode"}>
@@ -115,7 +117,7 @@ function KeyPage() {
                   Inlämnat datum
                 </th>
 
-                {!currentUser.role?.includes("Enhetschef") && (
+                {isManager && (
                   <th className="border border-gray-200 text-left">Åtgärd</th>
                 )}
               </tr>
@@ -194,7 +196,7 @@ function KeyPage() {
                         : "—"}
                     </td>
 
-                    {!currentUser.role?.includes("Enhetschef") && (
+                    {isManager && (
                       <td className="font-bold p-2">
                         {["available", "returned"].includes(key.status) && (
                           <span className="text-green-500">

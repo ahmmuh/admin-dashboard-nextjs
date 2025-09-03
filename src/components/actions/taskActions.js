@@ -38,7 +38,9 @@ function TaskActions({ task }) {
   if (loading || !currentUser) {
     return <LoadingPage />;
   }
-
+  const isManager =
+    currentUser?.role?.includes("Avdelningschef") ||
+    currentUser?.role?.includes("Områdeschef");
   return (
     <div className="flex items-center gap-4 mt-2">
       {task && currentUser && (
@@ -52,7 +54,8 @@ function TaskActions({ task }) {
           </Link>
 
           {/* Ta bort-knapp */}
-          {!currentUser.role?.includes("Enhetschef") && (
+
+          {isManager && (
             <button
               onClick={() => {
                 if (

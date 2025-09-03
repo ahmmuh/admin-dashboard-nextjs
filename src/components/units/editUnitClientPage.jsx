@@ -57,9 +57,7 @@ export default function EditUnitClientPage() {
 
   return (
     <div className="mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-purple-500">
-        Redigera enhet
-      </h1>
+      <h1 className="text-2xl  mb-4 text-blue-500">Redigera enhet</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block font-medium">

@@ -95,11 +95,7 @@ function UserProfile() {
   };
 
   if (loadingUser) {
-    return (
-      <div className="flex justify-center items-center">
-        <h4 className="text-blue-400">Hämtar användare ....</h4>
-      </div>
-    );
+    return <LoadingPage />;
   }
 
   if (loading) {
@@ -127,8 +123,8 @@ function UserProfile() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
-        <h3 className="font-semibold mb-6 text-gray-800 border border-b-2 border-b-blue-200 pb-3">
-          Uppdatera följande enhet
+        <h3 className="text-2xl mb-6 text-blue-500 border border-b-2 border-b-blue-200 pb-3">
+          Uppdatera följande användare
         </h3>
 
         {user && (

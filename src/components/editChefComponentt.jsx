@@ -55,7 +55,7 @@ function EditChefComponent({ unitId, chef }) {
   return (
     <div className="flex flex-col justify-center gap-y-4">
       {currentUser && (
-        <h3 className="text-purple-600 text-xl ">Du redigerar {chef.name}</h3>
+        <h3 className="text-blue-600 text-xl ">Du redigerar {chef.name}</h3>
       )}
 
       {currentUser ? (

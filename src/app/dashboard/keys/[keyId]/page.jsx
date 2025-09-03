@@ -110,6 +110,10 @@ function EditKey() {
       </div>
     );
   }
+
+  const isManager =
+    currentUser?.role?.includes("Avdelningschef") ||
+    currentUser?.role?.includes("Områdeschef");
   return (
     <div className="w-full border border-x-2 px-2">
       <div className="flex flex-col">
@@ -136,7 +140,7 @@ function EditKey() {
             />
           </div>
 
-          <div className="flex justify-start  p-4 ">
+          <div className="flex justify-start  py-4 ">
             <button
               onClick={changeKeyHandler}
               className="w-1/3 flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-200 transition">
@@ -144,7 +148,7 @@ function EditKey() {
               Spara
             </button>
 
-            {!currentUser.role?.includes("Enhetschef") && (
+            {isManager && (
               <button
                 onClick={deleteKeyHandler}
                 className="w-1/3 ml-3 flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded-md shadow-sm hover:bg-red-200 transition">

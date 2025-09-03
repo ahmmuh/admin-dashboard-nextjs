@@ -39,8 +39,8 @@ function SignUpPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-md p-6">
-        <h2 className="text-xl font-semibold text-center mb-4 text-gray-800">
+      <div className="w-full max-w-md md:max-w-lg lg:max-w-xl bg-white rounded-xl shadow-md p-6">
+        <h2 className="text-xl md:text-2xl font-semibold text-center mb-4 text-gray-800">
           Skapa konto
         </h2>
 
@@ -90,13 +90,14 @@ function SignUpPage() {
             changeHandler={changeHandler}
           />
 
-          <button
-            type="submit"
-            className="p-2 w-1/3 bg-indigo-100 text-indigo-800 font-medium 
-             border border-indigo-200 rounded-md shadow-sm 
-             hover:bg-indigo-200 transition">
-            Registrera
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="p-2 w-1/2 md:w-1/3 lg:w-1/4 bg-indigo-100 text-indigo-800 font-medium 
+                         border border-indigo-200 rounded-md shadow-sm hover:bg-indigo-200 transition">
+              Registrera
+            </button>
+          </div>
 
           <Link
             href={"/auth/login"}

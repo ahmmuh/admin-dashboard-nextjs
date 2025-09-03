@@ -51,9 +51,7 @@ function CreateApartmentComponent() {
   return (
     <div className="mb-10">
       <Toaster />
-      <h3 className="text-purple-600 font-bold text-2xl">
-        Lägg till en ny lägenhet
-      </h3>
+      <h3 className="text-blue-600 font-bold text-2xl">Skapa ny flyttstäd</h3>
 
       <div className="flex flex-col mt-6 pr-20">
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -163,28 +161,6 @@ function CreateApartmentComponent() {
           </div>
 
           {/* Spara-knapp */}
-          {/* <button
-            className="p-2 w-1/3 bg-indigo-500 text-white font-medium border border-indigo-600 rounded-md 
-                       shadow-sm hover:bg-indigo-600 transition"
-            type="submit">
-            Spara
-          </button>
-
-          <button
-            className="p-2 w-1/3 bg-purple-200 text-purple-800 font-medium 
-             border border-purple-300 rounded-md shadow-sm 
-             hover:bg-purple-300 transition"
-            type="submit">
-            Spara
-          </button> */}
-{/* 
-          <button
-            className="p-2 w-1/3 bg-gray-200 text-gray-800 font-medium 
-             border border-gray-300 rounded-md shadow-sm 
-             hover:bg-gray-300 transition"
-            type="submit">
-            Spara
-          </button> */}
 
           <button
             className="p-2 w-1/3 bg-indigo-100 text-indigo-800 font-medium 

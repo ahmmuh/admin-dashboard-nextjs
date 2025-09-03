@@ -37,44 +37,39 @@ function LoginPage() {
       throw new Error("Kunde inte logga in");
     }
   };
+
   return (
-    <div className="flex  flex-col justify-center items-center h-screen bg-gray-50">
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
       <HiOutlineLockClosed size={40} />
       <h3 className="mb-5 text-2xl">Vänligen logga in</h3>
 
-      <div className="flex flex-col p-8 shadow-lg shadow-blue-200 bg-white w-full min-h-fit max-w-md ">
-        <form onSubmit={loginHandler}>
+      <div className="flex flex-col p-8 shadow-lg shadow-blue-200 bg-white w-full min-h-fit max-w-md md:max-w-lg lg:max-w-xl">
+        <form onSubmit={loginHandler} className="space-y-4">
           <MainInput
-            className={"p-1 w-full border border-black rounded-lg"}
-            type={"text"}
-            name={"username"}
-            placeholder={"Användarnamn"}
-            label={"Användarnamn"}
+            className="p-1 w-full border border-black rounded-lg"
+            type="text"
+            name="username"
+            placeholder="Användarnamn"
+            label="Användarnamn"
             changeHandler={changeHandler}
           />
 
           <MainInput
-            className={"p-1 w-full border border-black rounded-lg"}
-            type={"password"}
-            name={"password"}
-            placeholder={"Lösenord"}
-            label={"Lösenord"}
+            className="p-1 w-full border border-black rounded-lg"
+            type="password"
+            name="password"
+            placeholder="Lösenord"
+            label="Lösenord"
             changeHandler={changeHandler}
           />
 
-          <div className="">
+          <div className="flex justify-center">
             <button
               type="submit"
-              className="p-2 w-1/3 bg-indigo-100 text-indigo-800 font-medium 
-             border border-indigo-200 rounded-md shadow-sm 
-             hover:bg-indigo-200 transition">
+              className="p-2 w-1/2 md:w-1/3 lg:w-1/4 bg-indigo-100 text-indigo-800 font-medium 
+                         border border-indigo-200 rounded-md shadow-sm hover:bg-indigo-200 transition">
               Logga in
             </button>
-            <Link href={"/auth/signUp"}>
-              <span className="text-sm text-blue-600 pt-4">
-                Inget konto? Skapa konto
-              </span>
-            </Link>
           </div>
         </form>
       </div>

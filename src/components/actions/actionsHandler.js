@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { HiOutlinePencilAlt, HiOutlineTrash, HiPlus } from "react-icons/hi";
+import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 import { deleteUser } from "@/backend/userAPI";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 
@@ -25,6 +25,10 @@ function ActionsHandler({ unitId, chef, onDelete }) {
 
   if (userLoading) return null; // Ladda ej actions innan currentUser hämtats
 
+  const isManager =
+    currentUser?.role?.includes("Avdelningschef") ||
+    currentUser?.role?.includes("Områdeschef");
+
   return (
     <div className="flex gap-4 mt-6">
       {(currentUser._id === chef._id ||
@@ -38,7 +42,7 @@ function ActionsHandler({ unitId, chef, onDelete }) {
         </Link>
       )}
 
-      {!currentUser?.role?.includes("Enhetschef") && (
+      {isManager && (
         <>
           <button
             onClick={() => deleteHandler(chef._id)}

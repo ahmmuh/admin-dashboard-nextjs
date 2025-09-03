@@ -5,6 +5,8 @@ import { useParams } from "next/navigation";
 import { getUnitByID } from "@/backend/api";
 import LoadingPage from "@/app/loading";
 import Link from "next/link";
+import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
+import { HiPlus } from "react-icons/hi";
 
 function UnitTasksPage() {
   const params = useParams();
@@ -13,7 +15,7 @@ function UnitTasksPage() {
   const [unit, setUnit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const { currentUser } = useFetchCurrentUser();
   useEffect(() => {
     if (!unitId) return;
 
@@ -44,16 +46,21 @@ function UnitTasksPage() {
   const { tasks } = unit;
   console.log("TASK i UNIT TASK PAGE", tasks);
 
+  const isManager =
+    currentUser?.role?.includes("Avdelningschef") ||
+    currentUser?.role?.includes("Områdeschef");
+
   return (
-    <div className="mx-auto p-6">
-      <h1 className="text-3xl font-bold text-purple-700 mb-6 border-b pb-2">
+    <div className="mx-auto p-3">
+      <h2 className="text-2xl font-bold text-purple-700 mb-2 border-b pb-2">
         Uppgifter för enhet: {unit?.name}
-      </h1>
+      </h2>
 
       <Link
-        className="sm:w-1/2 flex justify-center gap-x-5 items-center bg-purple-500 text-white px-4 py-2 rounded-xl shadow shadow-purple-400 hover:bg-purple-600 transition duration-200 mb-6"
-        href={`/dashboard/tasks/create`}>
-        Skapa morgonjobb
+        className="text-green-800  flex items-center gap-3 mb-3"
+        href={"/dashboard/tasks/create"}>
+        <HiPlus />
+        <span>Skapa morgonjobb</span>
       </Link>
 
       {tasks && tasks.length > 0 ? (

@@ -65,7 +65,7 @@ function CreateTaskClientComponent() {
 
   return (
     <div className="p-2">
-      <h4 className="text-2xl text-purple-500 mb-3 ">Skapa morgonjobb</h4>
+      <h4 className="text-2xl text-blue-500 mb-3 ">Skapa morgonjobb</h4>
 
       <form onSubmit={submitHandler}>
         {/* Platsinput */}

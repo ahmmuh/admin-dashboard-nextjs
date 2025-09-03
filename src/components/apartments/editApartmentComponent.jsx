@@ -11,7 +11,6 @@ function EditApartmentComponent() {
   const priorityList = ["Normal", "Låg", "Hög"];
   const statusar = ["Ej påbörjat", "Påbörjat", "Färdigt"];
   const { apartmentId } = useParams();
-  console.log("Apartment ID: ", apartmentId);
 
   const [apartment, setApartment] = useState({
     apartmentLocation: "",
@@ -26,12 +25,10 @@ function EditApartmentComponent() {
   const fetchApartmentById = async () => {
     try {
       const apartmentData = await getApartmentByID(apartmentId);
-      console.log("Hämtad APARTMENT", apartmentData);
       setApartment(apartmentData);
     } catch (error) {
       console.error("ERROR vid hämtning av APARTMENT OBJECT", error.message);
     }
-    console.log("Hela apartment", apartment);
   };
 
   useEffect(() => {
@@ -57,7 +54,6 @@ function EditApartmentComponent() {
       startDate: apartment.startDate,
       endDate: apartment.endDate,
     };
-    console.log("Updated APARTMENT ", updatedApartment);
     try {
       await updateApartment(apartmentId, updatedApartment);
       toast.success(
@@ -73,13 +69,11 @@ function EditApartmentComponent() {
   return (
     <div className="">
       <Toaster />
-      <h3 className="text-purple-500 font-bold pt-2 px-5 text-2xl">
-        Uppdatera lägenhet
-      </h3>
+      <h3 className="text-blue-500  pt-2 px-5 text-2xl">Uppdatera lägenhet</h3>
 
-      <div className="flex flex-col p-5 ">
-        <form onSubmit={handleSubmit} className=" mb-10">
-          <div className="">
+      <div className="flex flex-col p-5">
+        <form onSubmit={handleSubmit} className="mb-10">
+          <div>
             <label
               htmlFor="apartmentLocation"
               className="block mb-2 font-semibold">
@@ -89,22 +83,22 @@ function EditApartmentComponent() {
               id="apartmentLocation"
               type="text"
               style={{ color: "#000" }}
-              className="text-red-500 p-2 bg-gray-200 border border-b-gray-50 w-full
-              shadow shadow-blue-100 focus:bg-yellow-50 rounded"
+              className="p-2 bg-gray-200 border border-b-gray-50 w-full
+                         shadow shadow-blue-100 focus:bg-yellow-50 rounded"
               name="apartmentLocation"
               value={apartment.apartmentLocation}
               onChange={handleChange}
             />
           </div>
 
-          <div className="mb-6">
+          <div>
             <label htmlFor="keyLocation" className="block mb-2 font-semibold">
               Nyckeln finns på
             </label>
             <input
               id="keyLocation"
               className="p-2 bg-gray-200 border border-b-gray-50 w-full
-              shadow shadow-blue-100 focus:bg-yellow-50 rounded"
+                         shadow shadow-blue-100 focus:bg-yellow-50 rounded"
               type="text"
               name="keyLocation"
               value={apartment.keyLocation}
@@ -112,20 +106,20 @@ function EditApartmentComponent() {
             />
           </div>
 
-          <div className="mb-6">
+          <div>
             <label htmlFor="description" className="block mb-2 font-semibold">
               Beskriv lite om jobbet
             </label>
             <textarea
               id="description"
               className="p-2 bg-gray-200 border border-b-gray-50 w-full
-              shadow shadow-blue-100 focus:bg-yellow-50 rounded"
+                         shadow shadow-blue-100 focus:bg-yellow-50 rounded"
               name="description"
               value={apartment.description}
               onChange={handleChange}></textarea>
           </div>
 
-          <div className="mb-6">
+          <div>
             <label htmlFor="startDate" className="block mb-2 font-semibold">
               Planerat Start Datum
             </label>
@@ -143,7 +137,7 @@ function EditApartmentComponent() {
             />
           </div>
 
-          <div className="mb-6">
+          <div>
             <label htmlFor="endDate" className="block mb-2 font-semibold">
               Planerat slut datum
             </label>
@@ -161,7 +155,7 @@ function EditApartmentComponent() {
             />
           </div>
 
-          <div className="mb-6">
+          <div>
             <label htmlFor="priority" className="block mb-2 font-semibold">
               Prioritering
             </label>
@@ -169,7 +163,7 @@ function EditApartmentComponent() {
               id="priority"
               name="priority"
               className="p-2 bg-gray-200 border border-b-gray-50 w-full
-              shadow shadow-blue-100 focus:bg-yellow-50 rounded"
+                         shadow shadow-blue-100 focus:bg-yellow-50 rounded"
               value={apartment.priority}
               onChange={handleChange}>
               <option value="" disabled hidden>
@@ -183,15 +177,15 @@ function EditApartmentComponent() {
             </select>
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="priority" className="block mb-2 font-semibold">
+          <div>
+            <label htmlFor="status" className="block mb-2 font-semibold">
               Status
             </label>
             <select
               id="status"
               name="status"
               className="p-2 bg-gray-200 border border-b-gray-50 w-full
-              shadow shadow-blue-100 focus:bg-yellow-50 rounded"
+                         shadow shadow-blue-100 focus:bg-yellow-50 rounded"
               value={apartment.status}
               onChange={handleChange}>
               <option value="" disabled hidden>
@@ -206,7 +200,7 @@ function EditApartmentComponent() {
           </div>
 
           <button
-            className="p-2 w-1/3  bg-indigo-200  border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-300 transition"
+            className="mt-4 p-2 w-1/3 bg-indigo-200 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-300 transition"
             type="submit">
             Spara
           </button>
