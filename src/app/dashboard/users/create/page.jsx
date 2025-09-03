@@ -91,7 +91,9 @@ function NewUserPage() {
 
           <button
             type="submit"
-            className="w-full py-2 bg-green-300 text-black rounded-md hover:bg-green-400 transition">
+            className="p-2 w-1/3 bg-indigo-100 text-indigo-800 font-medium 
+             border border-indigo-200 rounded-md shadow-sm 
+             hover:bg-indigo-200 transition">
             Registrera
           </button>
         </form>

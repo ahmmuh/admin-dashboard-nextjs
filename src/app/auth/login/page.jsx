@@ -5,6 +5,7 @@ import { displaySuccessMessage } from "@/helper/toastAPI";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { HiOutlineLockClosed } from "react-icons/hi";
 
 function LoginPage() {
   const router = useRouter();
@@ -38,6 +39,7 @@ function LoginPage() {
   };
   return (
     <div className="flex  flex-col justify-center items-center h-screen bg-gray-50">
+      <HiOutlineLockClosed size={40} />
       <h3 className="mb-5 text-2xl">Vänligen logga in</h3>
 
       <div className="flex flex-col p-8 shadow-lg shadow-blue-200 bg-white w-full min-h-fit max-w-md ">
@@ -63,7 +65,9 @@ function LoginPage() {
           <div className="">
             <button
               type="submit"
-              className="bg-green-200 w-full p-2 hover:bg-green-300">
+              className="p-2 w-1/3 bg-indigo-100 text-indigo-800 font-medium 
+             border border-indigo-200 rounded-md shadow-sm 
+             hover:bg-indigo-200 transition">
               Logga in
             </button>
             <Link href={"/auth/signUp"}>

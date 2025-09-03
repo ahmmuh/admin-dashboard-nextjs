@@ -99,11 +99,13 @@ function ApartmentList({ apartments: initialApartments }) {
                     </li>
                     <li className="mb-2 border-b-2 border-indigo-200 p-2 hover:bg-gray-200">
                       <span className="font-bold">Start Datum:</span>{" "}
-                      {new Date(apartment.startDate).toLocaleDateString()}
+                      {new Date(apartment.startDate).toLocaleDateString(
+                        "sv-SE"
+                      )}
                     </li>
                     <li className="mb-2 border-b-2 border-indigo-200 p-2 hover:bg-gray-200">
                       <span className="font-bold">Slut Datum:</span>{" "}
-                      {new Date(apartment.endDate).toLocaleDateString()}
+                      {new Date(apartment.endDate).toLocaleDateString("sv-SE")}
                     </li>
 
                     {/* Status */}
@@ -113,7 +115,9 @@ function ApartmentList({ apartments: initialApartments }) {
                         {apartment.status}{" "}
                         <span className="text-gray-800">
                           | Skapad:{" "}
-                          {new Date(apartment.updatedAt).toLocaleString()}
+                          {new Date(apartment.updatedAt).toLocaleString(
+                            "sv-SE"
+                          )}
                         </span>
                       </li>
                     )}

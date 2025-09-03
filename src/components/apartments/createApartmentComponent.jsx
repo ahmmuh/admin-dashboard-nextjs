@@ -20,8 +20,8 @@ function CreateApartmentComponent() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setApartment(() => ({
-      ...apartment,
+    setApartment((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
@@ -33,8 +33,8 @@ function CreateApartmentComponent() {
       keyLocation: apartment.keyLocation,
       description: apartment.description,
       priority: apartment.priority,
-      startDate: startDate,
-      endDate: endDate,
+      startDate,
+      endDate,
     };
     console.log("NEW APARTMENT ", newApartment);
     await createApartment(newApartment);
@@ -51,61 +51,72 @@ function CreateApartmentComponent() {
   return (
     <div className="mb-10">
       <Toaster />
-      <h3 className="text-purple-500 font-bold  text-2xl">
-        Lägg till ny lägenhet
+      <h3 className="text-purple-600 font-bold text-2xl">
+        Lägg till en ny lägenhet
       </h3>
 
       <div className="flex flex-col mt-6 pr-20">
-        <form onSubmit={handleSubmit}>
-          <div className="">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Lägenhetsadress */}
+          <div>
             <label
               htmlFor="apartmentLocation"
-              className="block mb-2 font-semibold">
-              Lägenheten ligger på
+              className="block mb-1 font-medium text-gray-700">
+              Adress till lägenheten
             </label>
             <input
               id="apartmentLocation"
               type="text"
-              style={{ color: "#000" }}
-              className="text-red-500 p-2 bg-gray-200 border border-b-gray-50 w-full
-              shadow shadow-blue-100 focus:bg-yellow-50 rounded"
+              className="p-2 w-full rounded-md border border-gray-300 bg-gray-100 text-gray-900 
+                         shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               name="apartmentLocation"
               value={apartment.apartmentLocation}
               onChange={handleChange}
             />
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="keyLocation" className="block mb-2 font-semibold">
-              Nyckeln finns på
+          {/* Nyckel */}
+          <div>
+            <label
+              htmlFor="keyLocation"
+              className="block mb-1 font-medium text-gray-700">
+              Plats för nyckeln
             </label>
             <input
               id="keyLocation"
-              className="p-2 bg-gray-200 border border-b-gray-50 w-full
-              shadow shadow-blue-100 focus:bg-yellow-50 rounded"
               type="text"
+              className="p-2 w-full rounded-md border border-gray-300 bg-gray-100 text-gray-900 
+                         shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               name="keyLocation"
               value={apartment.keyLocation}
               onChange={handleChange}
             />
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="description" className="block mb-2 font-semibold">
-              Beskriv lite om jobbet
+          {/* Beskrivning */}
+          <div>
+            <label
+              htmlFor="description"
+              className="block mb-1 font-medium text-gray-700">
+              Beskrivning av jobbet
             </label>
             <textarea
               id="description"
-              className="p-2 bg-gray-200 border border-b-gray-50 w-full
-              shadow shadow-blue-100 focus:bg-yellow-50 rounded"
+              className="p-2 w-full rounded-md border border-gray-300 bg-gray-100 text-gray-900 
+                         shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               name="description"
+              rows={4}
               value={apartment.description}
-              onChange={handleChange}></textarea>
+              onChange={handleChange}
+            />
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="startDate" className="block mb-2 font-semibold">
-              Planerat Start Datum
+          {/* Startdatum */}
+          <div>
+            <label
+              htmlFor="startDate"
+              className="block mb-1 font-medium text-gray-700">
+              Startdatum
             </label>
             <DatePickerComponent
               onChange={(date) => setStartDate(date)}
@@ -113,9 +124,12 @@ function CreateApartmentComponent() {
             />
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="endDate" className="block mb-2 font-semibold">
-              Planerat slut datum
+          {/* Slutdatum */}
+          <div>
+            <label
+              htmlFor="endDate"
+              className="block mb-1 font-medium text-gray-700">
+              Slutdatum
             </label>
             <DatePickerComponent
               onChange={(date) => setEndDate(date)}
@@ -123,19 +137,22 @@ function CreateApartmentComponent() {
             />
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="priority" className="block mb-2 font-semibold">
-              Prioritering
+          {/* Prioritet */}
+          <div>
+            <label
+              htmlFor="priority"
+              className="block mb-1 font-medium text-gray-700">
+              Prioritet
             </label>
             <select
               id="priority"
               name="priority"
-              className="p-2 bg-gray-200 border border-b-gray-50 w-full
-              shadow shadow-blue-100 focus:bg-yellow-50 rounded"
+              className="p-2 w-full rounded-md border border-gray-300 bg-gray-100 text-gray-900 
+                         shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               value={apartment.priority}
               onChange={handleChange}>
               <option value="" disabled hidden>
-                Välj
+                Välj prioritet
               </option>
               {priorityList.map((p, index) => (
                 <option value={p} key={index}>
@@ -145,8 +162,34 @@ function CreateApartmentComponent() {
             </select>
           </div>
 
+          {/* Spara-knapp */}
+          {/* <button
+            className="p-2 w-1/3 bg-indigo-500 text-white font-medium border border-indigo-600 rounded-md 
+                       shadow-sm hover:bg-indigo-600 transition"
+            type="submit">
+            Spara
+          </button>
+
           <button
-            className="p-2 w-1/3  bg-indigo-200  border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-300 transition"
+            className="p-2 w-1/3 bg-purple-200 text-purple-800 font-medium 
+             border border-purple-300 rounded-md shadow-sm 
+             hover:bg-purple-300 transition"
+            type="submit">
+            Spara
+          </button> */}
+{/* 
+          <button
+            className="p-2 w-1/3 bg-gray-200 text-gray-800 font-medium 
+             border border-gray-300 rounded-md shadow-sm 
+             hover:bg-gray-300 transition"
+            type="submit">
+            Spara
+          </button> */}
+
+          <button
+            className="p-2 w-1/3 bg-indigo-100 text-indigo-800 font-medium 
+             border border-indigo-200 rounded-md shadow-sm 
+             hover:bg-indigo-200 transition"
             type="submit">
             Spara
           </button>

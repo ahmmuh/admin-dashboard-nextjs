@@ -150,7 +150,7 @@ function EditTaskClientComponent({ task }) {
         <button
           disabled={!isFormValid()}
           className={`p-2 w-80 bg-indigo-100 text-indigo-800 border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-200 transition`}>
-          Uppdatera
+          Spara
         </button>
       </form>
     </div>

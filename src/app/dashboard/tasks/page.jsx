@@ -30,7 +30,7 @@ function TaskPage() {
       <div className="mb-6">
         <h3 className=" font-bold text-blue-500 flex items-center gap-2">
           <HiOutlineClipboardList className="w-6 h-6" />
-          Alla morgonjobb för {new Date().toDateString("sv-SE")}
+          Alla morgonjobb för {new Date().toLocaleDateString("sv-SE")}
         </h3>
         <p className="text-gray-500 text-md px-6">
           Här visas alla aktuella uppdrag för enheten under dagen.
