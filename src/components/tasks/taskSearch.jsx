@@ -79,8 +79,8 @@ function TaskSearch() {
           description={selectedTask.description}
           status={selectedTask.status}
           assignmentUnit={selectedTask.assignmentUnit}
-          createdAt={selectedTask.createdAt}
-          updatedAt={selectedTask.updatedAt}
+          createdAt={new Date(selectedTask.createdAt).toLocaleString("sv-SE")}
+          updatedAt={new Date(selectedTask.updatedAt).toLocaleString("sv-SE")}
           onClose={() => setIsModalOpen(false)}
         />
       )}

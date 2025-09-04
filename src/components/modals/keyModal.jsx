@@ -2,8 +2,7 @@ import React from "react";
 
 function KeyModal({
   keyLabel,
-  //   keyType,
-  location,
+  unit, // ✅ lagt till unit
   createdAt,
   updatedAt,
   onClose,
@@ -37,14 +36,16 @@ function KeyModal({
               <strong>Status:</strong> Utlånad
             </p>
           )}
+
           {status === "available" && (
             <p className="text-green-500">
               <strong>Status:</strong> Inne
             </p>
           )}
-          {location && (
+
+          {unit && (
             <p>
-              <strong>Plats:</strong> {location}
+              <strong>Plats:</strong> {unit.name || unit}
             </p>
           )}
 
@@ -58,7 +59,7 @@ function KeyModal({
           {status === "available" && (
             <p>
               <strong>Skapad:</strong>{" "}
-              {new Date(createdAt).toLocaleDateString()}
+              {new Date(createdAt).toLocaleDateString("sv-SE")}
             </p>
           )}
         </div>

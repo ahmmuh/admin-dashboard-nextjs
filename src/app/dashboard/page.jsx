@@ -2,10 +2,13 @@
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import LoadingPage from "../loading";
 import { getWeekNumber } from "@/helper/weekNumber";
+import { useState } from "react";
 
 function Dashboard() {
   const { currentUser, loading, error } = useFetchCurrentUser();
   console.log("Loggad user", currentUser);
+
+  const [isProfile, setIsProfile] = useState(false);
 
   if (loading) {
     return <LoadingPage message="Vi hämtar allt åt dig" />;

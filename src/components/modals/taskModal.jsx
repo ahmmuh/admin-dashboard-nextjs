@@ -52,21 +52,21 @@ function TaskModal({
           {status === "Ej påbörjat" && createdAt && (
             <p>
               <strong>Skapad:</strong>{" "}
-              {new Date(createdAt).toLocaleDateString()}
+              {new Date(createdAt).toLocaleString("sv-SE")}
             </p>
           )}
 
           {status === "Påbörjat" && updatedAt && (
             <p>
               <strong> Senast ändrad:</strong>{" "}
-              {new Date(updatedAt).toLocaleDateString()}
+              {new Date(updatedAt).toLocaleString("sv-SE")}
             </p>
           )}
 
           {status === "Färdigt" && updatedAt && (
             <p>
               <strong>Senast ändrad:</strong>{" "}
-              {new Date(updatedAt).toLocaleDateString()}
+              {new Date(updatedAt).toLocaleString("sv-SE")}
             </p>
           )}
         </div>

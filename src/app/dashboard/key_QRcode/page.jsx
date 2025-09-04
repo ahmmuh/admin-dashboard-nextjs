@@ -1,20 +1,40 @@
 "use client";
-import { registerNewKey } from "@/backend/keyAPI";
+import { AddNewKeyWithQrCode, getKeyByID } from "@/backend/keyAPI";
+import { useFetchKeys } from "@/customhook/useFetchKeys";
 import { useFetchUnits } from "@/customhook/useFetchUnits";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 function KeyQRCodePage() {
   const [key, setKey] = useState({
     keyLabel: "",
-    location: "",
-    unit: "", // lägg till unit här
+    unit: "",
   });
 
   const { units } = useFetchUnits();
   const router = useRouter();
+
+  //Key från databasen för att jämföra med den nya key
+  const [foundedKey, setFoundedKey] = useState(null);
+
+  const { keys } = useFetchKeys();
+  async function findKey(keyLabel) {
+    try {
+      if (!keys || !Array.isArray(keys)) return null;
+      for (const k of keys) {
+        if (k.keyLabel === keyLabel) {
+          // jämför med keyLabel istället för ID
+          return k; // hittad key
+        }
+      }
+      return null; // ingen key hittad
+    } catch (error) {
+      console.error("Kunde inte hämta nyckel:", error);
+      return null;
+    }
+  }
 
   // Lyssna på input & select changes
   const changeHandler = (e) => {
@@ -34,15 +54,21 @@ function KeyQRCodePage() {
     }
 
     try {
+      const existingKey = await findKey(key.keyLabel);
+      if (existingKey) {
+        toast.error(`Nyckel med namn: ${existingKey.keyLabel} finns redan`);
+        return;
+      }
       const newKey = {
         keyLabel: key.keyLabel,
-        location: key.location,
-        unit: key.unit,
+        unitId: key.unit,
       };
+
+      findKey();
       console.log("NEW key", newKey);
-      await registerNewKey(newKey);
+      await AddNewKeyWithQrCode(newKey);
       toast.success("Ny nyckel har lagts till");
-      // router.push("/keys");
+      router.push("/dashboard/keys");
     } catch (error) {
       console.error("Error", error.message);
     }
