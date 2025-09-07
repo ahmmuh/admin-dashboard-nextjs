@@ -333,7 +333,7 @@ const KeyDetailComponent = () => {
 
       {isShowForm ? (
         <>
-          <h4 className="text-purple-500 text-2xl mb-4">Låna nyckel</h4>
+          <h4 className="text-blue-500 text-2xl mb-4">Låna nyckel</h4>
 
           <div className="flex flex-col md:flex-row md:items-start md:gap-6 mb-6">
             <select
@@ -345,7 +345,10 @@ const KeyDetailComponent = () => {
               </option>
               {availableKeys?.map((key) => (
                 <option key={key._id} value={key._id}>
-                  {key.keyLabel} – {key.unit?.name || "Ingen enhet"}
+                  {key.keyLabel} –{" "}
+                  {typeof key.unit?.name === "string"
+                    ? key.unit?.name
+                    : "Ingen enhet"}
                 </option>
               ))}
             </select>
@@ -389,7 +392,7 @@ const KeyDetailComponent = () => {
         </>
       ) : (
         <>
-          <h4 className="text-purple-500 text-2xl mb-4">Återlämna nyckel</h4>
+          <h4 className="text-blue-500 text-2xl mb-4">Återlämna nyckel</h4>
 
           <div className="flex flex-col md:flex-row md:items-start md:gap-6 mb-6">
             <select
@@ -401,7 +404,8 @@ const KeyDetailComponent = () => {
               </option>
               {keysWithBorrowedStatus.map((key) => (
                 <option key={key._id} value={key._id}>
-                  {key.keyLabel} – {key.unit?.name || "Ingen enhet"}
+                  {key.keyLabel} –{" "}
+                  {typeof key.unit?.name ? key.unit?.name : "Ingen enhet"}
                 </option>
               ))}
             </select>

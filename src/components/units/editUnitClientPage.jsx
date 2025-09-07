@@ -60,10 +60,10 @@ export default function EditUnitClientPage() {
       <h1 className="text-2xl  mb-4 text-blue-500">Redigera enhet</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-medium">
+          <label className="block font-medium mb-3">
             Namn{" "}
             <span className="text-sm font-normal" style={{ fontSize: 12 }}>
-              t.ex. Enhet Öst 2
+              {unit?.name}
             </span>
           </label>
           <input
@@ -76,10 +76,10 @@ export default function EditUnitClientPage() {
           />
         </div>
         <div>
-          <label className="block font-medium mb-1">
+          <label className="block font-medium mb-3">
             Address{" "}
             <span className="text-sm font-normal" style={{ fontSize: 12 }}>
-              En central address för enheten
+              {unit?.address}
             </span>
           </label>
           <input

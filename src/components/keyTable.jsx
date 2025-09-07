@@ -69,7 +69,7 @@ const KeyTable = ({ keyData, onClick, actionLabel, btnColor, bgColor }) => {
         <tbody>
           <tr className="hover:bg-gray-100">
             <td className="border border-gray-200 p-2">{keyData.keyLabel}</td>
-            <td className="border border-gray-200 p-2">{keyData.unit}</td>
+            <td className="border border-gray-200 p-2">{keyData.unit?.name}</td>
             <td className="border border-gray-200 p-2">
               {keyData.status === "checked-out" ? (
                 <span className="text-red-500 font-bold">Utlånad</span>

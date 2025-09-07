@@ -384,11 +384,11 @@ function KeyLogPage() {
               {uniqueLogs.slice(0, visibleLogs)?.map((log, index) => {
                 const borrowedAt =
                   log.status === "Utlånad"
-                    ? new Date(log.date).toLocaleDateString()
+                    ? new Date(log.borrowedAt).toLocaleString()
                     : "-";
                 const returnedAt =
                   log.status === "Inlämnad"
-                    ? new Date(log.date).toLocaleDateString()
+                    ? new Date(log.returnedAt).toLocaleString()
                     : "-";
 
                 return (
@@ -396,8 +396,16 @@ function KeyLogPage() {
                     <td className="border p-1">🔑 {log.keyLabel}</td>
                     <td className="border p-1">{log.unit || "-"}</td>
                     <td className="border p-1">{log.borrower}</td>
-                    <td className="border p-1">{borrowedAt}</td>
-                    <td className="border p-1">{returnedAt}</td>
+                    <td className="border p-1">
+                      {borrowedAt
+                        ? new Date(borrowedAt).toLocaleString("sv-SE")
+                        : "_"}
+                    </td>
+                    <td className="border p-1">
+                      {returnedAt
+                        ? new Date(returnedAt).toLocaleString("sv-SE")
+                        : "_"}
+                    </td>
                     <td className="border p-1">{log.status}</td>
                   </tr>
                 );

@@ -245,15 +245,27 @@ function KeyPage() {
   const { currentUser, loading } = useFetchCurrentUser();
   const [keyLoading, setKeyLoading] = useState(true);
 
+  // const checkInHandler = async (key) => {
+  //   const userId = key.lastBorrowedBy;
+  //   try {
+  //     await checkinKey(userId, key._id);
+  //     await fetchKeys();
+  //     toast.success("Nyckeln har återlämnats");
+  //   } catch (error) {
+  //     console.error("Error", error);
+  //     toast.error("Något har gått fel");
+  //   }
+  // };
+
   const checkInHandler = async (key) => {
-    const userId = key.lastBorrowedBy;
+    const userId = key.borrowedBy?._id || key.borrowedBy; // riktig låntagare
     try {
       await checkinKey(userId, key._id);
       await fetchKeys();
       toast.success("Nyckeln har återlämnats");
     } catch (error) {
       console.error("Error", error);
-      toast.error("Något har gått fel");
+      toast.error(error.response?.data?.message || "Något har gått fel");
     }
   };
 

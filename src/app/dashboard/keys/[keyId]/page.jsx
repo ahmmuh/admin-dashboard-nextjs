@@ -247,16 +247,16 @@ function EditKey() {
     }
   };
 
-  // useEffect(() => {
-  //   if (keyId) {
-  //     setKey((prevKey) => ({
-  //       ...prevKey,
-  //       keyLabel: key.keyLabel,
-  //       unit: key.unit,
-  //       updatedAt: new Date().toLocaleDateString(),
-  //     }));
-  //   }
-  // }, [keyId]);
+  useEffect(() => {
+    if (keyId) {
+      setKey((prevKey) => ({
+        ...prevKey,
+        keyLabel: key.keyLabel,
+        unit: key.unit,
+        updatedAt: new Date().toLocaleDateString(),
+      }));
+    }
+  }, [keyId]);
 
   useEffect(() => {
     if (keyId) {
@@ -308,7 +308,7 @@ function EditKey() {
             <input
               className="p-2 w-full border border-b-3 border-b-orange-500"
               name="unit"
-              value={key.unit?._id || ""}
+              value={key.unit?.name || ""}
               placeholder="Vilken enhet"
               onChange={changeHandler}
             />
