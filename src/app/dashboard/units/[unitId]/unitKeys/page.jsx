@@ -44,7 +44,7 @@ function UnitKeys() {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl text-blue-700 mb-8 border-b pb-2">
+      <h1 className="text-3xl text-blue-500 mb-8 border-b pb-2">
         Nycklar för: {unit?.name}
       </h1>
       <KeySearch />
@@ -76,7 +76,7 @@ function UnitKeys() {
             </div>
           ))
         ) : (
-          <p className="text-gray-500">Inga nycklar registrerade.</p>
+          <p className="text-gray-500">Inga nycklar registrerades.</p>
         )}
       </div>
     </div>

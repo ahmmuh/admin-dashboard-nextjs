@@ -37,7 +37,7 @@ function SpecialistPage({ params }) {
 
   if (specialists.length === 0)
     return (
-      <p className="text-red-600">
+      <p className="text-red-600 text-2xl">
         Det finns inga specialister för denna enhet
       </p>
     );

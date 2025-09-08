@@ -52,7 +52,7 @@ function UnitTasksPage() {
 
   return (
     <div className="mx-auto p-3">
-      <h2 className="text-2xl font-bold text-purple-700 mb-2 border-b pb-2">
+      <h2 className="text-2xl font-bold text-blue-500 mb-2 border-b pb-2">
         Uppgifter för enhet: {unit?.name}
       </h2>
 
@@ -104,7 +104,7 @@ function UnitTasksPage() {
           ))}
         </ul>
       ) : (
-        <p className="text-gray-500">
+        <p className="text-gray-500 px-10">
           Inga uppgifter hittades för denna enhet.
         </p>
       )}

@@ -57,7 +57,9 @@ function UnitPage({ params }) {
   if (units.length === 0)
     return (
       <div className="flex justify-center items-center">
-        <p>Det finns inga ENHETER att visa just nu.</p>
+        <p className="text-2xl text-blue-500">
+          Det finns inga enheter att visa just nu.
+        </p>
       </div>
     );
 

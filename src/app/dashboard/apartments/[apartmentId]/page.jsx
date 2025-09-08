@@ -88,8 +88,8 @@ function ApartmentDetail({ params }) {
         </div>
       )}
 
-      {apartment.status === "Påbörjat" && apartment.status === "Färdigt" && (
-        <div className="mt-6 text-sm text-gray-500">
+      {["Påbörjat", "Färdigt"].includes(apartment.status) && (
+        <div className="mt-6 text-md text-gray-500">
           <p>
             Senast ändrad:{" "}
             {new Date(apartment.updatedAt).toLocaleString("sv-SE")}

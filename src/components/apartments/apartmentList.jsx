@@ -31,7 +31,6 @@ function ApartmentList({ apartments: initialApartments }) {
   if (loading) {
     return <LoadingPage />;
   }
-
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}

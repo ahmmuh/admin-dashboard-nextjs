@@ -40,13 +40,18 @@ function ChefPage({ params }) {
   );
 
   if (!filterUser || filterUser.length === 0) {
-    return <p className="text-red-600">Det finns ingen chef för denna enhet</p>;
+    return (
+      <p className="text-red-600 text-2xl">
+        Det finns ingen chef för denna enhet
+      </p>
+    );
   }
 
   const chef = filterUser[0];
 
   return (
     <PersonList
+      unit={unit?.name}
       name={chef.name}
       phone={chef.phone || "Ingen telefon"}
       email={chef.email || "Ingen e-post"}

@@ -1,16 +1,13 @@
 "use client";
 import React from "react";
 
-function PersonList({ name, phone, email, role, children, ...props }) {
+function PersonList({ unit, name, phone, email, role, children, ...props }) {
   return (
-    <ul className="flex flex-col mt-4 sm:w-full" {...props}>
+    <ul className="flex flex-col  sm:w-full" {...props}>
+      {unit && <h4 className="text-2xl text-blue-500">Chef på {unit} </h4>}
       <li className="p-4 border rounded-lg shadow-sm">
         <article>
-          {name && (
-            <h4 className="text-2xl text-purple-700 font-semibold">
-              Namn: {name}
-            </h4>
-          )}
+          {name && <h6 className=" text-gray-700 font-medium">Namn: {name}</h6>}
           {phone && (
             <p className="text-gray-700 font-medium"> Telefon: {phone}</p>
           )}
