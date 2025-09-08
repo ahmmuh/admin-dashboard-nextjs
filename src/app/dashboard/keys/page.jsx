@@ -238,6 +238,7 @@ import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { HiOutlinePlus } from "react-icons/hi";
 
 function KeyPage() {
   const [error, setError] = useState(null);
@@ -309,6 +310,7 @@ function KeyPage() {
           <Link
             className="text-green-800 flex items-center gap-3 mb-4"
             href={"/dashboard/key_QRcode"}>
+            <HiOutlinePlus className="w-5 h-5" />
             Lägg till nyckel
           </Link>
         )}
@@ -392,11 +394,17 @@ function KeyPage() {
                         </Link>
                       )}
                       {key.status === "checked-out" && (
-                        <button
-                          className="text-red-500"
-                          onClick={() => checkInHandler(key)}>
-                          Återlämna
-                        </button>
+                        // <button
+                        //   className="text-red-500"
+                        //   onClick={() => checkInHandler(key)}>
+                        //   Återlämna
+                        // </button>
+
+                        <Link
+                          className="text-green-500"
+                          href={`/dashboard/keys/${key._id}/borrow`}>
+                          Lämna in
+                        </Link>
                       )}
                     </td>
                   )}

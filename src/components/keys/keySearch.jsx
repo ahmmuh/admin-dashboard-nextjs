@@ -149,7 +149,9 @@ function KeySearch() {
             onClick={() => handleKeyClick(key)}
             className="border-b border-purple-600 pb-3 cursor-pointer hover:bg-gray-100 px-2">
             🔑 <strong className="text-blue-600">{key.keyLabel}</strong>{" "}
-            <span className="text-sm text-gray-500">({key.unit})</span>
+            <span className="text-sm text-gray-500">
+              {key?.unit?.name || "Denna nyckel tillhör ingenstans"}
+            </span>
           </li>
         ))}
       </ul>
@@ -161,7 +163,7 @@ function KeySearch() {
       {isModalOpen && selectedKey && (
         <KeyModal
           keyLabel={selectedKey.keyLabel}
-          unit={selectedKey.unit} // Endast unit
+          unit={selectedKey.unit}
           status={selectedKey.status}
           createdAt={selectedKey.createdAt}
           updatedAt={selectedKey.updatedAt}

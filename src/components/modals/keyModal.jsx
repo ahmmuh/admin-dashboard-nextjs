@@ -45,7 +45,7 @@ function KeyModal({
 
           {unit && (
             <p>
-              <strong>Plats:</strong> {unit.name || unit}
+              <strong>Plats:</strong> {unit?.name || ""}
             </p>
           )}
 
