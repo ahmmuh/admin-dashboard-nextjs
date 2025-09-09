@@ -37,7 +37,7 @@ function TaskPage() {
           Alla morgonjobb för {new Date().toLocaleDateString("sv-SE")}
         </h3>
         <p className="text-gray-500 text-md px-6">
-          Här visas alla aktuella uppdrag för enheten under dagen.
+          Här visas alla aktuella uppdrag för samtliga enheter under dagen.
         </p>
       </div>
 

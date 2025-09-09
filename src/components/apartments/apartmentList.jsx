@@ -121,7 +121,7 @@ function ApartmentList({ apartments: initialApartments }) {
               </li>
 
               {/* Action buttons */}
-              <div className="flex gap-3 mt-4 flex-wrap">
+              <div className="flex justify-start items-center  gap-3 mt-4 flex-wrap">
                 {currentUser.role?.some(
                   (r) =>
                     r === "Avdelningschef" ||
@@ -153,6 +153,12 @@ function ApartmentList({ apartments: initialApartments }) {
                     Ta bort
                   </button>
                 )}
+
+                <Link
+                  className="bg-blue-200 w-20 p-2 text-center"
+                  href={`/dashboard/apartments/${apartment._id}`}>
+                  Visa mer
+                </Link>
               </div>
             </ul>
           </div>
