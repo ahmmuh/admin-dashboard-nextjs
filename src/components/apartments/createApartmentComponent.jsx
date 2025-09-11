@@ -51,7 +51,7 @@ function CreateApartmentComponent() {
   return (
     <div className="mb-10">
       <Toaster />
-      <h3 className="text-blue-600 font-bold text-2xl">Skapa ny flyttstäd</h3>
+      <h3 className="text-blue-600  text-2xl">Ny flyttstäd</h3>
 
       <div className="flex flex-col mt-6 pr-20">
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -60,7 +60,7 @@ function CreateApartmentComponent() {
             <label
               htmlFor="apartmentLocation"
               className="block mb-1 font-medium text-gray-700">
-              Adress till lägenheten
+              Adress till bostaden (lägenhet/villa/rum)
             </label>
             <input
               id="apartmentLocation"

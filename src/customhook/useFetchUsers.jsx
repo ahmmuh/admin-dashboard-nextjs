@@ -23,5 +23,5 @@ export const useFetchUsers = () => {
     fetchUsers();
   }, []);
 
-  return { users, loading, error };
+  return { users, fetchUsers, loading, error };
 };

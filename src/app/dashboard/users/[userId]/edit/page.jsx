@@ -5,6 +5,7 @@ import { getUnits, updateUser } from "@/backend/api";
 import { getUserById } from "@/backend/userAPI";
 import MainInput from "@/components/input";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
+import { useFetchUsers } from "@/customhook/useFetchUsers";
 import { displaySuccessMessage } from "@/helper/toastAPI";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -31,7 +32,7 @@ function UserProfile() {
   const [user, setUser] = useState(null);
   const [userRole, setUserRole] = useState(false);
   const [userEnhet, setUserEnhet] = useState(false);
-
+  const { fetchUsers } = useFetchUsers();
   const { currentUser } = useFetchCurrentUser();
 
   // Hämta användare
@@ -86,7 +87,9 @@ function UserProfile() {
         role: user.role,
         unit: user?.unit,
       };
-      await updateUser(userId, userInfo);
+      if (userInfo) await updateUser(userId, userInfo);
+      await fetchUnits();
+      await fetchUsers();
       displaySuccessMessage("Användaren uppdaterats");
       router.push("/dashboard/users");
     } catch (error) {
@@ -242,7 +245,47 @@ function UserProfile() {
                     id="unit"
                     name="unit"
                     value={user?.unit || ""}
-                    onChange={changeHandler}
+                    onChange={changeHandler} // bara uppdaterar unit
+                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                    <option value="" disabled>
+                      -- Välj enhet --
+                    </option>
+                    {units.map((u) => (
+                      <option key={u._id} value={u._id}>
+                        {u.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* UI-varning */}
+                  {user?.unit &&
+                    units
+                      .find((u) => u._id === user.unit)
+                      ?.users?.some((u) =>
+                        Array.isArray(u.role)
+                          ? u.role.includes("Enhetschef")
+                          : u.role === "Enhetschef"
+                      ) && (
+                      <p className="text-sm text-orange-600 mt-1">
+                        ⚠️ Enheten har redan en enhetschef
+                      </p>
+                    )}
+
+                  {/* <select
+                    id="unit"
+                    name="unit"
+                    value={user?.unit || ""}
+                    onChange={(e) => {
+                      const selectedUnit = units.find(
+                        (u) => u._id === e.target.value
+                      );
+                      if (selectedUnit.role.includes("Enhetschef")) {
+                        alert(
+                          `OBS: den valda enheten ${selectedUnit?.name} har redan enhetschef`
+                        );
+                      }
+                      changeHandler(e);
+                    }}
                     className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     <option value="" disabled>
                       -- Välj enhet --
@@ -253,7 +296,7 @@ function UserProfile() {
                           {u.name}
                         </option>
                       ))}
-                  </select>
+                  </select> */}
                 </div>
               )}
             </div>
@@ -271,3 +314,5 @@ function UserProfile() {
 }
 
 export default UserProfile;
+
+//changeHandler

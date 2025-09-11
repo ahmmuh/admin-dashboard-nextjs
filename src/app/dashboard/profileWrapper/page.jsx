@@ -19,7 +19,7 @@ function ProfileModal() {
 
       {isProfile && (
         <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4 flex flex-col gap-3 z-50">
-          <span className="font-semibold text-gray-800">
+          <span className="text-sm text-gray-800">
             Inloggad som {currentUser?.name || "Inloggad användare"}
           </span>
           <LogoutButton className="w-full" />
