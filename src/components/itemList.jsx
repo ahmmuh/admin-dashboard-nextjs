@@ -24,11 +24,12 @@ function ItemList({
           <article>
             <h4 className=" text-purple-700 font-semibold">{title}</h4>
             {name && <p className="text-gray-700 font-medium">{name}</p>}
+            <p>Tilldelad: {task?.unit?.name}</p>
+
+            <p className="text-gray-600">{description}</p>
             {location && (
               <p classlocation="text-gray-700 font-medium ">{location}</p>
             )}
-
-            <p className="text-gray-600">{description}</p>
 
             <div>
               {status === "Ej påbörjat" && (

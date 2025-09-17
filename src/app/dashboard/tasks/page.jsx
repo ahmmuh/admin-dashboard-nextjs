@@ -15,7 +15,6 @@ import {
   HiOutlineShoppingCart,
   HiPlus,
 } from "react-icons/hi";
-import { getWeekNumber } from "@/helper/weekNumber";
 function TaskPage() {
   const { currentUser } = useFetchCurrentUser();
   const { tasks, loading } = useFetchTask();
@@ -24,6 +23,8 @@ function TaskPage() {
   if (loading) {
     return <LoadingPage message="Laddar uppgifer ...." />;
   }
+
+  console.log("ALLA MORGONJOBB: ", tasks);
 
   const isManager =
     currentUser?.role?.includes("Avdelningschef") ||
