@@ -28,7 +28,7 @@ export function useFetchTask() {
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [fetchTasks]);
 
   return { tasks, fetchTasks, loading, error };
 }

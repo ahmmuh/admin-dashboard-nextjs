@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import LoadingPage from "@/app/loading";
 
-function TaskActions({ task }) {
+function TaskActions({ task, fetchTasks }) {
   const router = useRouter();
   const { currentUser, loading } = useFetchCurrentUser();
 
@@ -23,7 +23,8 @@ function TaskActions({ task }) {
       }
 
       displayErrorMessage("Uppgiften har tagits bort");
-      router.push(`/dashboard/tasks`);
+      await fetchTasks();
+      // router.push(`/dashboard/tasks`);
     } catch (error) {
       console.error(
         `Fel vid borttagning av task med ID ${id}: ${error.message}`

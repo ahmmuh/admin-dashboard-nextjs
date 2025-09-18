@@ -8,6 +8,7 @@ import React, { useState } from "react";
 
 function NewUserPage() {
   const router = useRouter();
+  const [error, setError] = useState("");
 
   const [user, setUser] = useState({
     name: "",
@@ -31,10 +32,16 @@ function NewUserPage() {
       await signUp(user);
       displaySuccessMessage("Registrering lyckades");
       router.push("/dashboard/");
-    } catch (error) {
-      console.error("Registrering misslyckades", error);
+    } catch (err) {
+      console.error("Registrering misslyckades", err);
+      setError(err.message || "Något gick fel");
+      return;
     }
   };
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
 
   return (
     <div className=" flex items-center justify-center bg-gray-100 px-4">
@@ -42,7 +49,6 @@ function NewUserPage() {
         <h2 className="text-xl font-semibold text-center mb-4 text-gray-800">
           Läg till ny användare
         </h2>
-
         <form onSubmit={SignUpHandler} className="space-y-4">
           <MainInput
             className="w-full p-2 border border-gray-300 rounded-md"

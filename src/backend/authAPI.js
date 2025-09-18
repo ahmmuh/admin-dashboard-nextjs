@@ -11,13 +11,14 @@ export const signUp = async (user) => {
 
       body: JSON.stringify(user),
     });
-    if (!res.ok) {
-      throw new Error("Failed to register new user");
-    }
     const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Kunde inte registrera ny användare");
+    }
     return data;
   } catch (error) {
-    throw new Error(`Serverfel ${error.message}`);
+    throw new Error(error.message);
   }
 };
 

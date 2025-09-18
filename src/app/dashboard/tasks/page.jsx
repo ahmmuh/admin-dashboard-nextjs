@@ -17,7 +17,7 @@ import {
 } from "react-icons/hi";
 function TaskPage() {
   const { currentUser } = useFetchCurrentUser();
-  const { tasks, loading } = useFetchTask();
+  const { tasks, fetchTasks, loading } = useFetchTask();
   const [searchValue, setSearchValue] = useState("");
 
   if (loading) {
@@ -77,7 +77,7 @@ function TaskPage() {
               updatedAt={task.updatedAt}
               createdAt={task.createdAt}
               status={task.status}>
-              {<TaskActions task={task} />}
+              {<TaskActions task={task} fetchTasks={fetchTasks} />}
             </ItemList>
           ))}
       </div>
