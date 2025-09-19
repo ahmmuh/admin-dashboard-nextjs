@@ -10,12 +10,14 @@ import {
 } from "react-icons/hi";
 import { displayErrorMessage } from "@/helper/toastAPI";
 import SearchApartment from "./searchApartment";
-import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
-import LoadingPage from "@/app/loading";
 
-function ApartmentList({ apartments: initialApartments }) {
+function ApartmentList({ currentUser, apartments: initialApartments }) {
   const [apartments, setApartments] = useState(initialApartments);
-  const { currentUser, loading } = useFetchCurrentUser();
+  // const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    console.log("Vi tittatr på currentUser i Apartmentlist", currentUser);
+  }, []);
 
   useEffect(() => {
     setApartments(initialApartments);
@@ -28,15 +30,12 @@ function ApartmentList({ apartments: initialApartments }) {
     displayErrorMessage("Lägenhet har tagits bort");
   };
 
-  if (loading) {
-    return <LoadingPage />;
-  }
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
       <h3 className="text-blue-600  text-2xl">Alla flyttstäd</h3>
 
-      <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start">
+      {/* <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start">
         {currentUser.role?.some(
           (r) =>
             r === "Avdelningschef" ||
@@ -50,7 +49,7 @@ function ApartmentList({ apartments: initialApartments }) {
             <span>Skapa flyttstäd</span>
           </Link>
         )}
-      </div>
+      </div> */}
 
       {/* Search */}
       <div className="hidden md:block mb-6">
@@ -71,7 +70,7 @@ function ApartmentList({ apartments: initialApartments }) {
           apartments.length > 5 ? "overflow-y-auto max-h-[500px]" : ""
         }`}>
         {apartments &&
-          apartments?.map((apartment) => (
+          apartments.map((apartment) => (
             <div
               key={apartment._id}
               className="border border-b-2 p-5 bg-gray-50 rounded-md shadow-sm">

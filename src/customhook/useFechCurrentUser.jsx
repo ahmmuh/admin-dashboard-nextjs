@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { getCurrentUser } from "@/backend/authAPI";
+import LoadingPage from "@/app/loading";
 
 export function useFetchCurrentUser() {
-  const [currentUser, setUser] = useState({});
+  const [currentUser, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
