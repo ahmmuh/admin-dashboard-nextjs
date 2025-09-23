@@ -35,7 +35,7 @@ function Dashboard() {
       <h2 className="text-2xl px-10 italic ">
         <p>Vecka {getWeekNumber()}</p>
         Välkommen {currentUser.name}{" "}
-        <span className="text-sm block">({currentUser.role})</span>
+        <span className="text-sm block">({currentUser.role.join(" || ")})</span>
       </h2>
     </>
   );
