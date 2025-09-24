@@ -9,7 +9,7 @@ import { useFetchUsers } from "@/customhook/useFetchUsers";
 import { displaySuccessMessage } from "@/helper/toastAPI";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { HiTrash } from "react-icons/hi";
+import { HiStop, HiTrash } from "react-icons/hi";
 
 // function UserProfile() {
 //   const params = useParams();

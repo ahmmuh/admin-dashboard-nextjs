@@ -42,9 +42,21 @@ function TaskActions({ task, fetchTasks }) {
   const isManager =
     currentUser?.role?.includes("Avdelningschef") ||
     currentUser?.role?.includes("Områdeschef");
+
+  //Visa uppdate knapp för inloggade användare om task.unit === currentUser.unit
+
+  console.log(
+    "task.unit._id === currentUser?.unit: ",
+    task.unit._id,
+    currentUser?.unit
+  );
+
+  const canEdit = task.unit._id.toString() === currentUser?.unit?.toString();
+
+  console.log("Can Edit", canEdit);
   return (
     <div className="flex items-center gap-4 mt-2">
-      {task && currentUser && (
+      {task && canEdit && (
         <>
           {/* Uppdatera-knapp */}
           <Link
