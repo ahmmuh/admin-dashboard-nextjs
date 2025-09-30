@@ -7,9 +7,13 @@ function MainInput({
   placeholder,
   changeHandler,
   className,
+  minLength,
+  maxLength,
+  exactLengthError,
   id,
   value,
 }) {
+  const valueLength = value ? value.toString().length : "";
   return (
     <div className="mb-4">
       {label && (
@@ -23,8 +27,17 @@ function MainInput({
         value={value}
         placeholder={placeholder}
         onChange={changeHandler}
+        {...(minLength ? { minLength } : {})}
+        {...(maxLength ? { maxLength } : {})}
+        // disabled={maxLength > 4 || minLength < 4}
         className={className}
       />
+
+      {exactLengthError && valueLength && valueLength !== 4 && (
+        <p className="text-red-500 text-sm mt-1">
+          Koden för att stämpla in/ut måste vara exakt 4 siffror.
+        </p>
+      )}
     </div>
   );
 }

@@ -1,12 +1,11 @@
 "use client";
-
 import LoadingPage from "@/app/loading";
 import { getUnits, updateUser } from "@/backend/api";
 import { getUserById } from "@/backend/userAPI";
 import MainInput from "@/components/input";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import { useFetchUsers } from "@/customhook/useFetchUsers";
-import { displaySuccessMessage } from "@/helper/toastAPI";
+import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { HiStop, HiTrash } from "react-icons/hi";
@@ -318,6 +317,8 @@ import { HiStop, HiTrash } from "react-icons/hi";
 //changeHandler
 
 function UserProfile() {
+  //Error
+  const [lastFourError, setLastFourError] = useState("");
   const params = useParams();
   const userId = params.userId;
 
@@ -346,6 +347,11 @@ function UserProfile() {
     try {
       const foundUser = await getUserById(userId);
       if (!foundUser) return;
+      if (!foundUser.lastFour) {
+        setLastFourError("Användaren saknar kod för stämpling (lastFour).");
+      } else {
+        setLastFourError(""); // rensa om den finns
+      }
       setUser({
         ...foundUser,
         unit: foundUser.unit?._id || foundUser.unit || "",
@@ -385,25 +391,45 @@ function UserProfile() {
 
   const updateUserProfile = async (e) => {
     e.preventDefault();
+    setLastFourError(""); // rensa tidigare fel
+
     try {
       const userInfo = {
         name: user.name,
         email: user.email,
         phone: user.phone,
         username: user.username,
+        lastFour: user.lastFour,
         role: showRole ? user.role : [],
         unit: showUnit ? user.unit : null,
       };
+
+      // Lägg bara till roll om användaren redan har någon eller om showRole är true
+      if (showRole || (user.role && user.role.length > 0)) {
+        userInfo.role = user.role;
+      }
+
+      // Lägg bara till enhet om användaren redan har en enhet eller om showUnit är true
+      if (showUnit || user.unit) {
+        userInfo.unit = user.unit;
+      }
+
       await updateUser(userId, userInfo);
       await fetchUnits();
       await fetchUsers();
       displaySuccessMessage("Användaren uppdaterats");
       router.push("/dashboard/users");
+      console.log("Uppdaterad användare: ", user);
     } catch (err) {
-      console.error("Uppdatering misslyckades", err);
+      const msg = err.response?.data?.message || "Uppdatering misslyckades";
+      if (msg && msg.toLowerCase().includes("redan")) {
+        setLastFourError(msg);
+      } else {
+        displayErrorMessage(msg);
+      }
+      console.log(err.message);
     }
   };
-
   if (loadingUser || loading) return <LoadingPage />;
   if (error)
     return (
@@ -418,7 +444,6 @@ function UserProfile() {
         <h3 className="text-2xl mb-6 text-blue-500 border border-b-2 border-b-blue-200 pb-3">
           Uppdatera följande användare
         </h3>
-
         {user && (
           <form onSubmit={updateUserProfile} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -458,6 +483,28 @@ function UserProfile() {
                 changeHandler={handleChange}
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
+              {/* Kod för att kunna stämpla in/ut */}
+
+              <MainInput
+                type="text"
+                name="lastFour"
+                label="Kod för att kunna stämpla in/ut"
+                value={user.lastFour || ""}
+                minLength={4}
+                maxLength={4}
+                exactLengthError={true}
+                changeHandler={(e) => {
+                  const { name, value } = e.target;
+                  // Tillåt endast siffror och max 4 tecken
+                  if (/^\d{0,4}$/.test(value)) {
+                    setUser((prev) => ({ ...prev, [name]: value }));
+                  }
+                }}
+                className="w-full p-2 border border-gray-300 rounded-md"
+              />
+              {lastFourError && (
+                <p className="text-sm text-red-600 mt-1">{lastFourError}</p>
+              )}
 
               {/* Knappar för att visa roll och enhet */}
               <div className="col-span-2 flex gap-3">

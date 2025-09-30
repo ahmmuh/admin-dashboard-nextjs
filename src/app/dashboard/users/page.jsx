@@ -102,6 +102,7 @@ function UserPage() {
                 <th className="text-left px-4 py-2 border-b">E-post</th>
                 <th className="text-left px-4 py-2 border-b">Telefon</th>
                 <th className="text-left px-4 py-2 border-b">Roll</th>
+                <th className="text-left px-4 py-2 border-b">In/ut</th>
                 <th className="text-left px-4 py-2 border-b">Enhet</th>
                 {isManager && (
                   <th className="text-left px-4 py-2 border-b">Åtgärder</th>
@@ -120,6 +121,9 @@ function UserPage() {
                         {r}
                       </span>
                     ))}
+                  </td>
+                  <td className="px-4 py-2 border-b">
+                    {user?.lastFour || "-"}
                   </td>
                   <td className="px-4 py-2 border-b">
                     {user.unit?.name || "-"}
