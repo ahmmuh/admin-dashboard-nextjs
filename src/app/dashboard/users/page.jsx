@@ -15,6 +15,10 @@ import LoadingPage from "@/app/loading";
 import { deleteUser } from "@/backend/userAPI";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
+import TimeReportPage from "../timeReporting/page";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { faClockFour } from "@fortawesome/free-regular-svg-icons";
 
 function UserPage() {
   const { users, loading, error } = useFetchUsers();
@@ -69,14 +73,29 @@ function UserPage() {
     <div className="p-6">
       <h1 className="text-2xl text-blue-500 mb-6">Användaröversikt</h1>
 
-      {isManager && (
-        <Link
-          href="/dashboard/users/create"
-          className="flex items-center gap-1 text-green-800 hover:text-green-900">
-          <HiOutlinePlus className="w-5 h-5" />
-          Ny användare
-        </Link>
-      )}
+      <div className="flex gap-x-6">
+        <div className="hover:underline">
+          {userList && (
+            <Link
+              className="flex items-center gap-1 text-blue-800 hover:text-blue-900"
+              href={"/dashboard/timeReporting"}>
+              <FontAwesomeIcon icon={faClockFour} className="h-5 w-5" />
+              Närvaro och tider
+            </Link>
+          )}
+        </div>
+
+        <div className="hover:underline">
+          {isManager && (
+            <Link
+              href="/dashboard/users/create"
+              className="flex items-center gap-1 text-green-800 hover:text-green-900">
+              <HiOutlinePlus className="w-5 h-5" />
+              Ny användare
+            </Link>
+          )}
+        </div>
+      </div>
 
       <div className="hidden md:block mt-6">
         <SearchUser />

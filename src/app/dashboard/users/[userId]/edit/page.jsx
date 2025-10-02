@@ -319,6 +319,7 @@ import { HiStop, HiTrash } from "react-icons/hi";
 function UserProfile() {
   //Error
   const [lastFourError, setLastFourError] = useState("");
+  const [clocks, setClocks] = useState([]);
   const params = useParams();
   const userId = params.userId;
 
@@ -342,11 +343,16 @@ function UserProfile() {
   const { fetchUsers } = useFetchUsers();
   const { currentUser } = useFetchCurrentUser();
 
+  console.log("TEEEEEEEEST");
+
   // Hämta användare
   const fetchUser = async () => {
     try {
-      const foundUser = await getUserById(userId);
-      if (!foundUser) return;
+      const data = await getUserById(userId);
+      if (!data?.user) return;
+      console.log("Fetched user i user profile:", data);
+
+      const foundUser = data.user;
       if (!foundUser.lastFour) {
         setLastFourError("Användaren saknar kod för stämpling (lastFour).");
       } else {
@@ -357,6 +363,9 @@ function UserProfile() {
         unit: foundUser.unit?._id || foundUser.unit || "",
         role: Array.isArray(foundUser.role) ? foundUser.role : [],
       });
+      setClocks(data.clocks || []);
+
+      console.log("USER CLOCK POSTER", data.clocks);
       setUserLoading(false);
     } catch (err) {
       setError(err.message || "Kunde inte hämta användare");

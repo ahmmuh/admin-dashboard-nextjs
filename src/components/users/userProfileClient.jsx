@@ -15,7 +15,7 @@ function UserProfileClientComponent() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">Användaröversikt</h1>
+      <h1 className="text-2xl font-semibold mb-6">Användaröversikt </h1>
 
       {loading && <LoadingPage message="Vi hämtar din profil..." />}
       {error && (
