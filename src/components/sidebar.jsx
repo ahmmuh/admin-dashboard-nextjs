@@ -6,6 +6,7 @@ import {
   faBuilding,
   faCity,
   faClock,
+  faGear,
   faPlus,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
@@ -71,6 +72,11 @@ const Sidebar = () => {
       href: "/clocks",
       label: "Stämpla in/ut",
       icon: <FontAwesomeIcon icon={faClock} className="w-5 h-5" />,
+    },
+    {
+      href: "/dashboard/machines",
+      label: "Maskiner",
+      icon: <FontAwesomeIcon icon={faGear} className="w-5 h-5" />,
     },
   ];
 
