@@ -1,6 +1,15 @@
 "use client";
 import { getWeekNumber } from "@/helper/weekNumber";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBuilding,
+  faCity,
+  faClock,
+  faPlus,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
+
 import { usePathname } from "next/navigation";
 import {
   HiOutlineClock,
@@ -49,7 +58,19 @@ const Sidebar = () => {
     {
       href: "/dashboard/users",
       label: "Medarbetare",
-      icon: <HiOutlineUserGroup className="w-5 h-5" />,
+      icon: <FontAwesomeIcon icon={faUsers} className="w-5 h-5" />,
+    },
+
+    {
+      href: "/dashboard/workplaces",
+      label: "Arbetsplatser",
+      icon: <FontAwesomeIcon icon={faCity} className="w-5 h-5" />,
+    },
+
+    {
+      href: "/clocks",
+      label: "Stämpla in/ut",
+      icon: <FontAwesomeIcon icon={faClock} className="w-5 h-5" />,
     },
   ];
 
