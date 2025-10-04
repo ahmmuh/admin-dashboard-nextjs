@@ -10,7 +10,7 @@ function TimeReportPage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  if (loading) return <LoadingPage message="Hämtar användare..." />;
+  if (loading) return <LoadingPage message="Hämtar tidrapport" />;
   if (error) return <p className="text-red-600">Fel: {error.message}</p>;
   if (!users || users.length === 0) return <p>Inga användare hittades.</p>;
 

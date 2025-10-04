@@ -25,7 +25,7 @@ export const getMachines = async () => {
     console.log("Maskiner:", data);
     return data || [];
   } catch (error) {
-    console.error("Fel vid hämtning av maskiner:", error.message);
+    // console.error("Fel vid hämtning av maskiner:", error.message);
     return null;
   }
 };
@@ -37,7 +37,7 @@ export const getMachineById = async (machineId) => {
     console.log("Hämtad maskin:", data);
     return data;
   } catch (error) {
-    console.error("Fel vid hämtning av maskin:", error.message);
+    // console.error("Fel vid hämtning av maskin:", error.message);
     return null;
   }
 };

@@ -167,7 +167,7 @@ export default function WorkPlacePage() {
               {/* Visar tilldelade användare */}
               {wp.cleaners && wp.cleaners.length > 0 ? (
                 <div className="mt-2">
-                  <strong>Tilldelade användare:</strong>
+                  <strong>Här jobbar:</strong>
                   <ul className="mt-1  bg-gray-200 p-4">
                     {wp.cleaners.map((user) => (
                       <li
