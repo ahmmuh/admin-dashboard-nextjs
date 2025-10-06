@@ -101,6 +101,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGears } from "@fortawesome/free-solid-svg-icons";
 import LoadingPage from "@/app/loading";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
+import { HiPlus } from "react-icons/hi";
 
 export default function MachinePage() {
   const { machines, loading, error, removeMachine } = useFetchMachines();
@@ -127,10 +128,18 @@ export default function MachinePage() {
 
   if (!machines || machines.length === 0)
     return (
-      <p className="text-gray-500 flex items-center gap-2">
-        <FontAwesomeIcon icon={faGears} className="h-5 w-5" /> Inga maskiner att
-        visa just nu.
-      </p>
+      <div>
+        <Link
+          className="text-green-800  flex items-center gap-3 mb-3"
+          href={"/dashboard/machines/create"}>
+          <HiPlus />
+          <span>Lägg till ny maskin</span>
+        </Link>
+        <p className="text-gray-500 flex items-center gap-2">
+          <FontAwesomeIcon icon={faGears} className="h-5 w-5" /> Inga maskiner
+          att visa just nu.
+        </p>
+      </div>
     );
 
   return (
