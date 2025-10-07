@@ -19,8 +19,8 @@ function ItemList({
   return (
     <>
       {/* {loading && <div>Loading ...</div>} */}
-      <ul className="flex flex-col my-6 " {...props}>
-        <li className="p-4 border rounded-lg shadow-sm  hover:bg-purple-50 cursor-pointer">
+      <ul className="bg-white flex flex-col my-6 " {...props}>
+        <li className="p-4 border rounded-lg shadow-sm  hover:bg-gray-50 cursor-pointer">
           <article>
             <h4 className=" text-purple-700 font-semibold">{title}</h4>
             {name && <p className="text-gray-700 font-medium">{name}</p>}

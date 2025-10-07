@@ -47,7 +47,7 @@ function WorkPlacePage({ params }) {
           unit.workPlaces.map((workPlace) => (
             <div
               key={workPlace._id}
-              className="bg-gray-200 p-4 border shadow shadow-red-200 rounded-2xl w-84 h-auto hover:bg-gray-300 mb-3">
+              className="bg-white p-8 border shadow shadow-red-200 rounded-2xl w-84 h-auto hover:bg-gray-300 mb-3">
               <h4 className="text-2xl text-blue-900">{workPlace.name}</h4>
               <p>Location Lapplandsresan 23b</p>
               <Link href={`/units/${unit._id}/workplaces/${workPlace._id}`}>

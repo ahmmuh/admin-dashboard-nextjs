@@ -129,8 +129,12 @@ function UserPage() {
               </tr>
             </thead>
             <tbody>
-              {userList.map((user) => (
-                <tr key={user._id} className="hover:bg-gray-50">
+              {userList.map((user, i) => (
+                <tr
+                  key={user._id}
+                  className={`${
+                    i % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  } hover:bg-gray-100 transition`}>
                   <td className="px-4 py-2 border-b">{user.name}</td>
                   <td className="px-4 py-2 border-b">{user.email}</td>
                   <td className="px-4 py-2 border-b">{user.phone}</td>

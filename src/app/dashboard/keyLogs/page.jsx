@@ -113,9 +113,13 @@ function KeyLogPage() {
                 <th className="border text-left">Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-white">
               {uniqueLogs.slice(0, visibleLogs)?.map((log, index) => (
-                <tr key={index} className="hover:bg-gray-200">
+                <tr
+                  key={index}
+                  className={`${
+                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  } hover:bg-gray-100 transition`}>
                   <td className="border p-1">🔑 {log.keyLabel}</td>
                   <td className="border p-1">{log.unit || "-"}</td>
                   <td className="border p-1">{log.borrower}</td>

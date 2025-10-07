@@ -125,8 +125,12 @@ function KeyPage() {
             </thead>
             <tbody>
               {keys &&
-                keys?.map((key) => (
-                  <tr key={key._id} className="hover:bg-gray-300">
+                keys?.map((key, i) => (
+                  <tr
+                    key={key._id}
+                    className={`${
+                      i % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    } hover:bg-gray-100 transition`}>
                     <td className="border border-gray-200 text-blue-400 font-bold">
                       🔑{" "}
                       <Link href={`/dashboard/keys/${key._id}`}>
@@ -196,7 +200,6 @@ function KeyPage() {
                         ? new Date(key.returnedAt).toLocaleString("sv-SE")
                         : "—"}
                     </td>
-
                     {isManager && (
                       <td className="font-bold p-2">
                         {["available", "returned"].includes(key.status) && (
