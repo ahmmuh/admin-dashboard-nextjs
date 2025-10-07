@@ -183,6 +183,9 @@ export default function EditMachinePage() {
     });
   };
 
+
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Skickar data till updateMachine:", form);
