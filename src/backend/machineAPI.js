@@ -126,3 +126,16 @@ export const searchMachines = async (query) => {
     return null;
   }
 };
+
+//Hämta alla maskin loghistorik
+
+export const getMachineLogs = async () => {
+  try {
+    const data = await fetchWithAuth(`${BASE_URL}/machines/logs`);
+    console.log("Maskinloggar:", data);
+    return data || [];
+  } catch (error) {
+    console.error("Fel vid hämtning av maskinloggar:", error.message);
+    return null;
+  }
+};
