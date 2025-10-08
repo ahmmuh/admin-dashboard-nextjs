@@ -16,13 +16,27 @@
 
 //   const selectedUser = users.find((user) => user._id === selectedUserId);
 
+//   // Hjälpfunktion som tolkar datum lokalt (inte UTC)
+//   const parseLocalDate = (dateStr) => {
+//     const [year, month, day] = dateStr.split("-").map(Number);
+//     return new Date(year, month - 1, day);
+//   };
+
 //   // Filtrera clocks baserat på valt datumintervall
 //   const filteredClocks = selectedUser?.clocks?.filter((clock) => {
 //     if (!startDate && !endDate) return true;
 
-//     const clockDate = new Date(clock.clockInDate).setHours(0, 0, 0, 0);
-//     const start = startDate ? new Date(startDate).setHours(0, 0, 0, 0) : null;
-//     const end = endDate ? new Date(endDate).setHours(0, 0, 0, 0) : null;
+//     const clockDateObj = new Date(clock.clockInDate);
+//     const clockDate = new Date(
+//       clockDateObj.getFullYear(),
+//       clockDateObj.getMonth(),
+//       clockDateObj.getDate()
+//     ).setHours(0, 0, 0, 0);
+
+//     const start = startDate
+//       ? parseLocalDate(startDate).setHours(0, 0, 0, 0)
+//       : null;
+//     const end = endDate ? parseLocalDate(endDate).setHours(0, 0, 0, 0) : null;
 
 //     if (start && end) return clockDate >= start && clockDate <= end;
 //     if (start) return clockDate >= start;
@@ -177,9 +191,30 @@ function TimeReportPage() {
     return true;
   });
 
+  // Funktion för att formatera minuter till "xh ym"
+  const formatMinutes = (minutes) => {
+    if (!minutes) return "-";
+    const h = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    return `${h}h ${m}m`;
+  };
+
+  // Beräkna total tid för hela datumintervallet
+  const totalMinutesAll = filteredClocks?.reduce(
+    (acc, clock) => acc + (clock.totalMinutes || 0),
+    0
+  );
+
   return (
     <div className="p-6">
-      <h1 className="text-2xl mb-4">Tidrapport</h1>
+      <h1 className="text-2xl mb-4 flex justify-between items-center">
+        <span>Tidrapport</span>
+        {filteredClocks?.length > 0 && (
+          <span className="text-lg font-semibold">
+            Total: {formatMinutes(totalMinutesAll)}
+          </span>
+        )}
+      </h1>
 
       {/* Välj användare */}
       <div className="mb-4 flex flex-wrap gap-4 items-center">
@@ -221,52 +256,64 @@ function TimeReportPage() {
 
       {/* Visa clocks för vald användare */}
       {selectedUser ? (
-        <table className="w-full border border-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-4 py-2 border-b">Datum</th>
-              <th className="px-4 py-2 border-b">In</th>
-              <th className="px-4 py-2 border-b">Ut</th>
-              <th className="px-4 py-2 border-b">Total tid</th>
-              <th className="px-4 py-2 border-b">Arbetsplats</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredClocks?.length > 0 ? (
-              filteredClocks.map((clock, i) => (
-                <tr key={i} className="hover:bg-gray-50">
-                  <td className="px-4 py-2 border-b">
-                    {new Date(clock.clockInDate).toLocaleDateString("sv-SE")}
-                  </td>
-                  <td className="px-4 py-2 border-b">
-                    {new Date(clock.clockInDate).toLocaleTimeString("sv-SE")}
-                  </td>
-                  <td className="px-4 py-2 border-b">
-                    {clock.clockOutDate
-                      ? new Date(clock.clockOutDate).toLocaleTimeString("sv-SE")
-                      : "-"}
-                  </td>
-                  <td className="px-4 py-2 border-b">
-                    {clock.totalHoursFormatted || "-"}
-                  </td>
-                  <td className="px-4 py-2 border-b">
-                    {selectedUser.assignedWorkplaces
-                      ?.map((wp) => wp.name)
-                      .join(", ") || "-"}
-                  </td>
+        <div className="w-full border border-gray-200 rounded">
+          <div className="overflow-y-auto max-h-[600px]">
+            <table className="w-full table-fixed border-collapse">
+              <thead className="bg-gray-50 sticky top-0 z-10">
+                <tr>
+                  <th className="px-4 py-2 border-b text-left">Datum</th>
+                  <th className="px-4 py-2 border-b text-left">In</th>
+                  <th className="px-4 py-2 border-b text-left">Ut</th>
+                  <th className="px-4 py-2 border-b text-left">Total tid</th>
+                  <th className="px-4 py-2 border-b text-left">Arbetsplats</th>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan={5}
-                  className="text-center py-4 text-gray-500 border-b">
-                  Inga stämplingar hittades för valt datumintervall
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {filteredClocks?.length > 0 ? (
+                  filteredClocks.map((clock, i) => (
+                    <tr
+                      key={i}
+                      className="odd:bg-white even:bg-gray-100 hover:bg-gray-200">
+                      <td className="px-4  border-b">
+                        {new Date(clock.clockInDate).toLocaleDateString(
+                          "sv-SE"
+                        )}
+                      </td>
+                      <td className="px-4 py-2 border-b">
+                        {new Date(clock.clockInDate).toLocaleTimeString(
+                          "sv-SE"
+                        )}
+                      </td>
+                      <td className="px-4 py-2 border-b">
+                        {clock.clockOutDate
+                          ? new Date(clock.clockOutDate).toLocaleTimeString(
+                              "sv-SE"
+                            )
+                          : "-"}
+                      </td>
+                      <td className="px-4 py-2 border-b">
+                        {clock.totalHoursFormatted || "-"}
+                      </td>
+                      <td className="px-4 py-2 border-b">
+                        {selectedUser.assignedWorkplaces
+                          ?.map((wp) => wp.name)
+                          .join(", ") || "-"}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="text-center py-4 text-gray-500 border-b">
+                      Inga stämplingar hittades för valt datumintervall
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
       ) : (
         <p>Välj en användare för att visa tidrapport.</p>
       )}
