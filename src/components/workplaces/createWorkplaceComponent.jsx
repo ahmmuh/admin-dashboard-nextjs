@@ -1,9 +1,11 @@
 "use client";
 import { createWorkPlace } from "@/backend/workplaceAPI";
 import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const CreateWorkplaceComponent = () => {
+  const router = useRouter();
   const [newWorkplace, setNewWorkPlace] = useState({
     name: "",
     address: "", // ändrat från location → address
@@ -19,14 +21,15 @@ const CreateWorkplaceComponent = () => {
     try {
       const result = await createWorkPlace(newWorkplace);
       if (result?.workPlace) {
-        displaySuccessMessage("✅ Arbetsplats skapad!");
+        displaySuccessMessage("Arbetsplats skapad!");
         setNewWorkPlace({ name: "", address: "" });
+        router.back();
       } else {
         setMessage("⚠️ Kunde inte skapa arbetsplats.");
       }
     } catch (err) {
       console.error(err);
-      displayErrorMessage("❌ Fel vid skapande.");
+      displayErrorMessage("Fel vid skapande.");
     } finally {
       setLoading(false);
     }

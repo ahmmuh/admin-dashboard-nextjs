@@ -8,7 +8,7 @@ export const addTask = async (newTask) => {
       headers: {
         "Content-Type": "application/json",
       },
-      data: newTask,
+      body: JSON.stringify(newTask),
     });
 
     return data; // här har du redan JSON

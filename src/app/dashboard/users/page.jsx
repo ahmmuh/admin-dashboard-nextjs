@@ -114,69 +114,71 @@ function UserPage() {
           className={` ${
             userList.length > 15 ? "max-h-[400px] overflow-y-auto" : ""
           }`}>
-          <table className="w-full border border-gray-200 ">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="text-left px-4 py-2 border-b">Namn</th>
-                <th className="text-left px-4 py-2 border-b">E-post</th>
-                <th className="text-left px-4 py-2 border-b">Telefon</th>
-                <th className="text-left px-4 py-2 border-b">Roll</th>
-                <th className="text-left px-4 py-2 border-b">In/ut</th>
-                <th className="text-left px-4 py-2 border-b">Enhet</th>
-                {isManager && (
-                  <th className="text-left px-4 py-2 border-b">Åtgärder</th>
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              {userList.map((user, i) => (
-                <tr
-                  key={user._id}
-                  className={`${
-                    i % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  } hover:bg-gray-100 transition`}>
-                  <td className="px-4 py-2 border-b">{user.name}</td>
-                  <td className="px-4 py-2 border-b">{user.email}</td>
-                  <td className="px-4 py-2 border-b">{user.phone}</td>
-                  <td className="px-4 py-2 border-b">
-                    {user.role?.map((r, i) => (
-                      <span key={i} className="block">
-                        {r}
-                      </span>
-                    ))}
-                  </td>
-                  <td className="px-4 py-2 border-b">
-                    {user?.lastFour || "-"}
-                  </td>
-                  <td className="px-4 py-2 border-b">
-                    {user.unit?.name || "-"}
-                  </td>
-
-                  {currentUser && isManager && (
+          <div className="overflow-x-auto rounded-lg shadow border border-gray-200 max-h-[600px]">
+            <table className="w-full border border-gray-200 ">
+              <thead className="bg-gray-50 text-xs sticky top-0 z-10">
+                <tr>
+                  <th className="text-left px-4 py-2 border-b">Namn</th>
+                  <th className="text-left px-4 py-2 border-b">E-post</th>
+                  <th className="text-left px-4 py-2 border-b">Telefon</th>
+                  <th className="text-left px-4 py-2 border-b">Roll</th>
+                  <th className="text-left px-4 py-2 border-b">In/ut</th>
+                  <th className="text-left px-4 py-2 border-b">Enhet</th>
+                  {isManager && (
+                    <th className="text-left px-4 py-2 border-b">Åtgärder</th>
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {userList.map((user, i) => (
+                  <tr
+                    key={user._id}
+                    className={`${
+                      i % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    } hover:bg-gray-100 transition`}>
+                    <td className="px-4 py-2 border-b">{user.name}</td>
+                    <td className="px-4 py-2 border-b">{user.email}</td>
+                    <td className="px-4 py-2 border-b">{user.phone}</td>
                     <td className="px-4 py-2 border-b">
-                      <div className="flex items-center gap-2">
-                        <Link
-                          href={`/dashboard/users/${user._id}/edit`}
-                          className="p-2 border border-gray-300 rounded
+                      {user.role?.map((r, i) => (
+                        <span key={i} className="block">
+                          {r}
+                        </span>
+                      ))}
+                    </td>
+                    <td className="px-4 py-2 border-b">
+                      {user?.lastFour || "-"}
+                    </td>
+                    <td className="px-4 py-2 border-b">
+                      {user.unit?.name || "-"}
+                    </td>
+
+                    {currentUser && isManager && (
+                      <td className="px-4 py-2 border-b">
+                        <div className="flex items-center gap-2">
+                          <Link
+                            href={`/dashboard/users/${user._id}/edit`}
+                            className="p-2 border border-gray-300 rounded
                             >
                       
                       hover:bg-gray-100 transition"
-                          title="Uppdatera">
-                          <HiOutlinePencil className="text-gray-600 w-5 h-5" />
-                        </Link>
-                        <button
-                          onClick={() => deleteHandler(user._id)}
-                          className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
-                          title="Ta bort">
-                          <HiOutlineTrash className="text-gray-600 w-5 h-5" />
-                        </button>
-                      </div>
-                    </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                            title="Uppdatera">
+                            <HiOutlinePencil className="text-gray-600 w-5 h-5" />
+                          </Link>
+                          <button
+                            onClick={() => deleteHandler(user._id)}
+                            className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+                            title="Ta bort">
+                            <HiOutlineTrash className="text-gray-600 w-5 h-5" />
+                          </button>
+                        </div>
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

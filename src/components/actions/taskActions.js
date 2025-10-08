@@ -51,7 +51,7 @@ function TaskActions({ task, fetchTasks }) {
   //   currentUser?.unit
   // );
 
-  const canEdit = task.unit._id.toString() === currentUser?.unit?.toString();
+  const canEdit = task?.unit?._id.toString() === currentUser?.unit?.toString();
 
   // console.log("Can Edit", canEdit);
   return (

@@ -562,9 +562,93 @@ export default function MachinePage() {
           Denna maskin finns inte.
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
+        // <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
+        //   <table className="w-full text-sm text-left border-collapse">
+        //     <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
+        //       <tr>
+        //         <th className="px-4 py-3">Maskintyp</th>
+        //         <th className="px-4 py-3">Enhet</th>
+        //         <th className="px-4 py-3">Status</th>
+        //         <th className="px-4 py-3">Lånad av</th>
+        //         <th className="px-4 py-3">Utlånad datum</th>
+        //         <th className="px-4 py-3">Inlämnad datum</th>
+        //         <th className="px-4 py-3 text-center">Åtgärder</th>
+        //       </tr>
+        //     </thead>
+
+        //     <tbody>
+        //       {filteredMachines.map((m, i) => (
+        //         <tr
+        //           key={m._id}
+        //           onClick={() => router.push(`/dashboard/machines/${m._id}`)}
+        //           className={`${
+        //             i % 2 === 0 ? "bg-gray-100" : "bg-white"
+        //           } hover:bg-blue-50 hover:shadow-md transition cursor-pointer`}>
+        //           <td className="px-4 py-3 font-medium">{m.name}</td>
+        //           <td className="px-4 py-3">{m.unitId?.name || "-"}</td>
+        //           <td className="px-4 py-3">
+        //             {m.isAvailable ? (
+        //               <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">
+        //                 Tillgänglig
+        //               </span>
+        //             ) : (
+        //               <span className="bg-red-100 text-red-700 px-2 py-1 rounded text-xs">
+        //                 Utlånad
+        //               </span>
+        //             )}
+        //           </td>
+        //           <td className="px-4 py-3">{m.borrowedBy?.name || "-"}</td>
+        //           <td className="px-4 py-3">
+        //             {m.borrowedDate
+        //               ? new Date(m.borrowedDate).toLocaleDateString("sv-SE")
+        //               : "-"}
+        //           </td>
+        //           <td className="px-4 py-3">
+        //             {m.returnedDate
+        //               ? new Date(m.returnedDate).toLocaleDateString("sv-SE")
+        //               : "-"}
+        //           </td>
+
+        //           <td className="px-4 py-3 text-center">
+        //             <div className="flex flex-wrap justify-center gap-2">
+        //               {/* Redigera knapp */}
+        //               {(roles.includes("Avdelningschef") ||
+        //                 roles.includes("Områdeschef") ||
+        //                 (roles.includes("Enhetschef") &&
+        //                   m.unitId?._id === currentUser.unit?._id)) && (
+        //                 <Link
+        //                   href={`/dashboard/machines/${m._id}/edit`}
+        //                   onClick={(e) => e.stopPropagation()}
+        //                   className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+        //                   title="Uppdatera">
+        //                   <HiOutlinePencil className="text-gray-600 w-5 h-5" />
+        //                 </Link>
+        //               )}
+
+        //               {/* Ta bort knapp */}
+        //               {(roles.includes("Avdelningschef") ||
+        //                 roles.includes("Områdeschef")) && (
+        //                 <button
+        //                   onClick={(e) => {
+        //                     e.stopPropagation();
+        //                     handleDelete(m._id);
+        //                   }}
+        //                   className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+        //                   title="Ta bort">
+        //                   <HiOutlineTrash className="text-gray-600 w-5 h-5" />
+        //                 </button>
+        //               )}
+        //             </div>
+        //           </td>
+        //         </tr>
+        //       ))}
+        //     </tbody>
+        //   </table>
+        // </div>
+
+        <div className="overflow-x-auto rounded-lg shadow border border-gray-200 max-h-[600px]">
           <table className="w-full text-sm text-left border-collapse">
-            <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
+            <thead className="bg-gray-100 text-gray-700 uppercase text-xs sticky top-0 z-10">
               <tr>
                 <th className="px-4 py-3">Maskintyp</th>
                 <th className="px-4 py-3">Enhet</th>
@@ -608,36 +692,9 @@ export default function MachinePage() {
                       ? new Date(m.returnedDate).toLocaleDateString("sv-SE")
                       : "-"}
                   </td>
-
                   <td className="px-4 py-3 text-center">
                     <div className="flex flex-wrap justify-center gap-2">
-                      {/* Redigera knapp */}
-                      {(roles.includes("Avdelningschef") ||
-                        roles.includes("Områdeschef") ||
-                        (roles.includes("Enhetschef") &&
-                          m.unitId?._id === currentUser.unit?._id)) && (
-                        <Link
-                          href={`/dashboard/machines/${m._id}/edit`}
-                          onClick={(e) => e.stopPropagation()}
-                          className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
-                          title="Uppdatera">
-                          <HiOutlinePencil className="text-gray-600 w-5 h-5" />
-                        </Link>
-                      )}
-
-                      {/* Ta bort knapp */}
-                      {(roles.includes("Avdelningschef") ||
-                        roles.includes("Områdeschef")) && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDelete(m._id);
-                          }}
-                          className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition"
-                          title="Ta bort">
-                          <HiOutlineTrash className="text-gray-600 w-5 h-5" />
-                        </button>
-                      )}
+                      {/* Här kan dina åtgärdsknappar ligga */}
                     </div>
                   </td>
                 </tr>
