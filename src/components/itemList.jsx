@@ -5,7 +5,7 @@ function ItemList({
   title,
   description,
   name,
-  location,
+  address,
   status,
   icon,
   task,
@@ -14,7 +14,7 @@ function ItemList({
   children,
   ...props
 }) {
-  console.log("Enhet i Itemlist ", task?.unit);
+  // console.log("Enhet i Itemlist ", task?.unit);
 
   return (
     <>
@@ -27,9 +27,7 @@ function ItemList({
             <p>Tilldelad: {task?.unit?.name}</p>
 
             <p className="text-gray-600">{description}</p>
-            {location && (
-              <p classlocation="text-gray-700 font-medium ">{location}</p>
-            )}
+            {address && <p className="text-gray-700 font-medium ">{address}</p>}
 
             <div>
               {status === "Ej påbörjat" && (

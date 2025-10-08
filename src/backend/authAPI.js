@@ -68,7 +68,7 @@ export const getCurrentUser = async () => {
       },
     });
 
-    console.log("Current User data", data);
+    // console.log("Current User data", data);
     return data;
   } catch (error) {
     throw new Error(error.message || "Fel vid hämtning av användare");

@@ -20,11 +20,13 @@ function TaskPage() {
   const { tasks, fetchTasks, loading } = useFetchTask();
   const [searchValue, setSearchValue] = useState("");
 
+  console.log("TASKS I TASK PAGE", tasks);
+
   if (loading) {
     return <LoadingPage message="Laddar uppgifer ...." />;
   }
 
-  console.log("ALLA MORGONJOBB: ", tasks);
+  // console.log("ALLA MORGONJOBB: ", tasks);
 
   const isManager =
     currentUser?.role?.includes("Avdelningschef") ||
@@ -72,7 +74,7 @@ function TaskPage() {
               key={task._id}
               task={task}
               title={task.title}
-              location={task.location}
+              location={task.address}
               description={task.description}
               updatedAt={task.updatedAt}
               createdAt={task.createdAt}

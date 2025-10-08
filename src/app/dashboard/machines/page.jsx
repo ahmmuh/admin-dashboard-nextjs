@@ -528,9 +528,10 @@ export default function MachinePage() {
             <FontAwesomeIcon icon={faCalendar} /> Maskin historik
           </Link>
           <Link
-            href="/dashboard/machines/create"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow">
-            + Skapa ny
+            className="text-green-800 flex items-center gap-3"
+            href="/dashboard/machines/create">
+            <HiPlus />
+            <span>Lägg till ny maskin</span>
           </Link>
         </div>
       </div>

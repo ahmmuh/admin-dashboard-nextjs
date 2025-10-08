@@ -8,7 +8,7 @@ export const addTask = async (newTask) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newTask),
+      data: newTask,
     });
 
     return data; // här har du redan JSON
@@ -21,7 +21,7 @@ export const addTask = async (newTask) => {
 export const getUnitTasks = async (unitId) => {
   try {
     const data = await fetchWithAuth(`${BASE_URL}/units/${unitId}/tasks`);
-    console.log("Hämtat tasks från servern ", data);
+    // console.log("Hämtat tasks från servern ", data);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
@@ -33,7 +33,7 @@ export const getUnitTasks = async (unitId) => {
 export const getAllTasks = async () => {
   try {
     const data = await fetchWithAuth(`${BASE_URL}/tasks`);
-    console.log("Hämtat tasks från servern ", data);
+    // console.log("Hämtat tasks från servern ", data);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";

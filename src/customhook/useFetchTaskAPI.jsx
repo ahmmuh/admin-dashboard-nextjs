@@ -14,7 +14,7 @@ export function useFetchTask() {
       if (taskList.length === 0) {
         console.log("Tasks finns inte");
       }
-      console.log("Alla hämtade tasks", taskList);
+      // console.log("Alla hämtade tasks", taskList);
       setTasks(taskList);
       setLoading(false);
     } catch (err) {
