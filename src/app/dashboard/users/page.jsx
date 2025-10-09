@@ -114,7 +114,7 @@ function UserPage() {
           className={` ${
             userList.length > 15 ? "max-h-[400px] overflow-y-auto" : ""
           }`}>
-          <div className="overflow-x-auto rounded-lg shadow border border-gray-200 max-h-[600px]">
+          <div className="overflow-x-auto rounded-lg shadow border border-gray-200 ">
             <table className="w-full border border-gray-200 ">
               <thead className="bg-gray-50 text-xs sticky top-0 z-10">
                 <tr>

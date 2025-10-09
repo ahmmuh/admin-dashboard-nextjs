@@ -292,8 +292,8 @@ function CreateTaskClientComponent() {
 
         {/* Visa vald adress */}
         {task.address && (
-          <p className="text-sm text-gray-700 mb-2">
-            📍 <strong>Adress:</strong> {task.address}
+          <p className="text-sm text-gray-700 mb-2 px-2">
+            <strong>Adress:</strong> {task.address}
           </p>
         )}
 

@@ -354,7 +354,7 @@ function UserProfile() {
 
       const foundUser = data.user;
       if (!foundUser.lastFour) {
-        setLastFourError("Användaren saknar kod för stämpling (lastFour).");
+        setLastFourError("Användaren saknar kod för stämpling (4 siffror).");
       } else {
         setLastFourError(""); // rensa om den finns
       }

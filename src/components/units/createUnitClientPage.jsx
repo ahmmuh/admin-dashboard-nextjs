@@ -35,7 +35,7 @@ export default function CreateUnitClientPage() {
 
   return (
     <div className=" mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-blue-500">Skapa ny enhet</h1>
+      <h1 className="mb-4 text-blue-600  text-2xl">Skapa ny enhet</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block font-medium">
@@ -71,8 +71,10 @@ export default function CreateUnitClientPage() {
         </div>
         <button
           type="submit"
-          className="w-1/2 bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600">
-          Skapa
+          className="p-2 w-1/3 bg-indigo-100 text-indigo-800 font-medium 
+             border border-indigo-200 rounded-md shadow-sm 
+             hover:bg-indigo-200 transition">
+          Spara
         </button>
       </form>
     </div>

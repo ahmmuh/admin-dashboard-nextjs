@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
 import ProfileModal from "./profileWrapper/page";
+import SidebarGuide from "@/components/guides/sidebarGuide";
 
 function DashboardLayout({ children }) {
   const cookieStore = cookies();
@@ -17,6 +18,7 @@ function DashboardLayout({ children }) {
 
   return (
     <div className="flex h-full gap-4">
+      <SidebarGuide />
       <Sidebar />
       <main className="ml-80 flex-1 min-h-screen bg-gray-100 px-10">
         <div className=" flex justify-end pr-4">

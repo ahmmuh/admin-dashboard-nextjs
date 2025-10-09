@@ -193,6 +193,7 @@ function TimeReportPage() {
 
   // Funktion för att formatera minuter till "xh ym"
   const formatMinutes = (minutes) => {
+    if (minutes === 0) return "0h 0m";
     if (!minutes) return "-";
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
@@ -209,9 +210,9 @@ function TimeReportPage() {
     <div className="p-6">
       <h1 className="text-2xl mb-4 flex justify-between items-center">
         <span>Tidrapport</span>
-        {filteredClocks?.length > 0 && (
+        {selectedUser && (
           <span className="text-lg font-semibold">
-            Total: {formatMinutes(totalMinutesAll)}
+            Total: {formatMinutes(totalMinutesAll || 0)}
           </span>
         )}
       </h1>
@@ -306,7 +307,7 @@ function TimeReportPage() {
                     <td
                       colSpan={5}
                       className="text-center py-4 text-gray-500 border-b">
-                      Inga stämplingar hittades för valt datumintervall
+                      Inga stämplingar hittades för den valda personen
                     </td>
                   </tr>
                 )}

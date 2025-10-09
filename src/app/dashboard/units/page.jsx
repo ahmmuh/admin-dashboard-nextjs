@@ -2,6 +2,7 @@
 
 import LoadingPage from "@/app/loading";
 import { deleteUnitById, getUnits } from "@/backend/api";
+import UnitPageGuide from "@/components/guides/unitGuide";
 import MainCard from "@/components/maincard";
 import SearchUnit from "@/components/units/searchUnit";
 import UnitActionModal from "@/components/units/unitActionModel";
@@ -91,13 +92,16 @@ function UnitPage({ params }) {
 
   return (
     <div className="max-w-6xl mx-auto flex flex-col gap-6">
-      <h1 className="text-2xl font-extrabold text-blue-500 mb-6 border-b-4 border-purple-200 pb-3">
+      <h1
+        id="units-title"
+        className="text-2xl font-extrabold text-blue-500 mb-6 border-b-4 border-purple-200 pb-3">
         Alla enheter
       </h1>
-
+      <UnitPageGuide />
       {isManager && (
         <div className="my-4">
           <Link
+            id="create-unit-btn"
             className="text-green-800 flex items-center gap-3"
             href={"/dashboard/units/create"}>
             <HiPlus />
@@ -106,7 +110,7 @@ function UnitPage({ params }) {
         </div>
       )}
 
-      <div className="hidden md:block mb-6">
+      <div className="hidden md:block mb-6" id="search-unit-section">
         <SearchUnit />
       </div>
 
@@ -134,6 +138,7 @@ function UnitPage({ params }) {
 
             return (
               <MainCard
+                id={`unit-card-${unit._id}`}
                 key={unit._id}
                 actions={
                   isManager && (
@@ -194,7 +199,9 @@ export function CardRow({ icon, href, text }) {
     <div className="py-4 flex items-center gap-3 group">
       {icon}
       <div className="flex flex-col">
-        <Link href={href}>
+        <Link
+          id={`link-${text.replace(/\s+/g, "-").toLowerCase()}`}
+          href={href}>
           <span className="text-md font-semibold text-gray-900 group-hover:text-purple-600 transition">
             {text}
           </span>

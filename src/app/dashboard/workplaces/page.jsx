@@ -153,7 +153,7 @@ export default function WorkPlacePage() {
           {workplaces.map((wp) => (
             <div
               key={wp._id}
-              className="bg-gray-100 p-5 rounded-2xl shadow hover:shadow-lg transition flex flex-col gap-3">
+              className="bg-white p-5 rounded-2xl shadow hover:shadow-lg transition flex flex-col gap-3">
               <h3 className="text-2xl font-semibold text-blue-900">
                 {wp.name}
               </h3>
