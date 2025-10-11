@@ -4,6 +4,7 @@ import { getUnitByID } from "@/backend/api";
 import ActionsHandler from "@/components/actions/actionsHandler";
 import PersonList from "@/components/personList";
 import LoadingPage from "@/app/loading";
+import ChefPageGuide from "@/components/guides/ChefPageGuide";
 
 function ChefPage({ params }) {
   // I Next.js 15+ måste du "unwrap" params med React.use()
@@ -50,23 +51,27 @@ function ChefPage({ params }) {
   const chef = filterUser[0];
 
   return (
-    <PersonList
-      unit={unit?.name}
-      name={chef.name}
-      phone={chef.phone || "Ingen telefon"}
-      email={chef.email || "Ingen e-post"}
-      role={chef.role}>
-      <ActionsHandler
-        unitId={unitId}
-        chef={chef}
-        onDelete={(id) => {
-          setUnit((prev) => ({
-            ...prev,
-            users: prev.users.filter((u) => u._id !== id),
-          }));
-        }}
-      />
-    </PersonList>
+    <>
+      <PersonList
+        id="chef-personlist"
+        unit={unit?.name}
+        name={chef.name}
+        phone={chef.phone || "Ingen telefon"}
+        email={chef.email || "Ingen e-post"}
+        role={chef.role}>
+        <ActionsHandler
+          id="chef-actions"
+          unitId={unitId}
+          chef={chef}
+          onDelete={(id) => {
+            setUnit((prev) => ({
+              ...prev,
+              users: prev.users.filter((u) => u._id !== id),
+            }));
+          }}
+        />
+      </PersonList>
+    </>
   );
 }
 

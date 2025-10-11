@@ -130,14 +130,19 @@ import {
   HiOutlineUserGroup,
 } from "react-icons/hi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCity, faClock, faGear, faUsers } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCity,
+  faClock,
+  faGear,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar = () => {
   const pathname = usePathname();
 
   const links = [
     {
-      id: "link-dashboard",
+      id: "dashboard-link",
       href: "/dashboard",
       label: "Start",
       icon: <HiOutlineHome className="w-5 h-5" />,

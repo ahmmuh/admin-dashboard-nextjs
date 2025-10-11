@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import ChefPageGuide from "./guides/ChefPageGuide";
 
 function PersonList({ unit, name, phone, email, role, children, ...props }) {
   return (

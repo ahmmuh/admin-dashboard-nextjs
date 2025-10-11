@@ -3,6 +3,7 @@ import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import LoadingPage from "../loading";
 import { getWeekNumber } from "@/helper/weekNumber";
 import { useState } from "react";
+import SystemGuideSteps from "@/components/guides/systemGuideSteps";
 
 function Dashboard() {
   const { currentUser, loading, error } = useFetchCurrentUser();
@@ -32,7 +33,7 @@ function Dashboard() {
 
   return (
     <>
-      <h2 className="text-2xl px-10 italic ">
+      <h2 className="text-2xl px-10 italic">
         <p>Vecka {getWeekNumber()}</p>
         Välkommen {currentUser.name}{" "}
         <span className="text-sm block">({currentUser.role.join(" & ")})</span>

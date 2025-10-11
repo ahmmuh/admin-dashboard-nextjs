@@ -35,7 +35,7 @@ function ApartmentList({ currentUser, apartments: initialApartments }) {
       {/* Header */}
       <h3 className="text-blue-600  text-2xl">Alla flyttstäd</h3>
 
-      {/* <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start">
+      <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start">
         {currentUser.role?.some(
           (r) =>
             r === "Avdelningschef" ||
@@ -49,7 +49,7 @@ function ApartmentList({ currentUser, apartments: initialApartments }) {
             <span>Skapa flyttstäd</span>
           </Link>
         )}
-      </div> */}
+      </div>
 
       {/* Search */}
       <div className="hidden md:block mb-6">
