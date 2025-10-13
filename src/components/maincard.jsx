@@ -1,7 +1,23 @@
-function MainCard({ title, icon, actions, children }) {
+// function MainCard({ title, icon, actions, children }) {
+//   return (
+//     <div className="flex flex-col w-full p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition">
+//       <h2 className=" flex flex-row items-center text-2xl font-bold text-purple-600 mb-4 tracking-tight">
+//         <span>{title && title}</span>
+//         <span className="ml-6">{icon && icon}</span>
+//         {actions && actions}
+//       </h2>
+//       <div>{children}</div>
+//     </div>
+//   );
+// }
+
+// export default MainCard;
+
+function MainCard({ title, icon, actions, children, className = "" }) {
   return (
-    <div className="flex flex-col w-full p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition">
-      <h2 className=" flex flex-row items-center text-2xl font-bold text-purple-600 mb-4 tracking-tight">
+    <div
+      className={`flex flex-col w-full p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition ${className}`}>
+      <h2 className="flex flex-row items-center text-2xl font-bold text-purple-600 mb-4 tracking-tight">
         <span>{title && title}</span>
         <span className="ml-6">{icon && icon}</span>
         {actions && actions}

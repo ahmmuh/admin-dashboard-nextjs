@@ -148,7 +148,7 @@ const Sidebar = () => {
       icon: <HiOutlineHome className="w-5 h-5" />,
     },
     {
-      id: "link-units",
+      id: "units-link",
       href: "/dashboard/units",
       label: "Alla enheter",
       icon: <HiOutlineOfficeBuilding className="w-5 h-5" />,
