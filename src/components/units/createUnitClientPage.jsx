@@ -15,6 +15,9 @@ export default function CreateUnitClientPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const addressPattern =
+      /^[A-Za-zÅÄÖa-zåäö\s]+\s\d+,\s\d{3}\s\d{2}\s[A-Za-zÅÄÖa-zåäö\s]+,\s[A-Za-z\s]+$/;
+
     try {
       const newUnit = {
         name: unit.name,
@@ -28,6 +31,15 @@ export default function CreateUnitClientPage() {
 
       if (!newUnit.address) {
         displayErrorMessage("Ange fullständig adress.");
+        return;
+      }
+
+      const exampleAddress = "Danmarksgatan 26, 753 23 Uppsala, Sweden";
+
+      if (!addressPattern.test(newUnit.address.trim())) {
+        displayErrorMessage(
+          `Adressformatet är ogiltigt. Skriv adressen som exemplet: ${exampleAddress}`
+        );
         return;
       }
 
