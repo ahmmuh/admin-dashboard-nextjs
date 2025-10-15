@@ -6,7 +6,6 @@ export const timeReportingGuideSteps = [
       title: "Välj användare",
       description: "Välj användare för tidrapport.",
     },
-    nextRoute: () => `/dashboard/workplaces`,
   },
   {
     element: "#date-from",

@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 
 function EditSpecialistComponent({ specialist, unitId }) {
-  console.log("Specialist i EditSpecialistComponent ", specialist);
+  // console.log("Specialist i EditSpecialistComponent ", specialist);
   const router = useRouter();
   const [specialistData, setSpecialistData] = useState({
     name: "",
@@ -33,12 +33,12 @@ function EditSpecialistComponent({ specialist, unitId }) {
   const updateSpecialistHandler = async (e) => {
     e.preventDefault();
 
-    console.log(
-      "specialistId i updateSpecialistHandler:",
-      specialist.specialistId
-    ); // Logga specialistId
+    // console.log(
+    //   "specialistId i updateSpecialistHandler:",
+    //   specialist.specialistId
+    // ); // Logga specialistId
     if (!specialist.specialistId) {
-      console.error(`Det saknas specialistId eller unitID`);
+      // console.error(`Det saknas specialistId eller unitID`);
       return;
     }
     try {
@@ -46,13 +46,13 @@ function EditSpecialistComponent({ specialist, unitId }) {
         specialist.specialistId,
         specialistData
       );
-      console.log(
-        `specialist med ${updatedSpecialist.specialistId} har uppdaterats`
-      );
+      // console.log(
+      //   `specialist med ${updatedSpecialist.specialistId} har uppdaterats`
+      // );
       displaySuccessMessage("Specialist har uppdaterats");
       router.push(`/dashboard/units/${unitId}/specialister`);
     } catch (error) {
-      console.error(`PROBLEM: Vid uppdatering specialist: ${error.message}`);
+      // console.error(`PROBLEM: Vid uppdatering specialist: ${error.message}`);
       setSpecialistData(null);
       displayErrorMessage(
         `PROBLEM: Vid uppdatering specialist: ${error.message}`

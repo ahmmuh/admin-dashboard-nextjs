@@ -1,3 +1,4 @@
+// components/guides/specialistGuide.js
 export const specialistGuideSteps = [
   {
     element: "#add-specialist-btn",
@@ -5,12 +6,6 @@ export const specialistGuideSteps = [
       title: "Lägg till specialist",
       description: "Skapa ny specialist för enheten.",
     },
-    nextRoute: (unitId, specialist) =>
-      `/dashboard/units/${unitId}/specialister/edit?specialistId=${
-        specialist.id
-      }&name=${encodeURIComponent(specialist.name)}&phone=${encodeURIComponent(
-        specialist.phone
-      )}&email=${encodeURIComponent(specialist.email)}`,
   },
   {
     element: ".edit-specialist-btn",
@@ -32,11 +27,13 @@ export const specialistGuideSteps = [
       title: "Specialistens namn",
       description: "Redigera namnet här.",
     },
-    nextRoute: (unitId) => `/dashboard/units/${unitId}/unitTasks`,
   },
   {
     element: "#specialist-email-input",
-    popover: { title: "E-postadress", description: "Uppdatera kontaktinfo." },
+    popover: {
+      title: "E-postadress",
+      description: "Uppdatera kontaktinfo.",
+    },
   },
   {
     element: "#specialist-save-btn",

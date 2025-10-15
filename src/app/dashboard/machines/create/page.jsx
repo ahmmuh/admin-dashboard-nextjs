@@ -11,6 +11,7 @@ export default function CreateMachinePage() {
   const router = useRouter();
   const { addMachine } = useFetchMachines();
   const { units, loading: unitsLoading, error: unitsError } = useFetchUnits();
+  const [message, setMessage] = useState("");
 
   const [form, setForm] = useState({
     name: "",
@@ -28,13 +29,22 @@ export default function CreateMachinePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.unitId) {
-      displayErrorMessage("Du måste välja en enhet!");
-      return;
-    }
+    // if (!form.unitId) {
+    //   displayErrorMessage("Du måste välja en enhet!");
+    //   return;
+    // }
 
     try {
-      // Skickar ENDAST det som krävs
+      if (!form.name) {
+        displayErrorMessage("Ange maskinens namn.");
+        return;
+      }
+
+      if (!form.unitId) {
+        displayErrorMessage("Välj en enhet från rullgardinsmenyn.");
+        return;
+      }
+
       await addMachine({
         name: form.name,
         unitId: form.unitId,
@@ -43,12 +53,12 @@ export default function CreateMachinePage() {
       displaySuccessMessage("Maskin skapad ✅");
       router.push("/dashboard/machines");
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       displayErrorMessage("Kunde inte skapa maskinen ❌");
     }
   };
 
-  if (unitsLoading) return <LoadingPage message="Hämtar enheter..." />;
+  if (unitsLoading) return <LoadingPage message="Hämtar maskiner..." />;
   if (unitsError)
     return (
       <p className="text-red-500">Fel vid hämtning: {unitsError.message}</p>
@@ -56,7 +66,7 @@ export default function CreateMachinePage() {
 
   return (
     <div className="max-w-4xl w-full mx-auto p-8 bg-white shadow-lg rounded-lg">
-      <h1 className="text-3xl font-bold mb-8 text-center">Skapa maskin</h1>
+      <h1 className="text-2xl text-blue-600 mb-8 text-center">Skapa maskin</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Namn */}
@@ -69,7 +79,6 @@ export default function CreateMachinePage() {
             onChange={handleChange}
             className="w-full border rounded px-4 py-2 text-lg"
             placeholder="Skriv maskinens namn"
-            required
           />
         </div>
 
@@ -80,8 +89,7 @@ export default function CreateMachinePage() {
             name="unitId"
             value={form.unitId}
             onChange={handleChange}
-            className="w-full border rounded px-4 py-2 text-lg"
-            required>
+            className="w-full border rounded px-4 py-2 text-lg">
             <option value="">-- Välj enhet --</option>
             {units.map((unit) => (
               <option key={unit._id} value={unit._id}>
@@ -101,7 +109,9 @@ export default function CreateMachinePage() {
           </button>
           <button
             type="submit"
-            className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg">
+            className="p-2 w-1/3 bg-indigo-100 text-indigo-800 font-medium 
+             border border-indigo-200 rounded-md shadow-sm 
+             hover:bg-indigo-200 transition">
             Skapa maskin
           </button>
         </div>

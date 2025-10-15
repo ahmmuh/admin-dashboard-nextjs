@@ -7,7 +7,7 @@ import React from "react";
 function TaskEditServerPage({ params }) {
   const { taskId, unitId } = React.use(params);
   // const unit = await getUnitByID(unitId);
-  console.log("UNIT ID I TaskEditServerPage", unitId);
+  // console.log("UNIT ID I TaskEditServerPage", unitId);
   const searchParams = useSearchParams();
   const task = {
     taskId: searchParams.get("taskId"),

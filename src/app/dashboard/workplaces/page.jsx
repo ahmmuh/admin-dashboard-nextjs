@@ -37,7 +37,7 @@ export default function WorkPlacePage() {
         setWorkplaces(wpData || []);
         setUsers(userData || []);
       } catch (err) {
-        console.error(err);
+        // console.error(err);
         setError("Något gick fel vid hämtning.");
       } finally {
         setLoading(false);
@@ -56,7 +56,7 @@ export default function WorkPlacePage() {
       await deleteWorkplace(id);
       setWorkplaces((prev) => prev.filter((wp) => wp._id !== id));
     } catch (err) {
-      console.error("Error deleting workplace:", err.message);
+      // console.error("Error deleting workplace:", err.message);
       alert("Kunde inte ta bort arbetsplatsen.");
     }
   };
@@ -81,7 +81,7 @@ export default function WorkPlacePage() {
         displayErrorMessage("Kunde inte ta bort användare.");
       }
     } catch (error) {
-      console.error("Fel vid borttagning av användare:", error);
+      // console.error("Fel vid borttagning av användare:", error);
       displayErrorMessage("Något gick fel vid borttagning.");
     }
   };
@@ -126,7 +126,7 @@ export default function WorkPlacePage() {
         displayErrorMessage("Kunde inte tilldela användare.");
       }
     } catch (err) {
-      console.error("Error assigning user:", err.message);
+      // console.error("Error assigning user:", err.message);
       displayErrorMessage("Kunde inte tilldela användare.");
     }
   };

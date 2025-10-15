@@ -510,7 +510,7 @@ export default function MachinePage() {
       await removeMachine(id);
       displaySuccessMessage("Maskin borttagen ✅");
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       displayErrorMessage("Kunde inte ta bort maskinen ❌");
     }
   };

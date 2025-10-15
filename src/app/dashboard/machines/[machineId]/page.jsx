@@ -490,7 +490,7 @@ export default function MachineDetailPage() {
       displaySuccessMessage("Maskin utlånad ✅");
       router.back();
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       displayErrorMessage("Kunde inte låna ut maskinen ❌");
     } finally {
       setActionLoading(false);
@@ -509,7 +509,7 @@ export default function MachineDetailPage() {
       displaySuccessMessage("Maskin återlämnad ✅");
       router.back();
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       displayErrorMessage("Kunde inte återlämna maskinen ❌");
     } finally {
       setActionLoading(false);

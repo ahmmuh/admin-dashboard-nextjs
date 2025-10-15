@@ -16,10 +16,10 @@ function WorkPlaceDetails({ params }) {
         const place = await getWorkplace(unitId, workplaceId);
         if (!place) return;
 
-        console.log("WORK PLACE DATA IN WorkPlaceDetails", place);
+        // console.log("WORK PLACE DATA IN WorkPlaceDetails", place);
         setWorkPlace(place);
       } catch (error) {
-        console.error("ERROR, ", error.message);
+        // console.error("ERROR, ", error.message);
       }
     };
     fetchWorkPlace();

@@ -6,7 +6,7 @@ import React from "react";
 
 export default async function UnitDetailPage({ params }) {
   const unit = await getUnitByID(params.unitId);
-  console.log("unit hämtade", unit);
+  // console.log("unit hämtade", unit);
   return (
     <div className="flex flex-wrap justify-between ">
       <MainCard title={unit?.name}>

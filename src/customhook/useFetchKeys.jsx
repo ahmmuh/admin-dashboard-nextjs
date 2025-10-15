@@ -10,13 +10,13 @@ export function useFetchKeys() {
     try {
       const keyList = await getAllKeys();
       if (keyList.length === 0) {
-        console.log("Nycklar finns inte");
+        // console.log("Nycklar finns inte");
       }
-      console.log("Alla hämtade nycklar", keyList);
+      // console.log("Alla hämtade nycklar", keyList);
       setKeys(keyList);
       setLoading(false);
     } catch (err) {
-      console.error("Fel vid hämtning av nycklar:", err.message);
+      // console.error("Fel vid hämtning av nycklar:", err.message);
       setError(err);
     } finally {
       setLoading(false);

@@ -27,7 +27,7 @@ function EditApartmentComponent() {
       const apartmentData = await getApartmentByID(apartmentId);
       setApartment(apartmentData);
     } catch (error) {
-      console.error("ERROR vid hämtning av APARTMENT OBJECT", error.message);
+      // console.error("ERROR vid hämtning av APARTMENT OBJECT", error.message);
     }
   };
 

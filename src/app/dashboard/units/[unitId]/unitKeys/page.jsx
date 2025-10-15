@@ -27,7 +27,7 @@ function UnitKeys() {
           setUnit(data);
         }
       } catch (err) {
-        console.error(err);
+        // console.error(err);
         setError("Fel vid hämtning av data");
       } finally {
         setLoading(false);

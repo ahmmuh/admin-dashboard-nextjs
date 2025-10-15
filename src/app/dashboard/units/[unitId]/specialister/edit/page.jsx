@@ -5,11 +5,11 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 
 function EditSpecialistPage({ params }) {
-  console.log("DEBUG - params: i EditSpecialistPage ", params); // Kolla om params innehåller unitId och specialistId
+  // console.log("DEBUG - params: i EditSpecialistPage ", params); // Kolla om params innehåller unitId och specialistId
 
   const { unitId, specialistId } = React.use(params);
-  console.log("DEBUG - unitId från params:", unitId);
-  console.log("DEBUG - specialistId från params:", specialistId);
+  // console.log("DEBUG - unitId från params:", unitId);
+  // console.log("DEBUG - specialistId från params:", specialistId);
 
   const searchParams = useSearchParams();
   //   const name = searchParams.get("name") || "Ingen chef";

@@ -14,10 +14,10 @@ export const createApartment = async (newApartment) => {
       body: JSON.stringify(newApartment),
     });
 
-    console.log("Ny lägenhet skapad:", newApartment);
+    // console.log("Ny lägenhet skapad:", newApartment);
     return data;
   } catch (error) {
-    console.error("Fel vid skapande av lägenhet:", error.message);
+    // console.error("Fel vid skapande av lägenhet:", error.message);
     return null;
   }
 };
@@ -29,10 +29,10 @@ export const getApartments = async () => {
       method: "GET",
     });
 
-    console.log("Lägenheter:", data);
+    // console.log("Lägenheter:", data);
     return data;
   } catch (error) {
-    console.error("Fel vid hämtning av lägenheter:", error.message);
+    // console.error("Fel vid hämtning av lägenheter:", error.message);
     return null;
   }
 };

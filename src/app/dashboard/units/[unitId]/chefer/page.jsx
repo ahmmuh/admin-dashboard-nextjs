@@ -4,11 +4,11 @@ import { getUnitByID } from "@/backend/api";
 import ActionsHandler from "@/components/actions/actionsHandler";
 import PersonList from "@/components/personList";
 import LoadingPage from "@/app/loading";
-import ChefPageGuide from "@/components/guides/ChefPageGuide";
+import SystemGuideWrapper from "@/components/guides/SystemGuideWrapper";
+import { useParams } from "next/navigation";
 
 function ChefPage({ params }) {
-  // I Next.js 15+ måste du "unwrap" params med React.use()
-  const unitId = React.use(params).unitId; // <-- korrekt
+  const { unitId } = useParams();
 
   const [unit, setUnit] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -51,7 +51,7 @@ function ChefPage({ params }) {
   const chef = filterUser[0];
 
   return (
-    <>
+    <div className="chef-personlist">
       <PersonList
         id="chef-personlist"
         unit={unit?.name}
@@ -71,7 +71,7 @@ function ChefPage({ params }) {
           }}
         />
       </PersonList>
-    </>
+    </div>
   );
 }
 

@@ -14,9 +14,9 @@ function SpecialistActions({ unitId, specialist, onDelete }) {
     try {
       await deleteUser(id);
       onDelete(id); // ta bort från parent state
-      console.log(`Specialist ${id} har tagits bort`);
+      // console.log(`Specialist ${id} har tagits bort`);
     } catch (error) {
-      console.error(`Fel vid borttagning av specialist ${id}:`, error.message);
+      // console.error(`Fel vid borttagning av specialist ${id}:`, error.message);
     }
   };
 

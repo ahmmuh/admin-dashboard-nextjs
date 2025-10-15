@@ -4,6 +4,7 @@ import Link from "next/link";
 import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 import { deleteUser } from "@/backend/userAPI";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
+import { displayErrorMessage } from "@/helper/toastAPI";
 
 function ActionsHandler({ unitId, chef, onDelete }) {
   const { currentUser, loading: userLoading } = useFetchCurrentUser();
@@ -14,12 +15,9 @@ function ActionsHandler({ unitId, chef, onDelete }) {
       await deleteUser(userId);
       // Anropa callback i parent för att ta bort användaren från state
       onDelete(userId);
-      console.log(`Användare ${userId} har tagits bort`);
+      // console.log(`Användare ${userId} har tagits bort`);
     } catch (error) {
-      console.error(
-        `Fel vid borttagning av användare ${userId}:`,
-        error.message
-      );
+      displayErrorMessage("Fel vid borttagning av användare ");
     }
   };
 

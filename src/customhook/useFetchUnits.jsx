@@ -10,12 +10,12 @@ export function useFetchUnits() {
     try {
       const units = await getUnits();
       if (units.length === 0) {
-        console.log("Unit finns inte");
+        // console.log("Unit finns inte");
       }
-      console.log("Alla hämtade Unit", units);
+      // console.log("Alla hämtade Unit", units);
       setUnits(units);
     } catch (err) {
-      console.error("Fel vid hämtning av Unit:", err.message);
+      // console.error("Fel vid hämtning av Unit:", err.message);
       setError(err);
     } finally {
       setLoading(false);

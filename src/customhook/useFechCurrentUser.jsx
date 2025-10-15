@@ -11,13 +11,13 @@ export function useFetchCurrentUser() {
     try {
       const user = await getCurrentUser();
       if (!user || Object.keys(user).length === 0) {
-        console.log("Ingen användare hittades eller objektet är tomt.");
+        // console.log("Ingen användare hittades eller objektet är tomt.");
       }
       // console.log("Hämtad user i fetchCurrentUser", user);
       setUser(user);
       // console.log("Hämtad user i fetchCurrentUser", user);
     } catch (err) {
-      console.error("Fel vid hämtning av user:", err.message);
+      // console.error("Fel vid hämtning av user:", err.message);
       setError(err);
     } finally {
       setLoading(false);

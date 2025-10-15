@@ -251,7 +251,7 @@ function UnitPage({ params }) {
         setUnits(unitList || []);
         setLoading(false);
       } catch (error) {
-        console.log("Error", error.message);
+        // console.log("Error", error.message);
         setLoading(false);
         setError(error);
       }

@@ -4,7 +4,7 @@ import React from "react";
 
 function SpecialistCreatePage({ params }) {
   const { unitId } = params;
-  console.log("UNITD i Specialist Create Page ", unitId);
+  // console.log("UNITD i Specialist Create Page ", unitId);
   return <CreateSpecialistComponent unitId={unitId} />;
 }
 

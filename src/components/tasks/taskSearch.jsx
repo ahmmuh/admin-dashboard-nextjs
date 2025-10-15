@@ -19,7 +19,7 @@ function TaskSearch() {
     const timeoutId = setTimeout(async () => {
       try {
         const data = await searchTasks(query);
-        console.log("SÖKTA UPPGIFTER", data);
+        // console.log("SÖKTA UPPGIFTER", data);
         setResults(Array.isArray(data) ? data : data.data || []);
         setError(null);
       } catch (err) {

@@ -12,12 +12,12 @@ export const getPlaces = async (query) => {
       },
     });
 
-    console.log("SÖKTA PLATS DATA:", data);
+    // console.log("SÖKTA PLATS DATA:", data);
 
     // OSM-data har redan { name, adress, coordinates }
     return data || [];
   } catch (error) {
-    console.error(`ServerFel: ${error.message}`);
+    // console.error(`ServerFel: ${error.message}`);
     return [];
   }
 };

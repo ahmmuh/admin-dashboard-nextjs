@@ -1,12 +1,21 @@
 "use client";
 import React from "react";
-import ChefPageGuide from "./guides/ChefPageGuide";
 
-function PersonList({ unit, name, phone, email, role, children, ...props }) {
+function PersonList({
+  unit,
+  name,
+  phone,
+  email,
+  id,
+  role,
+  children,
+  className = "",
+  ...props
+}) {
   return (
-    <ul className="flex flex-col  sm:w-full" {...props}>
+    <ul className={`flex flex-col  sm:w-full ${className}`} {...props} id={id}>
       {unit && (
-        <h4 className="text-2xl text-blue-500">Enhetschef på {unit} </h4>
+        <h4 className="text-2xl text-blue-500,">Enhetschef på {unit} </h4>
       )}
       <li className="p-4 border rounded-lg shadow-sm">
         <article>

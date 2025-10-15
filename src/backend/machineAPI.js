@@ -10,10 +10,10 @@ export const createMachine = async (newMachine) => {
       body: JSON.stringify(newMachine), // { name, unitId }
     });
 
-    console.log("Ny maskin skapad:", data.machine);
+    // console.log("Ny maskin skapad:", data.machine);
     return data.machine;
   } catch (error) {
-    console.error("Fel vid skapande av maskin:", error.message);
+    // console.error("Fel vid skapande av maskin:", error.message);
     return null;
   }
 };
@@ -22,7 +22,7 @@ export const createMachine = async (newMachine) => {
 export const getMachines = async () => {
   try {
     const data = await fetchWithAuth(`${BASE_URL}/machines`);
-    console.log("Maskiner:", data);
+    // console.log("Maskiner:", data);
     return data || [];
   } catch (error) {
     // console.error("Fel vid hämtning av maskiner:", error.message);
@@ -34,7 +34,7 @@ export const getMachines = async () => {
 export const getMachineById = async (machineId) => {
   try {
     const data = await fetchWithAuth(`${BASE_URL}/machines/${machineId}`);
-    console.log("Hämtad maskin:", data);
+    // console.log("Hämtad maskin:", data);
     return data;
   } catch (error) {
     // console.error("Fel vid hämtning av maskin:", error.message);
@@ -51,10 +51,10 @@ export const updateMachine = async (machineId, updatedMachine) => {
       body: JSON.stringify(updatedMachine), // { name }
     });
 
-    console.log("Uppdaterad maskin:", data.machine);
+    // console.log("Uppdaterad maskin:", data.machine);
     return data.machine;
   } catch (error) {
-    console.error("Fel vid uppdatering av maskin:", error.message);
+    // console.error("Fel vid uppdatering av maskin:", error.message);
     return null;
   }
 };
@@ -65,10 +65,10 @@ export const deleteMachine = async (machineId) => {
     const data = await fetchWithAuth(`${BASE_URL}/machines/${machineId}`, {
       method: "DELETE",
     });
-    console.log("Maskin borttagen:", data.message);
+    // console.log("Maskin borttagen:", data.message);
     return data;
   } catch (error) {
-    console.error("Fel vid borttagning av maskin:", error.message);
+    // console.error("Fel vid borttagning av maskin:", error.message);
     return null;
   }
 };
@@ -85,10 +85,10 @@ export const borrowMachine = async (machineId, userId) => {
       }
     );
 
-    console.log("Maskin utlånad:", data.machine);
+    // console.log("Maskin utlånad:", data.machine);
     return data.machine;
   } catch (error) {
-    console.error("Fel vid utlåning av maskin:", error.message);
+    // console.error("Fel vid utlåning av maskin:", error.message);
     return null;
   }
 };
@@ -103,10 +103,10 @@ export const returnMachine = async (machineId) => {
       }
     );
 
-    console.log("Maskin återlämnad:", data.machine);
+    // console.log("Maskin återlämnad:", data.machine);
     return data.machine;
   } catch (error) {
-    console.error("Fel vid återlämning av maskin:", error.message);
+    // console.error("Fel vid återlämning av maskin:", error.message);
     return null;
   }
 };
@@ -122,7 +122,7 @@ export const searchMachines = async (query) => {
     return data.machines || [];
   } catch (error) {
     if (error.message.includes("404")) return [];
-    console.error("Fel vid sökning av maskiner:", error.message);
+    // console.error("Fel vid sökning av maskiner:", error.message);
     return null;
   }
 };
@@ -132,10 +132,10 @@ export const searchMachines = async (query) => {
 export const getMachineLogs = async () => {
   try {
     const data = await fetchWithAuth(`${BASE_URL}/machines/logs`);
-    console.log("Maskinloggar:", data);
+    // console.log("Maskinloggar:", data);
     return data || [];
   } catch (error) {
-    console.error("Fel vid hämtning av maskinloggar:", error.message);
+    // console.error("Fel vid hämtning av maskinloggar:", error.message);
     return null;
   }
 };

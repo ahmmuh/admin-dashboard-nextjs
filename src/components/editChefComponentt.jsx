@@ -35,19 +35,19 @@ function EditChefComponent({ unitId, chef }) {
   const updateChefHandler = async (e) => {
     e.preventDefault();
 
-    console.log("unitId:", unitId); // Logga unitId
+    // console.log("unitId:", unitId); // Logga unitId
     console.log("chefId:", chef.chefId); // Logga chefId
     if (!chef.chefId || !unitId) {
-      console.error(`Det saknas chefID eller unitID`);
+      // console.error(`Det saknas chefID eller unitID`);
       return;
     }
     try {
       const updatedUser = await updateUser(chef.chefId, chefData);
-      console.log(`Chef med ${updatedUser.chefId} har uppdaterats`);
+      // console.log(`Chef med ${updatedUser.chefId} har uppdaterats`);
       displaySuccessMessage(`Chef har uppdaterats`);
       router.push(`/dashboard/units/${unitId}/chefer`);
     } catch (error) {
-      console.error(`PROBLEM: Vid uppdatering chef: ${error.message}`);
+      // console.error(`PROBLEM: Vid uppdatering chef: ${error.message}`);
       displayErrorMessage(`PROBLEM: Vid uppdatering`);
       router.push(`/dashboard/units/${unitId}/chefer`);
     }

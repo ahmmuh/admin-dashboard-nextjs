@@ -18,7 +18,7 @@ function KeyLogPage() {
   async function fetchLogs() {
     try {
       const logData = await getKeyLogs();
-      console.log("Hämtade nyckelhistorik:", logData);
+      // console.log("Hämtade nyckelhistorik:", logData);
       setLogs(Array.isArray(logData) ? logData : []);
       setLoading(false);
     } catch (error) {

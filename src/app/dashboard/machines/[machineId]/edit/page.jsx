@@ -188,7 +188,7 @@ export default function EditMachinePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Skickar data till updateMachine:", form);
+    // console.log("Skickar data till updateMachine:", form);
 
     try {
       await editMachine(machineId, {
@@ -197,7 +197,7 @@ export default function EditMachinePage() {
       displaySuccessMessage("Maskin uppdaterad ✅");
       router.push("/dashboard/machines");
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       displayErrorMessage("Kunde inte uppdatera maskinen ❌");
     }
   };

@@ -9,11 +9,11 @@ export const useFetchUsers = () => {
   const fetchUsers = async () => {
     try {
       const userList = await getAllUsers();
-      console.log("Users from useFetchUsers hook", userList);
+      // console.log("Users from useFetchUsers hook", userList);
       setUsers(userList);
       setLoading(false);
     } catch (error) {
-      console.error("Error i useFetchUser hook");
+      // console.error("Error i useFetchUser hook");
       setError(error);
       setLoading(false);
     }

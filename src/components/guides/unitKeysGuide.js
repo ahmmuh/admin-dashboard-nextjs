@@ -6,6 +6,5 @@ export const unitKeysGuideSteps = [
       title: "Nyckel",
       description: "Visar nyckel kopplad till enheten.",
     },
-    nextRoute: () => `/dashboard/keyLogs`,
   },
 ];

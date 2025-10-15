@@ -361,7 +361,7 @@ export const createUnit = async (newUnit) => {
     });
     return data;
   } catch (error) {
-    console.error("Error when creating a new unit:", error.message);
+    // console.error("Error when creating a new unit:", error.message);
     return null;
   }
 };
@@ -372,7 +372,7 @@ export const getUnits = async () => {
     const data = await fetchWithAuth(`${BASE_URL}/units`);
     return data;
   } catch (error) {
-    console.error("Error fetching units:", error.message);
+    // console.error("Error fetching units:", error.message);
     return null;
   }
 };
@@ -383,7 +383,7 @@ export const getUnitByID = async (unitId) => {
     const data = await fetchWithAuth(`${BASE_URL}/units/${unitId}`);
     return data;
   } catch (error) {
-    console.error("Error fetching unit by ID:", error.message);
+    // console.error("Error fetching unit by ID:", error.message);
     return null;
   }
 };
@@ -399,7 +399,7 @@ export const updateUnit = async (unitId, updatedUnit) => {
     });
     return data;
   } catch (error) {
-    console.error("Fel vid uppdatering av enhet:", error.message);
+    // console.error("Fel vid uppdatering av enhet:", error.message);
     return null;
   }
 };
@@ -412,7 +412,7 @@ export const getWorkplace = async (unitId, workplaceId) => {
     );
     return data;
   } catch (error) {
-    console.error("Error fetching workplace:", error.message);
+    // console.error("Error fetching workplace:", error.message);
     return null;
   }
 };
@@ -432,7 +432,7 @@ export const addSpecialistToUnit = async (unitId, newSpecialist) => {
     );
     return data;
   } catch (error) {
-    console.error("Error adding specialist:", error.message);
+    // console.error("Error adding specialist:", error.message);
     return null;
   }
 };
@@ -452,7 +452,7 @@ export const updateSpecialist = async (unitId, specialistId, newSpecialist) => {
     );
     return data;
   } catch (error) {
-    console.error("Error updating specialist:", error.message);
+    // console.error("Error updating specialist:", error.message);
     return null;
   }
 };
@@ -468,7 +468,7 @@ export const deleteSpecialist = async (unitId, specialistId) => {
     );
     return data;
   } catch (error) {
-    console.error("Error deleting specialist:", error.message);
+    // console.error("Error deleting specialist:", error.message);
     return null;
   }
 };
@@ -481,7 +481,7 @@ export const deleteUnitById = async (unitId) => {
     });
     return data;
   } catch (error) {
-    console.error("Error deleting enhet:", error.message);
+    // console.error("Error deleting enhet:", error.message);
     return null;
   }
 };
@@ -496,7 +496,7 @@ export const deleteWorkplace = async (unitId, workplaceId) => {
     );
     return data;
   } catch (error) {
-    console.error("Error deleting workplace:", error.message);
+    // console.error("Error deleting workplace:", error.message);
     return null;
   }
 };
@@ -513,7 +513,7 @@ export const updateUser = async (userId, updatedUser) => {
     });
     return data;
   } catch (error) {
-    console.error("Error updating user:", error.message);
+    // console.error("Error updating user:", error.message);
     return null;
   }
 };
@@ -530,7 +530,7 @@ export const addChefToUnit = async (unitId, newChef) => {
     });
     return data;
   } catch (error) {
-    console.error("Error adding chef:", error.message);
+    // console.error("Error adding chef:", error.message);
     return null;
   }
 };
@@ -546,7 +546,7 @@ export const deleteChef = async (unitId, chefId) => {
     );
     return data;
   } catch (error) {
-    console.error("Error deleting chef:", error.message);
+    // console.error("Error deleting chef:", error.message);
     return null;
   }
 };
@@ -560,7 +560,7 @@ export const searchUnits = async (query) => {
     return data.data;
   } catch (error) {
     if (error.message.includes("404")) return [];
-    console.error("Error searching units:", error.message);
+    // console.error("Error searching units:", error.message);
     return [];
   }
 };

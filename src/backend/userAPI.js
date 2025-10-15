@@ -9,7 +9,7 @@ export const getUserById = async (userId) => {
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
     if (error instanceof Error) {
-      console.error("Server Error:", error.message);
+      // console.error("Server Error:", error.message);
     }
     return null;
   }
@@ -23,7 +23,7 @@ export const deleteUser = async (userId) => {
     });
     return data;
   } catch (error) {
-    console.error("Error deleting chef:", error.message);
+    // console.error("Error deleting chef:", error.message);
     return error;
   }
 };
@@ -38,7 +38,7 @@ export const searchUsers = async (query) => {
     if (error.message.includes("401")) return "unauthorized";
     if (error.message.includes("404")) return [];
     if (error instanceof Error) {
-      console.error("Server Error:", error.message);
+      // console.error("Server Error:", error.message);
     }
     return [];
   }

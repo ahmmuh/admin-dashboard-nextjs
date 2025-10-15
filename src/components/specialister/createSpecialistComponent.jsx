@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function CreateSpecialistComponent({ unitId }) {
-  console.log("Unit ID i frontend i (CreateSpecialistComponent):", unitId);
+  // console.log("Unit ID i frontend i (CreateSpecialistComponent):", unitId);
   const router = useRouter();
   const [specialistData, setSpecialistData] = useState({
     name: "",
@@ -32,15 +32,15 @@ function CreateSpecialistComponent({ unitId }) {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      console.log("unitId, specialistData", unitId, specialistData);
+      // console.log("unitId, specialistData", unitId, specialistData);
       await addSpecialistToUnit(unitId, specialistData);
-      console.log(
-        `Ny specialist med följande data ${specialistData.name} har lagts i databasen`
-      );
+      // console.log(
+      //   `Ny specialist med följande data ${specialistData.name} har lagts i databasen`
+      // );
       displaySuccessMessage(`Ny specialist har lagts i databasen`);
       router.push(`/dashboard/units/${unitId}/specialister`);
     } catch (error) {
-      console.error(`Det gick inte att lägga till ny chef`);
+      // console.error(`Det gick inte att lägga till ny chef`);
       displayErrorMessage(`Det gick inte att lägga till ny Specialist`);
       router.push(`/dashboard/units/${unitId}/specialister`);
     }

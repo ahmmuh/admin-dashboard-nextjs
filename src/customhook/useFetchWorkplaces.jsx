@@ -14,7 +14,7 @@ export const useFetchWorkplaces = () => {
       const data = await getAllWorkPlaces();
       setWorkplaces(data || []);
     } catch (err) {
-      console.error("Fel vid hämtning av arbetsplatser:", err.message);
+      // console.error("Fel vid hämtning av arbetsplatser:", err.message);
       setError(err.message);
     } finally {
       setLoading(false);

@@ -20,15 +20,26 @@ export default function CreateUnitClientPage() {
         name: unit.name,
         address: unit.address,
       };
+
+      if (!newUnit.name) {
+        displayErrorMessage("Ange enhetens namn.");
+        return;
+      }
+
+      if (!newUnit.address) {
+        displayErrorMessage("Ange fullständig adress.");
+        return;
+      }
+
       const unitData = await createUnit(newUnit);
 
       setUnit(unitData);
       displaySuccessMessage("Ny enhet skapats");
-      router.push("/dashboard");
-      console.log("NEW ENHET", newUnit);
+      router.push("/dashboard/units");
+      // console.log("NEW ENHET", newUnit);
     } catch (err) {
-      console.error("Fel vid skapande:", err.message);
-      displayErrorMessage(`❌ Fel: ${err.message}`);
+      // console.error("Fel vid skapande:", err.message);
+      displayErrorMessage(` Fel: ${err.message}`);
       router.push("/dashboard");
     }
   };
@@ -49,7 +60,6 @@ export default function CreateUnitClientPage() {
             type="text"
             value={unit.name}
             onChange={(e) => setUnit({ ...unit, name: e.target.value })}
-            required
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
@@ -65,7 +75,6 @@ export default function CreateUnitClientPage() {
             type="text"
             value={unit.address}
             onChange={(e) => setUnit({ ...unit, address: e.target.value })}
-            required
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>

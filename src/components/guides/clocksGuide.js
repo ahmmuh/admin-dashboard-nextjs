@@ -6,6 +6,5 @@ export const clocksGuideSteps = [
       title: "Stämpla in/ut",
       description: "Stämpla in eller ut med kod.",
     },
-    nextRoute: () => `/dashboard/machines`,
   },
 ];

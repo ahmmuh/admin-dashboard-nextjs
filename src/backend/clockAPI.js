@@ -27,7 +27,7 @@ export const clockIn = async (lastFour) => {
       body: JSON.stringify({ lastFour, location }),
     });
 
-    console.log("Clocked in:", data);
+    // console.log("Clocked in:", data);
     return data;
   } catch (error) {
     // console.error("Clock in error:", error.message);
@@ -50,7 +50,7 @@ export const clockOut = async (lastFour) => {
       body: JSON.stringify({ lastFour, location }),
     });
 
-    console.log("Clocked out:", data);
+    // console.log("Clocked out:", data);
     return data;
   } catch (error) {
     // console.error("Clock out error:", error.message);
@@ -65,11 +65,11 @@ export const getAllUserClocks = async () => {
       method: "GET",
     });
 
-    console.log("Clocks data from getAllUserClocks() ", data);
+    // console.log("Clocks data from getAllUserClocks() ", data);
     return data;
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error fetching clocks med användare,", error.message);
+      // console.error("Error fetching clocks med användare,", error.message);
     }
     return null;
   }

@@ -15,20 +15,43 @@ const CreateWorkplaceComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setMessage("");
 
     try {
+      const addressPattern =
+        /^[A-Za-zÅÄÖa-zåäö\s]+\s\d+,\s\d{3}\s\d{2}\s[A-Za-zÅÄÖa-zåäö\s]+,\s[A-Za-z\s]+$/;
+
+      if (!newWorkplace.name || !newWorkplace.name.trim()) {
+        displayErrorMessage("Ange namn på arbetsplatsen.");
+        return;
+      }
+
+      if (!newWorkplace.address || !newWorkplace.address.trim()) {
+        displayErrorMessage("Ange adress för arbetsplatsen.");
+        return;
+      }
+
+      const exampleAddress = "Danmarksgatan 26, 753 23 Uppsala, Sweden";
+
+      if (!addressPattern.test(newWorkplace.address.trim())) {
+        displayErrorMessage(
+          `Adressformatet är ogiltigt. Skriv adressen som exemplet: ${exampleAddress}`
+        );
+        return;
+      }
+
+      setLoading(true);
+
       const result = await createWorkPlace(newWorkplace);
       if (result?.workPlace) {
         displaySuccessMessage("Arbetsplats skapad!");
         setNewWorkPlace({ name: "", address: "" });
         router.back();
       } else {
-        setMessage("⚠️ Kunde inte skapa arbetsplats.");
+        setMessage(" Kunde inte skapa arbetsplats.");
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       displayErrorMessage("Fel vid skapande.");
     } finally {
       setLoading(false);
@@ -36,7 +59,7 @@ const CreateWorkplaceComponent = () => {
   };
 
   useEffect(() => {
-    console.log("State Uppdateras ", newWorkplace);
+    // console.log("State Uppdateras ", newWorkplace);
   }, [newWorkplace]);
 
   return (

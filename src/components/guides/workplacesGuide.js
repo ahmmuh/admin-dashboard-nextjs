@@ -6,7 +6,6 @@ export const workplacesGuideSteps = [
       title: "Skapa arbetsplats",
       description: "Skapa ny arbetsplats.",
     },
-    nextRoute: () => `/dashboard/clocks`,
   },
   {
     element: "#search-workplace-input",

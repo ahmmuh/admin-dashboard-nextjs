@@ -343,14 +343,14 @@ function UserProfile() {
   const { fetchUsers } = useFetchUsers();
   const { currentUser } = useFetchCurrentUser();
 
-  console.log("TEEEEEEEEST");
+  // console.log("TEEEEEEEEST");
 
   // Hämta användare
   const fetchUser = async () => {
     try {
       const data = await getUserById(userId);
       if (!data?.user) return;
-      console.log("Fetched user i user profile:", data);
+      // console.log("Fetched user i user profile:", data);
 
       const foundUser = data.user;
       if (!foundUser.lastFour) {
@@ -365,7 +365,7 @@ function UserProfile() {
       });
       setClocks(data.clocks || []);
 
-      console.log("USER CLOCK POSTER", data.clocks);
+      // console.log("USER CLOCK POSTER", data.clocks);
       setUserLoading(false);
     } catch (err) {
       setError(err.message || "Kunde inte hämta användare");
@@ -428,7 +428,7 @@ function UserProfile() {
       await fetchUsers();
       displaySuccessMessage("Användaren uppdaterats");
       router.push("/dashboard/users");
-      console.log("Uppdaterad användare: ", user);
+      // console.log("Uppdaterad användare: ", user);
     } catch (err) {
       const msg = err.response?.data?.message || "Uppdatering misslyckades";
       if (msg && msg.toLowerCase().includes("redan")) {
@@ -436,7 +436,7 @@ function UserProfile() {
       } else {
         displayErrorMessage(msg);
       }
-      console.log(err.message);
+      // console.log(err.message);
     }
   };
   if (loadingUser || loading) return <LoadingPage />;

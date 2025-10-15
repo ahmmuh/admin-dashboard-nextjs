@@ -7,7 +7,7 @@ function EditChefPage({ params }) {
   const { unitId } = React.use(params);
   const { chefId } = params;
 
-  console.log("UNIT ID in Edit Chef Page", unitId);
+  // console.log("UNIT ID in Edit Chef Page", unitId);
 
   const searchParams = useSearchParams();
   //   const name = searchParams.get("name") || "Ingen chef";

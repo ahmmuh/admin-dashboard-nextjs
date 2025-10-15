@@ -59,9 +59,9 @@ function EditTaskClientComponent({ task }) {
       displaySuccessMessage("Task har uppdaterats");
       router.push(`/dashboard/tasks`);
     } catch (error) {
-      console.error(
-        `Fel vid uppdatering av enhet med NY TASK ${error.message}`
-      );
+      // console.error(
+      //   `Fel vid uppdatering av enhet med NY TASK ${error.message}`
+      // );
       displayErrorMessage(
         `Fel vid uppdatering av enhet med NY TASK ${error.message}`
       );

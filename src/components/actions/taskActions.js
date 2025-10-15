@@ -15,7 +15,7 @@ function TaskActions({ task, fetchTasks }) {
   const deleteHandler = async (id) => {
     try {
       const deleted = await deleteTask(id);
-      console.log(`Uppgift ${id} har tagits bort`);
+      // console.log(`Uppgift ${id} har tagits bort`);
 
       if (!deleted) {
         displayErrorMessage(`Kunde inte ta bort uppgift med ID ${id}`);
@@ -26,9 +26,9 @@ function TaskActions({ task, fetchTasks }) {
       await fetchTasks();
       // router.push(`/dashboard/tasks`);
     } catch (error) {
-      console.error(
-        `Fel vid borttagning av task med ID ${id}: ${error.message}`
-      );
+      // console.error(
+      //   `Fel vid borttagning av task med ID ${id}: ${error.message}`
+      // );
       displayErrorMessage(
         `Fel vid borttagning av task med ID ${id}: ${error.message}`
       );

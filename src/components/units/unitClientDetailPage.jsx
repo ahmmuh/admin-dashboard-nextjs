@@ -21,11 +21,11 @@ export default function UnitClientDetailPage() {
         if (!data) {
           setError("Enheten hittades inte.");
         } else {
-          console.log("UNIT", data);
+          // console.log("UNIT", data);
           setUnit(data);
         }
       } catch (err) {
-        console.error("Fel vid hämtning av enhet:", err.message);
+        // console.error("Fel vid hämtning av enhet:", err.message);
         setError("Kunde inte hämta enhetsdata.");
       }
     };

@@ -6,7 +6,6 @@ export const unitTasksGuideSteps = [
       title: "Skapa uppgift",
       description: "Lägg till nya uppgifter för enheten.",
     },
-    nextRoute: (unitId) => `/dashboard/units/${unitId ?? ":unitId"}/unitKeys`,
   },
   {
     element: ".task-item:first-child",

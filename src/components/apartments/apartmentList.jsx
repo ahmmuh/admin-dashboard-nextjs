@@ -16,7 +16,7 @@ function ApartmentList({ currentUser, apartments: initialApartments }) {
   // const [user, setUser] = useState(null);
 
   useEffect(() => {
-    console.log("Vi tittatr på currentUser i Apartmentlist", currentUser);
+    // console.log("Vi tittatr på currentUser i Apartmentlist", currentUser);
   }, []);
 
   useEffect(() => {

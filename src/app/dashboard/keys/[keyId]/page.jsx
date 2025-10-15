@@ -188,7 +188,7 @@ function EditKey() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log("KEY ID: i Edit key page", keyId);
+  // console.log("KEY ID: i Edit key page", keyId);
   const router = useRouter();
 
   const changeHandler = (e) => {
@@ -213,7 +213,7 @@ function EditKey() {
       if (!foundedKey) {
         throw new Error(`Den sökta nyckel med ID: ${keyId} finns ej`);
       }
-      console.log(`Den hämtade nyckel är ${foundedKey}`);
+      // console.log(`Den hämtade nyckel är ${foundedKey}`);
       setKey({
         keyLabel: foundedKey.keyLabel || "",
         unit: foundedKey.unit || null,
@@ -232,7 +232,7 @@ function EditKey() {
     e.preventDefault();
     try {
       if (!keyId) {
-        console.log("KEY ID SAKNAS");
+        // console.log("KEY ID SAKNAS");
       }
 
       // const updatedKey = await updateKey(keyId, key);
@@ -243,7 +243,7 @@ function EditKey() {
       // console.log("Updated Key", updatedKey);
       router.back();
     } catch (error) {
-      console.error("Error vid uppdatering av KEY", error);
+      // console.error("Error vid uppdatering av KEY", error);
     }
   };
 

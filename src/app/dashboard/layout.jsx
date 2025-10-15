@@ -19,7 +19,6 @@ function DashboardLayout({ children }) {
   return (
     <div className="flex h-full gap-4">
       <Sidebar />
-      <SystemGuideWrapper />
       <main className="ml-80 flex-1 min-h-screen bg-gray-100 px-10">
         <div className="mt-5"></div>
 

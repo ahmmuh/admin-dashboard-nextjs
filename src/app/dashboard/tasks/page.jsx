@@ -74,7 +74,7 @@ function TaskPage() {
               key={task._id}
               task={task}
               title={task.title}
-              location={task.address}
+              address={task.address}
               description={task.description}
               updatedAt={task.updatedAt}
               createdAt={task.createdAt}

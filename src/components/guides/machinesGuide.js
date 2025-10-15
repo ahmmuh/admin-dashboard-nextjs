@@ -6,7 +6,6 @@ export const machinesGuideSteps = [
       title: "Lägg till maskin",
       description: "Skapa ny maskin.",
     },
-    nextRoute: () => `/dashboard/machineLogs`,
   },
   {
     element: ".machine-item:first-child",

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import DatePickerComponent from "../datePicker";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 
 function CreateApartmentComponent() {
   const router = useRouter();
@@ -36,9 +37,38 @@ function CreateApartmentComponent() {
       startDate,
       endDate,
     };
-    console.log("NEW APARTMENT ", newApartment);
+    if (!newApartment.apartmentLocation) {
+      displayErrorMessage("Ange plats.");
+      return;
+    }
+
+    if (!newApartment.keyLocation) {
+      displayErrorMessage("Ange nyckelns plats.");
+      return;
+    }
+
+    if (!newApartment.description) {
+      displayErrorMessage("Ange en beskrivning.");
+      return;
+    }
+
+    if (!newApartment.priority) {
+      displayErrorMessage("Välj prioritet.");
+      return;
+    }
+
+    if (!newApartment.startDate) {
+      displayErrorMessage("Ange startdatum.");
+      return;
+    }
+
+    if (!newApartment.endDate) {
+      displayErrorMessage("Ange slutdatum.");
+      return;
+    }
+
     await createApartment(newApartment);
-    toast.success("Ny lägenhet har publicerats");
+    displaySuccessMessage("Ett nytt objekt har lagts till");
     router.push("/dashboard/apartments");
     setApartment({
       apartmentLocation: "",

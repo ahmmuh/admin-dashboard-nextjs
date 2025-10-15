@@ -35,11 +35,11 @@ export const getAllUsers = async () => {
       method: "GET",
     });
 
-    console.log("users data from getAllUsers() ", data);
+    // console.log("users data from getAllUsers() ", data);
     return data;
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error fetching users,", error.message);
+      // console.error("Error fetching users,", error.message);
     }
     return null;
   }

@@ -133,7 +133,7 @@ function CreateNewKey() {
         keyLabel: key.keyLabel,
         unit: key.unit,
       };
-      console.log("NEW key", newKey);
+      // console.log("NEW key", newKey);
       await createNewKey(newKey);
       toast.success("Ny nyckel har lagts till");
       router.push("/keys");

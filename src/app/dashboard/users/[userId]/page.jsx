@@ -9,7 +9,7 @@ function UserDetail() {
   const searchParams = useSearchParams();
   const userId = searchParams.get("userId");
 
-  console.log("USER ID", userId);
+  // console.log("USER ID", userId);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,9 +51,9 @@ function UserDetail() {
     );
   }
 
-  if (user) console.log("USER INFO", user);
+  // if (user) console.log("USER INFO by AHed", user.user);
 
-  const userWithKeys = user?.keys?.filter(
+  const userWithKeys = user?.user.keys?.filter(
     (key) => key.status === "checked-out"
   );
 
@@ -65,31 +65,32 @@ function UserDetail() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
         <div>
-          <span className="font-semibold">Namn:</span> {user.name}
+          <span className="font-semibold">Namn:</span> {user?.user.name}
         </div>
         <div>
-          <span className="font-semibold">E-post:</span> {user.email}
+          <span className="font-semibold">E-post:</span> {user?.user.email}
         </div>
 
         <div>
-          <span className="font-semibold">Roll:</span> {user.role?.join(", ")}
+          <span className="font-semibold">Roll:</span>{" "}
+          {user?.user.role?.join(", ")}
         </div>
         <div>
           <span className="font-semibold">Antal utlånade nycklar:</span>{" "}
           {userWithKeys ? userWithKeys.length : 0}
         </div>
-        {user.createdAt && (
+        {user?.user.createdAt && (
           <div>
             <span className="font-semibold">Skapad:</span>{" "}
-            {new Date(user.createdAt).toLocaleDateString("sv-SE")}
+            {new Date(user?.user.createdAt).toLocaleDateString("sv-SE")}
           </div>
         )}
-        {user.updatedAt && (
+        {/* {user?.user.updatedAt && (
           <div>
             <span className="font-semibold">Senast ändrad:</span>{" "}
-            {new Date(user.updatedAt).toLocaleDateString("sv-SE")}
+            {new Date(user?.user.updatedAt).toLocaleDateString("sv-SE")}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

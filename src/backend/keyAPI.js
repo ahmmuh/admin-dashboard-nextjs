@@ -11,11 +11,11 @@ export const AddNewKeyWithQrCode = async (newKey) => {
       },
       body: JSON.stringify(newKey),
     });
-    console.log("New created key", newKey);
+    // console.log("New created key", newKey);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Error when creating a new key", error.message);
+    // console.error("Error when creating a new key", error.message);
     return null;
   }
 };
@@ -29,11 +29,11 @@ export const createNewKey = async (newKey) => {
       },
       body: JSON.stringify(newKey),
     });
-    console.log("New created key", newKey);
+    // console.log("New created key", newKey);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Error when creating a new key", error.message);
+    // console.error("Error when creating a new key", error.message);
     return null;
   }
 };
@@ -44,7 +44,7 @@ export const getAllKeys = async () => {
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Error fetching keys,", error.message);
+    // console.error("Error fetching keys,", error.message);
     return null;
   }
 };
@@ -61,11 +61,11 @@ export const checkoutKey = async (userId, keyId) => {
         },
       }
     );
-    console.log("Nyckel lånad:", data);
+    // console.log("Nyckel lånad:", data);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Error vid låning av nyckel:", error.message);
+    // console.error("Error vid låning av nyckel:", error.message);
     return null;
   }
 };
@@ -82,11 +82,11 @@ export const checkinKey = async (userId, keyId) => {
         },
       }
     );
-    console.log("Nyckel återlämnad:", data);
+    // console.log("Nyckel återlämnad:", data);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Error vid återlämning av nyckel:", error.message);
+    // console.error("Error vid återlämning av nyckel:", error.message);
     return null;
   }
 };
@@ -98,7 +98,7 @@ export const getKeyLogs = async () => {
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Error fetching keys,", error.message);
+    // console.error("Error fetching keys,", error.message);
     return null;
   }
 };
@@ -107,11 +107,11 @@ export const getKeyLogs = async () => {
 export const getKeyByID = async (keyId) => {
   try {
     const data = await fetchWithAuth(`${BASE_URL}/keys/${keyId}`);
-    console.log("Hämtat KEY data från servern ", data);
+    // console.log("Hämtat KEY data från servern ", data);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Server Error: ", error.message);
+    // console.error("Server Error: ", error.message);
     return null;
   }
 };
@@ -126,13 +126,13 @@ export const updateKey = async (keyID, updatedKey) => {
       },
       body: JSON.stringify(updatedKey),
     });
-    console.log(
-      `NEW KEY (Nycklar) ${updatedKey} has been added to the KEY med ID ${keyID}`
-    );
+    // console.log(
+    //   `NEW KEY (Nycklar) ${updatedKey} has been added to the KEY med ID ${keyID}`
+    // );
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Error on the Server", error.message);
+    // console.error("Error on the Server", error.message);
     return null;
   }
 };
@@ -143,11 +143,11 @@ export const deleteKey = async (keyId) => {
     const data = await fetchWithAuth(`${BASE_URL}/keys/${keyId}`, {
       method: "DELETE",
     });
-    console.log(`Key (nyckel) deleted: ${data.message}`);
+    // console.log(`Key (nyckel) deleted: ${data.message}`);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Error deleting Key (nyckel):", error.message);
+    // console.error("Error deleting Key (nyckel):", error.message);
     return null;
   }
 };
@@ -162,7 +162,7 @@ export const searchKeys = async (query) => {
     return data.data || [];
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Error searching keys:", error.message);
+    // console.error("Error searching keys:", error.message);
     return [];
   }
 };

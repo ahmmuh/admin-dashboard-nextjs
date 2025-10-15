@@ -134,6 +134,7 @@ import {
   faCity,
   faClock,
   faGear,
+  faKey,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -170,6 +171,12 @@ const Sidebar = () => {
       href: "/dashboard/keys",
       label: "Nyckelhantering",
       icon: <HiOutlineKey className="w-5 h-5" />,
+    },
+    {
+      id: "link-keys-logs",
+      href: "/dashboard/keyLogs",
+      label: "Nyckelhistorik",
+      icon: <FontAwesomeIcon icon={faKey} className="w-5 h-5" />,
     },
     {
       id: "link-users",

@@ -107,7 +107,7 @@ function ApartmentPage() {
         const apartmentList = await getApartments();
         setApartments(apartmentList || []);
       } catch (error) {
-        console.log("Error", error.message);
+        // console.log("Error", error.message);
         setError(error);
       } finally {
         setLoading(false);

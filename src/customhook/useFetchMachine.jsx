@@ -25,12 +25,12 @@ export function useFetchMachines() {
     try {
       const machineList = await getMachines();
       if (!machineList || machineList.length === 0) {
-        console.log("Inga maskiner finns");
+        // console.log("Inga maskiner finns");
       }
-      console.log("Alla hämtade maskiner:", machineList);
+      // console.log("Alla hämtade maskiner:", machineList);
       setMachines(machineList);
     } catch (err) {
-      console.error("Fel vid hämtning av maskiner:", err.message);
+      // console.error("Fel vid hämtning av maskiner:", err.message);
       setError(err);
     } finally {
       setLoading(false);
@@ -44,7 +44,7 @@ export function useFetchMachines() {
       if (created?.machine) setMachines((prev) => [...prev, created.machine]);
       return created?.machine || null;
     } catch (err) {
-      console.error("Fel vid skapande av maskin:", err.message);
+      // console.error("Fel vid skapande av maskin:", err.message);
       setError(err);
       return null;
     }
@@ -54,11 +54,11 @@ export function useFetchMachines() {
   const fetchMachineLogs = async () => {
     try {
       const logs = await getMachineLogs();
-      console.log("MASKIN LOGS", logs);
+      // console.log("MASKIN LOGS", logs);
 
       setMachineLogs(logs || []);
     } catch (err) {
-      console.error("Fel vid hämtning av maskinloggar:", err.message);
+      // console.error("Fel vid hämtning av maskinloggar:", err.message);
       displayErrorMessage(err);
       setMachineLogs([]);
     }
@@ -79,7 +79,7 @@ export function useFetchMachines() {
       }
       return updated?.machine || null;
     } catch (err) {
-      console.error("Fel vid uppdatering av maskin:", err.message);
+      // console.error("Fel vid uppdatering av maskin:", err.message);
       setError(err);
       return null;
     }
@@ -94,7 +94,7 @@ export function useFetchMachines() {
       }
       return deleted?.machine || null;
     } catch (err) {
-      console.error("Fel vid borttagning av maskin:", err.message);
+      // console.error("Fel vid borttagning av maskin:", err.message);
       setError(err);
       return null;
     }
@@ -111,7 +111,7 @@ export function useFetchMachines() {
       }
       return borrowed?.machine || null;
     } catch (err) {
-      console.error("Fel vid utlåning av maskin:", err.message);
+      // console.error("Fel vid utlåning av maskin:", err.message);
       setError(err);
       return null;
     }
@@ -128,7 +128,7 @@ export function useFetchMachines() {
       }
       return returned?.machine || null;
     } catch (err) {
-      console.error("Fel vid återlämning av maskin:", err.message);
+      // console.error("Fel vid återlämning av maskin:", err.message);
       setError(err);
       return null;
     }
@@ -140,7 +140,7 @@ export function useFetchMachines() {
       const results = await searchMachines(query); // backend returnerar { message, machines }
       return results?.machines || [];
     } catch (err) {
-      console.error("Fel vid sökning av maskiner:", err.message);
+      // console.error("Fel vid sökning av maskiner:", err.message);
       setError(err);
       return [];
     }

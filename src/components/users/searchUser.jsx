@@ -23,7 +23,7 @@ function SearchUser() {
         setResults(data);
         setError(null);
       } catch (err) {
-        console.error(err);
+        // console.error(err);
         setError("Kunde inte hämta användare.");
         setResults([]);
       }

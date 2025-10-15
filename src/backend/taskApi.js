@@ -13,7 +13,7 @@ export const addTask = async (newTask) => {
 
     return data; // här har du redan JSON
   } catch (error) {
-    console.error("Fel vid skapande av uppdrag:", error.message);
+    // console.error("Fel vid skapande av uppdrag:", error.message);
     throw error;
   }
 };
@@ -25,7 +25,7 @@ export const getUnitTasks = async (unitId) => {
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Server Error: ", error.message);
+    // console.error("Server Error: ", error.message);
     return null;
   }
 };
@@ -37,7 +37,7 @@ export const getAllTasks = async () => {
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Server Error: ", error.message);
+    // console.error("Server Error: ", error.message);
     return null;
   }
 };
@@ -55,11 +55,11 @@ export const assignTaskToUnit = async (unitId, taskId, assignedTask) => {
         body: JSON.stringify(assignedTask),
       }
     );
-    console.log(`Tilldelad ${data} Utförs av enhet med ID ${unitId}`);
+    // console.log(`Tilldelad ${data} Utförs av enhet med ID ${unitId}`);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error(`Error on the Server ${error.message}`);
+    // console.error(`Error on the Server ${error.message}`);
     return null;
   }
 };
@@ -74,11 +74,11 @@ export const updateTask = async (taskId, newTask) => {
       },
       body: JSON.stringify(newTask),
     });
-    console.log(`NEW TASK ${newTask} has been added to the UNIT med ID `);
+    // console.log(`NEW TASK ${newTask} has been added to the UNIT med ID `);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error(`Error on the Server ${error.message}`);
+    // console.error(`Error on the Server ${error.message}`);
     return null;
   }
 };
@@ -92,7 +92,7 @@ export const getTaskStatuses = async (unitId) => {
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.warn(`Server Error message: ${error.message}`);
+    // console.warn(`Server Error message: ${error.message}`);
     return null;
   }
 };
@@ -103,11 +103,11 @@ export const deleteTask = async (taskId) => {
     const data = await fetchWithAuth(`${BASE_URL}/tasks/${taskId}`, {
       method: "DELETE",
     });
-    console.log(`En uppgift har tagits bort: ${data.message}`);
+    // console.log(`En uppgift har tagits bort: ${data.message}`);
     return data;
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
-    console.error("Error deleting task:", error.message);
+    // console.error("Error deleting task:", error.message);
     return null;
   }
 };
@@ -121,7 +121,7 @@ export const searchTasks = async (query) => {
   } catch (error) {
     if (error.message.includes("401")) return "unauthorized";
     if (error.message.includes("404")) return [];
-    console.error("Error searching tasks:", error.message);
+    // console.error("Error searching tasks:", error.message);
     return [];
   }
 };

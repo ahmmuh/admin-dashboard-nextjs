@@ -28,7 +28,7 @@ function SearchUnit() {
         setResults(filtered);
         setError(null);
       } catch (err) {
-        console.error("Sökfel:", err);
+        // console.error("Sökfel:", err);
         setError("Kunde inte hämta sökresultat.");
         setResults([]);
       }

@@ -20,6 +20,5 @@ export const keyLogsGuideSteps = [
       title: "Visa fler",
       description: "Ladda fler nyckelloggar.",
     },
-    nextRoute: () => `/dashboard/users`,
   },
 ];

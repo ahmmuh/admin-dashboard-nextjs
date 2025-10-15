@@ -261,7 +261,7 @@ const KeyDetailComponent = () => {
       toast.success("Nyckeln har lånats ut!");
       router.push("/dashboard/keys");
     } catch (error) {
-      console.error("Error", error);
+      // console.error("Error", error);
       toast.error("Kunde inte låna ut nyckeln.");
     }
   };
@@ -286,7 +286,7 @@ const KeyDetailComponent = () => {
       toast.success("Nyckeln har återlämnats!");
       router.push("/dashboard/keys");
     } catch (error) {
-      console.error("Error", error);
+      // console.error("Error", error);
       toast.error("Kunde inte lämna tillbaka nyckeln.");
     }
   };

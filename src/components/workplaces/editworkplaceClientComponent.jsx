@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function EditWorkPlaceClientComponent({ workPlaceId }) {
   const router = useRouter();
-  console.log("workPlaceId i EditWorkPlaceClientComponent", workPlaceId);
+  // console.log("workPlaceId i EditWorkPlaceClientComponent", workPlaceId);
   const [workPlace, setWorkPlace] = useState({
     name: "",
     location: "",
@@ -29,7 +29,7 @@ export default function EditWorkPlaceClientComponent({ workPlaceId }) {
         });
         setAssignedUsers(data.cleaners || []);
       } catch (err) {
-        console.error("Kunde inte hämta arbetsplats:", err);
+        // console.error("Kunde inte hämta arbetsplats:", err);
       } finally {
         setLoading(false);
       }
@@ -52,7 +52,7 @@ export default function EditWorkPlaceClientComponent({ workPlaceId }) {
       displaySuccessMessage("Arbetsplatsen har uppdaterats!");
       router.push("/dashboard/workplaces");
     } catch (err) {
-      console.error("Fel vid uppdatering:", err.message);
+      // console.error("Fel vid uppdatering:", err.message);
       displayErrorMessage("Kunde inte uppdatera arbetsplatsen.");
     }
   };

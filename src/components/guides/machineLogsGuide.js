@@ -6,7 +6,6 @@ export const machineLogsGuideSteps = [
       title: "Sök loggar",
       description: "Sök i maskinloggar.",
     },
-    nextRoute: () => `/dashboard`,
   },
   {
     element: ".machine-log-item:first-child",

@@ -7,7 +7,7 @@ import { useState } from "react";
 
 function CreateChefComponent({ unitId }) {
   const router = useRouter();
-  console.log("Unit ID i frontend i (CreateChefComponent):", unitId);
+  // console.log("Unit ID i frontend i (CreateChefComponent):", unitId);
 
   const [chefData, setChefData] = useState({
     name: "",
@@ -25,16 +25,16 @@ function CreateChefComponent({ unitId }) {
   const getUnit = async () => {
     try {
       const unit = await getUnitByID(unitId);
-      console.log("Unit i create chef component");
+      // console.log("Unit i create chef component");
       console.log(unit);
       if (unit.chef) {
         setUnit(unit);
-        console.log("Hittade UNIT", unit);
+        // console.log("Hittade UNIT", unit);
         return <div>Enheten har chef som heter {unit.chef.name} </div>;
       }
-      console.log(`Enheten med ID ${unitId} har ingen chef`);
+      // console.log(`Enheten med ID ${unitId} har ingen chef`);
     } catch (error) {
-      console.error(`Något gick fel ${error.message}`);
+      // console.error(`Något gick fel ${error.message}`);
     }
   };
   useEffect(() => {
@@ -50,17 +50,17 @@ function CreateChefComponent({ unitId }) {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      console.log("unitId, chefData", unitId, chefData);
+      // console.log("unitId, chefData", unitId, chefData);
       const chef = await addChefToUnit(unitId, chefData);
       displaySuccessMessage(
         `Ny chef med följande data ${chefData.name} har lagts i databasen`
       );
-      console.log(
-        `Ny chef med följande data ${chefData.name} har lagts i databasen`
-      );
+      // console.log(
+      //   `Ny chef med följande data ${chefData.name} har lagts i databasen`
+      // );
       router.push("/chefer");
     } catch (error) {
-      console.error(`Det gick inte att lägga till ny chef`);
+      // console.error(`Det gick inte att lägga till ny chef`);
       displayErrorMessage("Det gick inte att lägga till ny chef");
       router.push("/chefer");
     }

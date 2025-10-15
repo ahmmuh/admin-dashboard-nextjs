@@ -13,7 +13,7 @@ export const createWorkPlace = async (newWorkPlace) => {
     });
     return data;
   } catch (error) {
-    console.error("Error creating workplace:", error.message);
+    // console.error("Error creating workplace:", error.message);
     return null;
   }
 };
@@ -30,7 +30,7 @@ export const addWorkPlaceToUnit = async (unitId, newWorkPlace) => {
     });
     return data;
   } catch (error) {
-    console.error("Error adding workplace to unit:", error.message);
+    // console.error("Error adding workplace to unit:", error.message);
     return null;
   }
 };
@@ -41,7 +41,7 @@ export const getAllWorkPlaces = async () => {
     const data = await fetchWithAuth(`${BASE_URL}/workplaces`);
     return data;
   } catch (error) {
-    console.error("Error fetching all workplaces:", error.message);
+    // console.error("Error fetching all workplaces:", error.message);
     return [];
   }
 };
@@ -57,7 +57,7 @@ export const assignUserToWorkPlace = async (workplaceId, userId) => {
 
     return data;
   } catch (error) {
-    console.error("Error assigning user to workplace:", error.message);
+    // console.error("Error assigning user to workplace:", error.message);
     return null;
   }
 };
@@ -72,7 +72,7 @@ export const getNearbyWorkPlaces = async () => {
 
     return data;
   } catch (error) {
-    console.error("Error fetching nearby workplaces:", error.message);
+    // console.error("Error fetching nearby workplaces:", error.message);
     return [];
   }
 };
@@ -83,7 +83,7 @@ export const getWorkPlaceById = async (workplaceId) => {
     const data = await fetchWithAuth(`${BASE_URL}/workplaces/${workplaceId}`);
     return data;
   } catch (error) {
-    console.error("Error fetching workplace by ID:", error.message);
+    // console.error("Error fetching workplace by ID:", error.message);
     return null;
   }
 };
@@ -100,7 +100,7 @@ export const updateWorkPlace = async (workplaceId, updatedWorkplace) => {
     });
     return data;
   } catch (error) {
-    console.error("Error updating workplace:", error.message);
+    // console.error("Error updating workplace:", error.message);
     return null;
   }
 };
@@ -116,7 +116,7 @@ export const deleteWorkplace = async (unitId, workplaceId) => {
     );
     return data;
   } catch (error) {
-    console.error("Error deleting workplace:", error.message);
+    // console.error("Error deleting workplace:", error.message);
     return null;
   }
 };
@@ -137,7 +137,7 @@ export const removeUserFromWorkPlace = async (workplaceId, userId) => {
     );
     return data; // innehåller message och uppdaterad workplace
   } catch (error) {
-    console.error("Error removing user from workplace:", error.message);
+    // console.error("Error removing user from workplace:", error.message);
     return null;
   }
 };

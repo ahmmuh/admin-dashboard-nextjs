@@ -213,13 +213,26 @@ function CreateTaskClientComponent() {
         },
       };
 
-      console.log("NY TASK:", newTask);
+      if (!newTask.title) {
+        displayErrorMessage("Välj en arbetsplats eller titel för uppdraget.");
+        return;
+      }
+
+      if (!newTask.description) {
+        displayErrorMessage("Ange en beskrivning för uppdraget.");
+        return;
+      }
+
+      if (!newTask.address) {
+        displayErrorMessage("Adress saknas för den valda uppdraget.");
+        return;
+      }
+
       await addTask(newTask);
-      displaySuccessMessage("Ny task har lagts till!");
+      displaySuccessMessage("Nytt uppdrag har lagts till!");
       setTask({ title: "", address: "", coordinates: null, description: "" });
       router.back();
     } catch (error) {
-      console.error("Fel vid skapande av task:", error.message);
       displayErrorMessage(`Fel vid skapande av task: ${error.message}`);
     }
   };
@@ -248,7 +261,7 @@ function CreateTaskClientComponent() {
             onFocus={() => setShowResults(true)}
           />
 
-          {loading && <LoadingPage message="Laddar arbetsplatser..." />}
+          {loading && <LoadingPage message="Laddar..." />}
 
           {/* Visa matchande arbetsplatser eller fallback */}
           {showResults && (
@@ -311,7 +324,6 @@ function CreateTaskClientComponent() {
         {/* Spara */}
         <button
           type="submit"
-          disabled={!isFormValid}
           className="cursor-pointer p-2 w-80 border rounded-2xl bg-indigo-200 border-indigo-300 shadow-sm hover:bg-indigo-300 transition disabled:bg-gray-200">
           Spara
         </button>

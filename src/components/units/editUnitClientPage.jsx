@@ -21,10 +21,10 @@ export default function EditUnitClientPage() {
     const fetchUnit = async () => {
       try {
         const data = await getUnitByID(unitId);
-        console.log("Editable unit", data);
+        // console.log("Editable unit", data);
         setUnit(data);
       } catch (err) {
-        console.error("Fel vid hämtning:", err.message);
+        // console.error("Fel vid hämtning:", err.message);
         displayErrorMessage("❌ Kunde inte hämta enheten");
         router.push("/dashboard");
       } finally {
@@ -45,10 +45,10 @@ export default function EditUnitClientPage() {
 
       await updateUnit(unitId, updatedUnit);
 
-      displaySuccessMessage("✅ Enhet uppdaterad");
+      displaySuccessMessage("Enhet uppdaterad");
       router.push("/dashboard/units");
     } catch (err) {
-      console.error("Fel vid uppdatering:", err.message);
+      // console.error("Fel vid uppdatering:", err.message);
       displayErrorMessage(`Fel: ${err.message}`);
     }
   };

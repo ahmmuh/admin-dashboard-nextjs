@@ -15,12 +15,15 @@ function LoginPage() {
     password: "",
   });
 
+  const [error, setError] = useState("");
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
       ...prevUser,
       [name]: value,
     }));
+    setError("");
   };
 
   const loginHandler = async (e) => {
@@ -34,7 +37,7 @@ function LoginPage() {
       displaySuccessMessage("Inloggning lyckades");
       router.push("/dashboard");
     } catch (error) {
-      throw new Error("Kunde inte logga in");
+      setError("Fel användarnamn eller lösenord");
     }
   };
 
@@ -44,6 +47,7 @@ function LoginPage() {
       <h3 className="mb-5 text-2xl">Vänligen logga in</h3>
 
       <div className="flex flex-col p-8 shadow-lg shadow-blue-200 bg-white w-full min-h-fit max-w-md md:max-w-lg lg:max-w-xl">
+        {error && <p className="text-red-600 mb-4 text-center">{error}</p>}
         <form onSubmit={loginHandler} className="space-y-4">
           <MainInput
             className="p-1 w-full border border-black rounded-lg"

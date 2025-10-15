@@ -27,9 +27,9 @@ function UnitTasksPage() {
           setError("Kunde inte hämta uppgifter");
         }
         setUnit(data);
-        console.log("TASK i UNIT TASK PAGE", data);
+        // console.log("TASK i UNIT TASK PAGE", data);
       } catch (err) {
-        console.error(err);
+        // console.error(err);
         setError("Fel vid hämtning av data");
       } finally {
         setLoading(false);
@@ -44,7 +44,7 @@ function UnitTasksPage() {
   if (error) return <p className="p-5 text-red-600 font-semibold">{error}</p>;
 
   const { tasks } = unit;
-  console.log("TASK i UNIT TASK PAGE", tasks);
+  // console.log("TASK i UNIT TASK PAGE", tasks);
 
   const isManager =
     currentUser?.role?.includes("Avdelningschef") ||

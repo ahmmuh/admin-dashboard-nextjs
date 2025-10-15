@@ -1,44 +1,42 @@
+// components/guides/chefGuide.js
 export const chefGuideSteps = [
   {
-    element: "#add-chef-btn",
+    element: ".chef-personlist",
     popover: {
-      title: "Lägg till chef",
-      description: "Skapa ny chef för enheten.",
-    },
-    nextRoute: (unitId, chef) =>
-      `/dashboard/units/${unitId}/chefer/edit?chefId=${
-        chef.id
-      }&name=${encodeURIComponent(chef.name)}&phone=${encodeURIComponent(
-        chef.phone
-      )}&email=${encodeURIComponent(chef.email)}`,
-  },
-  {
-    element: ".edit-chef-btn",
-    popover: {
-      title: "Redigera chef",
-      description: "Uppdatera chefens information.",
+      title: "Enhetschef sida",
+      description:
+        "Här kan du se information om enhetschef + uppdater eller ta bort knappar, syns bara för avdelningschef/områdeschef",
     },
   },
-  {
-    element: ".delete-chef-btn",
-    popover: {
-      title: "Ta bort chef",
-      description: "Tar bort chefen permanent.",
-    },
-  },
+
   {
     element: "#chef-name-input",
     popover: {
       title: "Chefens namn",
       description: "Redigera chefens namn här.",
     },
-    nextRoute: (unitId) => `/dashboard/units/${unitId}/specialister`,
+  },
+
+  {
+    element: "#chef-telefon-input",
+    popover: {
+      title: "Chefens telefon",
+      description: "Redigera chefens telefon här.",
+    },
   },
   {
     element: "#chef-email-input",
     popover: {
       title: "Chefens e-post",
       description: "Uppdatera chefens email.",
+    },
+  },
+
+  {
+    element: "#chef-role-input",
+    popover: {
+      title: "Chefens role",
+      description: "Redigera chefens role här.",
     },
   },
   {

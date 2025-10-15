@@ -61,7 +61,7 @@ function UserPage() {
       setUserList((prev) => prev.filter((user) => user._id !== id));
     } catch (error) {
       displayErrorMessage("Fel vid borttagning av användare");
-      console.log(`Fel: ${error.message}`);
+      // console.log(`Fel: ${error.message}`);
     }
   };
 

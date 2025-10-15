@@ -2,7 +2,7 @@
 
 import { signUp } from "@/backend/authAPI";
 import MainInput from "@/components/input";
-import { displaySuccessMessage } from "@/helper/toastAPI";
+import { displayErrorMessage, displaySuccessMessage } from "@/helper/toastAPI";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -28,12 +28,43 @@ function NewUserPage() {
 
   const SignUpHandler = async (e) => {
     e.preventDefault();
+
+    if (!user.name || !user.name.trim()) {
+      displayErrorMessage("Ange användarens namn.");
+      return;
+    }
+
+    if (!user.email || !user.email.trim()) {
+      displayErrorMessage("Ange e-postadress.");
+      return;
+    }
+
+    if (!user.password || !user.password.trim()) {
+      displayErrorMessage("Ange lösenord.");
+      return;
+    }
+
+    // Extra: kontrollera minsta längd (valfritt)
+    if (user.password.length < 6) {
+      displayErrorMessage("Lösenordet måste vara minst 6 tecken långt.");
+      return;
+    }
+
+    if (!user.phone || !user.phone.trim()) {
+      displayErrorMessage("Ange telefonnummer.");
+      return;
+    }
+
+    if (!user.username || !user.username.trim()) {
+      displayErrorMessage("Ange användarnamn.");
+      return;
+    }
     try {
       await signUp(user);
       displaySuccessMessage("Registrering lyckades");
       router.push("/dashboard/");
     } catch (err) {
-      console.error("Registrering misslyckades", err);
+      // console.error("Registrering misslyckades", err);
       setError(err.message || "Något gick fel");
       return;
     }

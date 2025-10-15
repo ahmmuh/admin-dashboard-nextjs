@@ -5,7 +5,6 @@ export const dashboardGuideSteps = [
       title: "Startsida",
       description: "Detta är huvudpanelen. Här börjar testet.",
     },
-    nextRoute: () => `/dashboard/units`,
   },
   {
     element: "#units-link",
@@ -13,6 +12,5 @@ export const dashboardGuideSteps = [
       title: "Enheter",
       description: "Klicka här för att gå till alla enheter.",
     },
-    nextRoute: () => `/dashboard/units`,
   },
 ];

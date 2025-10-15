@@ -2,6 +2,7 @@
 import { AddNewKeyWithQrCode, getKeyByID } from "@/backend/keyAPI";
 import { useFetchKeys } from "@/customhook/useFetchKeys";
 import { useFetchUnits } from "@/customhook/useFetchUnits";
+import { displayErrorMessage } from "@/helper/toastAPI";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -48,8 +49,13 @@ function KeyQRCodePage() {
   // Skapa ny nyckel
   const addNewKey = async (e) => {
     e.preventDefault();
-    if (!key.keyLabel.trim() || !key.unit.trim()) {
-      toast.error("Alla fält måste fyllas i");
+    if (!key.keyLabel || !key.keyLabel.trim()) {
+      displayErrorMessage("Ange nyckelns namn eller etikett.");
+      return;
+    }
+
+    if (!key.unit || !key.unit.trim()) {
+      displayErrorMessage("Välj en enhet för nyckeln.");
       return;
     }
 
@@ -65,7 +71,7 @@ function KeyQRCodePage() {
       };
 
       findKey();
-      console.log("NEW key", newKey);
+      // console.log("NEW key", newKey);
       await AddNewKeyWithQrCode(newKey);
       toast.success("Ny nyckel har lagts till");
       router.push("/dashboard/keys");

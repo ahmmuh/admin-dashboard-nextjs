@@ -11,7 +11,7 @@ export const useFetchPlaces = () => {
       const results = await getPlaces(query);
       setPlaceResults(results);
     } catch (error) {
-      console.error("Fel vid hämtning av platser:", error.message);
+      // console.error("Fel vid hämtning av platser:", error.message);
       setPlaceResults([]);
     } finally {
       setLoading(false);
