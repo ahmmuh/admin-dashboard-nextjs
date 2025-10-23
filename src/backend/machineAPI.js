@@ -74,14 +74,13 @@ export const deleteMachine = async (machineId) => {
 };
 
 // ✅ Låna maskin
-export const borrowMachine = async (machineId, userId) => {
+export const borrowMachine = async (machineId) => {
   try {
     const data = await fetchWithAuth(
       `${BASE_URL}/machines/${machineId}/borrow`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }),
       }
     );
 

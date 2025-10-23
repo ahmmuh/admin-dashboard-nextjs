@@ -99,7 +99,7 @@ export default function MachinePage() {
 
       {filteredMachines.length === 0 ? (
         <p className="text-red-500 text-center text-lg font-semibold mt-10">
-          Denna maskin finns inte.
+          Det finns inga maskiner att visa just nu.
         </p>
       ) : (
         <div className="overflow-x-auto rounded-lg shadow border border-gray-200 max-h-[600px]">
