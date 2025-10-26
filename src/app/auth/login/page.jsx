@@ -9,7 +9,6 @@ import { HiOutlineLockClosed } from "react-icons/hi";
 
 function LoginPage() {
   const router = useRouter();
-
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -28,6 +27,7 @@ function LoginPage() {
 
   const loginHandler = async (e) => {
     e.preventDefault();
+    setError("");
     try {
       const userInfo = {
         username: user.username,
@@ -37,7 +37,16 @@ function LoginPage() {
       displaySuccessMessage("Inloggning lyckades");
       router.push("/dashboard");
     } catch (error) {
-      setError("Fel användarnamn eller lösenord");
+      // console.error("Login error:", error);
+
+      if (error.response?.data?.message) {
+        setError(error.response.data.message); // <-- Visar rätt meddelande
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+      } else {
+        setError("Ett oväntat fel uppstod.");
+      }
     }
   };
 

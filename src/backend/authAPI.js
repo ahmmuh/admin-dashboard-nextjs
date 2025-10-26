@@ -35,12 +35,12 @@ export const signIn = async (user) => {
 
     const data = await res.json();
     if (!res.ok) {
-      throw new Error(`${res.message} || Failed to login`);
+      throw { response: { data } };
     }
-    console.log("User Data", user);
+    // console.log("User Data", user);
     return data;
   } catch (error) {
-    throw new Error(`Serverfel ${error.message}`);
+    throw error;
   }
 };
 

@@ -5,7 +5,13 @@ import LoadingPage from "@/app/loading";
 import { checkinKey, getAllKeys } from "@/backend/keyAPI";
 import KeySearch from "@/components/keys/keySearch";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faPen,
+  faPenAlt,
+  faPencil,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
@@ -132,9 +138,14 @@ function KeyPage() {
                       i % 2 === 0 ? "bg-white" : "bg-gray-50"
                     } hover:bg-gray-100 transition`}>
                     <td className="border border-gray-200 text-blue-400 font-bold">
-                      🔑{" "}
+                      🔑 {key.keyLabel.toUpperCase()}
                       <Link href={`/dashboard/keys/${key._id}`}>
-                        {key.keyLabel.toUpperCase()}
+                        <br />
+                        <FontAwesomeIcon
+                          icon={faEdit}
+                          size="15"
+                          name="pencil"
+                        />
                       </Link>
                       {key.qrCode && (
                         <>
