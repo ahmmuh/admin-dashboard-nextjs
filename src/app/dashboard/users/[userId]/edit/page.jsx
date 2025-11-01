@@ -427,7 +427,7 @@ function UserProfile() {
       await fetchUnits();
       await fetchUsers();
       displaySuccessMessage("Användaren uppdaterats");
-      router.push("/dashboard/users");
+      router.back();
       // console.log("Uppdaterad användare: ", user);
     } catch (err) {
       const msg = err.response?.data?.message || "Uppdatering misslyckades";
