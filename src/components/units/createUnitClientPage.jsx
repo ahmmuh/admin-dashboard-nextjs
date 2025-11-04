@@ -16,7 +16,7 @@ export default function CreateUnitClientPage() {
     e.preventDefault();
 
     const addressPattern =
-      /^[A-Za-zÅÄÖa-zåäö\s]+\s\d+,\s\d{3}\s\d{2}\s[A-Za-zÅÄÖa-zåäö\s]+,\s[A-Za-z\s]+$/;
+      /^[A-Za-zÅÄÖa-zåäö\s]+\s\d+,\s\d{3}\s?\d{2}\s[A-Za-zÅÄÖa-zåäö\s]+,\s[A-Za-zÅÄÖa-zåäö\s]+$/;
 
     try {
       const newUnit = {
@@ -34,7 +34,7 @@ export default function CreateUnitClientPage() {
         return;
       }
 
-      const exampleAddress = "Danmarksgatan 26, 753 23 Uppsala, Sweden";
+      const exampleAddress = "Danmarksgatan 26, 753 23 Uppsala, Sverige";
 
       if (!addressPattern.test(newUnit.address.trim())) {
         displayErrorMessage(

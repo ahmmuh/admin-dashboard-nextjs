@@ -59,7 +59,7 @@ export default function MachineLogsPage() {
 
       <input
         type="text"
-        placeholder="Sök loggar..."
+        placeholder="Sök maskinloggar..."
         className="border rounded px-3 py-2 mb-4 w-full"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

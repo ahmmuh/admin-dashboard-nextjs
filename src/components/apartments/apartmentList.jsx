@@ -199,7 +199,7 @@ function ApartmentList({ currentUser, apartments: initialApartments }) {
     await deleteApartment(id);
     const updatedApartments = await getApartments();
     setApartments(updatedApartments);
-    displayErrorMessage("Lägenhet har tagits bort");
+    displayErrorMessage("Objektet har tagits bort");
   };
 
   return (
@@ -248,7 +248,7 @@ function ApartmentList({ currentUser, apartments: initialApartments }) {
               className="border border-b-2 p-5 bg-gray-50 rounded-md shadow-sm">
               <ul className="flex flex-col gap-2">
                 <li className="border border-b-4 p-4 border-b-orange-400 bg-gray-200">
-                  <span className="font-bold">Lägenheten ligger på:</span>{" "}
+                  <span className="font-bold">Adress till flyttstäd</span>{" "}
                   {apartment.apartmentLocation}
                 </li>
                 <li className="border-b-2 border-indigo-200 p-2 hover:bg-gray-200">
@@ -286,10 +286,18 @@ function ApartmentList({ currentUser, apartments: initialApartments }) {
                       : "text-green-700"
                   }`}>
                   <span className="font-bold">Status:</span> {apartment.status}{" "}
-                  <span className="text-gray-800 text-sm">
-                    | Senast ändrad:{" "}
-                    {new Date(apartment.updatedAt).toLocaleString()}
-                  </span>
+                  {apartment.status === "Ej påbörjat" && (
+                    <span className="text-gray-800 text-sm">
+                      | Skapad: {new Date(apartment.createdAt).toLocaleString()}
+                    </span>
+                  )}
+                  {(apartment.status === "Påbörjat" ||
+                    apartment.status === "Färdigt") && (
+                    <span className="text-gray-800 text-sm">
+                      | Senast ändrad:{" "}
+                      {new Date(apartment.updatedAt).toLocaleString()}
+                    </span>
+                  )}
                 </li>
 
                 {/* Action buttons */}

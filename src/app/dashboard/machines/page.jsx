@@ -281,7 +281,7 @@ export default function MachinePage() {
       setShowAlert(false);
       setMachineToDelete(null);
     } catch (err) {
-      displayErrorMessage("Kunde inte ta bort maskinen ❌");
+      displayErrorMessage("Kunde inte ta bort maskinen ");
       setShowAlert(false);
       setMachineToDelete(null);
     }

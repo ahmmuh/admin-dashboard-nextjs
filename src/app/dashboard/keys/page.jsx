@@ -6,6 +6,7 @@ import { checkinKey, getAllKeys } from "@/backend/keyAPI";
 import KeySearch from "@/components/keys/keySearch";
 import { useFetchCurrentUser } from "@/customhook/useFechCurrentUser";
 import {
+  faCalendar,
   faEdit,
   faPen,
   faPenAlt,
@@ -82,18 +83,43 @@ function KeyPage() {
   return (
     <div>
       <Toaster />
-      <div className="p-2">
-        {keys.length > 0 && (
-          <h3 className="text-2xl text-blue-500  mb-6">Nyckelhantering</h3>
-        )}{" "}
-        {isManager && (
-          <Link
-            className="text-green-800  flex items-center gap-3 mb-4"
-            href={"/dashboard/key_QRcode"}>
-            <HiPlus />
-            <span>Lägg till nyckel</span>
-          </Link>
-        )}
+      {/* <div className="p-2">
+        <h3 className="text-2xl text-blue-500  mb-6">Nyckelhantering</h3>
+        <div className="flex flex-wrap  sm:gap-3 justify-end items-end pr-8">
+          {isManager && (
+            <Link
+              className="text-green-800  flex items-center gap-3 mb-4"
+              href={"/dashboard/key_QRcode"}>
+              <HiPlus />
+              <span>Lägg till nyckel</span>
+            </Link>
+          )}
+          <Link href={"/dashboard/keyLogs"}>Nyckelhistorik</Link>
+        </div>
+      </div> */}
+      <div className="p-2 ">
+        <div className="flex justify-between items-center mb-4">
+          {/* Vänstersida */}
+          <h3 className="text-2xl text-blue-500 mb-0">Nyckelhantering</h3>
+
+          {/* Högersida */}
+          <div className="flex items-center gap-6 pr-8">
+            {isManager && (
+              <Link
+                className="text-green-800 flex items-center gap-2"
+                href={"/dashboard/key_QRcode"}>
+                <HiPlus />
+                <span>Lägg till nyckel</span>
+              </Link>
+            )}
+            <Link
+              href={"/dashboard/keyLogs"}
+              className="text-blue-700 hover:underline">
+              <FontAwesomeIcon icon={faCalendar} className="pr-1" />
+              Nyckelhistorik
+            </Link>
+          </div>
+        </div>
       </div>
 
       <div className="pr-10">

@@ -88,8 +88,8 @@ export default function ClockInOut() {
       {/* Sidebar */}
       <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-start pt-6 text-gray-800">
         {/* Huvudrubrik beroende på state */}
-        <p className="text-3xl font-semibold mb-4">
-          Välkommen! Vänligen stämpla in
+        <p className="text-2xl font-semibold mb-4">
+          Välkommen, Vänligen stämpla in/ut
         </p>
 
         {/* Klocka */}
