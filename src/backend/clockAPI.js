@@ -74,3 +74,21 @@ export const getAllUserClocks = async () => {
     return null;
   }
 };
+
+//Visa alla som stämplade in
+
+export const getActiveUsers = async () => {
+  try {
+    const data = await fetchWithAuth(`${BASE_URL}/clocks/clockedUsers`, {
+      method: "GET",
+    });
+
+    console.log("Clocks data from getActiveUsers() ", data);
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      // console.error("Error fetching clocks med användare,", error.message);
+    }
+    return null;
+  }
+};

@@ -76,7 +76,7 @@ function UnitTasksPage() {
                 <span
                   className={`px-3 py-1 text-sm rounded-full font-medium ${
                     task.status === "Ej påbörjat"
-                      ? "bg-gray-200 text-gray-700"
+                      ? " text-red-700"
                       : task.status === "Påbörjat"
                       ? "bg-yellow-200 text-yellow-800"
                       : "bg-green-200 text-green-800"
@@ -90,15 +90,19 @@ function UnitTasksPage() {
               )}
 
               <div className="text-xs text-gray-500 flex flex-col sm:flex-row sm:gap-4">
-                {task.status === "Available" && (
+                {task.status === "Ej påbörjat" && (
                   <span>
-                    Skapad: {new Date(task.createdAt).toLocaleDateString()}
+                    Skapad:{" "}
+                    {new Date(task.createdAt).toLocaleDateString("sv-SE")}
                   </span>
                 )}
-                <span>
-                  Senast ändrad:{" "}
-                  {new Date(task.updatedAt).toLocaleString("sv-SE")}
-                </span>
+
+                {(task.status === "Påbörjat" || task.status === "Färdigt") && (
+                  <span>
+                    Senast ändrad:{" "}
+                    {new Date(task.createdAt).toLocaleDateString("sv-SE")}
+                  </span>
+                )}
               </div>
             </li>
           ))}
