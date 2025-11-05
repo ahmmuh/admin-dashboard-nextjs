@@ -135,7 +135,7 @@ export default function MachineDetailPage() {
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <div className="bg-white shadow-xl rounded-xl p-6 space-y-6 border border-gray-200">
-        <h4 className="font-medium text-gray-800">Maskintyp: {machine.name}</h4>
+        <h4 className="font-medium text-gray-800">Maskintyp: {machine.name} ahmed</h4>
 
         <div className="grid grid-cols-2 gap-4">
           <div>

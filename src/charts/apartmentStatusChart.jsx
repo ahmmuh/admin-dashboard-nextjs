@@ -25,7 +25,10 @@ function ApartmentStatusChart() {
   // Grupp per enhet
   const unitsMap = {};
   apartments.forEach((apartment) => {
-    const unitName = apartment.assignedUnit?.name || "Ingen enhet";
+    const unitName = (apartment.assignedUnit?.name || "Ingen enhet").replace(
+      /^Enhet\s*/i,
+      ""
+    );
 
     if (!unitsMap[unitName]) {
       unitsMap[unitName] = {
@@ -56,8 +59,8 @@ function ApartmentStatusChart() {
           <Legend />
           {/* Statusar */}
           <Bar dataKey="Ej påbörjat" fill="#f59e0b" />
-          <Bar dataKey="Påbörjat" fill="#2563eb" />
-          <Bar dataKey="Färdigt" fill="#16a34a" />
+          <Bar dataKey="Påbörjat" fill="#4f46e5" />
+          <Bar dataKey="Färdigt" fill="#10b981" />
         </BarChart>
       </ResponsiveContainer>
     </div>

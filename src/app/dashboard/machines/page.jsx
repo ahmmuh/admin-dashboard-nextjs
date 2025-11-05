@@ -281,7 +281,7 @@ export default function MachinePage() {
       setShowAlert(false);
       setMachineToDelete(null);
     } catch (err) {
-      displayErrorMessage("Kunde inte ta bort maskinen ");
+      displayErrorMessage("Kunde inte ta bort maskinen ❌");
       setShowAlert(false);
       setMachineToDelete(null);
     }
@@ -334,115 +334,211 @@ export default function MachinePage() {
           Det finns inga maskiner att visa just nu.
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-lg shadow border border-gray-200 max-h-[600px]">
-          <table className="w-full text-sm border-collapse">
-            <thead className="bg-gray-100 text-gray-700 uppercase text-xs sticky top-0 z-10">
-              <tr>
-                <th className="px-2 py-1">Maskintyp</th>
-                <th className="px-2 py-1">Enhet</th>
-                <th className="px-2 py-1">Status</th>
-                <th className="px-2 py-1">Lånad av</th>
-                <th className="px-2 py-1">Utlånad datum</th>
-                <th className="px-2 py-1">Inlämnad datum</th>
-                <th className="px-2 py-1 text-center">Åtgärder</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredMachines.map((m, i) => (
-                <tr
-                  key={m._id}
-                  onClick={() => router.push(`/dashboard/machines/${m._id}`)}
-                  className={`${
-                    i % 2 === 0 ? "bg-gray-50" : "bg-white"
-                  } hover:bg-blue-50 transition cursor-pointer text-sm`}>
-                  <td className="px-2 py-1 font-medium">{m.name}</td>
-                  <td className="px-2 py-1">{m.unitId?.name || "-"}</td>
-                  <td className="px-2 py-1">
-                    {m.isAvailable ? (
-                      <span className="bg-green-100 text-green-700 px-1 py-0.5 rounded text-xs">
-                        Tillgänglig
-                      </span>
-                    ) : (
-                      <span className="bg-red-100 text-red-700 px-1 py-0.5 rounded text-xs">
-                        Utlånad
-                      </span>
+        // <div className="overflow-x-auto rounded-lg shadow border border-gray-200 max-h-[600px]">
+        //   <table className="w-full text-sm border-collapse">
+        //     <thead className="bg-gray-100 text-gray-700 uppercase text-xs sticky top-0 z-10">
+        //       <tr>
+        //         <th className="px-2 py-1">Maskintyp</th>
+        //         <th className="px-2 py-1">Enhet</th>
+        //         <th className="px-2 py-1">Status</th>
+        //         <th className="px-2 py-1">Lånad av</th>
+        //         <th className="px-2 py-1">Utlånad datum</th>
+        //         <th className="px-2 py-1">Inlämnad datum</th>
+        //         <th className="px-2 py-1 text-center">Åtgärder</th>
+        //       </tr>
+        //     </thead>
+        //     <tbody>
+        //       {filteredMachines.map((m, i) => (
+        //         <tr
+        //           key={m._id}
+        //           onClick={() => router.push(`/dashboard/machines/${m._id}`)}
+        //           className={`${
+        //             i % 2 === 0 ? "bg-gray-50" : "bg-white"
+        //           } hover:bg-blue-50 transition cursor-pointer text-sm`}>
+        //           <td className="px-2 py-1 font-medium">{m.name}</td>
+        //           <td className="px-2 py-1">{m.unitId?.name || "-"}</td>
+        //           <td className="px-2 py-1">
+        //             {m.isAvailable ? (
+        //               <span className="bg-green-100 text-green-700 px-1 py-0.5 rounded text-xs">
+        //                 Tillgänglig
+        //               </span>
+        //             ) : (
+        //               <span className="bg-red-100 text-red-700 px-1 py-0.5 rounded text-xs">
+        //                 Utlånad
+        //               </span>
+        //             )}
+        //           </td>
+        //           <td className="px-2 py-1">{m.borrowedBy?.name || "-"}</td>
+        //           <td className="px-2 py-1">
+        //             {m.borrowedDate
+        //               ? new Date(m.borrowedDate).toLocaleDateString("sv-SE")
+        //               : "-"}
+        //           </td>
+        //           <td className="px-2 py-1">
+        //             {m.returnedDate
+        //               ? new Date(m.returnedDate).toLocaleDateString("sv-SE")
+        //               : "-"}
+        //           </td>
+        //           <td className="px-2 py-1 text-center">
+        //             <div className="flex flex-col items-center gap-1">
+        //               {(roles.includes("Avdelningschef") ||
+        //                 roles.includes("Områdeschef") ||
+        //                 (roles.includes("Enhetschef") &&
+        //                   m.unitId?._id === currentUser.unit?._id)) && (
+        //                 <Link
+        //                   href={`/dashboard/machines/${m._id}/edit`}
+        //                   onClick={(e) => e.stopPropagation()}
+        //                   className="p-1 border border-gray-300 rounded hover:bg-gray-100 transition"
+        //                   title="Redigera">
+        //                   <HiOutlinePencil className="w-4 h-4 text-gray-600" />
+        //                 </Link>
+        //               )}
+
+        //               {(roles.includes("Avdelningschef") ||
+        //                 roles.includes("Områdeschef")) && (
+        //                 <button
+        //                   onClick={(e) => {
+        //                     e.stopPropagation();
+        //                     handleDelete(m._id);
+        //                   }}
+        //                   className="p-1 border border-gray-300 rounded hover:bg-gray-100 transition"
+        //                   title="Ta bort">
+        //                   <HiOutlineTrash className="w-4 h-4 text-gray-600" />
+        //                 </button>
+        //               )}
+
+        //               {/* {m.qrCode && (
+        //                 <>
+        //                   <button
+        //                     onClick={(e) => {
+        //                       e.stopPropagation();
+        //                       setShowQR((prev) => ({
+        //                         ...prev,
+        //                         [m._id]: !prev[m._id],
+        //                       }));
+        //                     }}
+        //                     className="px-1 py-0.5 border border-gray-300 rounded hover:bg-gray-100 transition text-xs">
+        //                     {showQR[m._id] ? "Dölj QR" : "Visa QR"}
+        //                   </button>
+        //                   {showQR[m._id] && (
+        //                     <div className="mt-1 flex flex-col items-center">
+        //                       <img
+        //                         src={m.qrCode}
+        //                         alt={`QR för ${m.name}`}
+        //                         className="w-16 h-16 object-contain"
+        //                       />
+        //                       <a
+        //                         href={m.qrCode}
+        //                         download={`${m.name}_QR.png`}
+        //                         className="text-xs text-blue-600 underline mt-1">
+        //                         Ladda ner
+        //                       </a>
+        //                     </div>
+        //                   )}
+        //                 </>
+        //               )} */}
+        //             </div>
+        //           </td>
+        //         </tr>
+        //       ))}
+        //     </tbody>
+        //   </table>
+        // </div>
+
+        //Ny kod
+        <div className="overflow-x-auto border rounded-lg max-h-[600px]">
+          {/* Header */}
+          <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr_1fr] bg-gray-200 text-gray-700 uppercase text-xs sticky top-0 z-10">
+            <div className="p-2">Maskintyp</div>
+            <div className="p-2">Enhet</div>
+            <div className="p-2">Status</div>
+            <div className="p-2">Lånad av</div>
+            <div className="p-2">Utlånad datum</div>
+            <div className="p-2">Inlämnad datum</div>
+            <div className="p-2 text-center">Åtgärd</div>
+          </div>
+
+          {/* Body */}
+          {filteredMachines.map((m, i) => (
+            <div
+              key={m._id}
+              onClick={() => router.push(`/dashboard/machines/${m._id}`)}
+              className={`grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr_1fr] text-sm ${
+                i % 2 === 0 ? "bg-gray-50" : "bg-white"
+              } hover:bg-blue-50 transition cursor-pointer`}>
+              <div className="p-2">{m.name}</div>
+              <div className="p-2">{m.unitId?.name || "-"}</div>
+              <div className="p-2">
+                {m.isAvailable ? (
+                  <span className="bg-green-100 text-green-700 px-1 py-0.5 rounded text-xs">
+                    Tillgänglig
+                  </span>
+                ) : (
+                  <span className="bg-red-100 text-red-700 px-1 py-0.5 rounded text-xs">
+                    Utlånad
+                  </span>
+                )}
+              </div>
+              <div className="p-2">{m.borrowedBy?.name || "-"}</div>
+              <div className="p-2">
+                {m.borrowedDate
+                  ? new Date(m.borrowedDate).toLocaleDateString("sv-SE")
+                  : "-"}
+              </div>
+              <div className="p-2">
+                {m.returnedDate
+                  ? new Date(m.returnedDate).toLocaleDateString("sv-SE")
+                  : "-"}
+              </div>
+
+              {/* Åtgärd: Trash + QR */}
+              <div className="p-2 text-center flex flex-col items-center gap-1">
+                {(roles.includes("Avdelningschef") ||
+                  roles.includes("Områdeschef")) && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(m._id);
+                    }}
+                    className="p-1 border border-gray-300 rounded hover:bg-gray-100 transition"
+                    title="Ta bort">
+                    <HiOutlineTrash className="w-4 h-4 text-gray-600" />
+                  </button>
+                )}
+
+                {m.qrCode && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowQR((prev) => ({
+                          ...prev,
+                          [m._id]: !prev[m._id],
+                        }));
+                      }}
+                      className="px-2 py-1 border border-gray-300 rounded hover:bg-gray-100 transition text-xs">
+                      {showQR[m._id] ? "Dölj QR" : "Visa QR"}
+                    </button>
+                    {showQR[m._id] && (
+                      <div className="mt-1 flex flex-col items-center">
+                        <img
+                          src={m.qrCode}
+                          alt={`QR för ${m.name}`}
+                          className="w-16 h-16 object-contain"
+                        />
+                        <a
+                          href={m.qrCode}
+                          download={`${m.name}_QR.png`}
+                          className="text-xs text-blue-600 underline mt-1">
+                          Ladda ner
+                        </a>
+                      </div>
                     )}
-                  </td>
-                  <td className="px-2 py-1">{m.borrowedBy?.name || "-"}</td>
-                  <td className="px-2 py-1">
-                    {m.borrowedDate
-                      ? new Date(m.borrowedDate).toLocaleDateString("sv-SE")
-                      : "-"}
-                  </td>
-                  <td className="px-2 py-1">
-                    {m.returnedDate
-                      ? new Date(m.returnedDate).toLocaleDateString("sv-SE")
-                      : "-"}
-                  </td>
-                  <td className="px-2 py-1 text-center">
-                    <div className="flex flex-col items-center gap-1">
-                      {(roles.includes("Avdelningschef") ||
-                        roles.includes("Områdeschef") ||
-                        (roles.includes("Enhetschef") &&
-                          m.unitId?._id === currentUser.unit?._id)) && (
-                        <Link
-                          href={`/dashboard/machines/${m._id}/edit`}
-                          onClick={(e) => e.stopPropagation()}
-                          className="p-1 border border-gray-300 rounded hover:bg-gray-100 transition"
-                          title="Redigera">
-                          <HiOutlinePencil className="w-4 h-4 text-gray-600" />
-                        </Link>
-                      )}
-
-                      {(roles.includes("Avdelningschef") ||
-                        roles.includes("Områdeschef")) && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDelete(m._id);
-                          }}
-                          className="p-1 border border-gray-300 rounded hover:bg-gray-100 transition"
-                          title="Ta bort">
-                          <HiOutlineTrash className="w-4 h-4 text-gray-600" />
-                        </button>
-                      )}
-
-                      {m.qrCode && (
-                        <>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setShowQR((prev) => ({
-                                ...prev,
-                                [m._id]: !prev[m._id],
-                              }));
-                            }}
-                            className="px-1 py-0.5 border border-gray-300 rounded hover:bg-gray-100 transition text-xs">
-                            {showQR[m._id] ? "Dölj QR" : "Visa QR"}
-                          </button>
-                          {showQR[m._id] && (
-                            <div className="mt-1 flex flex-col items-center">
-                              <img
-                                src={m.qrCode}
-                                alt={`QR för ${m.name}`}
-                                className="w-16 h-16 object-contain"
-                              />
-                              <a
-                                href={m.qrCode}
-                                download={`${m.name}_QR.png`}
-                                className="text-xs text-blue-600 underline mt-1">
-                                Ladda ner
-                              </a>
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       )}
 

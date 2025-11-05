@@ -25,7 +25,10 @@ function ClockChart() {
   // Grupp per enhet
   const unitsMap = {};
   clocks.forEach((clock) => {
-    const unitName = clock.user?.unit?.name || "Ingen enhet";
+    const unitName = (clock.user?.unit?.name || "Ingen enhet").replace(
+      /^Enhet\s*/i,
+      ""
+    );
     unitsMap[unitName] = (unitsMap[unitName] || 0) + 1;
   });
 
@@ -34,9 +37,13 @@ function ClockChart() {
     clockedIn,
   }));
 
+  const totalClockedIn = clocks.length;
+
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="font-semibold mb-2">Användare stämplade in per enhet</h2>
+      <h2 className="font-semibold mb-2">
+        Medarbetare som stämplat in per enhet
+      </h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart
           data={dataPerUnit}
@@ -48,9 +55,9 @@ function ClockChart() {
           <Line
             type="monotone"
             dataKey="clockedIn"
-            name="Antal stämplade in"
+            name={`Antal stämplade in ${totalClockedIn}`}
             stroke="#2563eb"
-            strokeWidth={3}
+            strokeWidth={1}
           />
         </LineChart>
       </ResponsiveContainer>

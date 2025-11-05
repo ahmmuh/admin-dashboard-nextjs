@@ -23,7 +23,10 @@ function DashboardTaskChart() {
   // Grupp per enhet
   const unitsMap = {};
   tasks.forEach((task) => {
-    const unitName = task.unit?.name || "Ingen enhet";
+    const unitName = (task.unit?.name || "Ingen enhet").replace(
+      /^Enhet\s*/i,
+      ""
+    );
 
     if (!unitsMap[unitName]) {
       unitsMap[unitName] = {
